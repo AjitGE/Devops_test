@@ -1,0 +1,31 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<ng4-loading-spinner> </ng4-loading-spinner>
+<div class="container">
+    <table class="table table-bordered table-responsive-sm " style="margin:0%;padding:0%" >
+      <thead>
+        <tr>
+          <div style="height: 59px;background-color: #36495A;" >
+              <h1 style="color: #FFFFFF;width: 278px;
+              height: 27px;
+              background-color: transparent;
+              font-family: AmericanSans;
+              font-size: 22px;
+              font-weight: 400;
+              line-height: 36px;
+              text-align: left;">AAdvantage Promotions Tool</h1> 
+          </div>
+        </tr>
+      </thead>
+      </table>
+      
+          <div class="row" style="margin:0%;padding:0%">
+            <div class="col-sm-3" id="searchdiv" style="margin:0%;padding:0%">
+              <app-searchcomp (pcodeSubmitted) = 'onPcodeSubmited($event)'></app-searchcomp>
+              <app-searchcriteria></app-searchcriteria>
+            </div>
+            <div class="col-sm-8 " id="resultdiv" > Promotion Results
+              <app-resultscomp [pcodecurrpromoval]="pcodeInParent"></app-resultscomp>
+            </div>
+          </div>
+  
+</div>

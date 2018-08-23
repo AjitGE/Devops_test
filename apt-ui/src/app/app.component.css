@@ -1,0 +1,30 @@
+table.table-bordered{
+    border:1px solid black;
+    margin-top:3px;
+  }
+table.table-bordered > thead > tr > th{
+    border:1px solid black;
+}
+table.table-bordered > tbody > tr > td{
+    border:1px solid black;
+}
+
+  .row.no-gutter [class*='col-']:not(:first-child),
+  .row.no-gutter [class*='col-']:not(:last-child) {
+      padding-top:0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .titletx
+  {
+    width: 278px;
+    height: 27px;
+    background-color: transparent;
+    font-family: AmericanSans;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 36px;
+    text-align: left;
+    color: #FFFFFF;
+  }
