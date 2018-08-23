@@ -1,4 +1,4 @@
-import { Component, OnInit,OnChanges,Input,SimpleChanges } from '@angular/core';
+import { Component, OnInit,OnChanges,Input,Output,EventEmitter,SimpleChanges,ElementRef, ViewChild } from '@angular/core';
 
 import { IPromotion } from './promotion';
 import { SearchserviceService } from '../searchservice.service';
@@ -16,6 +16,13 @@ export class ResultscompComponent implements OnInit,OnChanges {
     private spinnerService: Ng4LoadingSpinnerService) { }
 
   @Input()pcodecurrpromoval:string;
+  sendPcodecurrpromoval:string = '';
+  //@Output() sendPcodecurrpromoval: EventEmitter<string> = new EventEmitter<string>();
+
+  @ViewChild('latestPromoAnchor') latestPromoAnchor:ElementRef;
+  @ViewChild('searchResultsAnchor') searchResultsAnchor:ElementRef;
+  @ViewChild('latestPromosDiv') latestPromosDiv:ElementRef;
+  @ViewChild('searchResultsDiv') searchResultsDiv:ElementRef;
   
   promotion: IPromotion;
 
@@ -24,7 +31,7 @@ export class ResultscompComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges):void{
-    console.log('In ngOnChanges ');
+    console.log('In ngOnChanges - ResultsComp ');
     for (let propName in changes) { 
       let change = changes[propName];
       console.log('Input field changed is :'+propName);
@@ -34,19 +41,33 @@ export class ResultscompComponent implements OnInit,OnChanges {
         
         console.log('Previous Value : '+ change.previousValue);
         console.log('Current value: '+change.currentValue);
-        if(change.currentValue )
+        if(change.currentValue && !(change.currentValue === change.previousValue) )
         {
+          
+          console.log('Setting value to sendPcodecurrpromoval');
+          this.latestPromoAnchor.nativeElement.classList.remove("active");
+          this.latestPromosDiv.nativeElement.classList.remove("active");
+          this.searchResultsAnchor.nativeElement.classList.add("active");
+          this.searchResultsDiv.nativeElement.classList.add("active");
+          this.sendPcodecurrpromoval = change.currentValue;
+
+          //this.sendPcodecurrpromoval.emit(change.currentValue); 
+
+/*
           this.spinnerService.show();
-          console.log('Calling Promo search service');
           this.searchService.getSearchPromoResults(change.currentValue).subscribe( (data:IPromotion) => 
           {
             this.promotion = data;
             console.log(this.promotion.promotionOrChallengeCode);
             this.spinnerService.hide();
+          
           }
           );
-        }
-      }
+          */
+          
+        }  //End of Service call
+
+      } //End of PropName = 'pcodecurrpromoval'
     }
 
   }

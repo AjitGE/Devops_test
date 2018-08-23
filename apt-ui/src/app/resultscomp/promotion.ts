@@ -1,6 +1,8 @@
 export interface IPromotion
 {
-    promotionOrChallengeCode:string;
+    PromotionOrChallengeCode:string;
+    isTrending:string;
+    keyword:string;
     promotionName:string;
     shortDescription:string;
     highResolutionImage:string;

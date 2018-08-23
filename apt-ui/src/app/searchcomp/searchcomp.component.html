@@ -1,75 +1,51 @@
-<div class="col-sm-12" id="Psearch" style=" height:127px;
+<div class="col-sm-12" id="Psearch" style=" 
 background-color: #EBEFF0;
 border-style: solid;
 border-width: 1px;
 border-color: #D0DAE0;
 border: solid 1px #D0DAE0; ">
 
-  
-<form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-  
-  <div class="form-group" style="margin:3%;padding:0%">
-    
-    <label class="col-sm-12 control-label"
-    style="
-    background-color: transparent;
-    font-family: AmericanSans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    text-align: left;
-    color: #333333;margin:0%;padding:0%"
-    >Promo / PST / TA code</label> 
-  </div>
-  
-  <div class="input-group" style="margin:0%;padding:0%">
-      <input class="form-control py-2 border-right-0 border" type="search" 
-      placeholder="Search" id="ptextcode"
-      [(ngModel)]="pcode" name="ptextcode" #name="ngModel" minlength="2" required
-      style="width: 199px;
-      height: 32px;
-      background-color: #FFFFFF;
-      border-style: solid;
-      border-width: 1px;
-      border-color: #D0DAE0;
-      border: solid 1px #D0DAE0;
-      border-radius: 3px;"
-      >
-            <span class="input-group-append">
-                <button class="btn btn-outline-secondary border-left-0 border" type="submit" 
-                  style="background: white url(../../assets/Search-icon.svg) no-repeat right">
+  <form [formGroup]="topSearchForm" (ngSubmit)="topSearchSubmit(topSearchForm.value)" autocomplete="off" novalidate>
+    <div class="form-group"  >
+      <label for="pcodeLabel" class="col-sm-12" style="background-color: transparent;font-family: AmericanSans;
+        font-size: 14px;font-weight: 400;line-height: 20px;text-align: left;color: #333333;margin-top:1%;padding:1%"> 
+        Promo / PST / TA code
+      </label> 
+
+      <em *ngIf="!validatePCode() && pcode.errors.required">
+          <i class="fa fa-exclamation-circle" style="font-size:20px"></i>
+        Required</em>
+      <em *ngIf="!validatePCode() && pcode.errors.pattern">
+          <i class="fa fa-exclamation-circle" style="font-size:20px"></i>Special characters not allowed. Alphanumeric only</em>
+      <em *ngIf="!validatePCode() && pcode.errors.minlength" style="font-family:'AmericanSans';font-size:10px">
+          <i class="fa fa-exclamation-circle" style="font-size:20px"></i>Must enter at least 2 characters to search</em>
+      <em *ngIf="!validatePCode() && pcode.errors.maxlength" >
+          <i class="fa fa-exclamation-circle" style="font-size:20px"></i>A maximum of 5 characters can be entered</em>
+
+      <div class="input-group" style="margin:0%;padding:0%" >
+        <input class="form-control" type="search" formControlName="pcode" 
+          [ngClass] = "{'error' : !validatePCode() }"
+          placeholder="Search..." id="ptextcode" >
+
+              <span class="input-group-append">
+                  <button class="btn btn-outline-secondary border-left-0 border" type="submit" 
+                    style="background: #FAFBFB url(Search-icon.svg) 
+                    no-repeat right"
                     
-                </button>
-              </span>
+                     >
+                      
+                  </button>
+                </span>  
+        </div>
 
-      <!--
-        <input type="text"   required class="form-control col-sm-offset-2 col-sm-10" 
-          placeholder="Search" id="ptextcode"
-          [(ngModel)]="pcode" name="ptextcode" #name="ngModel"
-          >
-          -->
-
-
-         <!--
-        <div class="input-group-btn input-group-append">
-          <button class="btn btn-default" type="submit" id="go" style = "display: block; ">
-            <img class="img-responsive" src="../../assets/Search-icon.svg"> 
-          </button>
-         </div>
-        -->
-
-      </div>
-      <div class="form-check">
+        <div class="form-check">
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="" id="currpromochkbx" 
-              name="currpromochkbx" 
-              #currpchkbx
-              (change)="onCurrPromoChkbxClicked(currpchkbx)"
-            >
+            <input type="checkbox" class="form-check-input" formControlName="currpromochkbx">
             Current promos only
           </label>
         </div>
-  
-    </form>
-    
-  </div>
+
+
+    </div>
+  </form>
+</div>

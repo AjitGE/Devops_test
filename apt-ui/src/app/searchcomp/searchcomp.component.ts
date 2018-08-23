@@ -1,6 +1,5 @@
 import { Component, OnInit,Output,EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-searchcomp',
@@ -9,35 +8,45 @@ import { NgForm } from '@angular/forms';
 })
 export class SearchcompComponent implements OnInit {
 
+  topSearchForm: FormGroup;
+  pcode: FormControl;
+  currpromochkbx: FormControl;
+  pcodepromoval:string='';
+  @Output() pcodeSubmitted: EventEmitter<string> = new EventEmitter<string>();
+
   constructor( )
    { }
   
 
   ngOnInit() {
+    this.pcode = new FormControl('',[Validators.required,Validators.minLength(2),Validators.maxLength(5),
+        Validators.pattern('[a-zA-Z0-9]*')]);
+    this.currpromochkbx = new FormControl(false);
+
+    this.topSearchForm = new FormGroup({
+      pcode: this.pcode,
+      currpromochkbx: this.currpromochkbx
+    });
        
   }
-
-  pcode:string='';
-  currpromovalany:any ;
-  pcodepromoval:string='';
-  currpromoval:boolean=false;
-
-  @Output() pcodeSubmitted: EventEmitter<string> = new EventEmitter<string>();
   
 
+ 
+  
 
-  onSubmit() : void {
-
-    this.pcodepromoval = this.pcode + ':' + this.currpromoval;
-    console.log(this.pcode);
-    this.pcodeSubmitted.emit(this.pcodepromoval);   
-    }
-
-    onCurrPromoChkbxClicked (element: HTMLInputElement) : void
+  topSearchSubmit(formValues)
+  {
+    if(this.topSearchForm.valid)
     {
-      this.currpromovalany =  ` ${element.checked? true : false}`;
-      this.currpromoval = <boolean> this.currpromovalany;
+      this.pcodepromoval = formValues.pcode + ':' + formValues.currpromochkbx;
+      console.log(this.pcodepromoval);
+      this.pcodeSubmitted.emit(this.pcodepromoval); 
     }
-    
+  }
+
+  validatePCode()
+  {
+    return this.pcode.valid || this.pcode.untouched;
+  }
 
 }

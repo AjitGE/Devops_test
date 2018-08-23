@@ -4,9 +4,8 @@
     <table class="table table-bordered table-responsive-sm " style="margin:0%;padding:0%" >
       <thead>
         <tr>
-          <div style="height: 59px;background-color: #36495A;" >
-              <h1 style="color: #FFFFFF;width: 278px;
-              height: 27px;
+          <div style="height: 59px;background-color: #36495A; padding-top:1%" >
+              <h1 style="color: #FFFFFF;
               background-color: transparent;
               font-family: AmericanSans;
               font-size: 22px;
@@ -23,7 +22,7 @@
               <app-searchcomp (pcodeSubmitted) = 'onPcodeSubmited($event)'></app-searchcomp>
               <app-searchcriteria></app-searchcriteria>
             </div>
-            <div class="col-sm-8 " id="resultdiv" > Promotion Results
+            <div class="col-sm-8 " id="resultdiv" > 
               <app-resultscomp [pcodecurrpromoval]="pcodeInParent"></app-resultscomp>
             </div>
           </div>
