@@ -1,24 +1,41 @@
 package com.aa.apt.controller;
 
-import java.util.ArrayList;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.aa.apt.ar5.response.LscsPromotionContentResponse;
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
-import com.aa.apt.constants.LSCSConstants;
+import com.aa.apt.ar5.response.LscsPromotionContentResponse;
+import com.aa.apt.constants.ControllerConstants;
 import com.aa.apt.model.Promotion;
 
 @RestController
-@RequestMapping("/api/")
+@CrossOrigin
+@RequestMapping(ControllerConstants.ROOT_API)
 public class AptController 
 {
+	private static final Logger logger = LoggerFactory.getLogger(AptController.class);
 	
-	@RequestMapping("hello")
+	
+	@Value("${acs.promo.url.start}")
+    String acsPromoUrlStart;
+	
+	@Value("${acs.promo.url.end}")
+    String acsPromoUrlEnd;
+	
+	@Value("${ar5.promo.url.start}")
+    String ar5PromoUrlStart;
+	
+	@Value("${ar5.promo.url.end}")
+    String ar5PromoUrlEnd;
+	
+	@RequestMapping(ControllerConstants.PINGTEST)
 	public String home()
 	{
 		return "From SpringBoot";
@@ -26,28 +43,26 @@ public class AptController
 	
 	
 		
-	@RequestMapping(value="search/{pcode}", method=RequestMethod.GET)
+	@RequestMapping(value=ControllerConstants.PCODESEARCH, method=RequestMethod.GET)
 	public Promotion getPromo(@PathVariable("pcode") String pcode)
 	{
-		System.out.println(pcode);
+		logger.info(pcode);
 		String pcodepromocurrval[] = pcode.split(":");
-		System.out.println("Promotion code entered:" + pcodepromocurrval[0]);
-		System.out.println("Current Promotion only:" + pcodepromocurrval[1]);
+		logger.info("Promotion code entered:" + pcodepromocurrval[0]);
+		logger.info("Current Promotion only:" + pcodepromocurrval[1]);
 
 		// ArrayList<Promotion> p = new ArrayList<Promotion>();
 		Promotion prom = new Promotion();
 		RestTemplate restTemplate = new RestTemplate();
 
 		LscsPromotionContentResponse ar5response = restTemplate.getForObject(
-				LSCSConstants.AR5_PROMO_DETAILS_START + pcodepromocurrval[0] + LSCSConstants.AR5_PROMO_DETAILS_END,
+				ar5PromoUrlStart + pcodepromocurrval[0] + ar5PromoUrlEnd,
 				LscsPromotionContentResponse.class);
-		System.out.println(ar5response.getContent().getMainContent());
 		prom.setPromotionName(ar5response.getContent().getPromotionName());
 
 		AcsPromotionContentResponse acsresponse = restTemplate.getForObject(
-				LSCSConstants.ACS_PROMO_DETAILS_START + pcodepromocurrval[0] + LSCSConstants.ACS_PROMO_DETAILS_END,
+				acsPromoUrlStart + pcodepromocurrval[0] + acsPromoUrlEnd,
 				AcsPromotionContentResponse.class);
-		System.out.println(acsresponse.getContent().getKeyword());
 		prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
 		prom.setIsTrending(acsresponse.getContent().getIsTrending());
 		prom.setKeyword(acsresponse.getContent().getKeyword());

@@ -4,7 +4,4 @@ export interface IPromotion
     isTrending:string;
     keyword:string;
     promotionName:string;
-    shortDescription:string;
-    highResolutionImage:string;
-    lowResolutionImage:string;
 }
