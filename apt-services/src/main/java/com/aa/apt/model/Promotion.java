@@ -6,6 +6,26 @@ public class Promotion {
 	  String isTrending;
 	  String keyword;
 	  String PromotionName;
+	  String aacomview;
+	  String termsandconditions;
+	  
+	  
+	  public String getAacomview() {
+		return aacomview;
+	}
+
+	public void setAacomview(String aacomview) {
+		this.aacomview = aacomview;
+	}
+
+	public String getTermsandconditions() {
+		return termsandconditions;
+	}
+
+	public void setTermsandconditions(String termsandconditions) {
+		this.termsandconditions = termsandconditions;
+	}
+
 	
 	  
 	  public String getPromotionName() {

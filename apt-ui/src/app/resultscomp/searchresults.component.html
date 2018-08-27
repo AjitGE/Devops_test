@@ -3,9 +3,9 @@
 
     <form [formGroup]="resultsSortForm" autocomplete="off" novalidate>
         <br>
-        <div class="form-group" style="display: flex">
+        <div class="form-group label-select-flex">
 
-            <label for="sortby" style="padding-top:1%">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label for="sortby" class="label-pt">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <select formControlName="sortby" class="form-control col-sm-3">
                 <option value="startdate">Start date</option>
                 <option value="enddate">End date</option>
@@ -15,12 +15,23 @@
         </div>
     </form>
 
-    <div *ngIf="errMsgToDisplay"> <div [innerHTML]="errMsgToDisplay"></div></div>
+    
+
+    <div *ngIf="errMsgToDisplay">
+        <div [innerHTML]="errMsgToDisplay"></div>
+    </div>
     <div *ngIf="promotion">
-        Result from LSCS : <br> PromotionOrChallengeCode : {{promotion.promotionOrChallengeCode}} 
+
+       
+
+        Result from LSCS : <br> PromotionOrChallengeCode : {{promotion.PromotionOrChallengeCode}}
         <br> IsTrending: {{promotion.isTrending}}
         <br> Keywords: {{promotion.keyword}}
         <br> PromotionName: {{promotion.promotionName}}
+        <br> <h6>aa.com view</h6>
+        <br><div [innerHTML]="promotion.aacomview"></div>
+        <br><h6>Terms and conditions</h6>
+        <br><div [innerHTML]="promotion.termsandconditions"></div>
     </div>
 
 

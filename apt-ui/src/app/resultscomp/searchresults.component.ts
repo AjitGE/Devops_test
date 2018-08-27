@@ -1,5 +1,7 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+declare var jquery:any;
+declare var $ :any;
 
 import { IPromotion } from './promotion';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -17,7 +19,8 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   sortby: FormControl;
   @Input() pcodecurrpromoval: string = '';
   promotion: IPromotion;
-  errMsgToDisplay:string = undefined;
+  errMsgToDisplay: string = undefined;
+  
 
   constructor(private searchService: SearchserviceService,
     private spinnerService: Ng4LoadingSpinnerService) { }
@@ -26,6 +29,10 @@ export class SearchresultsComponent implements OnInit, OnChanges {
     this.sortby = new FormControl(null);
     this.resultsSortForm = new FormGroup({ sortby: this.sortby });
     this.resultsSortForm.controls.sortby.setValue('startdate');
+
+   
+
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {

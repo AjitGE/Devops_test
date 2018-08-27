@@ -4,4 +4,6 @@ export interface IPromotion
     isTrending:string;
     keyword:string;
     promotionName:string;
+    aacomview:string;
+    termsandconditions:string;
 }
