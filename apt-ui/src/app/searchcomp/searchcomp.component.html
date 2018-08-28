@@ -3,7 +3,7 @@
   <form [formGroup]="topSearchForm" (ngSubmit)="topSearchSubmit(topSearchForm.value)" autocomplete="off" novalidate>
     <div class="form-group">
       <label for="pcodeLabel" class="col-sm-12 form-Promo-label">
-        Promo / PST / TA code
+        Promo / PST / TA Code
       </label>
 
       <em *ngIf="!validatePCode() && pcode.errors.required">

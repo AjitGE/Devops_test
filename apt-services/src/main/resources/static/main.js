@@ -413,7 +413,7 @@ var ResultscompComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".label-select-flex\r\n{\r\n    display: -ms-flexbox;\r\n    display: flex\r\n}\r\n\r\n.label-pt\r\n{\r\n    padding-top:1%\r\n}"
+module.exports = ".label-select-flex\r\n{\r\n    display: -ms-flexbox;\r\n    display: flex\r\n}\r\n\r\n.label-pt\r\n{\r\n    padding-top:1%\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -424,7 +424,7 @@ module.exports = ".label-select-flex\r\n{\r\n    display: -ms-flexbox;\r\n    di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col-sm-12\">\r\n\r\n\r\n    <form [formGroup]=\"resultsSortForm\" autocomplete=\"off\" novalidate>\r\n        <br>\r\n        <div class=\"form-group label-select-flex\">\r\n\r\n            <label for=\"sortby\" class=\"label-pt\">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>\r\n            <select formControlName=\"sortby\" class=\"form-control col-sm-3\">\r\n                <option value=\"startdate\">Start date</option>\r\n                <option value=\"enddate\">End date</option>\r\n                <option value=\"pcodeatoz\">Promo code: A to Z</option>\r\n                <option value=\"pcodeztoa\" selected>Promo code: Z to A</option>\r\n            </select>\r\n        </div>\r\n    </form>\r\n\r\n    <div *ngIf=\"errMsgToDisplay\"> <div [innerHTML]=\"errMsgToDisplay\"></div></div>\r\n    <div *ngIf=\"promotion\">\r\n        Result from LSCS : <br> PromotionOrChallengeCode : {{promotion.promotionOrChallengeCode}} \r\n        <br> IsTrending: {{promotion.isTrending}}\r\n        <br> Keywords: {{promotion.keyword}}\r\n        <br> PromotionName: {{promotion.promotionName}}\r\n    </div>\r\n\r\n\r\n</div>"
+module.exports = "<div class=\"col-sm-12\">\r\n\r\n\r\n    <form [formGroup]=\"resultsSortForm\" autocomplete=\"off\" novalidate>\r\n        <br>\r\n        <div class=\"form-group label-select-flex\">\r\n\r\n            <label for=\"sortby\" class=\"label-pt\">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>\r\n            <select formControlName=\"sortby\" class=\"form-control col-sm-3\">\r\n                <option value=\"startdate\">Start date</option>\r\n                <option value=\"enddate\">End date</option>\r\n                <option value=\"pcodeatoz\">Promo code: A to Z</option>\r\n                <option value=\"pcodeztoa\" selected>Promo code: Z to A</option>\r\n            </select>\r\n        </div>\r\n    </form>\r\n\r\n    \r\n\r\n    <div *ngIf=\"errMsgToDisplay\">\r\n        <div [innerHTML]=\"errMsgToDisplay\"></div>\r\n    </div>\r\n    <div *ngIf=\"promotion\">\r\n\r\n       \r\n\r\n        Result from LSCS : <br> PromotionOrChallengeCode : {{promotion.PromotionOrChallengeCode}}\r\n        <br> IsTrending: {{promotion.isTrending}}\r\n        <br> Keywords: {{promotion.keyword}}\r\n        <br> PromotionName: {{promotion.promotionName}}\r\n        <br> <h6>aa.com view</h6>\r\n        <br><div [innerHTML]=\"promotion.aacomview\"></div>\r\n        <br><h6>Terms and conditions</h6>\r\n        <br><div [innerHTML]=\"promotion.termsandconditions\"></div>\r\n    </div>\r\n\r\n\r\n</div>"
 
 /***/ }),
 
