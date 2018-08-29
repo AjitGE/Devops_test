@@ -1,5 +1,6 @@
 package com.aa.apt.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.aa.apt.ar5.response.ListElement;
 import com.aa.apt.ar5.response.LscsPromotionContentResponse;
 import com.aa.apt.ar5.response.ParagraphElement;
 import com.aa.apt.ar5.response.TermsAndConditionsUrl;
+import com.aa.apt.ar5.response.UrlElement;
 import com.aa.apt.constants.ControllerConstants;
 import com.aa.apt.model.Promotion;
 
@@ -55,12 +57,17 @@ public class AptController
 	@RequestMapping(value=ControllerConstants.PCODESEARCH, method=RequestMethod.GET)
 	public Promotion getPromo(@PathVariable("pcode") String pcode)
 	{
+		
+		long startTime = System.currentTimeMillis();
+		
+		logger.info("--Start Time--"+startTime);
+		
 		logger.info(pcode);
 		String pcodepromocurrval[] = pcode.split(":");
 		logger.info("Promotion code entered:" + pcodepromocurrval[0]);
 		logger.info("Current Promotion only:" + pcodepromocurrval[1]);
 
-		// ArrayList<Promotion> p = new ArrayList<Promotion>();
+		List<Promotion> promoList = new ArrayList<Promotion>();
 		Promotion prom = new Promotion();
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -112,26 +119,32 @@ public class AptController
         	
         		HeaderElement headerElement = (HeaderElement)element;
         		elementType =  headerElement.getElementType();
-        		ar5maincontentbuffer.append("<h5>").append(headerElement.getValue()).append("</h5>");
+        		ar5maincontentbuffer.append("<h6>").append(headerElement.getValue()).append("</h6>");
         	   
         		
         	 }else if(elementType.equals("List")){
         		 ListContentElement listContentElement = (ListContentElement)element;
         	     List<ListElement> listElements = listContentElement.getListElements();
         	     Iterator<ListElement> listElementsItr = listElements.iterator();
+        	     ar5maincontentbuffer.append("<ul>");
 	        	     while(listElementsItr.hasNext()){
 	        	    	 ListElement listElement = listElementsItr.next();
 	        	    	 elementType = listElement.getParentChild();
 	        	    	 ar5maincontentbuffer.append("<li>").append(listElement.getValue()).append("</li>");
 	        	    	 
 	        	     }
+	        	     ar5maincontentbuffer.append("</ul>");
 	        	     
         	    
         	 }else if(elementType.equals("Paragraph")){
         		 ParagraphElement paragraphElement = (ParagraphElement)element;
         		
         		 ar5maincontentbuffer.append("<p>").append(paragraphElement.getParagraph()).append("</p>");        	    
-        	 }
+        	 }else if (elementType.equals("Url")) {
+        		UrlElement mainContentUrl = (UrlElement) element;				
+        		ar5maincontentbuffer.append("<a alt=\""+mainContentUrl.getAltText()+"\" href=\""+mainContentUrl.getUrl()+"\">"+mainContentUrl.getDisplayText()+"</a>");
+        		ar5maincontentbuffer.append("<br>");
+ 			}
         	 
         }
         
@@ -146,19 +159,31 @@ public class AptController
 		while (lscsReplicantElementTermsItr.hasNext()) {
 			LSCSReplicantElement elementTerm = lscsReplicantElementTermsItr.next();
 			elementType = elementTerm.getElementType();
-			if (elementType.equals("List")) {
-				ListContentElement listContentElementForTerm = (ListContentElement) elementTerm;
-				List<ListElement> listElementsForTerm = listContentElementForTerm.getTermsAndConditionsListElements();
-				Iterator<ListElement> listElementsItrForTerm = listElementsForTerm.iterator();
-				ar5termsandconditionsbuffer.append("<ul>");
-				while (listElementsItrForTerm.hasNext()) {
-					ListElement listElement = listElementsItrForTerm.next();
-					elementType = listElement.getParentChild();
-					ar5termsandconditionsbuffer = ar5termsandconditionsbuffer.append("<li>")
-							.append(listElement.getValue()).append("</li>");
-				}
-				ar5termsandconditionsbuffer.append("</ul>");
-			} else if (elementType.equals("TermsAndConditionUrl")) {
+			if(elementType.equals("Heading")){
+	        	
+        		HeaderElement headerElement = (HeaderElement)elementTerm;
+        		elementType =  headerElement.getElementType();
+        		ar5termsandconditionsbuffer.append("<h6>").append(headerElement.getValue()).append("</h6>");
+        		
+			}else if(elementType.equals("Paragraph")){
+           		 ParagraphElement paragraphElement = (ParagraphElement)elementTerm;
+           		
+           		ar5termsandconditionsbuffer.append("<p>").append(paragraphElement.getParagraph()).append("</p>");        	    
+           	   
+        		
+        	 }else if (elementType.equals("List")) {
+ 				ListContentElement listContentElementForTerm = (ListContentElement) elementTerm;
+ 				List<ListElement> listElementsForTerm = listContentElementForTerm.getTermsAndConditionsListElements();
+ 				Iterator<ListElement> listElementsItrForTerm = listElementsForTerm.iterator();
+ 				ar5termsandconditionsbuffer.append("<ul>");
+ 				while (listElementsItrForTerm.hasNext()) {
+ 					ListElement listElement = listElementsItrForTerm.next();
+ 					elementType = listElement.getParentChild();
+ 					ar5termsandconditionsbuffer = ar5termsandconditionsbuffer.append("<li>")
+ 							.append(listElement.getValue()).append("</li>");
+ 				}
+ 				ar5termsandconditionsbuffer.append("</ul>");
+ 			}else if (elementType.equals("TermsAndConditionUrl")) {
 				TermsAndConditionsUrl termsAndConditionsUrl = (TermsAndConditionsUrl) elementTerm;				
 				ar5termsandconditionsbuffer.append("<a alt=\""+termsAndConditionsUrl.getAltText()+"\" href=\""+termsAndConditionsUrl.getUrl()+"\">"+termsAndConditionsUrl.getTextDisplay()+"</a>");
 				ar5termsandconditionsbuffer.append("<br>");
