@@ -14,9 +14,9 @@ export class SearchserviceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getSearchPromoResults(pcode: String): Observable<IPromotion> {
+  getSearchPromoResults(pcode: String): Observable<IPromotion[]> {
     console.log('Sending HTTP requst to SpringBoot', pcode);
-     return this.httpClient.get<IPromotion>(environment.backendUrl + "/api/search/"+pcode, {responseType: 'json'})
+     return this.httpClient.get<IPromotion[]>(environment.backendUrl + "/api/search/"+pcode, {responseType: 'json'})
      .pipe(catchError(this.errorHandler))
      ;
   }

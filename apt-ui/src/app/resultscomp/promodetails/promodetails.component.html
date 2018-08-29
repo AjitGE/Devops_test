@@ -1,0 +1,8 @@
+<div (click)="toggleContent()" class="card pointable">
+  <h5>
+    <ng-content select="[card-title]"></ng-content>
+  </h5>
+  <ng-content select="[card-body1]"></ng-content>
+  <ng-content select="[card-body2]"></ng-content>
+  <ng-content *ngIf="visible" select="[card-body3]"></ng-content>
+</div>

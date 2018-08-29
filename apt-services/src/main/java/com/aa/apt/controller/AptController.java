@@ -55,12 +55,8 @@ public class AptController
 	
 		
 	@RequestMapping(value=ControllerConstants.PCODESEARCH, method=RequestMethod.GET)
-	public Promotion getPromo(@PathVariable("pcode") String pcode)
+	public List<Promotion> getPromo(@PathVariable("pcode") String pcode)
 	{
-		
-		long startTime = System.currentTimeMillis();
-		
-		logger.info("--Start Time--"+startTime);
 		
 		logger.info(pcode);
 		String pcodepromocurrval[] = pcode.split(":");
@@ -68,31 +64,53 @@ public class AptController
 		logger.info("Current Promotion only:" + pcodepromocurrval[1]);
 
 		List<Promotion> promoList = new ArrayList<Promotion>();
-		Promotion prom = new Promotion();
+		
 		RestTemplate restTemplate = new RestTemplate();
+		Promotion prom ;
+		List<String> promoCodeList = new ArrayList<String>();
+		
+		
+	    promoCodeList.add("RVGLD");
+	    promoCodeList.add("RDLEP");
+		promoCodeList.add("RHVGL");
+	    promoCodeList.add("RHVEP");
+	    promoCodeList.add("RHVPP");
+	    promoCodeList.add("P468B");
 
+	    for (int i=0; i<promoCodeList.size(); i++){
+	    	
+	    prom = new Promotion();
 		LscsPromotionContentResponse ar5response = restTemplate.getForObject(
-				ar5PromoUrlStart + pcodepromocurrval[0] + ar5PromoUrlEnd,
+				ar5PromoUrlStart + promoCodeList.get(i)  + ar5PromoUrlEnd,
 				LscsPromotionContentResponse.class);
 		prom.setPromotionName(ar5response.getContent().getPromotionName());
 		
 
 		
 		
-		prom.setAacomview(getAAcomview(ar5response.getContent().getMainContent()));
+		prom.setAacomview(getLSCSContent(ar5response.getContent().getMainContent()));
 		
-		prom.setTermsandconditions(getTermsAndConditions(ar5response.getContent().getTermsAndConditions()));
+		prom.setTermsandconditions(getLSCSContent(ar5response.getContent().getTermsAndConditions()));
 		
 		
 		
 		AcsPromotionContentResponse acsresponse = restTemplate.getForObject(
-				acsPromoUrlStart + pcodepromocurrval[0] + acsPromoUrlEnd,
+				acsPromoUrlStart + promoCodeList.get(i)  + acsPromoUrlEnd,
 				AcsPromotionContentResponse.class);
 		prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
 		prom.setIsTrending(acsresponse.getContent().getIsTrending());
 		prom.setKeyword(acsresponse.getContent().getKeyword());
-
-		return prom;
+		prom.setRegistrationRequired(acsresponse.getContent().getIsRegistrationRequire());
+		prom.setTargetedPromotion(acsresponse.getContent().getIsTargetedPromotion());
+		prom.setHowToEarn(getLSCSContent(acsresponse.getContent().getHowToEarn()));
+		prom.setFulfillment(getLSCSContent(acsresponse.getContent().getFulfillment()));
+		prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));
+		promoList.add(prom);
+		
+	    }
+	    
+	    promoList.forEach(p -> System.out.println(p.getPromotionOrChallengeCode()));
+		return promoList;
 		        		
 	        
 	}
@@ -106,7 +124,7 @@ public class AptController
 	
 	
 	
-	public String getAAcomview(List<LSCSReplicantElement> lscsReplicantElement)
+	public String getLSCSContent(List<LSCSReplicantElement> lscsReplicantElement)
 	{
 		
 		StringBuffer ar5maincontentbuffer = new StringBuffer();
@@ -145,53 +163,18 @@ public class AptController
         		ar5maincontentbuffer.append("<a alt=\""+mainContentUrl.getAltText()+"\" href=\""+mainContentUrl.getUrl()+"\">"+mainContentUrl.getDisplayText()+"</a>");
         		ar5maincontentbuffer.append("<br>");
  			}
+        	 else if (elementType.equals("TermsAndConditionUrl")) {
+        		 TermsAndConditionsUrl mainContentUrl = (TermsAndConditionsUrl) element;				
+         		ar5maincontentbuffer.append("<a alt=\""+mainContentUrl.getAltText()+"\" href=\""+mainContentUrl.getUrl()+"\">"+mainContentUrl.getTextDisplay()+"</a>");
+         		ar5maincontentbuffer.append("<br>");
+  			}
         	 
         }
         
 		return ar5maincontentbuffer.toString();
 	}
 	
-	public String getTermsAndConditions(List<LSCSReplicantElement> lscsReplicantElementForTermsList)
-	{
-		StringBuffer ar5termsandconditionsbuffer = new StringBuffer();
-		String elementType = "";
-		Iterator<LSCSReplicantElement> lscsReplicantElementTermsItr = lscsReplicantElementForTermsList.iterator();
-		while (lscsReplicantElementTermsItr.hasNext()) {
-			LSCSReplicantElement elementTerm = lscsReplicantElementTermsItr.next();
-			elementType = elementTerm.getElementType();
-			if(elementType.equals("Heading")){
-	        	
-        		HeaderElement headerElement = (HeaderElement)elementTerm;
-        		elementType =  headerElement.getElementType();
-        		ar5termsandconditionsbuffer.append("<h6>").append(headerElement.getValue()).append("</h6>");
-        		
-			}else if(elementType.equals("Paragraph")){
-           		 ParagraphElement paragraphElement = (ParagraphElement)elementTerm;
-           		
-           		ar5termsandconditionsbuffer.append("<p>").append(paragraphElement.getParagraph()).append("</p>");        	    
-           	   
-        		
-        	 }else if (elementType.equals("List")) {
- 				ListContentElement listContentElementForTerm = (ListContentElement) elementTerm;
- 				List<ListElement> listElementsForTerm = listContentElementForTerm.getTermsAndConditionsListElements();
- 				Iterator<ListElement> listElementsItrForTerm = listElementsForTerm.iterator();
- 				ar5termsandconditionsbuffer.append("<ul>");
- 				while (listElementsItrForTerm.hasNext()) {
- 					ListElement listElement = listElementsItrForTerm.next();
- 					elementType = listElement.getParentChild();
- 					ar5termsandconditionsbuffer = ar5termsandconditionsbuffer.append("<li>")
- 							.append(listElement.getValue()).append("</li>");
- 				}
- 				ar5termsandconditionsbuffer.append("</ul>");
- 			}else if (elementType.equals("TermsAndConditionUrl")) {
-				TermsAndConditionsUrl termsAndConditionsUrl = (TermsAndConditionsUrl) elementTerm;				
-				ar5termsandconditionsbuffer.append("<a alt=\""+termsAndConditionsUrl.getAltText()+"\" href=\""+termsAndConditionsUrl.getUrl()+"\">"+termsAndConditionsUrl.getTextDisplay()+"</a>");
-				ar5termsandconditionsbuffer.append("<br>");
-			}
 
-		}
-		return ar5termsandconditionsbuffer.toString();
-	}
 	
 	
 }

@@ -1,10 +1,19 @@
 <div class="col-sm-12">
 
 
+
+    <div *ngIf="errMsgToDisplay">
+        <div [innerHTML]="errMsgToDisplay"></div>
+    </div>
+
+    <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
+    <div *ngIf="promotions?.length === 1"></div>
+    <div *ngIf="promotions?.length > 1">
+
         <form [formGroup]="resultsSortForm" autocomplete="off" novalidate>
             <br>
             <div class="form-group label-select-flex">
-    
+
                 <label for="sortby" class="label-pt">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <select formControlName="sortby" class="form-control col-sm-3">
                     <option value="startdate">Start date</option>
@@ -14,25 +23,44 @@
                 </select>
             </div>
         </form>
-    
-        
-    
-        <div *ngIf="errMsgToDisplay">
-            <div [innerHTML]="errMsgToDisplay"></div>
+
+
+        <div class="row" *ngFor="let promotion of promotions">
+
+            <app-promodetails>
+                <div card-title>
+                    <br> PromotionOrChallengeCode : {{promotion.promotionOrChallengeCode}}
+                    <br> IsTrending: {{promotion.isTrending}}
+                </div>
+                <div card-body1>
+                    <br> PromotionName: {{promotion.promotionName}}
+                </div>
+                <hr>
+                <div card-body2>
+                    Data from Ventana
+                </div>
+                <hr>
+                <div card-body3>
+                    <br> Keywords: {{promotion.keyword}}
+                    <h3>Result from AR5 : </h3>
+                    <br> <h6>aa.com view</h6>
+                    <br><div [innerHTML]="promotion.aacomview"></div>
+                    <br><h6>Terms and conditions</h6>
+                    <br><div [innerHTML]="promotion.termsandconditions"></div>
+                    <hr>
+                    <h3>Result from ACS Template </h3>
+                    <br> Registration Required : {{promotion.registrationRequired}}
+                    <br> Targeted Promotion: {{promotion.targetedPromotion}}
+                    <br> <h6>How to Earn</h6>
+                    <br><div [innerHTML]="promotion.howToEarn"></div>
+                    <br> <h6>Resolve Issues</h6>
+                    <br><div [innerHTML]="promotion.resolveIssues"></div>
+                    <br> <h6>FulFillment</h6>
+                    <br><div [innerHTML]="promotion.fulfillment"></div>
+                </div>
+            </app-promodetails>
         </div>
-        <div *ngIf="promotion">
-    
-           
-    
-            Result from LSCS : <br> PromotionOrChallengeCode : {{promotion.promotionOrChallengeCode}}
-            <br> IsTrending: {{promotion.isTrending}}
-            <br> Keywords: {{promotion.keyword}}
-            <br> PromotionName: {{promotion.promotionName}}
-            <br> <h6>aa.com view</h6>
-            <br><div [innerHTML]="promotion.aacomview"></div>
-            <br><h6>Terms and conditions</h6>
-            <br><div [innerHTML]="promotion.termsandconditions"></div>
-        </div>
-    
-    
     </div>
+
+
+</div>

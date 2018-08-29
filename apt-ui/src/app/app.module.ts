@@ -22,6 +22,7 @@ import { SearchcriteriaComponent } from './searchcriteria/searchcriteria.compone
 
 import { ErrorHandler } from './errorservice/error_handler';
 import { RequestInterceptor } from './errorservice/http_interceptor';
+import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { RequestInterceptor } from './errorservice/http_interceptor';
     SearchcriteriaComponent,
     LatestpromosComponent,
     TrendingpromosComponent,
-    SearchresultsComponent
+    SearchresultsComponent,
+    PromodetailsComponent
   ],
   imports: [
     BrowserModule,

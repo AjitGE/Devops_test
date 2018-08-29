@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+import com.aa.apt.ar5.response.LSCSReplicantElement;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -26,6 +27,50 @@ public class Content implements Serializable {
     
     @JsonProperty("IsTargetedPromotion")
     private String isTargetedPromotion;
+    
+    @JsonProperty("HowToEarn")
+    private List<LSCSReplicantElement> howToEarn = Collections.emptyList();
+    
+    @JsonProperty("Fulfillment")
+    private List<LSCSReplicantElement> fulfillment = Collections.emptyList();
+    
+    @JsonProperty("ResolveIssues")
+    private List<LSCSReplicantElement> resolveIssues = Collections.emptyList();
+    
+    @JsonProperty("PartnerCodes")
+    private String[] partnerCodes;
+
+	public List<LSCSReplicantElement> getHowToEarn() {
+		return howToEarn;
+	}
+
+	public void setHowToEarn(List<LSCSReplicantElement> howToEarn) {
+		this.howToEarn = howToEarn;
+	}
+
+	public List<LSCSReplicantElement> getFulfillment() {
+		return fulfillment;
+	}
+
+	public void setFulfillment(List<LSCSReplicantElement> fulfillment) {
+		this.fulfillment = fulfillment;
+	}
+
+	public List<LSCSReplicantElement> getResolveIssues() {
+		return resolveIssues;
+	}
+
+	public void setResolveIssues(List<LSCSReplicantElement> resolveIssues) {
+		this.resolveIssues = resolveIssues;
+	}
+
+	public String[] getPartnerCodes() {
+		return partnerCodes;
+	}
+
+	public void setPartnerCodes(String[] partnerCodes) {
+		this.partnerCodes = partnerCodes;
+	}
 
 	public String getPromotionOrChallengeCode() {
 		return promotionOrChallengeCode;

@@ -18,7 +18,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   resultsSortForm: FormGroup;
   sortby: FormControl;
   @Input() pcodecurrpromoval: string = '';
-  promotion: IPromotion;
+  promotions: IPromotion[];
   errMsgToDisplay: string = undefined;
 
 
@@ -50,9 +50,9 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
 
           this.spinnerService.show();
-          this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion) => {
-            this.promotion = data;
-            console.log(this.promotion.promotionOrChallengeCode);
+          this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
+            this.promotions = data;
+            console.log('Number of Promotions are : '+ this.promotions.length)
             this.spinnerService.hide();
             this.errMsgToDisplay = undefined
 
@@ -60,7 +60,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
             if (err instanceof HttpErrorResponse) {
               if (err.message.includes('Http failure response')) {
                 console.log("No Response from Ventana/LSCS");
-                this.promotion = undefined;
+                this.promotions = undefined;
                 this.errMsgToDisplay = '<h5>No Response from Ventana/LSCS</h5>';
                 this.spinnerService.hide();
               }

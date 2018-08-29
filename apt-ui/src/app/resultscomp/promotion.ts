@@ -6,4 +6,11 @@ export interface IPromotion
     promotionName:string;
     aacomview:string;
     termsandconditions:string;
+    resolveIssues:string;
+    fulfillment:string;
+    partnerCodes:string;
+    howToEarn:string;
+    registrationRequired:string;
+    targetedPromotion:string;
+    
 }
