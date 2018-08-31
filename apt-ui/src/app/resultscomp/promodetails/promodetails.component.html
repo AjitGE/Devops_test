@@ -1,8 +1,13 @@
-<div (click)="toggleContent()" class="card pointable">
-  <h5>
-    <ng-content select="[card-title]"></ng-content>
-  </h5>
-  <ng-content select="[card-body1]"></ng-content>
-  <ng-content select="[card-body2]"></ng-content>
+<div class="col-sm-12" style="margin:0%;padding:0%;width:100%">
+  <div class="card-header" style="height:41px;background-color:#e7ecef;border: solid 1px rgb(231, 236, 239);margin:0%;padding: 0%">
+    <img src="../../../assets/Popular-icon.svg" *ngIf="isTrending === 'true'" class="img-fluid" style="width:22px;height:40px">
+    <font face="AmericanSansMedium" size="2" color="#36495a"><b>Promo code: </b>{{promotionOrChallengeCode}}</font>
+    <span class="pull-right">
+      <img #ecimg src="../../../assets/Expand-icon.svg" (click)="toggleContent()" onmouseover="this.style.cursor='pointer'" class="img-fluid"
+        style="width:22px;height:40px">
+    </span>
+  </div>
+  <ng-content *ngIf="!visible" select="[card-body1]"></ng-content>
+  
   <ng-content *ngIf="visible" select="[card-body3]"></ng-content>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,ViewChild,ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-promodetails',
@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromodetailsComponent implements OnInit {
 
+  @Input() promotionOrChallengeCode:string ;
+  @Input() isTrending:string;
   visible:boolean = false;
+  @ViewChild('ecimg') ecimg:ElementRef;
+
   constructor() { }
 
   ngOnInit() {
@@ -16,6 +20,17 @@ export class PromodetailsComponent implements OnInit {
   toggleContent()
   {
     this.visible = !this.visible;
+
+    var imgsrc:string = this.ecimg.nativeElement.src;
+    if(imgsrc.indexOf('Expand-icon')!=-1)
+    {
+      this.ecimg.nativeElement.src="../../assets/Collapse-icon.svg" ;
+    }
+    else
+    {
+      this.ecimg.nativeElement.src="../../assets/Expand-icon.svg" ;
+    }
+
   }
 
 }

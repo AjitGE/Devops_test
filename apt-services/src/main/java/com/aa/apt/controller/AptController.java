@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
@@ -64,54 +65,71 @@ public class AptController
 		logger.info("Current Promotion only:" + pcodepromocurrval[1]);
 
 		List<Promotion> promoList = new ArrayList<Promotion>();
-		
+
 		RestTemplate restTemplate = new RestTemplate();
-		Promotion prom ;
+		Promotion prom;
 		List<String> promoCodeList = new ArrayList<String>();
-		
-		
-	    promoCodeList.add("RVGLD");
-	    promoCodeList.add("RDLEP");
-		promoCodeList.add("RHVGL");
-	    promoCodeList.add("RHVEP");
-	    promoCodeList.add("RHVPP");
-	    promoCodeList.add("P468B");
 
-	    for (int i=0; i<promoCodeList.size(); i++){
-	    	
-	    prom = new Promotion();
-		LscsPromotionContentResponse ar5response = restTemplate.getForObject(
-				ar5PromoUrlStart + promoCodeList.get(i)  + ar5PromoUrlEnd,
-				LscsPromotionContentResponse.class);
-		prom.setPromotionName(ar5response.getContent().getPromotionName());
-		
+		if (pcodepromocurrval[0].toUpperCase().startsWith("R")) {    //Remove this IF block once Ventana call is placed
+			promoCodeList.add("RVGLD");
+			promoCodeList.add("RDLEP");
+			// promoCodeList.add("RHVGL");
+			// promoCodeList.add("RHVEP");
+			// promoCodeList.add("RHVPP");
+			// promoCodeList.add("P468B");
+			// promoCodeList.add("EHI02");
+		} else
+			promoCodeList.add(pcodepromocurrval[0]);
 
-		
-		
-		prom.setAacomview(getLSCSContent(ar5response.getContent().getMainContent()));
-		
-		prom.setTermsandconditions(getLSCSContent(ar5response.getContent().getTermsAndConditions()));
-		
-		
-		
-		AcsPromotionContentResponse acsresponse = restTemplate.getForObject(
-				acsPromoUrlStart + promoCodeList.get(i)  + acsPromoUrlEnd,
-				AcsPromotionContentResponse.class);
-		prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
-		prom.setIsTrending(acsresponse.getContent().getIsTrending());
-		prom.setKeyword(acsresponse.getContent().getKeyword());
-		prom.setRegistrationRequired(acsresponse.getContent().getIsRegistrationRequire());
-		prom.setTargetedPromotion(acsresponse.getContent().getIsTargetedPromotion());
-		prom.setHowToEarn(getLSCSContent(acsresponse.getContent().getHowToEarn()));
-		prom.setFulfillment(getLSCSContent(acsresponse.getContent().getFulfillment()));
-		prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));
-		promoList.add(prom);
-		
-	    }
-	    
-	    promoList.forEach(p -> System.out.println(p.getPromotionOrChallengeCode()));
+		for (int i = 0; i < promoCodeList.size(); i++) {
+
+			prom = new Promotion();
+
+			// Populate Ventana fields here -- Replace with Another REST call response
+			prom.setPromoStartDate("From Ventana");
+			prom.setPromoEndDate("From Ventana");
+			prom.setTac("From Ventana");
+
+			// For Details View
+			prom.setMemRegStartDate("From Ventana");
+			prom.setMemRegEndDate("From Ventana");
+			prom.setMemTravelStartDate("From Ventana");
+			prom.setMemTravelEndDate("From Ventana");
+			prom.setLateRegEndDate("From Ventana");
+
+			LscsPromotionContentResponse ar5response = restTemplate.getForObject(
+					ar5PromoUrlStart + promoCodeList.get(i) + ar5PromoUrlEnd, LscsPromotionContentResponse.class);
+			prom.setPromotionName(ar5response.getContent().getPromotionName());
+
+			prom.setAacomview(getLSCSContent(ar5response.getContent().getMainContent()));
+
+			prom.setTermsandconditions(getLSCSContent(ar5response.getContent().getTermsAndConditions()));
+
+			try {
+				AcsPromotionContentResponse acsresponse = restTemplate.getForObject(
+						acsPromoUrlStart + promoCodeList.get(i) + acsPromoUrlEnd, AcsPromotionContentResponse.class);
+
+				prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
+				prom.setIsTrending(acsresponse.getContent().getIsTrending());
+				prom.setKeyword(acsresponse.getContent().getKeyword());
+				prom.setRegistrationRequired(acsresponse.getContent().getIsRegistrationRequire());
+				prom.setTargetedPromotion(acsresponse.getContent().getIsTargetedPromotion());
+				prom.setHowToEarn(getLSCSContent(acsresponse.getContent().getHowToEarn()));
+				prom.setFulfillment(getLSCSContent(acsresponse.getContent().getFulfillment()));
+				prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));
+				prom.setPSTCodes("From ACS Template");
+				prom.setPartnerCodes("From ACS Template");
+			} catch (HttpClientErrorException hcee) {
+				logger.info("Promo code " + promoCodeList.get(i) + " not found in ACS - Got " + hcee.getStatusCode()
+						+ "Not found error");
+			}
+
+			promoList.add(prom);
+
+		}
+
+		promoList.forEach(p -> System.out.println(p.getPromotionOrChallengeCode()));
 		return promoList;
-		        		
 	        
 	}
 	//http://localhost:8080/api/search/P468B:false

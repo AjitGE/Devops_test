@@ -2,18 +2,107 @@ package com.aa.apt.model;
 
 public class Promotion {
 	
+	//From ACS
 	String PromotionOrChallengeCode;
 	String isTrending;
 	String keyword;
-	String PromotionName;
-	String aacomview;
-	String termsandconditions;
 	String resolveIssues;
 	String fulfillment;
 	String partnerCodes;
 	String howToEarn;
 	String registrationRequired;
 	String targetedPromotion;
+	String PSTCodes;
+	
+	
+	//From AR5
+	String PromotionName;
+	String aacomview;
+	String termsandconditions;
+	
+	
+	//From Ventana
+	String PromoStartDate;
+	String PromoEndDate;
+	String tac;
+	String memRegStartDate;  //Ventana Field Response  : RegistrationStartDate 
+	String memRegEndDate;  //Ventana Field Response : AACOMRegistrationEndDate
+	String memTravelStartDate; //Ventana Field Response : ActivityStartDate
+	String memTravelEndDate;  //Ventana Field Response : ActivityEndDate
+	String lateRegEndDate; //Ventana Field Response : RegistrationEndDate
+	
+
+	public String getPSTCodes() {
+		return PSTCodes;
+	}
+
+	public void setPSTCodes(String pSTCodes) {
+		PSTCodes = pSTCodes;
+	}
+
+	public String getPromoStartDate() {
+		return PromoStartDate;
+	}
+
+	public void setPromoStartDate(String promoStartDate) {
+		PromoStartDate = promoStartDate;
+	}
+
+	public String getPromoEndDate() {
+		return PromoEndDate;
+	}
+
+	public void setPromoEndDate(String promoEndDate) {
+		PromoEndDate = promoEndDate;
+	}
+
+	public String getTac() {
+		return tac;
+	}
+
+	public void setTac(String tac) {
+		this.tac = tac;
+	}
+
+	public String getMemRegStartDate() {
+		return memRegStartDate;
+	}
+
+	public void setMemRegStartDate(String memRegStartDate) {
+		this.memRegStartDate = memRegStartDate;
+	}
+
+	public String getMemRegEndDate() {
+		return memRegEndDate;
+	}
+
+	public void setMemRegEndDate(String memRegEndDate) {
+		this.memRegEndDate = memRegEndDate;
+	}
+
+	public String getMemTravelStartDate() {
+		return memTravelStartDate;
+	}
+
+	public void setMemTravelStartDate(String memTravelStartDate) {
+		this.memTravelStartDate = memTravelStartDate;
+	}
+
+	public String getMemTravelEndDate() {
+		return memTravelEndDate;
+	}
+
+	public void setMemTravelEndDate(String memTravelEndDate) {
+		this.memTravelEndDate = memTravelEndDate;
+	}
+
+	public String getLateRegEndDate() {
+		return lateRegEndDate;
+	}
+
+	public void setLateRegEndDate(String lateRegEndDate) {
+		this.lateRegEndDate = lateRegEndDate;
+	}
 
 	public String getAacomview() {
 		return aacomview;

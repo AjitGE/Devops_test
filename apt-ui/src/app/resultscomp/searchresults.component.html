@@ -1,4 +1,4 @@
-<div class="col-sm-12">
+<div class="col-sm-12" style="margin:0%;padding:0%">
 
 
 
@@ -7,7 +7,12 @@
     </div>
 
     <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
-    <div *ngIf="promotions?.length === 1"></div>
+    <div *ngIf="promotions?.length === 1">
+        <!--
+            Display one Expanded view of full Promotion
+        -->
+
+    </div>
     <div *ngIf="promotions?.length > 1">
 
         <form [formGroup]="resultsSortForm" autocomplete="off" novalidate>
@@ -25,21 +30,160 @@
         </form>
 
 
-        <div class="row" *ngFor="let promotion of promotions">
+        <div *ngFor="let promotion of promotions">
 
-            <app-promodetails>
-                <div card-title>
-                    <br> PromotionOrChallengeCode : {{promotion.promotionOrChallengeCode}}
-                    <br> IsTrending: {{promotion.isTrending}}
-                </div>
-                <div card-body1>
-                    <br> PromotionName: {{promotion.promotionName}}
+            <app-promodetails [promotionOrChallengeCode]="promotion.promotionOrChallengeCode" [isTrending]="promotion.isTrending">
+
+                <div card-body1 class="card">
+                    <p class="col-sm-12" style="
+                    height: 29px;
+                    background-color: transparent;
+                    font-family: AmericanSansLight;
+                    font-size: 20px;
+                    line-height: 30px;
+                    text-align: left;
+                    color: #627A88;"> {{promotion.promotionName}} </p>
+
+                    <div class="col-sm-12">
+                        <b>
+                            <span style="
+                        height: 17px;
+                        background-color: transparent;
+                        font-family: AmericanSansMedium;
+                        font-size: 14px;
+                        font-weight: bolder;
+                        line-height: 24px;
+                        text-align: left;
+                        color: rgba(0, 0, 0, 0.64);"> Promotion dates: </span>
+                        </b>
+                        <span style="padding-left:4em;
+                        height: 17px;
+                        background-color: transparent;
+                        font-family: AmericanSans;
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 24px;
+                        text-align: left;
+                        color: #36495A;"> Start: {{promotion.promoStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            End: {{promotion.promoEndDate}}
+                        </span>
+
+                    </div>
+                    <hr>
+
+                    <div class="col-sm-12">
+                        <b>
+                            <span style="
+                                height: 17px;
+                                background-color: transparent;
+                                font-family: AmericanSansMedium;
+                                font-size: 14px;
+                                font-weight: bolder;
+                                line-height: 24px;
+                                text-align: left;
+                                color: rgba(0, 0, 0, 0.64);"> 
+                                PST codes: </span>
+                        </b>
+                        <span style="padding-left:6em;
+                                    height: 17px;
+                                    background-color: transparent;
+                                    font-family: AmericanSans;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    text-align: left;
+                                    color: #36495A;"> 
+                                    &nbsp;{{promotion.pstcodes}}
+                        </span>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                            <b>
+                                <span style="
+                                    height: 17px;
+                                    background-color: transparent;
+                                    font-family: AmericanSansMedium;
+                                    font-size: 14px;
+                                    font-weight: bolder;
+                                    line-height: 24px;
+                                    text-align: left;
+                                    color: rgba(0, 0, 0, 0.64);"> 
+                                    TA codes: </span>
+                            </b>
+                            <span style="padding-left:6em;
+                                        height: 17px;
+                                        background-color: transparent;
+                                        font-family: AmericanSans;
+                                        font-size: 14px;
+                                        font-weight: 400;
+                                        line-height: 24px;
+                                        text-align: left;
+                                        color: #36495A;"> 
+                                        &nbsp;&nbsp;{{promotion.tac}}
+                            </span>
+    
+                        </div>
+
+                        <div class="col-sm-12">
+                                <b>
+                                    <span style="
+                                        height: 17px;
+                                        background-color: transparent;
+                                        font-family: AmericanSansMedium;
+                                        font-size: 14px;
+                                        font-weight: bolder;
+                                        line-height: 24px;
+                                        text-align: left;
+                                        color: rgba(0, 0, 0, 0.64);"> 
+                                        Partner codes: </span>
+                                </b>
+                                <span style="padding-left:4em;
+                                            height: 17px;
+                                            background-color: transparent;
+                                            font-family: AmericanSans;
+                                            font-size: 14px;
+                                            font-weight: 400;
+                                            line-height: 24px;
+                                            text-align: left;
+                                            color: #36495A;"> 
+                                            &nbsp;&nbsp;{{promotion.partnerCodes}}
+                                </span>
+        
+                            </div>
+                            <hr>
+                    
+                            <div class="col-sm-12">
+                                    <b>
+                                        <span style="
+                                            height: 17px;
+                                            background-color: transparent;
+                                            font-family: AmericanSansMedium;
+                                            font-size: 14px;
+                                            font-weight: bolder;
+                                            line-height: 24px;
+                                            text-align: left;
+                                            color: rgba(0, 0, 0, 0.64);"> 
+                                            Keywords: </span>
+                                    </b>
+                                    <span style="padding-left:5em;
+                                                height: 17px;
+                                                background-color: transparent;
+                                                font-family: AmericanSans;
+                                                font-size: 14px;
+                                                font-weight: 400;
+                                                line-height: 24px;
+                                                text-align: left;
+                                                color: #36495A;"> 
+                                                &nbsp;&nbsp;{{promotion.keyword}}
+                                    </span>
+            
+                                </div>
+                    
+
                 </div>
                 <hr>
-                <div card-body2>
-                    Data from Ventana
-                </div>
-                <hr>
+
                 <div card-body3>
                     <br> Keywords: {{promotion.keyword}}
                     <h3>Result from AR5 : </h3>
@@ -58,7 +202,9 @@
                     <br> <h6>FulFillment</h6>
                     <br><div [innerHTML]="promotion.fulfillment"></div>
                 </div>
+
             </app-promodetails>
+            <br><br><br>
         </div>
     </div>
 
