@@ -1,5 +1,6 @@
 package com.aa.apt.controller;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -7,6 +8,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.apache.commons.codec.binary.Base64;
 
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
 import com.aa.apt.ar5.response.HeaderElement;
@@ -25,7 +32,12 @@ import com.aa.apt.ar5.response.ParagraphElement;
 import com.aa.apt.ar5.response.TermsAndConditionsUrl;
 import com.aa.apt.ar5.response.UrlElement;
 import com.aa.apt.constants.ControllerConstants;
+import com.aa.apt.model.CurrencyInfo;
+import com.aa.apt.model.EliteTierInfo;
+import com.aa.apt.model.LoyaltyFulfillmentRequest;
+import com.aa.apt.model.PaymentInfo;
 import com.aa.apt.model.Promotion;
+
 
 @RestController
 @CrossOrigin
@@ -54,7 +66,7 @@ public class AptController
 	}
 	
 	
-		
+	//http://localhost:8080/api/search/P468B:false	
 	@RequestMapping(value=ControllerConstants.PCODESEARCH, method=RequestMethod.GET)
 	public List<Promotion> getPromo(@PathVariable("pcode") String pcode)
 	{
@@ -132,7 +144,78 @@ public class AptController
 		return promoList;
 	        
 	}
-	//http://localhost:8080/api/search/P468B:false
+	
+	
+	//http://localhost:8080/api/search/ventana/714JWV6
+		@RequestMapping(value=ControllerConstants.AANUMBERSEARCH, method=RequestMethod.GET)
+		public String getPromoFromVentana(@PathVariable("aanumber") String aanumber){
+			
+			    final String END_POINT = "https://loyalty.qa.esoa.qcorpaa.aa.com/api/loyaltyfulfillmentrequest/v1";
+			    //ventanaREST.json
+			    
+			    String USER_NAME = "Z1034708";
+			    String PASSWORD = "ZYA5*ZSEUQINe";
+			 
+		        String auth = USER_NAME + ":" + PASSWORD;
+		        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+		        String authHeader = "Basic " + new String(encodedAuth);
+			    
+		        
+		        
+		        
+			 // HttpHeaders
+		        HttpHeaders headers = new HttpHeaders();
+		 
+		        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		        // Request to return JSON format
+		        headers.setContentType(MediaType.APPLICATION_JSON);
+		        headers.set("X-Client-ID", "1");
+		        headers.set("X-Transaction-ID", "2");
+		        headers.set("Authorization", authHeader);
+		        
+		        String requestJSON = "{\r\n" + 
+		        		"	\"LoyaltyFulfillmentRequest\": {\r\n" + 
+		        		"		\"aadvantageNumber\": \"714JWV6\",\r\n" + 
+		        		"		\"paymentInfo\": {\r\n" + 
+		        		"			\"paymentTxnNumber\": \"1212122\",\r\n" + 
+		        		"			\"purchaseDate\": \"08/09/2018\",\r\n" + 
+		        		"			\"purchaseAmount\": \"100.00\"\r\n" + 
+		        		"		},\r\n" + 
+		        		"		\"eliteTierInfo\": {\r\n" + 
+		        		"			\"eliteTierCode\": \"P\",\r\n" + 
+		        		"			\"expiryDate\": \"01/31/2019\",\r\n" + 
+		        		"			\"statusCode\": \"BB\",\r\n" + 
+		        		"			\"sourceCode\": \"O\"\r\n" + 
+		        		"		},\r\n" + 
+		        		"		\"currencyInfo\": [{\r\n" + 
+		        		"				\"currency\": \"EQD\",\r\n" + 
+		        		"				\"quantity\": \"222\",\r\n" + 
+		        		"				\"type\": \"bonus\",\r\n" + 
+		        		"				\"activityDate\": \"08/17/2018\"\r\n" + 
+		        		"			}\r\n" + 
+		        		"		]\r\n" + 
+		        		"	}\r\n" + 
+		        		"}";
+	 
+		        // HttpEntity<String>: To get result as String.
+		        //HttpEntity<String> entity = new HttpEntity<String>(loyaltyFulfillmentRequest.toString(), headers);
+		        HttpEntity<?> entity = new HttpEntity<Object>(requestJSON, headers);
+			    
+	            
+		        RestTemplate restTemplate = new RestTemplate();
+		        
+		        ResponseEntity<String> response = restTemplate.exchange(END_POINT, 
+		                HttpMethod.POST, entity, String.class);
+		        
+		        String result = response.getBody();
+		       
+		 
+		        System.out.println("----Result---"+result);
+		       return result;
+
+
+
+		}
 	
 	
 	
@@ -140,9 +223,7 @@ public class AptController
 	
 	
 	
-	
-	
-	public String getLSCSContent(List<LSCSReplicantElement> lscsReplicantElement)
+	private String getLSCSContent(List<LSCSReplicantElement> lscsReplicantElement)
 	{
 		
 		StringBuffer ar5maincontentbuffer = new StringBuffer();
