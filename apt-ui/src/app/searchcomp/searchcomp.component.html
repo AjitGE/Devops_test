@@ -7,14 +7,14 @@
       </label>
 
       <em *ngIf="!validatePCode() && pcode.errors.required">
-        <i class="fa fa-exclamation-circle" style="font-size:20px"></i>
-        Required</em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i>
+        <b>Required</b></em>
       <em *ngIf="!validatePCode() && pcode.errors.pattern">
-        <i class="fa fa-exclamation-circle" style="font-size:20px"></i>Special characters not allowed</em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
       <em *ngIf="!validatePCode() && pcode.errors.minlength">
-        <i class="fa fa-exclamation-circle" style="font-size:20px"></i>Enter at least 2 characters</em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
       <em *ngIf="!validatePCode() && pcode.errors.maxlength">
-        <i class="fa fa-exclamation-circle" style="font-size:20px"></i>A max of 5 characters can be entered</em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>A max of 5 characters can be entered</b></em>
 
       <div class="input-group noMarginPad">
         <input class="form-control" type="search" formControlName="pcode" [ngClass]="{'error' : !validatePCode() }" placeholder="Search..."

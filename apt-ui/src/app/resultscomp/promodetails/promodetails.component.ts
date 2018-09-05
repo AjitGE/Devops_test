@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-promodetails',
@@ -12,6 +12,8 @@ export class PromodetailsComponent implements OnInit {
   visible:boolean = false;
   @ViewChild('ecimg') ecimg:ElementRef;
 
+  @Output() hidesortevent = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit() {
@@ -24,11 +26,13 @@ export class PromodetailsComponent implements OnInit {
     var imgsrc:string = this.ecimg.nativeElement.src;
     if(imgsrc.indexOf('Expand-icon')!=-1)
     {
-      this.ecimg.nativeElement.src="../../assets/Collapse-icon.svg" ;
+      this.ecimg.nativeElement.src="Collapse-icon.svg" ;
+      this.hidesortevent.emit(false);
     }
     else
     {
-      this.ecimg.nativeElement.src="../../assets/Expand-icon.svg" ;
+      this.ecimg.nativeElement.src="Expand-icon.svg" ;
+      this.hidesortevent.emit(true);
     }
 
   }

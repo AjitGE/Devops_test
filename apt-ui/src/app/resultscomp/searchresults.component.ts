@@ -22,6 +22,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   errMsgToDisplay: string = undefined;
 
 
+
   constructor(private searchService: SearchserviceService,
     private spinnerService: Ng4LoadingSpinnerService) { }
 
@@ -52,7 +53,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
           this.spinnerService.show();
           this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
             this.promotions = data;
-            console.log('Number of Promotions are : '+ this.promotions.length)
+            console.log('Number of Promotions are : ' + this.promotions.length)
             this.spinnerService.hide();
             this.errMsgToDisplay = undefined
 
@@ -74,6 +75,20 @@ export class SearchresultsComponent implements OnInit, OnChanges {
       }
     }
 
+
+  }
+
+
+
+  hideSortHander(hideFlag: boolean) {
+    if (hideFlag)
+    {
+      this.resultsSortForm.controls.sortby.enable();
+    }
+    else
+    {
+      this.resultsSortForm.controls.sortby.disable();
+    }
 
   }
 

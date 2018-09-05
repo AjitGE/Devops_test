@@ -11,6 +11,9 @@ export interface IPromotion
     registrationRequired:string;
     targetedPromotion:string;
     pstcodes:string;
+    directmailer:string;
+    marketingpageurl:string;
+    emailurl:string;
 
     //From AR5 
     promotionName:string;

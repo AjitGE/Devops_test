@@ -13,7 +13,9 @@ public class Promotion {
 	String registrationRequired;
 	String targetedPromotion;
 	String PSTCodes;
-	
+	String directmailer;
+	String marketingpageurl;
+	String emailurl;
 	
 	//From AR5
 	String PromotionName;
@@ -32,6 +34,30 @@ public class Promotion {
 	String lateRegEndDate; //Ventana Field Response : RegistrationEndDate
 	
 
+	public String getDirectmailer() {
+		return directmailer;
+	}
+
+	public void setDirectmailer(String directmailer) {
+		this.directmailer = directmailer;
+	}
+
+	public String getMarketingpageurl() {
+		return marketingpageurl;
+	}
+
+	public void setMarketingpageurl(String marketingpageurl) {
+		this.marketingpageurl = marketingpageurl;
+	}
+
+	public String getEmailurl() {
+		return emailurl;
+	}
+
+	public void setEmailurl(String emailurl) {
+		this.emailurl = emailurl;
+	}
+	
 	public String getPSTCodes() {
 		return PSTCodes;
 	}

@@ -1,11 +1,86 @@
-.label-select-flex
-{
+.label-select-flex {
     display: flex
 }
 
-.label-pt
-{
-    padding-top:1%
+.label-pt {
+    padding-top: 1%
 }
 
+.noMarginPad {
+    margin: 0%;
+    padding: 0%
+}
 
+.promotionNameStyle {
+    height: 29px;
+    background-color: transparent;
+    font-family: AmericanSansLight;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: left;
+    color: #627A88;
+}
+
+.promotionDateLabelStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSansMedium;
+    font-size: 14px;
+    font-weight: bolder;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.64);
+}
+
+.promotionDatesStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #36495A;
+}
+
+.sviewLabelStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSansMedium;
+    font-size: 14px;
+    font-weight: bolder;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.64);
+}
+
+.sviewLabelSmStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSansMedium;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.64)
+}
+
+.sviewTextStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #36495A;
+}
+
+.pb1 {
+    padding-bottom: 1%
+}
+
+.hrwidth {
+    width: 90%;
+    margin-left: 10px;
+}

@@ -1,6 +1,6 @@
 package com.aa.apt.controller;
 
-import java.nio.charset.Charset;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.apache.commons.codec.binary.Base64;
+
 
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
 import com.aa.apt.ar5.response.HeaderElement;
@@ -32,11 +32,9 @@ import com.aa.apt.ar5.response.ParagraphElement;
 import com.aa.apt.ar5.response.TermsAndConditionsUrl;
 import com.aa.apt.ar5.response.UrlElement;
 import com.aa.apt.constants.ControllerConstants;
-import com.aa.apt.model.CurrencyInfo;
-import com.aa.apt.model.EliteTierInfo;
-import com.aa.apt.model.LoyaltyFulfillmentRequest;
-import com.aa.apt.model.PaymentInfo;
 import com.aa.apt.model.Promotion;
+import com.aa.apt.utils.FileUtils;
+import com.aa.apt.utils.NetworkUtils;
 
 
 @RestController
@@ -59,6 +57,24 @@ public class AptController
 	@Value("${ar5.promo.url.end}")
     String ar5PromoUrlEnd;
 	
+
+	String BASIC_AUTH_TOKEN;
+	String PROMO_REQ_TEMPLATE;
+	String MOCK_VENTANA_TEMPLATE;  //Remove this line.  Used only for Mock service call
+	
+    @Value("${loyalty.membersecurity.url}")
+    String apiUrl;
+    
+    @Value("${loyalty.membersecurity.mock.url}")
+    String apiMockUrl;
+    
+    @Value("${loyalty.membersecurity.username}")
+    String apiUsername;
+    
+    @Value("${loyalty.membersecurity.password}")
+    String apiPassword;
+    
+	
 	@RequestMapping(ControllerConstants.PINGTEST)
 	public String home()
 	{
@@ -68,31 +84,16 @@ public class AptController
 	
 	//http://localhost:8080/api/search/P468B:false	
 	@RequestMapping(value=ControllerConstants.PCODESEARCH, method=RequestMethod.GET)
-	public List<Promotion> getPromo(@PathVariable("pcode") String pcode)
+	public List<Promotion> getPromo(@PathVariable("pcode") String pcode) throws IOException
 	{
 		
-		logger.info(pcode);
-		String pcodepromocurrval[] = pcode.split(":");
-		logger.info("Promotion code entered:" + pcodepromocurrval[0]);
-		logger.info("Current Promotion only:" + pcodepromocurrval[1]);
-
+		List<String> promoCodeList = getPromosFromVentana(pcode);
+		
+		
 		List<Promotion> promoList = new ArrayList<Promotion>();
-
-		RestTemplate restTemplate = new RestTemplate();
 		Promotion prom;
-		List<String> promoCodeList = new ArrayList<String>();
-
-		if (pcodepromocurrval[0].toUpperCase().startsWith("R")) {    //Remove this IF block once Ventana call is placed
-			promoCodeList.add("RVGLD");
-			promoCodeList.add("RDLEP");
-			// promoCodeList.add("RHVGL");
-			// promoCodeList.add("RHVEP");
-			// promoCodeList.add("RHVPP");
-			// promoCodeList.add("P468B");
-			// promoCodeList.add("EHI02");
-		} else
-			promoCodeList.add(pcodepromocurrval[0]);
-
+		RestTemplate restTemplate = new RestTemplate();
+		
 		for (int i = 0; i < promoCodeList.size(); i++) {
 
 			prom = new Promotion();
@@ -131,6 +132,9 @@ public class AptController
 				prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));
 				prom.setPSTCodes("From ACS Template");
 				prom.setPartnerCodes("From ACS Template");
+				prom.setDirectmailer("From ACS Template");
+				prom.setMarketingpageurl("From ACS Template");
+				prom.setEmailurl("From ACS Template");
 			} catch (HttpClientErrorException hcee) {
 				logger.info("Promo code " + promoCodeList.get(i) + " not found in ACS - Got " + hcee.getStatusCode()
 						+ "Not found error");
@@ -140,82 +144,78 @@ public class AptController
 
 		}
 
-		promoList.forEach(p -> System.out.println(p.getPromotionOrChallengeCode()));
+		promoList.forEach(p -> logger.info(p.getPromotionOrChallengeCode()));
 		return promoList;
 	        
 	}
 	
 	
-	//http://localhost:8080/api/search/ventana/714JWV6
-		@RequestMapping(value=ControllerConstants.AANUMBERSEARCH, method=RequestMethod.GET)
-		public String getPromoFromVentana(@PathVariable("aanumber") String aanumber){
+		public List<String> getPromosFromVentana(String pcode) throws IOException
+		{
+			List<String> promoCodeList = new ArrayList<String>();
 			
-			    final String END_POINT = "https://loyalty.qa.esoa.qcorpaa.aa.com/api/loyaltyfulfillmentrequest/v1";
-			    //ventanaREST.json
-			    
-			    String USER_NAME = "Z1034708";
-			    String PASSWORD = "ZYA5*ZSEUQINe";
-			 
-		        String auth = USER_NAME + ":" + PASSWORD;
-		        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-		        String authHeader = "Basic " + new String(encodedAuth);
-			    
-		        
-		        
-		        
-			 // HttpHeaders
-		        HttpHeaders headers = new HttpHeaders();
-		 
-		        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-		        // Request to return JSON format
-		        headers.setContentType(MediaType.APPLICATION_JSON);
-		        headers.set("X-Client-ID", "1");
-		        headers.set("X-Transaction-ID", "2");
-		        headers.set("Authorization", authHeader);
-		        
-		        String requestJSON = "{\r\n" + 
-		        		"	\"LoyaltyFulfillmentRequest\": {\r\n" + 
-		        		"		\"aadvantageNumber\": \"714JWV6\",\r\n" + 
-		        		"		\"paymentInfo\": {\r\n" + 
-		        		"			\"paymentTxnNumber\": \"1212122\",\r\n" + 
-		        		"			\"purchaseDate\": \"08/09/2018\",\r\n" + 
-		        		"			\"purchaseAmount\": \"100.00\"\r\n" + 
-		        		"		},\r\n" + 
-		        		"		\"eliteTierInfo\": {\r\n" + 
-		        		"			\"eliteTierCode\": \"P\",\r\n" + 
-		        		"			\"expiryDate\": \"01/31/2019\",\r\n" + 
-		        		"			\"statusCode\": \"BB\",\r\n" + 
-		        		"			\"sourceCode\": \"O\"\r\n" + 
-		        		"		},\r\n" + 
-		        		"		\"currencyInfo\": [{\r\n" + 
-		        		"				\"currency\": \"EQD\",\r\n" + 
-		        		"				\"quantity\": \"222\",\r\n" + 
-		        		"				\"type\": \"bonus\",\r\n" + 
-		        		"				\"activityDate\": \"08/17/2018\"\r\n" + 
-		        		"			}\r\n" + 
-		        		"		]\r\n" + 
-		        		"	}\r\n" + 
-		        		"}";
-	 
-		        // HttpEntity<String>: To get result as String.
-		        //HttpEntity<String> entity = new HttpEntity<String>(loyaltyFulfillmentRequest.toString(), headers);
-		        HttpEntity<?> entity = new HttpEntity<Object>(requestJSON, headers);
-			    
-	            
-		        RestTemplate restTemplate = new RestTemplate();
-		        
-		        ResponseEntity<String> response = restTemplate.exchange(END_POINT, 
-		                HttpMethod.POST, entity, String.class);
-		        
-		        String result = response.getBody();
-		       
-		 
-		        System.out.println("----Result---"+result);
-		       return result;
+			logger.info(pcode);
+			String pcodepromocurrval[] = pcode.split(":");
+			logger.info("Promotion code entered:" + pcodepromocurrval[0]);
+			String currpromoflag = pcodepromocurrval[1];
 
+			if (pcodepromocurrval[0].toUpperCase().startsWith("R")) {    //Remove this IF block once Ventana call is placed
+				promoCodeList.add("RVGLD");
+				promoCodeList.add("RDLEP");
+				//promoCodeList.add("RHVGL");
+				//promoCodeList.add("RHVEP");
+				//promoCodeList.add("EHI02");
+				//promoCodeList.add("RHVPP");
+				//promoCodeList.add("P468B");
+				
+			} else
+				promoCodeList.add(pcodepromocurrval[0]);
+			
+			
+			//START WORKING HERE ONCE VENTANA SERVICE IS READY
+			/*
+			
+			PROMO_REQ_TEMPLATE = FileUtils.getResourceToString("rest-requests/LoyaltyMasterPromotionService_RequestTemplate.json");
+			BASIC_AUTH_TOKEN = NetworkUtils.generateBasicAuthToken(apiUsername, apiPassword);
+			HttpHeaders requestHeaders = new HttpHeaders();
+	        requestHeaders.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+	        requestHeaders.add("Content-Type", "application/json");
+	        requestHeaders.set("X-Client-ID", "1");
+			    
+	        NetworkUtils.addBasicAuth(requestHeaders, BASIC_AUTH_TOKEN);
+		        
+		    
+	        String requestBody = buildPromoRequestBody(pcode,currpromoflag);
+
+	        HttpEntity<String> request = new HttpEntity<String>(requestBody, requestHeaders);
+
+	        RestTemplate restTemplate = new RestTemplate();
+	        //ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, request, String.class);
+	        ResponseEntity<String> response = restTemplate
+	                .exchange(apiUrl, HttpMethod.POST, request, String.class);
+	        String responseJson = response.getBody();
+
+	        System.out.println("---------ResponseJson--------"+responseJson);
+	        
+	        */
+
+	        return promoCodeList;
 
 
 		}
+		
+		private String buildPromoRequestBody(String pcode,String currpromoflag) {
+	        return PROMO_REQ_TEMPLATE
+	                .replace("REPLACESERVICEVERSION", "1")
+	                .replace("REPLACECLIENTID", "2")
+	                .replace("REPLACEAUDITID", "AptUsername")
+	                .replace("REPLACECLIENTTRANSACTIONID","22")
+	                .replace("REPLACEPROMOCODE",pcode)
+	                .replace("REPLACESTARTDATE", "")
+	                .replace("REPLACEENDDATE","")
+	                .replaceAll("REPLACEACTIVEFLAG", currpromoflag.equals("true")?"Y":"N")
+	                ;
+	    }
 	
 	
 	
@@ -270,11 +270,52 @@ public class AptController
         	 
         }
         
-		return ar5maincontentbuffer.toString();
+		return (ar5maincontentbuffer != null && !ar5maincontentbuffer.toString().equals("") ) ? ar5maincontentbuffer.toString() : "N/A";
 	}
 	
+	
+	//Delete block  Only for Mock Ventana test service ---START
+	
+	private String buildRequestBody(String aadvantageNumber) {
+		return MOCK_VENTANA_TEMPLATE.replace("REPLACEAANUMBER", aadvantageNumber);
+	}	
+	
+	//http://localhost:8080/api/search/ventana/714JWV6
+	@RequestMapping(value=ControllerConstants.AANUMBERSEARCH, method=RequestMethod.GET)
+	public String testMockVentana(@PathVariable("aanumber") String aanumber) throws IOException
+	{
+		
+		
+		
+		MOCK_VENTANA_TEMPLATE = FileUtils.getResourceToString("rest-requests/VentanaMockREST.json");
+		BASIC_AUTH_TOKEN = NetworkUtils.generateBasicAuthToken(apiUsername, apiPassword);
+		HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+        requestHeaders.add("Content-Type", "application/json");
+        requestHeaders.set("X-Client-ID", "1");
+        requestHeaders.set("X-Transaction-ID", "2");
+        requestHeaders.add("SOAPAction", "GetPromos");
+        NetworkUtils.addBasicAuth(requestHeaders, BASIC_AUTH_TOKEN);
 
+        String requestBody = buildRequestBody(aanumber);
+
+        HttpEntity<String> request = new HttpEntity<String>(requestBody, requestHeaders);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(apiMockUrl, HttpMethod.POST, request, String.class);
+        String responseJson = response.getBody();
+
+        logger.info("---------ResponseJson--------"+responseJson);
+
+
+        return "Mock Ventana REST service - Success \n"+ responseJson;
+
+
+
+
+	}
 	
-	
+	//Delete block  Only for Mock Ventana test service ---END
+
 }
 

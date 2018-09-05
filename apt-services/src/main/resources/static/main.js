@@ -78,7 +78,7 @@ module.exports = "table.table-bordered{\r\n    border:1px solid black;\r\n    \r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<ng4-loading-spinner> </ng4-loading-spinner>\r\n<div class=\"container\">\r\n    <table class=\"table table-bordered table-responsive-sm \">\r\n      <thead>\r\n        <tr>\r\n          <div class=\"apt-head-style\" >\r\n              <h1 class=\"apt-head-text\">AAdvantage Promotions Tool</h1> \r\n          </div>\r\n        </tr>\r\n      </thead>\r\n      </table>\r\n      \r\n          <div class=\"row noMarginPad\">\r\n            <div class=\"col-sm-3 noMarginPad\" id=\"searchdiv\">\r\n              <app-searchcomp (pcodeSubmitted) = 'onPcodeSubmited($event)'></app-searchcomp>\r\n              <app-searchcriteria></app-searchcriteria>\r\n            </div>\r\n            <div class=\"col-sm-8 \" id=\"resultdiv\" > \r\n              <app-resultscomp [pcodecurrpromoval]=\"pcodeInParent\"></app-resultscomp>\r\n            </div>\r\n          </div>\r\n  \r\n</div>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<ng4-loading-spinner> </ng4-loading-spinner>\r\n<div class=\"container\">\r\n  <table class=\"table table-bordered table-responsive-sm \">\r\n    <thead>\r\n      <tr>\r\n        <div class=\"apt-head-style\">\r\n          <h1 class=\"apt-head-text\">AAdvantage Promotions Tool</h1>\r\n        </div>\r\n      </tr>\r\n    </thead>\r\n  </table>\r\n\r\n  <div class=\"row noMarginPad\">\r\n    <div class=\"col-sm-3 noMarginPad\" id=\"searchdiv\">\r\n      <app-searchcomp (pcodeSubmitted)='onPcodeSubmited($event)'></app-searchcomp>\r\n      <app-searchcriteria></app-searchcriteria>\r\n    </div>\r\n    <div class=\"col-sm-9 \" id=\"resultdiv\">\r\n      <app-resultscomp [pcodecurrpromoval]=\"pcodeInParent\"></app-resultscomp>\r\n    </div>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -155,12 +155,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _searchservice_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./searchservice.service */ "./src/app/searchservice.service.ts");
 /* harmony import */ var _shared_icommunication_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shared/icommunication.service */ "./src/app/shared/icommunication.service.ts");
 /* harmony import */ var _searchcriteria_searchcriteria_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./searchcriteria/searchcriteria.component */ "./src/app/searchcriteria/searchcriteria.component.ts");
+/* harmony import */ var _resultscomp_promodetails_promodetails_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./resultscomp/promodetails/promodetails.component */ "./src/app/resultscomp/promodetails/promodetails.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -191,7 +193,8 @@ var AppModule = /** @class */ (function () {
                 _searchcriteria_searchcriteria_component__WEBPACK_IMPORTED_MODULE_17__["SearchcriteriaComponent"],
                 _resultscomp_latestpromos_component__WEBPACK_IMPORTED_MODULE_12__["LatestpromosComponent"],
                 _resultscomp_trendingpromos_component__WEBPACK_IMPORTED_MODULE_13__["TrendingpromosComponent"],
-                _resultscomp_searchresults_component__WEBPACK_IMPORTED_MODULE_14__["SearchresultsComponent"]
+                _resultscomp_searchresults_component__WEBPACK_IMPORTED_MODULE_14__["SearchresultsComponent"],
+                _resultscomp_promodetails_promodetails_component__WEBPACK_IMPORTED_MODULE_18__["PromodetailsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -283,6 +286,92 @@ var LatestpromosComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/resultscomp/promodetails/promodetails.component.css":
+/*!*********************************************************************!*\
+  !*** ./src/app/resultscomp/promodetails/promodetails.component.css ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/resultscomp/promodetails/promodetails.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/resultscomp/promodetails/promodetails.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"col-sm-12\" style=\"margin:0%;padding:0%;width:100%\">\n  <div class=\"card-header\" style=\"height:41px;background-color:#e7ecef;border: solid 1px rgb(231, 236, 239);margin:0%;padding: 0%\">\n    <img src=\"../../../assets/Popular-icon.svg\" *ngIf=\"isTrending === 'true'\" class=\"img-fluid\" style=\"width:22px;height:40px\">\n    <font face=\"AmericanSansMedium\" size=\"2\" color=\"#36495a\"><b>Promo code: </b>{{promotionOrChallengeCode}}</font>\n    <span class=\"pull-right\">\n      <img #ecimg src=\"../../../assets/Expand-icon.svg\" (click)=\"toggleContent()\" onmouseover=\"this.style.cursor='pointer'\" class=\"img-fluid\"\n        style=\"width:22px;height:40px\">\n    </span>\n  </div>\n  <ng-content *ngIf=\"!visible\" select=\"[card-body1]\"></ng-content>\n  \n  <ng-content *ngIf=\"visible\" select=\"[card-body3]\"></ng-content>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/resultscomp/promodetails/promodetails.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/resultscomp/promodetails/promodetails.component.ts ***!
+  \********************************************************************/
+/*! exports provided: PromodetailsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PromodetailsComponent", function() { return PromodetailsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var PromodetailsComponent = /** @class */ (function () {
+    function PromodetailsComponent() {
+        this.visible = false;
+    }
+    PromodetailsComponent.prototype.ngOnInit = function () {
+    };
+    PromodetailsComponent.prototype.toggleContent = function () {
+        this.visible = !this.visible;
+        var imgsrc = this.ecimg.nativeElement.src;
+        if (imgsrc.indexOf('Expand-icon') != -1) {
+            this.ecimg.nativeElement.src = "../../assets/Collapse-icon.svg";
+        }
+        else {
+            this.ecimg.nativeElement.src = "../../assets/Expand-icon.svg";
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], PromodetailsComponent.prototype, "promotionOrChallengeCode", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], PromodetailsComponent.prototype, "isTrending", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('ecimg'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], PromodetailsComponent.prototype, "ecimg", void 0);
+    PromodetailsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-promodetails',
+            template: __webpack_require__(/*! ./promodetails.component.html */ "./src/app/resultscomp/promodetails/promodetails.component.html"),
+            styles: [__webpack_require__(/*! ./promodetails.component.css */ "./src/app/resultscomp/promodetails/promodetails.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PromodetailsComponent);
+    return PromodetailsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/resultscomp/resultscomp.component.css":
 /*!*******************************************************!*\
   !*** ./src/app/resultscomp/resultscomp.component.css ***!
@@ -301,7 +390,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<ul class=\"nav nav-tabs nav-justified \">\r\n  <li class=\"nav-item \" >\r\n      <a class=\"nav-link active\" #latestPromoAnchor href=\"#latestPromosTab\" data-toggle=\"tab\">Latest promos</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#popularPromosTab\" data-toggle=\"tab\" > Trending promos</a>\r\n  </li>\r\n  <li class=\"nav-item\" >\r\n    <a class=\"nav-link \" #searchResultsAnchor href=\"#searchResultsTab\" data-toggle=\"tab\" >Search results</a>\r\n  </li>\r\n</ul>\r\n\r\n<div class=\"tab-content\">\r\n  <div id=\"latestPromosTab\" #latestPromosDiv class=\"tab-pane active container\">\r\n    <app-latestpromoscomp></app-latestpromoscomp>\r\n  </div>\r\n  <div id=\"popularPromosTab\"  class=\"tab-pane container\">\r\n    <app-trendingpromoscomp></app-trendingpromoscomp>\r\n  </div>\r\n  <div id=\"searchResultsTab\" #searchResultsDiv  class=\"tab-pane  container\">\r\n    <app-searchresultscomp [pcodecurrpromoval]=\"sendPcodecurrpromoval\"></app-searchresultscomp>\r\n  </div>\r\n\r\n</div>"
+module.exports = "<div>\r\n  <ul class=\"nav nav-tabs nav-justified \">\r\n    <li class=\"nav-item \">\r\n      <a class=\"nav-link active\" #latestPromoAnchor href=\"#latestPromosTab\" data-toggle=\"tab\">Latest promos</a>\r\n    </li>\r\n    <li class=\"nav-item\">\r\n      <a class=\"nav-link\" href=\"#popularPromosTab\" data-toggle=\"tab\"> Trending promos</a>\r\n    </li>\r\n    <li class=\"nav-item\">\r\n      <a class=\"nav-link \" #searchResultsAnchor href=\"#searchResultsTab\" data-toggle=\"tab\">Search results</a>\r\n    </li>\r\n  </ul>\r\n</div>\r\n<div class=\"tab-content\">\r\n  <div id=\"latestPromosTab\" #latestPromosDiv class=\"tab-pane active container\">\r\n    <app-latestpromoscomp></app-latestpromoscomp>\r\n  </div>\r\n  <div id=\"popularPromosTab\" class=\"tab-pane container\">\r\n    <app-trendingpromoscomp></app-trendingpromoscomp>\r\n  </div>\r\n  <div id=\"searchResultsTab\" #searchResultsDiv class=\"tab-pane  container\">\r\n    <app-searchresultscomp [pcodecurrpromoval]=\"sendPcodecurrpromoval\"></app-searchresultscomp>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -424,7 +513,7 @@ module.exports = ".label-select-flex\r\n{\r\n    display: -ms-flexbox;\r\n    di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col-sm-12\">\r\n\r\n\r\n    <form [formGroup]=\"resultsSortForm\" autocomplete=\"off\" novalidate>\r\n        <br>\r\n        <div class=\"form-group label-select-flex\">\r\n\r\n            <label for=\"sortby\" class=\"label-pt\">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>\r\n            <select formControlName=\"sortby\" class=\"form-control col-sm-3\">\r\n                <option value=\"startdate\">Start date</option>\r\n                <option value=\"enddate\">End date</option>\r\n                <option value=\"pcodeatoz\">Promo code: A to Z</option>\r\n                <option value=\"pcodeztoa\" selected>Promo code: Z to A</option>\r\n            </select>\r\n        </div>\r\n    </form>\r\n\r\n    \r\n\r\n    <div *ngIf=\"errMsgToDisplay\">\r\n        <div [innerHTML]=\"errMsgToDisplay\"></div>\r\n    </div>\r\n    <div *ngIf=\"promotion\">\r\n\r\n       \r\n\r\n        Result from LSCS : <br> PromotionOrChallengeCode : {{promotion.PromotionOrChallengeCode}}\r\n        <br> IsTrending: {{promotion.isTrending}}\r\n        <br> Keywords: {{promotion.keyword}}\r\n        <br> PromotionName: {{promotion.promotionName}}\r\n        <br> <h6>aa.com view</h6>\r\n        <br><div [innerHTML]=\"promotion.aacomview\"></div>\r\n        <br><h6>Terms and conditions</h6>\r\n        <br><div [innerHTML]=\"promotion.termsandconditions\"></div>\r\n    </div>\r\n\r\n\r\n</div>"
+module.exports = "<div class=\"col-sm-12\" style=\"margin:0%;padding:0%\">\r\n\r\n\r\n\r\n    <div *ngIf=\"errMsgToDisplay\">\r\n        <div [innerHTML]=\"errMsgToDisplay\"></div>\r\n    </div>\r\n\r\n    <div *ngIf=\"promotions?.length === 0\">No matching Promotions in Ventana</div>\r\n    <div *ngIf=\"promotions?.length === 1\">\r\n        <!--\r\n            Display one Expanded view of full Promotion\r\n        -->\r\n\r\n    </div>\r\n    <div *ngIf=\"promotions?.length > 1\">\r\n\r\n        <form [formGroup]=\"resultsSortForm\" autocomplete=\"off\" novalidate>\r\n            <br>\r\n            <div class=\"form-group label-select-flex\">\r\n\r\n                <label for=\"sortby\" class=\"label-pt\">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>\r\n                <select formControlName=\"sortby\" class=\"form-control col-sm-3\">\r\n                    <option value=\"startdate\">Start date</option>\r\n                    <option value=\"enddate\">End date</option>\r\n                    <option value=\"pcodeatoz\">Promo code: A to Z</option>\r\n                    <option value=\"pcodeztoa\" selected>Promo code: Z to A</option>\r\n                </select>\r\n            </div>\r\n        </form>\r\n\r\n\r\n        <div *ngFor=\"let promotion of promotions\">\r\n\r\n            <app-promodetails [promotionOrChallengeCode]=\"promotion.promotionOrChallengeCode\" [isTrending]=\"promotion.isTrending\">\r\n\r\n                <div card-body1 class=\"card\">\r\n                    <p class=\"col-sm-12\" style=\"\r\n                    height: 29px;\r\n                    background-color: transparent;\r\n                    font-family: AmericanSansLight;\r\n                    font-size: 20px;\r\n                    line-height: 30px;\r\n                    text-align: left;\r\n                    color: #627A88;\"> {{promotion.promotionName}} </p>\r\n\r\n                    <div class=\"col-sm-12\">\r\n                        <b>\r\n                            <span style=\"\r\n                        height: 17px;\r\n                        background-color: transparent;\r\n                        font-family: AmericanSansMedium;\r\n                        font-size: 14px;\r\n                        font-weight: bolder;\r\n                        line-height: 24px;\r\n                        text-align: left;\r\n                        color: rgba(0, 0, 0, 0.64);\"> Promotion dates: </span>\r\n                        </b>\r\n                        <span style=\"padding-left:4em;\r\n                        height: 17px;\r\n                        background-color: transparent;\r\n                        font-family: AmericanSans;\r\n                        font-size: 14px;\r\n                        font-weight: 400;\r\n                        line-height: 24px;\r\n                        text-align: left;\r\n                        color: #36495A;\"> Start: {{promotion.promoStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n                            End: {{promotion.promoEndDate}}\r\n                        </span>\r\n\r\n                    </div>\r\n                    <hr>\r\n\r\n                    <div class=\"col-sm-12\">\r\n                        <b>\r\n                            <span style=\"\r\n                                height: 17px;\r\n                                background-color: transparent;\r\n                                font-family: AmericanSansMedium;\r\n                                font-size: 14px;\r\n                                font-weight: bolder;\r\n                                line-height: 24px;\r\n                                text-align: left;\r\n                                color: rgba(0, 0, 0, 0.64);\"> \r\n                                PST codes: </span>\r\n                        </b>\r\n                        <span style=\"padding-left:6em;\r\n                                    height: 17px;\r\n                                    background-color: transparent;\r\n                                    font-family: AmericanSans;\r\n                                    font-size: 14px;\r\n                                    font-weight: 400;\r\n                                    line-height: 24px;\r\n                                    text-align: left;\r\n                                    color: #36495A;\"> \r\n                                    &nbsp;{{promotion.pstcodes}}\r\n                        </span>\r\n\r\n                    </div>\r\n\r\n                    <div class=\"col-sm-12\">\r\n                            <b>\r\n                                <span style=\"\r\n                                    height: 17px;\r\n                                    background-color: transparent;\r\n                                    font-family: AmericanSansMedium;\r\n                                    font-size: 14px;\r\n                                    font-weight: bolder;\r\n                                    line-height: 24px;\r\n                                    text-align: left;\r\n                                    color: rgba(0, 0, 0, 0.64);\"> \r\n                                    TA codes: </span>\r\n                            </b>\r\n                            <span style=\"padding-left:6em;\r\n                                        height: 17px;\r\n                                        background-color: transparent;\r\n                                        font-family: AmericanSans;\r\n                                        font-size: 14px;\r\n                                        font-weight: 400;\r\n                                        line-height: 24px;\r\n                                        text-align: left;\r\n                                        color: #36495A;\"> \r\n                                        &nbsp;&nbsp;{{promotion.tac}}\r\n                            </span>\r\n    \r\n                        </div>\r\n\r\n                        <div class=\"col-sm-12\">\r\n                                <b>\r\n                                    <span style=\"\r\n                                        height: 17px;\r\n                                        background-color: transparent;\r\n                                        font-family: AmericanSansMedium;\r\n                                        font-size: 14px;\r\n                                        font-weight: bolder;\r\n                                        line-height: 24px;\r\n                                        text-align: left;\r\n                                        color: rgba(0, 0, 0, 0.64);\"> \r\n                                        Partner codes: </span>\r\n                                </b>\r\n                                <span style=\"padding-left:4em;\r\n                                            height: 17px;\r\n                                            background-color: transparent;\r\n                                            font-family: AmericanSans;\r\n                                            font-size: 14px;\r\n                                            font-weight: 400;\r\n                                            line-height: 24px;\r\n                                            text-align: left;\r\n                                            color: #36495A;\"> \r\n                                            &nbsp;&nbsp;{{promotion.partnerCodes}}\r\n                                </span>\r\n        \r\n                            </div>\r\n                            <hr>\r\n                    \r\n                            <div class=\"col-sm-12\">\r\n                                    <b>\r\n                                        <span style=\"\r\n                                            height: 17px;\r\n                                            background-color: transparent;\r\n                                            font-family: AmericanSansMedium;\r\n                                            font-size: 14px;\r\n                                            font-weight: bolder;\r\n                                            line-height: 24px;\r\n                                            text-align: left;\r\n                                            color: rgba(0, 0, 0, 0.64);\"> \r\n                                            Keywords: </span>\r\n                                    </b>\r\n                                    <span style=\"padding-left:5em;\r\n                                                height: 17px;\r\n                                                background-color: transparent;\r\n                                                font-family: AmericanSans;\r\n                                                font-size: 14px;\r\n                                                font-weight: 400;\r\n                                                line-height: 24px;\r\n                                                text-align: left;\r\n                                                color: #36495A;\"> \r\n                                                &nbsp;&nbsp;{{promotion.keyword}}\r\n                                    </span>\r\n            \r\n                                </div>\r\n                    \r\n\r\n                </div>\r\n                <hr>\r\n\r\n                <div card-body3>\r\n                    <br> Keywords: {{promotion.keyword}}\r\n                    <h3>Result from AR5 : </h3>\r\n                    <br> <h6>aa.com view</h6>\r\n                    <br><div [innerHTML]=\"promotion.aacomview\"></div>\r\n                    <br><h6>Terms and conditions</h6>\r\n                    <br><div [innerHTML]=\"promotion.termsandconditions\"></div>\r\n                    <hr>\r\n                    <h3>Result from ACS Template </h3>\r\n                    <br> Registration Required : {{promotion.registrationRequired}}\r\n                    <br> Targeted Promotion: {{promotion.targetedPromotion}}\r\n                    <br> <h6>How to Earn</h6>\r\n                    <br><div [innerHTML]=\"promotion.howToEarn\"></div>\r\n                    <br> <h6>Resolve Issues</h6>\r\n                    <br><div [innerHTML]=\"promotion.resolveIssues\"></div>\r\n                    <br> <h6>FulFillment</h6>\r\n                    <br><div [innerHTML]=\"promotion.fulfillment\"></div>\r\n                </div>\r\n\r\n            </app-promodetails>\r\n            <br><br><br>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>"
 
 /***/ }),
 
@@ -483,15 +572,15 @@ var SearchresultsComponent = /** @class */ (function () {
                     console.log('Calling Promo search service with code' + change.currentValue);
                     this.spinnerService.show();
                     this.searchService.getSearchPromoResults(change.currentValue).subscribe(function (data) {
-                        _this.promotion = data;
-                        console.log(_this.promotion.PromotionOrChallengeCode);
+                        _this.promotions = data;
+                        console.log('Number of Promotions are : ' + _this.promotions.length);
                         _this.spinnerService.hide();
                         _this.errMsgToDisplay = undefined;
                     }, function (err) {
                         if (err instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpErrorResponse"]) {
                             if (err.message.includes('Http failure response')) {
                                 console.log("No Response from Ventana/LSCS");
-                                _this.promotion = undefined;
+                                _this.promotions = undefined;
                                 _this.errMsgToDisplay = '<h5>No Response from Ventana/LSCS</h5>';
                                 _this.spinnerService.hide();
                             }
@@ -596,7 +685,7 @@ var TrendingpromosComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "em {color:#E05C65; padding-left:10px; font-family:'AmericanSans';font-size:13px}\r\n\r\n.error {  border-color: red }\r\n\r\n.search-head-div\r\n{\r\n    background-color: #EBEFF0;\r\nborder-style: solid;\r\nborder-width: 1px;\r\nborder-color: #D0DAE0;\r\nborder: solid 1px #D0DAE0;\r\n}\r\n\r\n.form-Promo-label\r\n{\r\n    background-color: transparent;font-family: AmericanSans;\r\n        font-size: 14px;font-weight: 400;line-height: 20px;text-align: left;color: #333333;margin-top:1%;padding:1%\r\n}\r\n\r\n.noMarginPad\r\n{\r\n    margin:0%;padding:0%\r\n}\r\n\r\n.glass-button-style\r\n{\r\n    background: #FAFBFB url(\"data:image/svg+xml,%3Csvg id%3D%22Layer_1%22 data-name%3D%22Layer 1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 50 50%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%230078d2%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Ctitle%3ESearch-icon%3C%2Ftitle%3E%3Cpath class%3D%22cls-1%22 d%3D%22M21.09%2C30.94%2C10.78%2C44%2C8.53%2C42.26l10.4-13.14a16.34%2C16.34%2C0%2C0%2C1-1.64-1.89L5.82%2C41.72l-.76%2C1%2C1%2C.79%2C4.22%2C3.2a1.2%2C1.2%2C0%2C0%2C0%2C.74.25%2C1.27%2C1.27%2C0%2C0%2C0%2C1-.46L23.21%2C32.22A16.91%2C16.91%2C0%2C0%2C1%2C21.14%2C31Z%22%2F%3E%3Cpath class%3D%22cls-1%22 d%3D%22M30.79%2C31.37a14.14%2C14.14%2C0%2C1%2C1%2C0-28.28%2C14.14%2C14.14%2C0%2C1%2C1%2C0%2C28.28Zm0-25.82a11.7%2C11.7%2C0%2C0%2C0-9.57%2C5%2C11.68%2C11.68%2C0%2C0%2C0%2C9.55%2C18.39%2C11.73%2C11.73%2C0%2C0%2C0%2C9.57-5A11.68%2C11.68%2C0%2C0%2C0%2C30.81%2C5.55Z%22%2F%3E%3C%2Fsvg%3E\") \r\n                    no-repeat right\r\n}"
+module.exports = "em {color:#E05C65; padding-left:10px; font-family:'AmericanSans';font-size:13px}\r\n\r\n.error {  border-color: red }\r\n\r\n.search-head-div\r\n{\r\n    background-color: #EBEFF0;\r\nborder-style: solid;\r\nborder-width: 1px;\r\nborder-color: #D0DAE0;\r\nborder: solid 1px #D0DAE0;\r\n}\r\n\r\n.form-Promo-label\r\n{\r\n    background-color: transparent;font-family: AmericanSans;\r\n        font-size: 14px;font-weight: 400;line-height: 20px;text-align: left;color: #333333;margin-top:1%;padding:1%\r\n}\r\n\r\n.noMarginPad\r\n{\r\n    margin:0%;padding:0%\r\n}\r\n\r\n.glass-button-style\r\n{\r\n    background: #FAFBFB url(\"data:image/svg+xml,%3Csvg id%3D%22Layer_1%22 data-name%3D%22Layer 1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 50 50%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%230078d2%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Ctitle%3ESearch-icon%3C%2Ftitle%3E%3Cpath class%3D%22cls-1%22 d%3D%22M21.09%2C30.94%2C10.78%2C44%2C8.53%2C42.26l10.4-13.14a16.34%2C16.34%2C0%2C0%2C1-1.64-1.89L5.82%2C41.72l-.76%2C1%2C1%2C.79%2C4.22%2C3.2a1.2%2C1.2%2C0%2C0%2C0%2C.74.25%2C1.27%2C1.27%2C0%2C0%2C0%2C1-.46L23.21%2C32.22A16.91%2C16.91%2C0%2C0%2C1%2C21.14%2C31Z%22%2F%3E%3Cpath class%3D%22cls-1%22 d%3D%22M30.79%2C31.37a14.14%2C14.14%2C0%2C1%2C1%2C0-28.28%2C14.14%2C14.14%2C0%2C1%2C1%2C0%2C28.28Zm0-25.82a11.7%2C11.7%2C0%2C0%2C0-9.57%2C5%2C11.68%2C11.68%2C0%2C0%2C0%2C9.55%2C18.39%2C11.73%2C11.73%2C0%2C0%2C0%2C9.57-5A11.68%2C11.68%2C0%2C0%2C0%2C30.81%2C5.55Z%22%2F%3E%3C%2Fsvg%3E\") no-repeat right\r\n}"
 
 /***/ }),
 
@@ -607,7 +696,7 @@ module.exports = "em {color:#E05C65; padding-left:10px; font-family:'AmericanSan
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col-sm-12 search-head-div\" id=\"Psearch\">\r\n\r\n  <form [formGroup]=\"topSearchForm\" (ngSubmit)=\"topSearchSubmit(topSearchForm.value)\" autocomplete=\"off\" novalidate>\r\n    <div class=\"form-group\">\r\n      <label for=\"pcodeLabel\" class=\"col-sm-12 form-Promo-label\">\r\n        Promo / PST / TA code\r\n      </label>\r\n\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.required\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>\r\n        Required</em>\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.pattern\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>Special characters not allowed</em>\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.minlength\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>Enter at least 2 characters</em>\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.maxlength\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>A max of 5 characters can be entered</em>\r\n\r\n      <div class=\"input-group noMarginPad\">\r\n        <input class=\"form-control\" type=\"search\" formControlName=\"pcode\" [ngClass]=\"{'error' : !validatePCode() }\" placeholder=\"Search...\"\r\n          id=\"ptextcode\">\r\n\r\n        <span class=\"input-group-append\">\r\n          <button class=\"btn btn-outline-secondary border-left-0 border glass-button-style\" type=\"submit\">\r\n\r\n          </button>\r\n        </span>\r\n      </div>\r\n\r\n      <div class=\"form-check\">\r\n        <label class=\"form-check-label\">\r\n          <input type=\"checkbox\" class=\"form-check-input\" formControlName=\"currpromochkbx\"> Current promos only\r\n        </label>\r\n      </div>\r\n\r\n\r\n    </div>\r\n  </form>\r\n</div>"
+module.exports = "<div class=\"col-sm-12 search-head-div\" id=\"Psearch\">\r\n\r\n  <form [formGroup]=\"topSearchForm\" (ngSubmit)=\"topSearchSubmit(topSearchForm.value)\" autocomplete=\"off\" novalidate>\r\n    <div class=\"form-group\">\r\n      <label for=\"pcodeLabel\" class=\"col-sm-12 form-Promo-label\">\r\n        Promo / PST / TA Code\r\n      </label>\r\n\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.required\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>\r\n        Required</em>\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.pattern\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>Special characters not allowed</em>\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.minlength\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>Enter at least 2 characters</em>\r\n      <em *ngIf=\"!validatePCode() && pcode.errors.maxlength\">\r\n        <i class=\"fa fa-exclamation-circle\" style=\"font-size:20px\"></i>A max of 5 characters can be entered</em>\r\n\r\n      <div class=\"input-group noMarginPad\">\r\n        <input class=\"form-control\" type=\"search\" formControlName=\"pcode\" [ngClass]=\"{'error' : !validatePCode() }\" placeholder=\"Search...\"\r\n          id=\"ptextcode\">\r\n\r\n        <span class=\"input-group-append\">\r\n          <button class=\"btn btn-outline-secondary border-left-0 border glass-button-style\" type=\"submit\">\r\n\r\n          </button>\r\n        </span>\r\n      </div>\r\n\r\n      <div class=\"form-check\">\r\n        <label class=\"form-check-label\">\r\n          <input type=\"checkbox\" class=\"form-check-input\" formControlName=\"currpromochkbx\"> Current promos only\r\n        </label>\r\n      </div>\r\n\r\n\r\n    </div>\r\n  </form>\r\n</div>"
 
 /***/ }),
 

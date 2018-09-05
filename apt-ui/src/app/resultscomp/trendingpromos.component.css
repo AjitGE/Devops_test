@@ -1,9 +1,7 @@
-.label-select-flex
-{
+.label-select-flex {
     display: flex
 }
 
-.label-pt
-{
-    padding-top:1%
+.label-pt {
+    padding-top: 1%
 }

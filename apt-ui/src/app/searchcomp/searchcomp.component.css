@@ -1,28 +1,44 @@
-em {color:#E05C65; padding-left:10px; font-family:'AmericanSans';font-size:13px}
+em {
+    color: #E05C65;
+    padding-left: 10px;
+    font-family: 'AmericanSans';
+    font-size: 15px
+}
 
-.error {  border-color: red }
+.error {
+    border-color: red
+}
 
-.search-head-div
-{
+.search-head-div {
     background-color: #EBEFF0;
-border-style: solid;
-border-width: 1px;
-border-color: #D0DAE0;
-border: solid 1px #D0DAE0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D0DAE0;
+    border: solid 1px #D0DAE0;
 }
 
-.form-Promo-label
-{
-    background-color: transparent;font-family: AmericanSans;
-        font-size: 14px;font-weight: 400;line-height: 20px;text-align: left;color: #333333;margin-top:1%;padding:1%
+.form-Promo-label {
+    background-color: transparent;
+    font-family: AmericanSans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #333333;
+    margin-top: 1%;
+    padding: 1%
 }
 
-.noMarginPad
-{
-    margin:0%;padding:0%
+.noMarginPad {
+    margin: 0%;
+    padding: 0%
 }
 
-.glass-button-style
-{
+.glass-button-style {
     background: #FAFBFB url(Search-icon.svg) no-repeat right
+}
+
+.errorIconSize
+{
+    font-size:20px
 }
