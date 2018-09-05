@@ -17,7 +17,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
   resultsSortForm: FormGroup;
   sortby: FormControl;
-  @Input() pcodecurrpromoval: string = '';
+  @Input() pcodecurrpromoval = '';
   promotions: IPromotion[];
   errMsgToDisplay: string = undefined;
 
@@ -36,8 +36,8 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     console.log('In ngOnChanges ');
-    for (let propName in changes) {
-      let change = changes[propName];
+    for (const propName in changes) {
+      const change = changes[propName];
       console.log('Input field changed is :' + propName);
       if (propName === 'pcodecurrpromoval') {
 
@@ -53,14 +53,14 @@ export class SearchresultsComponent implements OnInit, OnChanges {
           this.spinnerService.show();
           this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
             this.promotions = data;
-            console.log('Number of Promotions are : ' + this.promotions.length)
+            console.log('Number of Promotions are : ' + this.promotions.length);
             this.spinnerService.hide();
-            this.errMsgToDisplay = undefined
+            this.errMsgToDisplay = undefined;
 
           }, (err) => {
             if (err instanceof HttpErrorResponse) {
               if (err.message.includes('Http failure response')) {
-                console.log("No Response from Ventana/LSCS");
+                console.log('No Response from Ventana/LSCS');
                 this.promotions = undefined;
                 this.errMsgToDisplay = '<h5>No Response from Ventana/LSCS</h5>';
                 this.spinnerService.hide();
@@ -81,12 +81,9 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
 
   hideSortHander(hideFlag: boolean) {
-    if (hideFlag)
-    {
+    if (hideFlag) {
       this.resultsSortForm.controls.sortby.enable();
-    }
-    else
-    {
+    } else {
       this.resultsSortForm.controls.sortby.disable();
     }
 

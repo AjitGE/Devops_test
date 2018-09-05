@@ -7,10 +7,10 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter }
 })
 export class PromodetailsComponent implements OnInit {
 
-  @Input() promotionOrChallengeCode:string ;
-  @Input() isTrending:string;
-  visible:boolean = false;
-  @ViewChild('ecimg') ecimg:ElementRef;
+  @Input() promotionOrChallengeCode: string ;
+  @Input() isTrending: string;
+  visible = false;
+  @ViewChild('ecimg') ecimg: ElementRef;
 
   @Output() hidesortevent = new EventEmitter<boolean>();
 
@@ -19,19 +19,15 @@ export class PromodetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleContent()
-  {
+  toggleContent() {
     this.visible = !this.visible;
 
-    var imgsrc:string = this.ecimg.nativeElement.src;
-    if(imgsrc.indexOf('Expand-icon')!=-1)
-    {
-      this.ecimg.nativeElement.src="Collapse-icon.svg" ;
+    const imgsrc: string = this.ecimg.nativeElement.src;
+    if (imgsrc.indexOf('Expand-icon') !== -1) {
+      this.ecimg.nativeElement.src = 'Collapse-icon.svg' ;
       this.hidesortevent.emit(false);
-    }
-    else
-    {
-      this.ecimg.nativeElement.src="Expand-icon.svg" ;
+    } else {
+      this.ecimg.nativeElement.src = 'Expand-icon.svg' ;
       this.hidesortevent.emit(true);
     }
 

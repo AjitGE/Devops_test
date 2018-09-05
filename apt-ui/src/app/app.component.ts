@@ -8,16 +8,15 @@ import { ISearchPromoModel } from './shared/searchpromomodel';
 })
 export class AppComponent {
   title = 'apt-client';
-  pcodeInParent:string = "";
-  searchPromoModelInParent:ISearchPromoModel;
+  pcodeInParent = '';
+  searchPromoModelInParent: ISearchPromoModel;
 
-  onClick():void 
-  {
-    console.log("Clicked")
+  onClick(): void {
+    console.log('Clicked');
   }
 
-  onPcodeSubmited(pcodecurrpromo:string):void{
+  onPcodeSubmited(pcodecurrpromo: string): void {
     this.pcodeInParent = pcodecurrpromo;
-    console.log("pcode in Parent :"+this.pcodeInParent);
+    console.log('pcode in Parent :' + this.pcodeInParent);
   }
 }

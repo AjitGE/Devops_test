@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material';
@@ -43,7 +43,7 @@ import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.c
     HttpClientModule,
     Ng4LoadingSpinnerModule.forRoot(),
     BrowserAnimationsModule,
-    MatSnackBarModule, 
+    MatSnackBarModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule
   ],

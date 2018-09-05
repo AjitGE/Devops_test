@@ -1,4 +1,4 @@
-import { Component, OnInit,OnChanges,Input,SimpleChanges,ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 
 import { IPromotion } from './promotion';
 import { SearchserviceService } from '../searchservice.service';
@@ -11,20 +11,20 @@ import { FormGroup, FormControl } from '@angular/forms';
   templateUrl: './trendingpromos.component.html',
   styleUrls: ['./trendingpromos.component.css']
 })
-export class TrendingpromosComponent implements OnInit,OnChanges {
+export class TrendingpromosComponent implements OnInit, OnChanges {
 
   tresultsSortForm: FormGroup;
   tsortby: FormControl;
   tpromotion: IPromotion = undefined;
-  errMsgToDisplay:string = undefined;
+  errMsgToDisplay: string = undefined;
 
     ngOnInit() {
       this.tsortby = new FormControl(null);
       this.tresultsSortForm = new FormGroup({ sortby: this.tsortby });
       this.tresultsSortForm.controls.sortby.setValue('startdate');
     }
-  
-    ngOnChanges(changes: SimpleChanges):void{
+
+    ngOnChanges(changes: SimpleChanges): void {
     }
 
 }
