@@ -1,13 +1,12 @@
-<div class="col-sm-12" style="margin:0%;padding:0%;width:100%">
-  <div class="card-header" style="height:41px;background-color:#e7ecef;border: solid 1px rgb(231, 236, 239);margin:0%;padding: 0%">
-    <img src="Popular-icon.svg" *ngIf="isTrending === 'true'" class="img-fluid" style="width:22px;height:40px">
-    <font face="AmericanSansMedium" size="2" color="#36495a"><b>Promo code: </b>{{promotionOrChallengeCode}}</font>
+<div class="col-sm-12 mpZeroWidthFull">
+  <div class="card-header cardHeaderStyle">
+    <img src="Popular-icon.svg" *ngIf="isTrending === 'true'" class="img-fluid iconSize">
+    <span class="headerPNameStyle"><b>Promo code: </b>{{promotionOrChallengeCode}}</span>
     <span class="pull-right">
-      <img #ecimg src="Expand-icon.svg" (click)="toggleContent()" onmouseover="this.style.cursor='pointer'" class="img-fluid"
-        style="width:22px;height:40px">
+      <img #ecimg src="Expand-icon.svg" (click)="toggleContent()" onmouseover="this.style.cursor='pointer'" class="img-fluid iconSize">
     </span>
   </div>
   <ng-content *ngIf="!visible" select="[card-body1]"></ng-content>
-  
+
   <ng-content *ngIf="visible" select="[card-body3]"></ng-content>
 </div>

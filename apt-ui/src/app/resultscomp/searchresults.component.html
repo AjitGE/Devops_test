@@ -7,132 +7,148 @@
     </div>
 
     <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
-    
+
     <div *ngIf="promotions?.length === 1">
-        
-        <p class="col-sm-12 promotionNameStyle"> {{promotions[0].promotionName}} </p>
-        <br>
-        <div class="card-header">
-            <div class="col-sm-12">
+        <div *ngFor="let promotion of promotions">
 
-                <div class="row">
-                    <div class="col-sm-4 sviewLabelSmStyle"><b>Promotion start to end dates:</b></div>
-                    <div class="col-sm-8 sviewTextStyle">Start: {{promotions[0].promoStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        End: {{promotion[0].promoEndDate}}</div>
-                </div>
 
+            <div class="card-header promoHeaderStyle">
+                <img src="Popular-icon.svg" *ngIf="promotion.isTrending === 'true'" class="img-fluid iconSize">
+                <span class="headerPNameStyle"><b>Promo code: </b>{{promotion.promotionOrChallengeCode}}</span>
+                <span class="pull-right">
+                    <img src="Collapse-icon.svg" class="img-fluid iconSize">
+                </span>
             </div>
-            <hr class="hrwidth">
-            <div class="col-sm-12 pb1">
-                <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>Is member registration required?</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotions[0].registrationRequired}}</div>
-                </div>
+            <br>
 
-            </div>
-            <div class="col-sm-12 pb1">
 
-                <div class="row">
-                    <div class="col-sm-4 sviewLabelSmStyle"><b>Member must register between:</b></div>
-                    <div class="col-sm-8 sviewTextStyle"> {{promotions[0].memRegStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {{promotions[0].memRegEndDate}}
+
+            <p class="col-sm-12 promotionNameSingleStyle"> {{promotion.promotionName}} </p>
+            <br>
+            <div class="card-header">
+                <div class="col-sm-12">
+
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelSmStyle"><b>Promotion start to end dates:</b></div>
+                        <div class="col-sm-8 sviewTextStyle">Start: {{promotion.promoStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            End: {{promotion.promoEndDate}}</div>
                     </div>
+
                 </div>
-
-            </div>
-            <div class="col-sm-12 pb1">
-
-                <div class="row">
-                    <div class="col-sm-4 promotionDateLabelStyle"><b>Member must travel between:</b></div>
-                    <div class="col-sm-8 promotionDatesStyle"> {{promotions[0].memTravelStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {{promotions[0].memTravelEndDate}}
+                <hr class="hrwidth">
+                <div class="col-sm-12 pb1">
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelStyle"><b>Is member registration required?</b></div>
+                        <div class="col-sm-8 sviewTextStyle">{{promotion.registrationRequired}}</div>
                     </div>
+
+                </div>
+                <div class="col-sm-12 pb1">
+
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelSmStyle"><b>Member must register between:</b></div>
+                        <div class="col-sm-8 sviewTextStyle"> {{promotion.memRegStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{promotion.memRegEndDate}}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 pb1">
+
+                    <div class="row">
+                        <div class="col-sm-4 promotionDateLabelStyle"><b>Member must travel between:</b></div>
+                        <div class="col-sm-8 promotionDatesStyle"> {{promotion.memTravelStartDate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{promotion.memTravelEndDate}}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 pb1">
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelSmStyle"><b>Late registration may be processed by</b></div>
+                        <div class="col-sm-8 sviewTextStyle">{{promotion.lateRegEndDate}}</div>
+                    </div>
+
+                </div>
+                <br>
+                <hr class="hrwidth pb1">
+                <div class="col-sm-12 pb1">
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelStyle"><b>Is this a targeted promotion?</b></div>
+                        <div class="col-sm-8 sviewTextStyle">{{promotion.targetedPromotion}}</div>
+                    </div>
+
                 </div>
 
+                <div class="col-sm-12 pb1">
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelStyle"><b>TA codes</b></div>
+                        <div class="col-sm-8 sviewTextStyle">{{promotion.tac}}</div>
+                    </div>
+
+                </div>
+
+                <hr class="hrwidth pb1">
+
+                <div class="col-sm-12 pb1">
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelStyle"><b>Direct mailer:</b></div>
+                        <div class="col-sm-8 sviewTextStyle">{{promotion.directmailer}}</div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 pb1">
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelStyle"><b>Marketing page URL:</b></div>
+                        <div class="col-sm-8 sviewTextStyle">{{promotion.marketingpageurl}}</div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 pb1">
+                    <div class="row">
+                        <div class="col-sm-4 sviewLabelStyle"><b>Email URLs:</b></div>
+                        <div class="col-sm-8 sviewTextStyle">{{promotion.emailurl}}</div>
+                    </div>
+
+                </div>
             </div>
-            <div class="col-sm-12 pb1">
+
+
+            <br>
+
+            <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-4 sviewLabelSmStyle"><b>Late registration may be processed by</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotions[0].lateRegEndDate}}</div>
+                    <div class="col-sm-4 sviewLabelStyle"><b>PST codes</b></div>
+                    <div class="col-sm-8 sviewTextStyle">{{promotion.partnerCodes}}</div>
                 </div>
-
             </div>
-            <hr class="hrwidth pb1">
-            <div class="col-sm-12 pb1">
+
+            <br> <h6>HOW TO EARN</h6>
+            <br><div [innerHTML]="promotion.howToEarn"></div>
+
+            <br> <h6>FULFILLMENT</h6>
+            <br><div [innerHTML]="promotion.fulfillment"></div>
+
+            <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>Is this a targeted promotion?</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotions[0].targetedPromotion}}</div>
+                    <div class="col-sm-4 sviewLabelStyle"><b>PST codes</b></div>
+                    <div class="col-sm-8 sviewTextStyle">{{promotion.pstcodes}}</div>
                 </div>
-
             </div>
 
-            <div class="col-sm-12 pb1">
-                <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>TA codes</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotions[0].tac}}</div>
-                </div>
-
-            </div>
-
-            <hr class="hrwidth pb1">
-
-            <div class="col-sm-12 pb1">
-                <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>Direct mailer:</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotions[0].directmailer}}</div>
-                </div>
-
-            </div>
-
-            <div class="col-sm-12 pb1">
-                <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>Marketing page URL:</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotions[0].marketingpageurl}}</div>
-                </div>
-
-            </div>
-
-            <div class="col-sm-12 pb1">
-                <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>Email URLs:</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotions[0].emailurl}}</div>
-                </div>
-
-            </div>
+            <br> <h6>Resolve Issues</h6>
+            <br><div [innerHTML]="promotion.resolveIssues"></div>
+            <br> <h6>aa.com view</h6>
+            <br><div [innerHTML]="promotion.aacomview"></div>
+            <br><h6>Terms and conditions</h6>
+            <br><div [innerHTML]="promotion.termsandconditions"></div>
 
         </div>
-        <br>
-
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-4 sviewLabelStyle"><b>Partner codes</b></div>
-                <div class="col-sm-8 sviewTextStyle">{{promotions[0].partnerCodes}}</div>
-            </div>
-        </div>
-
-        <br> <h6>HOW TO EARN</h6>
-        <br><div [innerHTML]="promotions[0].howToEarn"></div>
-
-        <br> <h6>FULFILLMENT</h6>
-        <br><div [innerHTML]="promotions[0].fulfillment"></div>
-
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-4 sviewLabelStyle"><b>PST codes</b></div>
-                <div class="col-sm-8 sviewTextStyle">{{promotions[0].pstcodes}}</div>
-            </div>
-        </div>
-
-        <br> <h6>Resolve Issues</h6>
-        <br><div [innerHTML]="promotions[0].resolveIssues"></div>
-        <br> <h6>aa.com view</h6>
-        <br><div [innerHTML]="promotions[0].aacomview"></div>
-        <br><h6>Terms and conditions</h6>
-        <br><div [innerHTML]="promotions[0].termsandconditions"></div>
-        
 
     </div>
-    
+
     <div *ngIf="promotions?.length > 1">
 
         <form [formGroup]="resultsSortForm" autocomplete="off" novalidate>
@@ -152,8 +168,7 @@
 
         <div *ngFor="let promotion of promotions">
 
-            <app-promodetails [promotionOrChallengeCode]="promotion.promotionOrChallengeCode" [isTrending]="promotion.isTrending"
-                (hidesortevent)="hideSortHander($event)">
+            <app-promodetails [promotionOrChallengeCode]="promotion.promotionOrChallengeCode" [isTrending]="promotion.isTrending" (hidesortevent)="hideSortHander($event)">
 
                 <div card-body1 class="card">
                     <p class="col-sm-12 promotionNameStyle"> {{promotion.promotionName}} </p>
@@ -199,6 +214,7 @@
                         <div class="row">
                             <div class="col-sm-3 sviewLabelStyle"><b>Keywords:</b></div>
                             <div class="col-sm-9 sviewTextStyle">{{promotion.keyword}}</div>
+                            <br>
                         </div>
 
                     </div>
