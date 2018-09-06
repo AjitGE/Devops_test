@@ -24,10 +24,10 @@ export class PromodetailsComponent implements OnInit {
 
     const imgsrc: string = this.ecimg.nativeElement.src;
     if (imgsrc.indexOf('Expand-icon') !== -1) {
-      this.ecimg.nativeElement.src = 'Collapse-icon.svg' ;
+      this.ecimg.nativeElement.src = '../../../assets/Collapse-icon.svg' ;
       this.hidesortevent.emit(false);
     } else {
-      this.ecimg.nativeElement.src = 'Expand-icon.svg' ;
+      this.ecimg.nativeElement.src = '../../../assets/Expand-icon.svg' ;
       this.hidesortevent.emit(true);
     }
 

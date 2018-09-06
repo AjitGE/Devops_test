@@ -90,7 +90,7 @@ public class AptController
 		List<String> promoCodeList = getPromosFromVentana(pcode);
 		
 		
-		List<Promotion> promoList = new ArrayList<Promotion>();
+		List<Promotion> promoList = new ArrayList<>();
 		Promotion prom;
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -150,26 +150,30 @@ public class AptController
 	}
 	
 	
-		public List<String> getPromosFromVentana(String pcode) throws IOException
+		public List<String> getPromosFromVentana(String pcode) 
 		{
-			List<String> promoCodeList = new ArrayList<String>();
+			List<String> promoCodeList = new ArrayList<>();
 			
 			logger.info(pcode);
 			String pcodepromocurrval[] = pcode.split(":");
 			logger.info("Promotion code entered:" + pcodepromocurrval[0]);
 			String currpromoflag = pcodepromocurrval[1];
 
-			if (pcodepromocurrval[0].toUpperCase().startsWith("R")) {    //Remove this IF block once Ventana call is placed
-				promoCodeList.add("RVGLD");
-				promoCodeList.add("RDLEP");
-				//promoCodeList.add("RHVGL");
-				//promoCodeList.add("RHVEP");
-				//promoCodeList.add("EHI02");
-				//promoCodeList.add("RHVPP");
-				//promoCodeList.add("P468B");
-				
-			} else
-				promoCodeList.add(pcodepromocurrval[0]);
+		if (pcodepromocurrval[0].length() == 5) {
+			promoCodeList.add(pcodepromocurrval[0]);
+		} else if (pcodepromocurrval[0].toUpperCase().startsWith("R")) { // Remove this IF block once Ventana call is
+																			// placed
+			promoCodeList.add("RVGLD");
+			promoCodeList.add("RDLEP");
+			promoCodeList.add("RHVGL");
+			promoCodeList.add("RHVEP");
+			promoCodeList.add("EHI02");
+			promoCodeList.add("RHVPP");
+			promoCodeList.add("P468B");
+
+		} else {
+			promoCodeList.add(pcodepromocurrval[0]);
+		}
 			
 			
 			//START WORKING HERE ONCE VENTANA SERVICE IS READY
@@ -226,7 +230,7 @@ public class AptController
 	private String getLSCSContent(List<LSCSReplicantElement> lscsReplicantElement)
 	{
 		
-		StringBuffer ar5maincontentbuffer = new StringBuffer();
+		StringBuilder ar5maincontentbuffer = new StringBuilder();
 		String elementType = "";
 		Iterator<LSCSReplicantElement> lscsReplicantElementItr = lscsReplicantElement.iterator();
         while(lscsReplicantElementItr.hasNext()){
@@ -235,7 +239,7 @@ public class AptController
         	if(elementType.equals("Heading")){
         	
         		HeaderElement headerElement = (HeaderElement)element;
-        		elementType =  headerElement.getElementType();
+        		// elementType =  headerElement.getElementType();
         		ar5maincontentbuffer.append("<h6>").append(headerElement.getValue()).append("</h6>");
         	   
         		
@@ -246,7 +250,7 @@ public class AptController
         	     ar5maincontentbuffer.append("<ul>");
 	        	     while(listElementsItr.hasNext()){
 	        	    	 ListElement listElement = listElementsItr.next();
-	        	    	 elementType = listElement.getParentChild();
+	        	    	 // elementType = listElement.getParentChild();
 	        	    	 ar5maincontentbuffer.append("<li>").append(listElement.getValue()).append("</li>");
 	        	    	 
 	        	     }
@@ -270,7 +274,7 @@ public class AptController
         	 
         }
         
-		return (ar5maincontentbuffer != null && !ar5maincontentbuffer.toString().equals("") ) ? ar5maincontentbuffer.toString() : "N/A";
+		return (!ar5maincontentbuffer.toString().equals("") ) ? ar5maincontentbuffer.toString() : "N/A";
 	}
 	
 	
@@ -306,6 +310,8 @@ public class AptController
         String responseJson = response.getBody();
 
         logger.info("---------ResponseJson--------"+responseJson);
+        
+        
 
 
         return "Mock Ventana REST service - Success \n"+ responseJson;
