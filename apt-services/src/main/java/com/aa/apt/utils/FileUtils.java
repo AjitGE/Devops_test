@@ -18,4 +18,8 @@ public class FileUtils {
         File file = new File(resource.getPath());
         return file;
     }
+    
+    private FileUtils() {
+        throw new IllegalStateException("File Utility class");
+      }
 }

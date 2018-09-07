@@ -1,6 +1,8 @@
 package com.aa.apt.controller;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -87,6 +89,8 @@ public class AptController
 	public List<Promotion> getPromo(@PathVariable("pcode") String pcode) throws IOException
 	{
 		
+		Instant buildPromoSearchStart = Instant.now();
+		
 		List<String> promoCodeList = getPromosFromVentana(pcode);
 		
 		
@@ -98,6 +102,7 @@ public class AptController
 
 			prom = new Promotion();
 
+			Instant buildSinglePromoStart = Instant.now();
 			// Populate Ventana fields here -- Replace with Another REST call response
 			prom.setPromoStartDate("From Ventana");
 			prom.setPromoEndDate("From Ventana");
@@ -110,18 +115,38 @@ public class AptController
 			prom.setMemTravelEndDate("From Ventana");
 			prom.setLateRegEndDate("From Ventana");
 
+			Instant ar5ResponseStart = Instant.now();
 			LscsPromotionContentResponse ar5response = restTemplate.getForObject(
 					ar5PromoUrlStart + promoCodeList.get(i) + ar5PromoUrlEnd, LscsPromotionContentResponse.class);
+			Instant ar5ResponseEnd = Instant.now();
+			long ar5ResponseTimeElapsed = Duration.between(ar5ResponseStart, ar5ResponseEnd).toMillis();
+			if (logger.isDebugEnabled()) {
+			    logger.debug("Time elapsed to get AR5 response for promo code {} :{} (in Millis)" , promoCodeList.get(i),ar5ResponseTimeElapsed);
+			}
+			
+			Instant ar5ParseResponseStart = Instant.now();
 			prom.setPromotionName(ar5response.getContent().getPromotionName());
 
 			prom.setAacomview(getLSCSContent(ar5response.getContent().getMainContent()));
 
 			prom.setTermsandconditions(getLSCSContent(ar5response.getContent().getTermsAndConditions()));
+			Instant ar5ParseResponseEnd = Instant.now();
+			long ar5ParseResTimeElapsed = Duration.between(ar5ParseResponseStart, ar5ParseResponseEnd).toMillis();
+			if (logger.isDebugEnabled()) {
+			    logger.debug("Time elapsed to parse AR5 response for promo code {} :{} (in Millis)" , promoCodeList.get(i),ar5ParseResTimeElapsed);
+			}
 
 			try {
+				Instant acsResponseStart = Instant.now();
 				AcsPromotionContentResponse acsresponse = restTemplate.getForObject(
 						acsPromoUrlStart + promoCodeList.get(i) + acsPromoUrlEnd, AcsPromotionContentResponse.class);
+				Instant acsResponseEnd = Instant.now();
+				long acsResTimeElapsed = Duration.between(acsResponseStart, acsResponseEnd).toMillis();
+				if(logger.isDebugEnabled())
+					logger.debug("Time elapsed to get ACS response for promo code {} : {} (in Millis)",promoCodeList.get(i),acsResTimeElapsed);
 
+				
+				Instant acsParseResStart = Instant.now();
 				prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
 				prom.setIsTrending(acsresponse.getContent().getIsTrending());
 				prom.setKeyword(acsresponse.getContent().getKeyword());
@@ -135,16 +160,30 @@ public class AptController
 				prom.setDirectmailer("From ACS Template");
 				prom.setMarketingpageurl("From ACS Template");
 				prom.setEmailurl("From ACS Template");
+				
+				Instant acsParseResEnd = Instant.now();
+				long acsParseResTimeElapsed = Duration.between(acsParseResStart, acsParseResEnd).toMillis();
+				if(logger.isDebugEnabled())
+					logger.debug("Time elapsed to parse ACS response for promo code {} : {} (in Millis)",promoCodeList.get(i),acsParseResTimeElapsed);
 			} catch (HttpClientErrorException hcee) {
-				logger.info("Promo code " + promoCodeList.get(i) + " not found in ACS - Got " + hcee.getStatusCode()
-						+ "Not found error");
+				logger.error("Promo code " + promoCodeList.get(i) + " not found in ACS - Got " + hcee.getStatusCode()
+						+ " Not found error");
 			}
 
+			Instant buildSinglePromoEnd = Instant.now();
+			long buildSinglePromoTimeElapsed = Duration.between(buildSinglePromoStart,buildSinglePromoEnd).toMillis();
+			if(logger.isDebugEnabled())
+				logger.debug("Time elapsed to build promo code {} : {} (in Millis)",promoCodeList.get(i),buildSinglePromoTimeElapsed);
 			promoList.add(prom);
 
 		}
 
 		promoList.forEach(p -> logger.info(p.getPromotionOrChallengeCode()));
+		
+		Instant buildPromoSearchEnd = Instant.now();
+		long buildPromoSearchTimeElapsed = Duration.between(buildPromoSearchStart,buildPromoSearchEnd).toMillis();
+		if(logger.isDebugEnabled())
+			logger.debug("Time elapsed to build list of promo(s) for given code {} : {} (in Millis)",pcode,buildPromoSearchTimeElapsed);
 		return promoList;
 	        
 	}
@@ -156,7 +195,7 @@ public class AptController
 			
 			logger.info(pcode);
 			String pcodepromocurrval[] = pcode.split(":");
-			logger.info("Promotion code entered:" + pcodepromocurrval[0]);
+			logger.info("Promotion code entered: {}" , pcodepromocurrval[0]);
 			String currpromoflag = pcodepromocurrval[1];
 
 		if (pcodepromocurrval[0].length() == 5) {
@@ -239,7 +278,6 @@ public class AptController
         	if(elementType.equals("Heading")){
         	
         		HeaderElement headerElement = (HeaderElement)element;
-        		// elementType =  headerElement.getElementType();
         		ar5maincontentbuffer.append("<h6>").append(headerElement.getValue()).append("</h6>");
         	   
         		
@@ -250,7 +288,6 @@ public class AptController
         	     ar5maincontentbuffer.append("<ul>");
 	        	     while(listElementsItr.hasNext()){
 	        	    	 ListElement listElement = listElementsItr.next();
-	        	    	 // elementType = listElement.getParentChild();
 	        	    	 ar5maincontentbuffer.append("<li>").append(listElement.getValue()).append("</li>");
 	        	    	 
 	        	     }
@@ -309,7 +346,7 @@ public class AptController
         ResponseEntity<String> response = restTemplate.exchange(apiMockUrl, HttpMethod.POST, request, String.class);
         String responseJson = response.getBody();
 
-        logger.info("---------ResponseJson--------"+responseJson);
+        logger.info("---------ResponseJson--------{}",responseJson);
         
         
 

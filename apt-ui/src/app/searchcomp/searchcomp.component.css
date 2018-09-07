@@ -35,10 +35,15 @@ em {
 }
 
 .glass-button-style {
-    background: #FAFBFB url(Search-icon.svg) no-repeat right
+    background: #FAFBFB url(../../assets/Search-icon.svg) no-repeat right
 }
 
 .errorIconSize
 {
     font-size:20px
+}
+
+.blacklabelstyle
+{
+    color: black;
 }

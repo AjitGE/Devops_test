@@ -15,4 +15,8 @@ public class NetworkUtils {
         byte[] encodedApiAuthBytes = Base64.encodeBase64(apiAuthStringBytes);
         return "Basic " + new String(encodedApiAuthBytes);
     }
+    
+    private NetworkUtils() {
+        throw new IllegalStateException("Network Utility class");
+      }
 }

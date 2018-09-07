@@ -15,11 +15,11 @@
     height: 29px;
     background-color: transparent;
     font-family: AmericanSansLight;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 400;
     line-height: 32px;
     text-align: left;
-    color: rgb(98, 122, 136);
+    color: rgb(17, 149, 226);
 }
 
 .promotionNameStyle {
@@ -29,7 +29,7 @@
     font-size: 20px;
     line-height: 30px;
     text-align: left;
-    color: #627A88;
+    color: rgb(17, 149, 226);
 }
 
 .promotionDateLabelStyle {
