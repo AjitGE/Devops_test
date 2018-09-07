@@ -9,7 +9,7 @@
     "predeploy": "rimraf ../apt-services/src/main/resources/static && mkdirp ../apt-services/src/main/resources/static",
     "deploy": "copyfiles -f dist/** ../apt-services/src/main/resources/static",
     "build-e2e": "ng build --configuration=ci",
-    "build-sa": "ng build --configuration=sa",
+    "build-qa": "ng build --configuration=qa",
     "build-stg": "ng build --configuration=stg",
     "build-prod": "ng build --configuration=prod",
     "build-dev": "ng build --configuration=dev",
