@@ -19,7 +19,7 @@
     font-weight: 400;
     line-height: 32px;
     text-align: left;
-    color: rgb(17, 149, 226);
+    color: rgb(25, 25, 112);
 }
 
 .promotionNameStyle {
@@ -29,7 +29,7 @@
     font-size: 20px;
     line-height: 30px;
     text-align: left;
-    color: rgb(17, 149, 226);
+    color: rgb(25, 25, 112);
 }
 
 .promotionDateLabelStyle {
@@ -120,7 +120,15 @@
     color: #36495A;
 }
 
-.bgtransparent
-{
-    background-color: transparent
+.bgtransparent {
+    background-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.lightborder {
+    margin: 0%;
+    padding: 0%;
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 1px;
 }

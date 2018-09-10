@@ -1,5 +1,6 @@
 <div class="col-sm-12 mpZeroWidthFull">
   <div class="card-header cardHeaderStyle">
+    <span *ngIf="(isTrending === 'false') || (isTrending === null)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <img src="../../../assets/Popular-icon.svg" *ngIf="isTrending === 'true'" class="img-fluid iconSize">
     <span class="headerPNameStyle"><b>Promo code: </b>{{promotionOrChallengeCode}}</span>
     <span class="pull-right">
