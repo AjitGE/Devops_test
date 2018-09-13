@@ -13,8 +13,8 @@
 
   <div class="row noMarginPad">
     <div class="col-sm-3 noMarginPad" id="searchdiv">
-      <app-searchcomp (pcodeSubmitted)='onPcodeSubmited($event)'></app-searchcomp>
-      <app-searchcriteria></app-searchcriteria>
+      <app-searchcomp (pcodeSubmitted)='onPcodeSubmited($event)' [clearAllSignal]="clearAllSignalInParent"></app-searchcomp>
+      <app-searchcriteria (sendClearAllReq)='handleClearAllReq($event)'></app-searchcriteria>
     </div>
     <div class="col-sm-9 " id="resultdiv">
       <app-resultscomp [pcodecurrpromoval]="pcodeInParent"></app-resultscomp>

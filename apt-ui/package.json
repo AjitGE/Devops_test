@@ -5,20 +5,14 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "postbuild": "npm run deploy",
-    "predeploy": "rimraf ../apt-services/src/main/resources/static && mkdirp ../apt-services/src/main/resources/static",
-    "deploy": "copyfiles -f dist/** ../apt-services/src/main/resources/static",
     "build-e2e": "ng build --configuration=ci",
     "build-qa": "ng build --configuration=qa",
     "build-stg": "ng build --configuration=stg",
     "build-prod": "ng build --configuration=prod",
     "build-dev": "ng build --configuration=dev",
-    "e2e-ci": "ng e2e --environment=ci --webdriver-update=false",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e --webdriver-update=false",
-    "webdriver-update": "webdriver-manager update",
-    "webdriver-update-ci": "webdriver-manager update --standalone false --gecko false --versions.chrome 2.33"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

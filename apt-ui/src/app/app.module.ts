@@ -8,7 +8,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material';
+import { MatChipsModule, MatIconModule } from '@angular/material';
 
 import { SearchcompComponent } from './searchcomp/searchcomp.component';
 import { ResultscompComponent } from './resultscomp/resultscomp.component';
@@ -43,7 +43,8 @@ import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.c
     HttpClientModule,
     Ng4LoadingSpinnerModule.forRoot(),
     BrowserAnimationsModule,
-    MatSnackBarModule,
+    MatChipsModule,
+    MatIconModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule
   ],

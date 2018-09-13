@@ -1,3 +1,95 @@
-<p>
-  searchcriteria works!
-</p>
+<div class="col-sm-12 search-cr-head-div" id="crsearch">
+
+  <form [formGroup]="bottomSearchForm" (ngSubmit)="bottomSearchSubmit(bottomSearchForm.value)" autocomplete="off"
+    novalidate>
+    <br>
+    <div class="form-group">
+      <label for="keywordLabel" class="col-sm-12 bottom-form-label">
+        Keywords
+      </label>
+
+
+      <em *ngIf="!validateKeywordtext() && keywordtext.errors.pattern">
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
+      <em *ngIf="!validateKeywordtext() && keywordtext.errors.minlength">
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
+      <em *ngIf="!validateKeywordtext() && keywordtext.errors.maxlength">
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>A max of 5 characters can be entered</b></em>
+
+      <div class="input-group noMarginPad">
+        <input class="form-control" type="text" formControlName="keywordtext" [ngClass]="{'error' : !validateKeywordtext() }"
+          id="keywordtext">
+
+        <span class="input-group-append">
+          <button class="btn btn-outline-secondary border-left-0 border glass-button-style" (click)="clickedPlus()" type="button">
+
+          </button>
+        </span>
+      </div>
+      <br>
+      <mat-chip-list>
+        <mat-chip *ngFor="let fruit of keywordsarray" [selectable]="selectable"
+                 [removable]="removable" (removed)="remove(fruit)">
+          {{fruit}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <div class="form-group">
+      <label for="effDateFromLabel" class="col-sm-12 bottom-form-label">
+        Effective date range
+      </label>
+
+      <label for="effDateToLabel" class="col-sm-12 bottom-form-label">
+        to
+      </label>
+    </div>
+
+    <div class="form-group">
+
+      <label for="miscSearchLabel" class="col-sm-12 bottom-form-label">
+        Misc search options:
+      </label>
+      <div class="form-check">
+        <label class="form-check-label blacklabelstyle">
+          <input type="checkbox" class="form-check-input" formControlName="targetedOnlychkbx"> Targeted Only
+        </label>
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label blacklabelstyle">
+          <input type="checkbox" class="form-check-input" formControlName="nontargetedOnlychkbx"> Non-Targeted Only
+        </label>
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label blacklabelstyle">
+          <input type="checkbox" class="form-check-input" formControlName="currpromosOnlychkbx"> Current promos Only
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="partnetCodesLabel" class="col-sm-12 bottom-form-label">
+            Partner codes
+          </label>
+          <input class="form-control" type="text" formControlName="partnercodetext" 
+            [ngClass]="{'error' : !validatePartnerCodetext() }" placeholder="Example: AA,BA,CX"
+            id="keywordtext">
+    </div>
+    <br>
+    <button class="btn btn-primary col-sm-12" type="submit">
+      Search
+    </button>
+    <br>
+
+    <div class="text-center">
+      <button class="btn btn-link" role="link" type="reset" name="Clear all" (click)="clearAllClicked(event)">Clear all</button>
+    </div>
+
+    <br>
+
+
+  </form>
+
+</div>

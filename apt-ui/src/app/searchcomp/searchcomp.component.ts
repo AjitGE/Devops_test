@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,12 +6,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './searchcomp.component.html',
   styleUrls: ['./searchcomp.component.css']
 })
-export class SearchcompComponent implements OnInit {
+export class SearchcompComponent implements OnInit, OnChanges {
 
   topSearchForm: FormGroup;
   pcode: FormControl;
   currpromochkbx: FormControl;
   pcodepromoval = '';
+  @Input() clearAllSignal: boolean;
   @Output() pcodeSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
   constructor( ) { }
@@ -26,6 +27,13 @@ export class SearchcompComponent implements OnInit {
       pcode: this.pcode,
       currpromochkbx: this.currpromochkbx
     });
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['clearAllSignal']) {
+      this.topSearchForm.controls['pcode'].reset();
+    }
 
   }
 

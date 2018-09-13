@@ -9,6 +9,7 @@ import { ISearchPromoModel } from './shared/searchpromomodel';
 export class AppComponent {
   title = 'apt-client';
   pcodeInParent = '';
+  clearAllSignalInParent: boolean;
   searchPromoModelInParent: ISearchPromoModel;
 
   onClick(): void {
@@ -18,5 +19,9 @@ export class AppComponent {
   onPcodeSubmited(pcodecurrpromo: string): void {
     this.pcodeInParent = pcodecurrpromo;
     console.log('pcode in Parent :' + this.pcodeInParent);
+  }
+
+  handleClearAllReq(clearallsignal: boolean): void {
+    this.clearAllSignalInParent = clearallsignal;
   }
 }
