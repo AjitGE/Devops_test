@@ -32,7 +32,7 @@ export class SearchcompComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['clearAllSignal']) {
-      this.topSearchForm.controls['pcode'].reset();
+      this.pcode.reset();
     }
 
   }

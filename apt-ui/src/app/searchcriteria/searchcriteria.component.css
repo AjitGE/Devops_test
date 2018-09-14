@@ -2,7 +2,7 @@ em {
     color: #E05C65;
     padding-left: 10px;
     font-family: 'AmericanSans';
-    font-size: 15px
+    font-size: 14px
 }
 
 .errorIconSize {
@@ -34,10 +34,14 @@ em {
     padding: 0%
 }
 
-.glass-button-style {
+.plus-button-style {
     background: #FAFBFB url(../../assets/Add-icon.svg) no-repeat right
 }
 
 .blacklabelstyle {
     color: black;
+}
+
+.cal-button-style {
+    background: #FAFBFB url(../../assets/Calendar-icon.svg) no-repeat right
 }

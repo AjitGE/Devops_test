@@ -9,6 +9,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatChipsModule, MatIconModule } from '@angular/material';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { SearchcompComponent } from './searchcomp/searchcomp.component';
 import { ResultscompComponent } from './resultscomp/resultscomp.component';
@@ -46,7 +48,9 @@ import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.c
     MatChipsModule,
     MatIconModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    BsDatepickerModule.forRoot(),
+    TextMaskModule
   ],
   providers: [SearchserviceService, IcommunicationService
   ],

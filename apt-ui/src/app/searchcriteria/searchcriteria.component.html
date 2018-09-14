@@ -9,28 +9,29 @@
       </label>
 
 
+
       <em *ngIf="!validateKeywordtext() && keywordtext.errors.pattern">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
       <em *ngIf="!validateKeywordtext() && keywordtext.errors.minlength">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
       <em *ngIf="!validateKeywordtext() && keywordtext.errors.maxlength">
-        <i class="fa fa-exclamation-circle errorIconSize"></i><b>A max of 5 characters can be entered</b></em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Max of 300 characters can be entered</b></em>
 
       <div class="input-group noMarginPad">
         <input class="form-control" type="text" formControlName="keywordtext" [ngClass]="{'error' : !validateKeywordtext() }"
           id="keywordtext">
 
         <span class="input-group-append">
-          <button class="btn btn-outline-secondary border-left-0 border glass-button-style" (click)="clickedPlus()" type="button">
+          <button class="btn btn-outline-secondary border-left-0 border plus-button-style" (click)="clickedPlus()" type="button">
 
           </button>
         </span>
       </div>
       <br>
       <mat-chip-list>
-        <mat-chip *ngFor="let fruit of keywordsarray" [selectable]="selectable"
+        <mat-chip *ngFor="let fruit of keywordsarray" 
                  [removable]="removable" (removed)="remove(fruit)">
-          {{fruit}}
+                 <p style="color:red"> {{fruit}} </p>
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
       </mat-chip-list>
@@ -41,9 +42,66 @@
         Effective date range
       </label>
 
+      <em *ngIf="invalidFromDateError.isError">
+      <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{ invalidFromDateError.errorMessage }}</b></em>
+
+
+      <div class="input-group noMarginPad"
+      bsDatepicker #fromdatePicker="bsDatepicker"
+      [triggers]="''"
+      (bsValueChange)="onFromDateSelected( $event )" [isOpen]="isFromOpen" 
+      [bsConfig]="datePickerConfig"
+       >
+     <input #dateFromInput
+            type="text" class="form-control"
+            placeholder="mm/dd/yyyy"
+            formControlName="fromDateFormControl"
+            [textMask]="{mask: dateMask}"
+            value="{{fromDatePickerValue |  date:'MM/dd/yyyy'}}"
+            (blur)="onFromDateChanged(dateFromInput.value)"
+            >
+                        
+           <span class="input-group-append">
+            <button class="btn btn-outline-secondary border-left-0 border cal-button-style" (click)="isFromOpen = !isFromOpen" 
+              type="button">
+  
+            </button>
+          </span>
+
+          </div>
+
+
       <label for="effDateToLabel" class="col-sm-12 bottom-form-label">
         to
       </label>
+
+      <em *ngIf="invalidToDateError.isError">
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{ invalidToDateError.errorMessage }}</b></em>
+
+      <div class="input-group noMarginPad"
+      bsDatepicker #todatePicker="bsDatepicker"
+      [triggers]="''"
+      (bsValueChange)="onToDateSelected( $event )" [isOpen]="isToOpen" 
+      [bsConfig]="datePickerConfig"
+       >
+     <input #dateToInput
+            type="text" class="form-control"
+            placeholder="mm/dd/yyyy"
+            formControlName="toDateFormControl"
+            [textMask]="{mask: dateMask}"
+            value="{{toDatePickerValue |  date:'MM/dd/yyyy'}}"
+            (blur)="onToDateChanged(dateToInput.value)"
+            >
+                        
+           <span class="input-group-append">
+            <button class="btn btn-outline-secondary border-left-0 border cal-button-style" (click)="isToOpen = !isToOpen" 
+              type="button">
+  
+            </button>
+          </span>
+
+        </div>
+
     </div>
 
     <div class="form-group">
