@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'https://aptservices-ci.apps.depaas.qcorpaa.aa.com'
+  backendUrl: 'https://apt-ci-services.apps.testepaas.qcorpaa.aa.com'
 };
 
 /*

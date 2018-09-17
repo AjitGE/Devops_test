@@ -1,0 +1,9 @@
+---
+applications:
+- name: apt-ci-services
+  memory: 1G
+  instances: 1
+  path: target/apt-services-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: ci
+    

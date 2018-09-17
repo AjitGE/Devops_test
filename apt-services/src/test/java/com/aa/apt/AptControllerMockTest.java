@@ -44,6 +44,7 @@ public class AptControllerMockTest {
 		.andExpect(status().is(404));
 	}
 	
+	/*
 	@Test
 	public void testGetPromoPositive() throws Exception {
 		aptController = mock(AptController.class);
@@ -53,5 +54,6 @@ public class AptControllerMockTest {
 
 		
 	}
+	*/
 
 }
