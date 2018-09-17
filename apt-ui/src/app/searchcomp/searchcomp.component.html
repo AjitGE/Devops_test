@@ -1,19 +1,19 @@
 <div class="col-sm-12 search-head-div" id="Psearch">
 
-  <form [formGroup]="topSearchForm" (ngSubmit)="topSearchSubmit(topSearchForm.value)" autocomplete="off" novalidate>
+  <form id="scomp_form" [formGroup]="topSearchForm" (ngSubmit)="topSearchSubmit(topSearchForm.value)" autocomplete="off" novalidate>
     <div class="form-group">
-      <label for="pcodeLabel" class="col-sm-12 form-Promo-label">
+      <label id="scomp_pcode_label" for="pcodeLabel" class="col-sm-12 form-Promo-label">
         Promo / PST / TA Code
       </label>
 
-      <em *ngIf="!validatePCode() && pcode.errors.required">
+      <em id="sc_pcode_required" *ngIf="!validatePCode() && pcode.errors.required">
         <i class="fa fa-exclamation-circle errorIconSize"></i>
         <b>Required</b></em>
-      <em *ngIf="!validatePCode() && pcode.errors.pattern">
+      <em id="sc_pcode_pattern" *ngIf="!validatePCode() && pcode.errors.pattern">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
-      <em *ngIf="!validatePCode() && pcode.errors.minlength">
+      <em id="sc_pcode_min" *ngIf="!validatePCode() && pcode.errors.minlength">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
-      <em *ngIf="!validatePCode() && pcode.errors.maxlength">
+      <em id="sc_pcode_max" *ngIf="!validatePCode() && pcode.errors.maxlength">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>A max of 5 characters can be entered</b></em>
 
       <div class="input-group noMarginPad">
@@ -21,14 +21,14 @@
           id="ptextcode">
 
         <span class="input-group-append">
-          <button class="btn btn-outline-secondary border-left-0 border glass-button-style" type="submit">
+          <button id="sc_glass_button" class="btn btn-outline-secondary border-left-0 border glass-button-style" type="submit">
 
           </button>
         </span>
       </div>
 
       <div class="form-check">
-        <label class="form-check-label blacklabelstyle">
+        <label class="form-check-label blacklabelstyle" id="sc_currpromo_label">
           <input type="checkbox" class="form-check-input" formControlName="currpromochkbx"> Current promos only
         </label>
       </div>

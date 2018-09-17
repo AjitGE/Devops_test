@@ -1,19 +1,14 @@
 {
   "PromoSearchRequest": {
     "RequestInfo": {
-      "ServiceName": "LoyaltyMasterPromotionSearch",
+      "ServiceName": "REPLACESERVICENAME",
       "ServiceVersion": "REPLACESERVICEVERSION",
       "ClientId": "REPLACECLIENTID",
       "AuditId": "REPLACEAUDITID",
       "ClientTransactionId": "REPLACECLIENTTRANSACTIONID",
-      "ClientTimeoutValue": 0
+      "ClientTimeoutValue": 2000
     },
     "PromoCode": "REPLACEPROMOCODE",
-    "SearchByDates": {
-      "StartDate": "REPLACESTARTDATE",
-      "EndDate": "REPLACEENDDATE"
-    },
-    "ExpiredDays": 0,
     "Active": "REPLACEACTIVEFLAG"
   }
 }

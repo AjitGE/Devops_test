@@ -1,28 +1,28 @@
 <div class="col-sm-12 search-cr-head-div" id="crsearch">
 
-  <form [formGroup]="bottomSearchForm" (ngSubmit)="bottomSearchSubmit(bottomSearchForm.value)" autocomplete="off"
+  <form id="bottomSearchForm" [formGroup]="bottomSearchForm" (ngSubmit)="bottomSearchSubmit(bottomSearchForm.value)" autocomplete="off"
     novalidate>
     <br>
     <div class="form-group">
-      <label for="keywordLabel" class="col-sm-12 bottom-form-label">
+      <label for="keywordLabel" class="col-sm-12 bottom-form-label" id="bf_keyword_label">
         Keywords
       </label>
 
 
 
-      <em *ngIf="!validateKeywordtext() && keywordtext.errors.pattern">
+      <em id="bf_kw_pattern" *ngIf="!validateKeywordtext() && keywordtext.errors.pattern">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
-      <em *ngIf="!validateKeywordtext() && keywordtext.errors.minlength">
+      <em id="bf_kw_min" *ngIf="!validateKeywordtext() && keywordtext.errors.minlength">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
-      <em *ngIf="!validateKeywordtext() && keywordtext.errors.maxlength">
+      <em id="bf_kw_max" *ngIf="!validateKeywordtext() && keywordtext.errors.maxlength">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Max of 300 characters can be entered</b></em>
 
       <div class="input-group noMarginPad">
-        <input class="form-control" type="text" formControlName="keywordtext" [ngClass]="{'error' : !validateKeywordtext() }"
+        <input id="bf_kw_textbox" class="form-control" type="text" formControlName="keywordtext" [ngClass]="{'error' : !validateKeywordtext() }"
           id="keywordtext">
 
         <span class="input-group-append">
-          <button class="btn btn-outline-secondary border-left-0 border plus-button-style" (click)="clickedPlus()" type="button">
+          <button id="bf_kw_plusbutton" class="btn btn-outline-secondary border-left-0 border plus-button-style" (click)="clickedPlus()" type="button">
 
           </button>
         </span>
@@ -38,11 +38,11 @@
     </div>
 
     <div class="form-group">
-      <label for="effDateFromLabel" class="col-sm-12 bottom-form-label">
+      <label for="effDateFromLabel" class="col-sm-12 bottom-form-label" id="bf_datefrom_label">
         Effective date range
       </label>
 
-      <em *ngIf="invalidFromDateError.isError">
+      <em *ngIf="invalidFromDateError.isError" id="bf_fromdate_errmsg">
       <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{ invalidFromDateError.errorMessage }}</b></em>
 
 
@@ -52,7 +52,7 @@
       (bsValueChange)="onFromDateSelected( $event )" [isOpen]="isFromOpen" 
       [bsConfig]="datePickerConfig"
        >
-     <input #dateFromInput
+     <input #dateFromInput id="bf_fromdate_textbox"
             type="text" class="form-control"
             placeholder="mm/dd/yyyy"
             formControlName="fromDateFormControl"
@@ -63,7 +63,7 @@
                         
            <span class="input-group-append">
             <button class="btn btn-outline-secondary border-left-0 border cal-button-style" (click)="isFromOpen = !isFromOpen" 
-              type="button">
+              type="button" id="bf_fromdate_calbutton">
   
             </button>
           </span>
@@ -71,11 +71,11 @@
           </div>
 
 
-      <label for="effDateToLabel" class="col-sm-12 bottom-form-label">
+      <label for="effDateToLabel" class="col-sm-12 bottom-form-label" id="bf_todate_label">
         to
       </label>
 
-      <em *ngIf="invalidToDateError.isError">
+      <em id="bf_todate_errmsg" *ngIf="invalidToDateError.isError">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{ invalidToDateError.errorMessage }}</b></em>
 
       <div class="input-group noMarginPad"
@@ -84,7 +84,7 @@
       (bsValueChange)="onToDateSelected( $event )" [isOpen]="isToOpen" 
       [bsConfig]="datePickerConfig"
        >
-     <input #dateToInput
+     <input #dateToInput id="bf_todate_textbox"
             type="text" class="form-control"
             placeholder="mm/dd/yyyy"
             formControlName="toDateFormControl"
@@ -95,7 +95,7 @@
                         
            <span class="input-group-append">
             <button class="btn btn-outline-secondary border-left-0 border cal-button-style" (click)="isToOpen = !isToOpen" 
-              type="button">
+              type="button" id="bf_todate_calbutton">
   
             </button>
           </span>
@@ -106,43 +106,43 @@
 
     <div class="form-group">
 
-      <label for="miscSearchLabel" class="col-sm-12 bottom-form-label">
+      <label for="miscSearchLabel" class="col-sm-12 bottom-form-label" id="bf_misc_label">
         Misc search options:
       </label>
       <div class="form-check">
-        <label class="form-check-label blacklabelstyle">
+        <label class="form-check-label blacklabelstyle" id="bf_misc_tonly_label">
           <input type="checkbox" class="form-check-input" formControlName="targetedOnlychkbx"> Targeted Only
         </label>
       </div>
 
       <div class="form-check">
-        <label class="form-check-label blacklabelstyle">
+        <label class="form-check-label blacklabelstyle" id="bf_misc_ntonly_label">
           <input type="checkbox" class="form-check-input" formControlName="nontargetedOnlychkbx"> Non-Targeted Only
         </label>
       </div>
 
       <div class="form-check">
-        <label class="form-check-label blacklabelstyle">
+        <label class="form-check-label blacklabelstyle" id="bf_misc_currpromo_only">
           <input type="checkbox" class="form-check-input" formControlName="currpromosOnlychkbx"> Current promos Only
         </label>
       </div>
     </div>
     <div class="form-group">
-        <label for="partnetCodesLabel" class="col-sm-12 bottom-form-label">
+        <label for="partnetCodesLabel" class="col-sm-12 bottom-form-label" id="bf_pc_label">
             Partner codes
           </label>
-          <input class="form-control" type="text" formControlName="partnercodetext" 
+          <input class="form-control" type="text" formControlName="partnercodetext"
             [ngClass]="{'error' : !validatePartnerCodetext() }" placeholder="Example: AA,BA,CX"
-            id="keywordtext">
+            id="bf_pc_textbox">
     </div>
     <br>
-    <button class="btn btn-primary col-sm-12" type="submit">
+    <button class="btn btn-primary col-sm-12" type="submit" id="bf_search_button">
       Search
     </button>
     <br>
 
     <div class="text-center">
-      <button class="btn btn-link" role="link" type="reset" name="Clear all" (click)="clearAllClicked(event)">Clear all</button>
+      <button id="bf_clearall_button" class="btn btn-link" role="link" type="reset" name="Clear all" (click)="clearAllClicked(event)">Clear all</button>
     </div>
 
     <br>

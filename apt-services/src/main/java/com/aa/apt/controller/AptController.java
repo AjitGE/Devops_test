@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +28,8 @@ import org.springframework.web.client.RestTemplate;
 
 
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
+import com.aa.apt.acs.response.Email;
+import com.aa.apt.acs.response.MarketingPageUrl;
 import com.aa.apt.ar5.response.HeaderElement;
 import com.aa.apt.ar5.response.LSCSReplicantElement;
 import com.aa.apt.ar5.response.ListContentElement;
@@ -37,6 +42,11 @@ import com.aa.apt.constants.ControllerConstants;
 import com.aa.apt.model.Promotion;
 import com.aa.apt.utils.FileUtils;
 import com.aa.apt.utils.NetworkUtils;
+import com.aa.apt.ventana.response.PromoSearchResponse;
+import com.aa.apt.ventana.response.PromoSearchResult;
+import com.aa.apt.ventana.response.PromoSearchResultItem;
+import com.aa.apt.ventana.response.ResponseStatus;
+import com.aa.apt.ventana.response.VentanaResponse;
 
 
 @RestController
@@ -62,20 +72,17 @@ public class AptController
 
 	String BASIC_AUTH_TOKEN;
 	String PROMO_REQ_TEMPLATE;
-	String MOCK_VENTANA_TEMPLATE;  //Remove this line.  Used only for Mock service call
 	
     @Value("${loyalty.membersecurity.url}")
     String apiUrl;
-    
-    @Value("${loyalty.membersecurity.mock.url}")
-    String apiMockUrl;
-    
+        
     @Value("${loyalty.membersecurity.username}")
     String apiUsername;
     
     @Value("${loyalty.membersecurity.password}")
     String apiPassword;
     
+    Map<String, Promotion> promoListMap;
 	
 	@RequestMapping(ControllerConstants.PINGTEST)
 	public String home()
@@ -91,29 +98,18 @@ public class AptController
 		
 		Instant buildPromoSearchStart = Instant.now();
 		
-		List<String> promoCodeList = getPromosFromVentana(pcode);
+		promoListMap = new HashMap<>();
+		getPromosFromVentana(pcode);
 		
+		List<String> promoCodeList = new ArrayList<>(promoListMap.keySet().stream().collect(Collectors.toList()));
 		
-		List<Promotion> promoList = new ArrayList<>();
-		Promotion prom;
 		RestTemplate restTemplate = new RestTemplate();
 		
 		for (int i = 0; i < promoCodeList.size(); i++) {
 
-			prom = new Promotion();
+			Promotion prom = promoListMap.get(promoCodeList.get(i));
 
 			Instant buildSinglePromoStart = Instant.now();
-			// Populate Ventana fields here -- Replace with Another REST call response
-			prom.setPromoStartDate("From Ventana");
-			prom.setPromoEndDate("From Ventana");
-			prom.setTac("From Ventana");
-
-			// For Details View
-			prom.setMemRegStartDate("From Ventana");
-			prom.setMemRegEndDate("From Ventana");
-			prom.setMemTravelStartDate("From Ventana");
-			prom.setMemTravelEndDate("From Ventana");
-			prom.setLateRegEndDate("From Ventana");
 
 			Instant ar5ResponseStart = Instant.now();
 			LscsPromotionContentResponse ar5response = restTemplate.getForObject(
@@ -157,9 +153,9 @@ public class AptController
 				prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));
 				prom.setPSTCodes("From ACS Template");
 				prom.setPartnerCodes("From ACS Template");
-				prom.setDirectmailer("From ACS Template");
-				prom.setMarketingpageurl("From ACS Template");
-				prom.setEmailurl("From ACS Template");
+				prom.setDirectmailer(acsresponse.getContent().getCommunications().get(0).getIsDirectMailer());
+				prom.setMarketingpageurl(getMarketingPageUrl(acsresponse.getContent().getCommunications().get(0).getMarketingPageUrl()));
+				prom.setEmailurl(getEmailContent(acsresponse.getContent().getCommunications().get(0).getEmail()));
 				
 				Instant acsParseResEnd = Instant.now();
 				long acsParseResTimeElapsed = Duration.between(acsParseResStart, acsParseResEnd).toMillis();
@@ -174,91 +170,94 @@ public class AptController
 			long buildSinglePromoTimeElapsed = Duration.between(buildSinglePromoStart,buildSinglePromoEnd).toMillis();
 			if(logger.isDebugEnabled())
 				logger.debug("Time elapsed to build promo code {} : {} (in Millis)",promoCodeList.get(i),buildSinglePromoTimeElapsed);
-			promoList.add(prom);
+			promoListMap.put(promoCodeList.get(i), prom);
 
 		}
 
-		promoList.forEach(p -> logger.info(p.getPromotionOrChallengeCode()));
 		
 		Instant buildPromoSearchEnd = Instant.now();
 		long buildPromoSearchTimeElapsed = Duration.between(buildPromoSearchStart,buildPromoSearchEnd).toMillis();
 		if(logger.isDebugEnabled())
 			logger.debug("Time elapsed to build list of promo(s) for given code {} : {} (in Millis)",pcode,buildPromoSearchTimeElapsed);
-		return promoList;
+		
+		return promoListMap.values().stream().collect(Collectors.toList());
+		
 	        
 	}
 	
 	
-		public List<String> getPromosFromVentana(String pcode) 
-		{
-			List<String> promoCodeList = new ArrayList<>();
-			
-			logger.info(pcode);
-			String pcodepromocurrval[] = pcode.split(":");
-			logger.info("Promotion code entered: {}" , pcodepromocurrval[0]);
-			String currpromoflag = pcodepromocurrval[1];
+	public void getPromosFromVentana(String pcode) throws IOException {
+		
+		Instant buildVentanaResponseStart = Instant.now();
 
-		if (pcodepromocurrval[0].length() == 5) {
-			promoCodeList.add(pcodepromocurrval[0]);
-		} else if (pcodepromocurrval[0].toUpperCase().startsWith("R")) { // Remove this IF block once Ventana call is
-																			// placed
-			promoCodeList.add("RVGLD");
-			promoCodeList.add("RDLEP");
-			promoCodeList.add("RHVGL");
-			promoCodeList.add("RHVEP");
-			promoCodeList.add("EHI02");
-			promoCodeList.add("RHVPP");
-			promoCodeList.add("P468B");
+		String[] pcodepromocurrval = pcode.split(":");
 
-		} else {
-			promoCodeList.add(pcodepromocurrval[0]);
-		}
-			
-			
-			//START WORKING HERE ONCE VENTANA SERVICE IS READY
-			/*
-			
-			PROMO_REQ_TEMPLATE = FileUtils.getResourceToString("rest-requests/LoyaltyMasterPromotionService_RequestTemplate.json");
-			BASIC_AUTH_TOKEN = NetworkUtils.generateBasicAuthToken(apiUsername, apiPassword);
-			HttpHeaders requestHeaders = new HttpHeaders();
-	        requestHeaders.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-	        requestHeaders.add("Content-Type", "application/json");
-	        requestHeaders.set("X-Client-ID", "1");
-			    
-	        NetworkUtils.addBasicAuth(requestHeaders, BASIC_AUTH_TOKEN);
-		        
-		    
-	        String requestBody = buildPromoRequestBody(pcode,currpromoflag);
+		PROMO_REQ_TEMPLATE = FileUtils.getResourceToString("rest-requests/LoyaltyMasterPromotionService_PartialPromo_RequestTemplate.json");
+		BASIC_AUTH_TOKEN = NetworkUtils.generateBasicAuthToken(apiUsername, apiPassword);
+		HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+        requestHeaders.add("Content-Type", "application/json");
+        requestHeaders.set("X-Client-ID", "ARP4-APT");
+        requestHeaders.set("X-Transaction-ID", "APTTEST");
+        requestHeaders.set("Date", "09122018");
+        NetworkUtils.addBasicAuth(requestHeaders, BASIC_AUTH_TOKEN);
 
-	        HttpEntity<String> request = new HttpEntity<String>(requestBody, requestHeaders);
+        String requestBody = buildPartialPromoRequestBody(pcodepromocurrval[0],pcodepromocurrval[1]);
 
-	        RestTemplate restTemplate = new RestTemplate();
-	        //ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, request, String.class);
-	        ResponseEntity<String> response = restTemplate
-	                .exchange(apiUrl, HttpMethod.POST, request, String.class);
-	        String responseJson = response.getBody();
+        HttpEntity<String> request = new HttpEntity<>(requestBody, requestHeaders);
 
-	        System.out.println("---------ResponseJson--------"+responseJson);
-	        
-	        */
+        RestTemplate restTemplate = new RestTemplate();
 
-	        return promoCodeList;
+        
+		ResponseEntity<VentanaResponse> response = restTemplate.exchange(apiUrl, HttpMethod.POST, request,
+				VentanaResponse.class);
 
+		VentanaResponse ventanaResponse = response.getBody();
+		PromoSearchResponse promoSearchResponse = ventanaResponse.getPromoSearchResponse();
+		ResponseStatus responseStatus = promoSearchResponse.getResponseStatus();
 
+		if (responseStatus.getMessage().equals("Successful Execution")) {
+
+			List<PromoSearchResult> promoSearchResultList = promoSearchResponse.getPromoSearchResult();
+
+			Iterator<PromoSearchResult> promoSearchResultItr = promoSearchResultList.iterator();
+			while (promoSearchResultItr.hasNext()) {
+				PromoSearchResult promoSearchResult = promoSearchResultItr.next();
+				List<PromoSearchResultItem> promoSearchResultItemList = promoSearchResult.getPromoSearchResultItem();
+				Iterator<PromoSearchResultItem> promoSearchResultItemItr = promoSearchResultItemList.iterator();
+				while (promoSearchResultItemItr.hasNext()) {
+					Promotion singlePromo = new Promotion();
+					PromoSearchResultItem promoSearchResultItem = promoSearchResultItemItr.next();
+					
+					singlePromo.setPromoStartDate(promoSearchResultItem.getPromoStartDate());
+					singlePromo.setPromoEndDate(promoSearchResultItem.getPromoEndDate());
+					singlePromo.setMemRegStartDate(promoSearchResultItem.getRegistrationStartDate());
+					singlePromo.setMemRegEndDate(promoSearchResultItem.getAACOMRegistrationEndDate());
+					singlePromo.setMemTravelStartDate(promoSearchResultItem.getActivityStartDate());
+					singlePromo.setMemTravelEndDate(promoSearchResultItem.getActivityEndDate());
+					singlePromo.setLateRegEndDate(promoSearchResultItem.getRegistrationEndDate());
+					singlePromo.setVentanaPromoName(promoSearchResultItem.getPromoName());
+					singlePromo.setVentanaPromoDesc(promoSearchResultItem.getDescription());
+					singlePromo.setVentanaPromoType(promoSearchResultItem.getPromoType());
+					singlePromo.setActiveornot(promoSearchResultItem.getActive());
+					singlePromo.setTac(promoSearchResultItem.getTAC().getCode());
+
+					promoListMap.put(promoSearchResultItem.getPromoCode(), singlePromo);
+					
+					
+				}
+
+			}
 		}
 		
-		private String buildPromoRequestBody(String pcode,String currpromoflag) {
-	        return PROMO_REQ_TEMPLATE
-	                .replace("REPLACESERVICEVERSION", "1")
-	                .replace("REPLACECLIENTID", "2")
-	                .replace("REPLACEAUDITID", "AptUsername")
-	                .replace("REPLACECLIENTTRANSACTIONID","22")
-	                .replace("REPLACEPROMOCODE",pcode)
-	                .replace("REPLACESTARTDATE", "")
-	                .replace("REPLACEENDDATE","")
-	                .replaceAll("REPLACEACTIVEFLAG", currpromoflag.equals("true")?"Y":"N")
-	                ;
-	    }
+		Instant buildVentanaResponseEnd = Instant.now();
+		long buildVentanaResponseTimeElapsed = Duration.between(buildVentanaResponseStart,buildVentanaResponseEnd).toMillis();
+		if(logger.isDebugEnabled())
+			logger.debug("Time elapsed to build ventana response for given code {} : {} (in Millis)",pcode,buildVentanaResponseTimeElapsed);
+		
+
+	}
+		
 	
 	
 	
@@ -314,51 +313,47 @@ public class AptController
 		return (!ar5maincontentbuffer.toString().equals("") ) ? ar5maincontentbuffer.toString() : "N/A";
 	}
 	
-	
-	//Delete block  Only for Mock Ventana test service ---START
-	
-	private String buildRequestBody(String aadvantageNumber) {
-		return MOCK_VENTANA_TEMPLATE.replace("REPLACEAANUMBER", aadvantageNumber);
-	}	
-	
-	//http://localhost:8080/api/search/ventana/714JWV6
-	@RequestMapping(value=ControllerConstants.AANUMBERSEARCH, method=RequestMethod.GET)
-	public String testMockVentana(@PathVariable("aanumber") String aanumber) throws IOException
-	{
 		
-		
-		
-		MOCK_VENTANA_TEMPLATE = FileUtils.getResourceToString("rest-requests/VentanaMockREST.json");
-		BASIC_AUTH_TOKEN = NetworkUtils.generateBasicAuthToken(apiUsername, apiPassword);
-		HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-        requestHeaders.add("Content-Type", "application/json");
-        requestHeaders.set("X-Client-ID", "1");
-        requestHeaders.set("X-Transaction-ID", "2");
-        requestHeaders.add("SOAPAction", "GetPromos");
-        NetworkUtils.addBasicAuth(requestHeaders, BASIC_AUTH_TOKEN);
+	private String buildPartialPromoRequestBody(String pcode,String currpromoflag) {
+        return PROMO_REQ_TEMPLATE
+        		.replace("REPLACESERVICENAME", "LoyaltyMasterPromotionSearch")
+                .replace("REPLACESERVICEVERSION", "1.0")
+                .replace("REPLACECLIENTID", "ARP4-AACO")
+                .replace("REPLACEAUDITID", "AA806677")
+                .replace("REPLACECLIENTTRANSACTIONID","1234-1234")
+                .replace("REPLACEPROMOCODE",pcode)
+                .replace("REPLACESTARTDATE", "")
+                .replace("REPLACEENDDATE","")
+                .replaceAll("REPLACEACTIVEFLAG", currpromoflag.equals("true")?"Y":"N")
+                ;
+    }
+	
+	public String getEmailContent(List<Email> emailList) {
+		StringBuilder emailURL = new StringBuilder();
+		Iterator<Email> emailItr = emailList.iterator();
+		while (emailItr.hasNext()) {
+			Email email = emailItr.next();
+			emailURL.append("<a href=\"" + email.getUrl() + "\">" + email.getTextDisplay() + "</a>");
+			emailURL.append("<br>");
 
-        String requestBody = buildRequestBody(aanumber);
+		}
 
-        HttpEntity<String> request = new HttpEntity<String>(requestBody, requestHeaders);
+		return (!emailURL.toString().equals("")) ? emailURL.toString() : "N/A";
+	}
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(apiMockUrl, HttpMethod.POST, request, String.class);
-        String responseJson = response.getBody();
+	public String getMarketingPageUrl(List<MarketingPageUrl> marketPageurlList) {
+		StringBuilder marketPageUrl = new StringBuilder();
+		Iterator<MarketingPageUrl> marketingPageUrlItr = marketPageurlList.iterator();
+		while (marketingPageUrlItr.hasNext()) {
+			MarketingPageUrl mpu = marketingPageUrlItr.next();
+			marketPageUrl.append("<a href=\"" + mpu.getUrl() + "\">" + mpu.getTextDisplay() + "</a>");
+			marketPageUrl.append("<br>");
 
-        logger.info("---------ResponseJson--------{}",responseJson);
-        
-        
-
-
-        return "Mock Ventana REST service - Success \n"+ responseJson;
-
-
-
+		}
+		return (!marketPageUrl.toString().equals("")) ? marketPageUrl.toString() : "N/A";
 
 	}
 	
-	//Delete block  Only for Mock Ventana test service ---END
 
 }
 

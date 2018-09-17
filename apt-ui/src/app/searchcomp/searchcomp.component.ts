@@ -32,6 +32,9 @@ export class SearchcompComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['clearAllSignal']) {
+      console.log('Got clearall - in search comp');
+      this.topSearchForm.markAsPristine();
+      this.topSearchForm.markAsUntouched();
       this.pcode.reset();
     }
 

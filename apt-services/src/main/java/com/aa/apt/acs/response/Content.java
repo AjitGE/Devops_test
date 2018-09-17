@@ -39,6 +39,9 @@ public class Content implements Serializable {
     
     @JsonProperty("PartnerCodes")
     private String[] partnerCodes;
+    
+    @JsonProperty("Communications")
+    private List<Communications> communications = Collections.emptyList();
 
 	public List<LSCSReplicantElement> getHowToEarn() {
 		return howToEarn;
@@ -110,6 +113,14 @@ public class Content implements Serializable {
 
 	public void setIsTargetedPromotion(String isTargetedPromotion) {
 		this.isTargetedPromotion = isTargetedPromotion;
+	}
+	
+	public void setCommunications(List<Communications> communications) {
+		this.communications = communications;
+	}
+	
+	public List<Communications> getCommunications() {
+		return communications;
 	}
 
 }

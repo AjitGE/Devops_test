@@ -14,10 +14,10 @@
 
             <div class="card-header promoHeaderStyle">
                 <span *ngIf="(isTrending === 'false') || (isTrending === null)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <img src="../../assets/Popular-icon.svg" *ngIf="promotion.isTrending === 'true'" class="img-fluid iconSize">
+                <img id="sp_popular_icon" src="../../assets/Popular-icon.svg" *ngIf="promotion.isTrending === 'true'" class="img-fluid iconSize">
                 <span class="headerPNameStyle"><b>Promo code: </b>{{promotion.promotionOrChallengeCode}}</span>
                 <span class="pull-right">
-                    <img src="../../assets/Collapse-icon.svg" class="img-fluid iconSize">
+                    <img id="sp_collapse_icon" src="../../assets/Collapse-icon.svg" class="img-fluid iconSize">
                 </span>
             </div>
             <br>
@@ -130,12 +130,12 @@
             </div>
 
             <br>
-            <h6>HOW TO EARN</h6>
+            <h6 id="sp_hte">HOW TO EARN</h6>
             <br>
             <div [innerHTML]="promotion.howToEarn"></div>
 
             <br>
-            <h6>FULFILLMENT</h6>
+            <h6 id="sp_fulfilment">FULFILLMENT</h6>
             <br>
             <div [innerHTML]="promotion.fulfillment"></div>
 
@@ -147,15 +147,15 @@
             </div>
 
             <br>
-            <h6>Resolve Issues</h6>
+            <h6 id="sp_resolveissues">Resolve Issues</h6>
             <br>
             <div [innerHTML]="promotion.resolveIssues"></div>
             <br>
-            <h6>aa.com view</h6>
+            <h6 id="sp_aacom">aa.com view</h6>
             <br>
             <div [innerHTML]="promotion.aacomview"></div>
             <br>
-            <h6>Terms and conditions</h6>
+            <h6 id="sp_tandc">Terms and conditions</h6>
             <br>
             <div [innerHTML]="promotion.termsandconditions"></div>
 
@@ -165,12 +165,12 @@
 
     <div *ngIf="promotions?.length > 1">
 
-        <form [formGroup]="resultsSortForm" autocomplete="off" novalidate>
+        <form id="sr_mp_sort_form" [formGroup]="resultsSortForm" autocomplete="off" novalidate>
             <br>
             <div class="form-group label-select-flex">
 
-                <label for="sortbylabel" class="label-pt">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <select formControlName="sortby" class="form-control col-sm-3">
+                <label id="sr_sort_label" for="sortbylabel" class="label-pt">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <select id="sr_sort_comp" formControlName="sortby" class="form-control col-sm-3">
                     <option value="startdate">Start date</option>
                     <option value="enddate">End date</option>
                     <option value="pcodeatoz">Promo code: A to Z</option>
@@ -188,7 +188,7 @@
                 <div card-body1 class="card-header bgtransparent noMarginPad">
 
                     <div class="lightborder">
-                        <p class="col-sm-12 promotionNameStyle"> {{promotion.promotionName}} </p>
+                        <p id="sr_mp_pname" class="col-sm-12 promotionNameStyle"> {{promotion.promotionName}} </p>
 
                         <div class="col-sm-12">
 
@@ -352,12 +352,12 @@
                         </div>
 
                         <br>
-                        <h6>HOW TO EARN</h6>
+                        <h6 id="mp_hte">HOW TO EARN</h6>
                         <br>
                         <div [innerHTML]="promotion.howToEarn"></div>
 
                         <br>
-                        <h6>FULFILLMENT</h6>
+                        <h6 id="mp_fulfilment">FULFILLMENT</h6>
                         <br>
                         <div [innerHTML]="promotion.fulfillment"></div>
 
@@ -369,15 +369,15 @@
                         </div>
 
                         <br>
-                        <h6>Resolve Issues</h6>
+                        <h6 id="mp_resolveissues">Resolve Issues</h6>
                         <br>
                         <div [innerHTML]="promotion.resolveIssues"></div>
                         <br>
-                        <h6>aa.com view</h6>
+                        <h6 id="mp_aacom">aa.com view</h6>
                         <br>
                         <div [innerHTML]="promotion.aacomview"></div>
                         <br>
-                        <h6>Terms and conditions</h6>
+                        <h6 id="mp_tandc">Terms and conditions</h6>
                         <br>
                         <div [innerHTML]="promotion.termsandconditions"></div>
                     </div>

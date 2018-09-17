@@ -6,12 +6,12 @@
     <div class="col-sm-12">
 
 
-        <form [formGroup]="tpromosSortForm" autocomplete="off" novalidate>
+        <form id="tp_sortform" [formGroup]="tpromosSortForm" autocomplete="off" novalidate>
             <br>
             <div class="form-group label-select-flex">
 
-                <label for="sortby" class="label-pt">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <select formControlName="tsortby" class="form-control col-sm-3">
+                <label id="tp_sort_label" for="sortby" class="label-pt">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <select id="tp_sort" formControlName="tsortby" class="form-control col-sm-3">
                     <option value="startdate">Start date</option>
                     <option value="enddate">End date</option>
                     <option value="pcodeatoz">Promo code: A to Z</option>

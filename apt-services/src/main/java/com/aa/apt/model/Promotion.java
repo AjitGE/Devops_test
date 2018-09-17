@@ -33,6 +33,63 @@ public class Promotion {
 	String memTravelEndDate;  //Ventana Field Response : ActivityEndDate
 	String lateRegEndDate; //Ventana Field Response : RegistrationEndDate
 	
+	//From Ventana - But not required to show in UI
+	String promoCode;
+	String ventanaPromoName;
+	String ventanaPromoDesc;
+	String ventanaPromoType;
+	String partnerManagedPromo;
+	String activeornot;
+	
+	
+
+	public String getPromoCode() {
+		return promoCode;
+	}
+
+	public void setPromoCode(String promoCode) {
+		this.promoCode = promoCode;
+	}
+
+	public String getVentanaPromoName() {
+		return ventanaPromoName;
+	}
+
+	public void setVentanaPromoName(String ventanaPromoName) {
+		this.ventanaPromoName = ventanaPromoName;
+	}
+
+	public String getVentanaPromoDesc() {
+		return ventanaPromoDesc;
+	}
+
+	public void setVentanaPromoDesc(String ventanaPromoDesc) {
+		this.ventanaPromoDesc = ventanaPromoDesc;
+	}
+
+	public String getVentanaPromoType() {
+		return ventanaPromoType;
+	}
+
+	public void setVentanaPromoType(String ventanaPromoType) {
+		this.ventanaPromoType = ventanaPromoType;
+	}
+
+	public String getPartnerManagedPromo() {
+		return partnerManagedPromo;
+	}
+
+	public void setPartnerManagedPromo(String partnerManagedPromo) {
+		this.partnerManagedPromo = partnerManagedPromo;
+	}
+
+	public String getActiveornot() {
+		return activeornot;
+	}
+
+	public void setActiveornot(String activeornot) {
+		this.activeornot = activeornot;
+	}
 
 	public String getDirectmailer() {
 		return directmailer;
