@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-searchcriteria',
@@ -22,9 +23,8 @@ export class SearchcriteriaComponent implements OnInit {
 
   bottomSearchForm: FormGroup;
   keywordtext: FormControl;
-  targetedOnlychkbx: FormControl;
-  nontargetedOnlychkbx: FormControl;
-  currpromosOnlychkbx: FormControl;
+  targetvsnontarget: FormControl;
+  bcurrpromosOnlychkbx: FormControl;
   partnercodetext: FormControl;
   toDateFormControl: FormControl;
   fromDateFormControl: FormControl;
@@ -35,8 +35,6 @@ export class SearchcriteriaComponent implements OnInit {
   maxKeywordsAllowed = 4;
 
   // Date variables
-  // fromDateValue: string;
-  // toDateValue: string;
   fromDatePickerValue: Date;
   toDatePickerValue: Date;
   isFromOpen = false;
@@ -47,6 +45,7 @@ export class SearchcriteriaComponent implements OnInit {
   dateMask: any[] = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   invalidFromDateError: any = { isError: false, errorMessage: '' };
   invalidToDateError: any = { isError: false, errorMessage: '' };
+  invalidFromGreaterToError: any = { isError: false, errorMessage: ''};
   usDatePattern = /^02\/(?:[01]\d|2\d)\/(?:19|20)(?:0[048]|[13579][26]|[2468][048])|(?:0[13578]|10|12)\/(?:[0-2]\d|3[01])\/(?:19|20)\d{2}|(?:0[469]|11)\/(?:[0-2]\d|30)\/(?:19|20)\d{2}|02\/(?:[0-1]\d|2[0-8])\/(?:19|20)\d{2}$/;
 
   @Output() bottomSearchParams: EventEmitter<string> = new EventEmitter<string>();
@@ -58,17 +57,15 @@ export class SearchcriteriaComponent implements OnInit {
     this.keywordtext = new FormControl('', [Validators.maxLength(300),
     Validators.pattern('[a-zA-Z0-9, ]*')]);
 
-    this.targetedOnlychkbx = new FormControl(false);
-    this.nontargetedOnlychkbx = new FormControl(false);
-    this.currpromosOnlychkbx = new FormControl(false);
+    this.targetvsnontarget = new FormControl('NonSelected');
+    this.bcurrpromosOnlychkbx = new FormControl(false);
     this.partnercodetext = new FormControl('', [Validators.pattern('[a-zA-Z]*')]);
     this.fromDateFormControl = new FormControl();
     this.toDateFormControl = new FormControl();
     this.bottomSearchForm = new FormGroup({
       keywordtext: this.keywordtext,
-      targetedOnlychkbx: this.targetedOnlychkbx,
-      nontargetedOnlychkbx: this.nontargetedOnlychkbx,
-      currpromosOnlychkbx: this.currpromosOnlychkbx,
+      targetvsnontarget: this.targetvsnontarget,
+      bcurrpromosOnlychkbx: this.bcurrpromosOnlychkbx,
       partnercodetext: this.partnercodetext,
       fromDateFormControl: this.fromDateFormControl,
       toDateFormControl: this.toDateFormControl
@@ -80,6 +77,7 @@ export class SearchcriteriaComponent implements OnInit {
 
   clickedPlus(): void {
     const keywordstring: string = this.bottomSearchForm.get('keywordtext').value;
+    if (!(keywordstring === null)) {
     const splstring = keywordstring.split(',');
     for (let i = 0; i < splstring.length; i++) {
       const value = splstring[i];
@@ -92,6 +90,7 @@ export class SearchcriteriaComponent implements OnInit {
       }
       this.bottomSearchForm.get('keywordtext').setValue('');
     }
+  }
   }
 
   remove(fruit: any): void {
@@ -113,6 +112,8 @@ export class SearchcriteriaComponent implements OnInit {
   bottomSearchSubmit(formValues) {
     console.log('Its in bottom search submit');
     this.clickedPlus();
+    console.log('Value of radio button : ' + this.targetvsnontarget.value);
+    console.log('Value of checkbox :' + this.bcurrpromosOnlychkbx.value);
     if (this.bottomSearchForm.valid) {
       console.log('Inside valid form of bottom search');
     }
@@ -122,17 +123,23 @@ export class SearchcriteriaComponent implements OnInit {
   clearAllClicked(event: Event) {
     this.clearallflag = !this.clearallflag;
     this.keywordsarray = [];
+    this.invalidFromGreaterToError = {isError: false, errorMessage: ''};
+    this.invalidFromDateError = {isError: false, errorMessage: ''};
+    this.invalidToDateError = {isError: false, errorMessage: ''};
     this.sendClearAllReq.emit(this.clearallflag);
   }
 
   onFromDateSelected(value: Date) {
     this.fromDatePickerValue = value;
-    // this.fromDateValue = value.getMonth() + 1 + '/' + value.getDate() + '/' + value.getFullYear();
+    this.fromDateFormControl.setValue(this.transformDate(value));
+    this.onFromDateChanged();
   }
 
   onToDateSelected(value: Date) {
     this.toDatePickerValue = value;
-    // this.toDateValue = value.getMonth() + 1 + '/' + value.getDate() + '/' + value.getFullYear();
+    this.toDateFormControl.setValue(this.transformDate(value));
+    console.log('To calendar clicked, value of To Datetext box :' + this.toDateFormControl.value);
+    this.onToDateChanged();
   }
 
   onFromDateValueChanged(data?: any) {
@@ -143,8 +150,7 @@ export class SearchcriteriaComponent implements OnInit {
     console.log('Value of to date:' + data);
   }
 
-  onFromDateChanged(data?: any) {
-
+  onFromDateChanged() {
     if (!(this.fromDateFormControl.value === null || this.fromDateFormControl.value === '')) {
 
       if (!this.fromDateFormControl.value.match(this.usDatePattern)) {
@@ -160,12 +166,12 @@ export class SearchcriteriaComponent implements OnInit {
     }
 
     if (!(this.toDateFormControl.value === null || this.toDateFormControl.value === '')) {
-    //  compareTwoDates();
+      this.compareTwoDates();
     }
 
   }
 
-  onToDateChanged(data?: any) {
+  onToDateChanged() {
     if (!(this.toDateFormControl.value === null || this.toDateFormControl.value === '')) {
       if (!this.toDateFormControl.value.match(this.usDatePattern)) {
         this.invalidToDateError = { isError: true, errorMessage: 'Date format should be MM/DD/YYYY' };
@@ -179,11 +185,22 @@ export class SearchcriteriaComponent implements OnInit {
       this.invalidToDateError = { isError: false, errorMessage: '' };
     }
 
+    if (!(this.fromDateFormControl.value === null || this.fromDateFormControl.value === '')) {
+      this.compareTwoDates();
+    }
+
   }
 
   compareTwoDates() {
-
+      if (new Date(this.fromDateFormControl.value) > new Date(this.toDateFormControl.value)) {
+        this.invalidFromGreaterToError = {isError: true, errorMessage: 'Start date cannot be greater than end date'};
+     } else {
+      this.invalidFromGreaterToError = {isError: false, errorMessage: ''};
+     }
   }
 
+  transformDate(fulldatevalue: Date): string {
+    return (new DatePipe('en-US')).transform(fulldatevalue, 'MM/dd/yyyy');
+  }
 
 }

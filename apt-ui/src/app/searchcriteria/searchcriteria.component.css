@@ -34,6 +34,10 @@ em {
     padding: 0%
 }
 
+.noMargin {
+    margin:0%;
+}
+
 .plus-button-style {
     background: #FAFBFB url(../../assets/Add-icon.svg) no-repeat right
 }

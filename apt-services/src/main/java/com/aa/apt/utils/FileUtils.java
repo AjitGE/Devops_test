@@ -12,11 +12,10 @@ public class FileUtils {
         return org.apache.commons.io.FileUtils.readFileToString(getResourceToFile(resourceFilePath));
     }
 
-    public static File getResourceToFile(String resourceFilePath) throws IOException {
+    public static File getResourceToFile(String resourceFilePath) {
         ClassLoader classLoader = FileUtils.class.getClassLoader();
         URL resource = classLoader.getResource(resourceFilePath);
-        File file = new File(resource.getPath());
-        return file;
+        return new File(resource.getPath());
     }
     
     private FileUtils() {

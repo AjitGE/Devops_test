@@ -45,6 +45,8 @@
       <em *ngIf="invalidFromDateError.isError" id="bf_fromdate_errmsg">
       <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{ invalidFromDateError.errorMessage }}</b></em>
 
+      <em *ngIf="invalidFromGreaterToError.isError" id="bf_fromgreaterto_errmsg">
+      <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{ invalidFromGreaterToError.errorMessage }}</b></em>
 
       <div class="input-group noMarginPad"
       bsDatepicker #fromdatePicker="bsDatepicker"
@@ -58,7 +60,7 @@
             formControlName="fromDateFormControl"
             [textMask]="{mask: dateMask}"
             value="{{fromDatePickerValue |  date:'MM/dd/yyyy'}}"
-            (blur)="onFromDateChanged(dateFromInput.value)"
+            (blur)="onFromDateChanged()"
             >
                         
            <span class="input-group-append">
@@ -90,7 +92,7 @@
             formControlName="toDateFormControl"
             [textMask]="{mask: dateMask}"
             value="{{toDatePickerValue |  date:'MM/dd/yyyy'}}"
-            (blur)="onToDateChanged(dateToInput.value)"
+            (blur)="onToDateChanged()"
             >
                         
            <span class="input-group-append">
@@ -104,29 +106,37 @@
 
     </div>
 
-    <div class="form-group">
+    <div class="form-group noMargin">
 
       <label for="miscSearchLabel" class="col-sm-12 bottom-form-label" id="bf_misc_label">
         Misc search options:
       </label>
-      <div class="form-check">
-        <label class="form-check-label blacklabelstyle" id="bf_misc_tonly_label">
-          <input type="checkbox" class="form-check-input" formControlName="targetedOnlychkbx"> Targeted Only
-        </label>
-      </div>
 
-      <div class="form-check">
-        <label class="form-check-label blacklabelstyle" id="bf_misc_ntonly_label">
-          <input type="checkbox" class="form-check-input" formControlName="nontargetedOnlychkbx"> Non-Targeted Only
-        </label>
-      </div>
+         <div class="form-check">
+          <label class="form-check-label bottom-form-label" for="targetonly">
+            <input type="radio" class="form-check-input" id="targetonly" name="targetvsnontarget" value="targetonly" formControlName="targetvsnontarget">
+        <span>Targeted Only</span>
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label bottom-form-label" for="nontargetonly">
+            <input type="radio" class="form-check-input" id="nontargetonly" name="targetvsnontarget" value="nontargetonly" formControlName="targetvsnontarget">
+        <span>Non-Targeted Only</span>
+          </label>
+        </div>
 
-      <div class="form-check">
-        <label class="form-check-label blacklabelstyle" id="bf_misc_currpromo_only">
-          <input type="checkbox" class="form-check-input" formControlName="currpromosOnlychkbx"> Current promos Only
-        </label>
-      </div>
+     
     </div>
+
+    <div class="form-group">
+        <div class="form-check">
+        <label class=" form-check-label bottom-form-label">
+          <input type="checkbox" class="form-check-input" id="bf_misc_currpromo_only"  formControlName="bcurrpromosOnlychkbx"> Current promos Only
+        </label>
+        </div>
+        </div>
+
+      <br>
     <div class="form-group">
         <label for="partnetCodesLabel" class="col-sm-12 bottom-form-label" id="bf_pc_label">
             Partner codes
