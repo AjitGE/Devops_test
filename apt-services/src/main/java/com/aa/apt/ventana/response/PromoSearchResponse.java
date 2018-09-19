@@ -16,7 +16,7 @@ public class PromoSearchResponse {
     private ResponseStatus responseStatus;
     
     @JsonProperty("PromoSearchResult")
-    private List<PromoSearchResult> promoSearchResult = null;
+    private PromoSearchResult promoSearchResult = null;
 
     @JsonProperty("ResponseStatus")
     public ResponseStatus getResponseStatus() {
@@ -29,12 +29,12 @@ public class PromoSearchResponse {
     }
 
     @JsonProperty("PromoSearchResult")
-    public List<PromoSearchResult> getPromoSearchResult() {
+    public PromoSearchResult getPromoSearchResult() {
         return promoSearchResult;
     }
 
     @JsonProperty("PromoSearchResult")
-    public void setPromoSearchResult(List<PromoSearchResult> promoSearchResult) {
+    public void setPromoSearchResult(PromoSearchResult promoSearchResult) {
         this.promoSearchResult = promoSearchResult;
     }
 

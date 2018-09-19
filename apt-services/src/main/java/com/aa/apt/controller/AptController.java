@@ -153,16 +153,11 @@ public class AptController
 
 		if (responseStatus.getMessage().equals("Successful Execution")) {
 
-			List<PromoSearchResult> promoSearchResultList = promoSearchResponse.getPromoSearchResult();
+			PromoSearchResult promoSearchResult = promoSearchResponse.getPromoSearchResult();
+			List<PromoSearchResultItem> promoSearchResultItemList = promoSearchResult.getPromoSearchResultItem();
+			Iterator<PromoSearchResultItem> promoSearchResultItemItr = promoSearchResultItemList.iterator();
+			createPromotionMap(promoSearchResultItemItr);
 
-			Iterator<PromoSearchResult> promoSearchResultItr = promoSearchResultList.iterator();
-			while (promoSearchResultItr.hasNext()) {
-				PromoSearchResult promoSearchResult = promoSearchResultItr.next();
-				List<PromoSearchResultItem> promoSearchResultItemList = promoSearchResult.getPromoSearchResultItem();
-				Iterator<PromoSearchResultItem> promoSearchResultItemItr = promoSearchResultItemList.iterator();
-				createPromotionMap(promoSearchResultItemItr);
-
-			}
 		}
 		else if (responseStatus.getMessage().equals("No Promotions Found")) {
 			logger.info("No Promotions found in Ventana for Promo code search : {}", pcodepromocurrval[0] );
