@@ -18,8 +18,10 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   resultsSortForm: FormGroup;
   sortby: FormControl;
   @Input() pcodecurrpromoval = '';
+  @Input() bsparams = '';
   promotions: IPromotion[];
   errMsgToDisplay: string = undefined;
+  isBottomSearchValid: number;
 
 
 
@@ -72,6 +74,34 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
         }
 
+      } else if (propName === 'bsparams') {
+        if (change.currentValue && !(change.currentValue === change.previousValue)) {
+          console.log('Received bsparams as ' + change.currentValue);
+          if (change.currentValue === 'NOKEYWORDS*NOFROMDATE*NOTODATE*TARGETNOTSELECTED*BCURRPROMONOTSELECTED') {
+            this.isBottomSearchValid = 0;
+          } else {
+            this.isBottomSearchValid = 1;
+            console.log('Calling Criteria search service with criteria' + change.currentValue);
+            this.spinnerService.show();
+            this.searchService.getCriteriaSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
+              this.promotions = data;
+              console.log('Number of Promotions returned for search criteria : ' + this.promotions.length);
+              this.spinnerService.hide();
+              this.errMsgToDisplay = undefined;
+
+            }, (err) => {
+              if (err instanceof HttpErrorResponse) {
+                if (err.message.includes('Http failure response')) {
+                  console.log('No Response from Ventana/LSCS for given search criteria');
+                  this.promotions = undefined;
+                  this.errMsgToDisplay = '<h5>No Response from Ventana/LSCS</h5>';
+                  this.spinnerService.hide();
+                }
+              }
+            }
+            );
+          }
+        }
       }
     }
 

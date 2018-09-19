@@ -51,10 +51,10 @@ import com.aa.apt.ventana.response.VentanaResponse;
 
 @RestController
 @CrossOrigin
-@RequestMapping(ControllerConstants.ROOT_API)
-public class AptController 
+@RequestMapping(ControllerConstants.ROOT_CRITERIA_API)
+public class CriteriaController 
 {
-	private static final Logger logger = LoggerFactory.getLogger(AptController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CriteriaController.class);
 	
 	
 	@Value("${acs.promo.url.start}")
@@ -87,17 +87,25 @@ public class AptController
 	}
 	
 	
-	//http://localhost:8080/api/search/P468B:false	
-	@RequestMapping(value=ControllerConstants.PCODESEARCH, method=RequestMethod.GET)
-	public List<Promotion> getPromo(@PathVariable("pcode") String pcode) throws IOException
+	//http://localhost:8080/criteria/search/P468B:false	
+	@RequestMapping(value=ControllerConstants.BSPARAMSSEARCH, method=RequestMethod.GET)
+	public List<Promotion> getPromo(@PathVariable("bsparams") String bsparams) throws IOException
 	{
 		
-		Instant buildPromoSearchStart = Instant.now();
-		
+		Instant buildCriteriaSearchStart = Instant.now();
+		System.out.println("Value got from angular is :" + bsparams);
+		String[] bsparam = bsparams.split(":");
+		System.out.println("lenth of bsparam array :" + bsparam.length);
+		String keywordsarray = bsparam[0];
+		String fromDate = bsparam[1];
+		String toDate = bsparam[2];
+		String targetvsnontar = bsparam[3];
+		String bcurrpromosonly = bsparam[4];
+		System.out.println("Value of keywords array:" + keywordsarray);
 		promoListMap = new HashMap<>();
-		getPromosFromVentana(pcode);
+		// getPromosFromVentana(bsparams);
 		
-
+/*
 		List<String> promoCodeList = new ArrayList<>(promoListMap.keySet().stream().collect(Collectors.toList()));
 		if (promoCodeList.isEmpty()) {
 			// Call LSCS and perform PST code search
@@ -105,11 +113,11 @@ public class AptController
 		
 		createPromoListForVentanaResults(promoCodeList);
 		
-				
-		Instant buildPromoSearchEnd = Instant.now();
-		long buildPromoSearchTimeElapsed = Duration.between(buildPromoSearchStart,buildPromoSearchEnd).toMillis();
+	*/			
+		Instant buildCriteriaSearchEnd = Instant.now();
+		long buildCriteriaSearchTimeElapsed = Duration.between(buildCriteriaSearchStart,buildCriteriaSearchEnd).toMillis();
 		if(logger.isDebugEnabled())
-			logger.debug("Time elapsed to build list of promo(s) for given code {} : {} (in Millis)",pcode,buildPromoSearchTimeElapsed);
+			logger.debug("Time elapsed to build list of promo(s) for given criteria {} : {} (in Millis)",bsparams,buildCriteriaSearchTimeElapsed);
 		
 		return promoListMap.values().stream().collect(Collectors.toList());
 		

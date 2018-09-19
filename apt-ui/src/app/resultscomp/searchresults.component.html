@@ -8,13 +8,16 @@
 
     <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
 
+    <div *ngIf="isBottomSearchValid === 0">Please select atleast one condition in Search criteria</div>
+
     <div *ngIf="promotions?.length === 1">
         <div *ngFor="let promotion of promotions">
 
 
             <div class="card-header promoHeaderStyle">
                 <span *ngIf="(isTrending === 'false') || (isTrending === null)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <img id="sp_popular_icon" src="../../assets/Popular-icon.svg" *ngIf="promotion.isTrending === 'true'" class="img-fluid iconSize">
+                <img id="sp_popular_icon" src="../../assets/Popular-icon.svg" *ngIf="promotion.isTrending === 'true'"
+                    class="img-fluid iconSize">
                 <span class="headerPNameStyle"><b>Promo code: </b>{{promotion.promotionOrChallengeCode}}</span>
                 <span class="pull-right">
                     <img id="sp_collapse_icon" src="../../assets/Collapse-icon.svg" class="img-fluid iconSize">
@@ -105,7 +108,7 @@
                 <div class="col-sm-12 pb1">
                     <div class="row">
                         <div class="col-sm-4 sviewLabelStyle"><b>Marketing page URL:</b></div>
-                        <div class="col-sm-8 sviewTextStyle">{{promotion.marketingpageurl}}</div>
+                        <div class="col-sm-8" [innerHTML]="promotion.marketingpageurl"></div>
                     </div>
 
                 </div>
@@ -113,7 +116,7 @@
                 <div class="col-sm-12 pb1">
                     <div class="row">
                         <div class="col-sm-4 sviewLabelStyle"><b>Email URLs:</b></div>
-                        <div class="col-sm-8 sviewTextStyle">{{promotion.emailurl}}</div>
+                        <div class="col-sm-8" [innerHTML]="promotion.emailurl"></div>
                     </div>
 
                 </div>
@@ -328,7 +331,7 @@
                             <div class="col-sm-12 pb1">
                                 <div class="row">
                                     <div class="col-sm-4 sviewLabelStyle"><b>Marketing page URL:</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">{{promotion.marketingpageurl}}</div>
+                                    <div class="col-sm-8" [innerHTML]="promotion.marketingpageurl"></div>
                                 </div>
 
                             </div>
@@ -336,7 +339,7 @@
                             <div class="col-sm-12 pb1">
                                 <div class="row">
                                     <div class="col-sm-4 sviewLabelStyle"><b>Email URLs:</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">{{promotion.emailurl}}</div>
+                                    <div class="col-sm-8" [innerHTML]="promotion.emailurl"></div>
                                 </div>
 
                             </div>

@@ -11,6 +11,9 @@ public final class ControllerConstants {
 	public static final String PCODESEARCH="search/{pcode}";
 	public static final String PCODESEARCHFORAR5="search/ar5/{pcode}";
 	public static final String PCODESEARCHFORACS="search/acs/{pcode}";
+	
+	public static final String ROOT_CRITERIA_API="/criteria/";
+	public static final String BSPARAMSSEARCH="search/{bsparams}";
 
 	
 	// JSON Requests

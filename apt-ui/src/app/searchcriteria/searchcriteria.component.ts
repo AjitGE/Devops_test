@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-searchcriteria',
   templateUrl: './searchcriteria.component.html',
@@ -33,6 +34,7 @@ export class SearchcriteriaComponent implements OnInit {
   selectable = true;
   keywordsarray: string[] = [];
   maxKeywordsAllowed = 4;
+  isValidSubmit = false;
 
   // Date variables
   fromDatePickerValue: Date;
@@ -45,11 +47,12 @@ export class SearchcriteriaComponent implements OnInit {
   dateMask: any[] = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   invalidFromDateError: any = { isError: false, errorMessage: '' };
   invalidToDateError: any = { isError: false, errorMessage: '' };
-  invalidFromGreaterToError: any = { isError: false, errorMessage: ''};
+  invalidFromGreaterToError: any = { isError: false, errorMessage: '' };
   usDatePattern = /^02\/(?:[01]\d|2\d)\/(?:19|20)(?:0[048]|[13579][26]|[2468][048])|(?:0[13578]|10|12)\/(?:[0-2]\d|3[01])\/(?:19|20)\d{2}|(?:0[469]|11)\/(?:[0-2]\d|30)\/(?:19|20)\d{2}|02\/(?:[0-1]\d|2[0-8])\/(?:19|20)\d{2}$/;
 
   @Output() bottomSearchParams: EventEmitter<string> = new EventEmitter<string>();
   @Output() sendClearAllReq: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() bsparams: EventEmitter<string> = new EventEmitter<string>();
   clearallflag = false;
 
   ngOnInit() {
@@ -57,7 +60,7 @@ export class SearchcriteriaComponent implements OnInit {
     this.keywordtext = new FormControl('', [Validators.maxLength(300),
     Validators.pattern('[a-zA-Z0-9, ]*')]);
 
-    this.targetvsnontarget = new FormControl('NonSelected');
+    this.targetvsnontarget = new FormControl('TARGETNOTSELECTED');
     this.bcurrpromosOnlychkbx = new FormControl(false);
     this.partnercodetext = new FormControl('', [Validators.pattern('[a-zA-Z]*')]);
     this.fromDateFormControl = new FormControl();
@@ -76,21 +79,24 @@ export class SearchcriteriaComponent implements OnInit {
   }
 
   clickedPlus(): void {
-    const keywordstring: string = this.bottomSearchForm.get('keywordtext').value;
-    if (!(keywordstring === null)) {
-    const splstring = keywordstring.split(',');
-    for (let i = 0; i < splstring.length; i++) {
-      const value = splstring[i];
-      if (this.keywordsarray.length > this.maxKeywordsAllowed) {
-        this.bottomSearchForm.get('keywordtext').setValue('');
-        break;
+    if (this.validateKeywordtext()) {
+      const keywordstring: string = this.bottomSearchForm.get('keywordtext').value;
+      if (!(keywordstring === null)) {
+        const splstring = keywordstring.split(',');
+        for (let i = 0; i < splstring.length; i++) {
+          const value = splstring[i];
+          if (this.keywordsarray.length > this.maxKeywordsAllowed) {
+            this.bottomSearchForm.get('keywordtext').setValue('');
+            break;
+          }
+          if (value && value.trim().length && !this.keywordsarray.find(x => x === value)) {
+            this.keywordsarray.push(value);
+            this.isValidSubmit = true;
+          }
+          this.bottomSearchForm.get('keywordtext').setValue('');
+        }
       }
-      if (value && value.trim().length && !this.keywordsarray.find(x => x === value)) {
-        this.keywordsarray.push(value);
-      }
-      this.bottomSearchForm.get('keywordtext').setValue('');
     }
-  }
   }
 
   remove(fruit: any): void {
@@ -98,6 +104,10 @@ export class SearchcriteriaComponent implements OnInit {
 
     if (index >= 0) {
       this.keywordsarray.splice(index, 1);
+    }
+
+    if (this.keywordsarray.length === 0) {
+      this.isValidSubmit = false;
     }
   }
 
@@ -110,12 +120,48 @@ export class SearchcriteriaComponent implements OnInit {
   }
 
   bottomSearchSubmit(formValues) {
-    console.log('Its in bottom search submit');
-    this.clickedPlus();
-    console.log('Value of radio button : ' + this.targetvsnontarget.value);
-    console.log('Value of checkbox :' + this.bcurrpromosOnlychkbx.value);
+    if (this.keywordtext.value) {
+      this.keywordtext.markAsTouched();
+    }
+    if (this.fromDateFormControl.value) {
+      this.onFromDateChanged();
+    }
+    if (this.toDateFormControl.value) {
+      this.onToDateChanged();
+    }
     if (this.bottomSearchForm.valid) {
-      console.log('Inside valid form of bottom search');
+      if (this.validateKeywordtext()) {
+        this.clickedPlus();
+      }
+      let bsparamstring = '';
+      if (this.keywordsarray.length === 0) {
+        bsparamstring = 'NOKEYWORDS:';
+      } else {
+        bsparamstring = this.keywordsarray.join(',') + ':';
+      }
+      if (this.fromDateFormControl.value) {
+        bsparamstring += this.transformNoSlashDate(this.fromDateFormControl.value) + ':';
+      } else {
+        bsparamstring += 'NOFROMDATE:';
+      }
+      if (this.toDateFormControl.value) {
+        bsparamstring += this.transformNoSlashDate(this.toDateFormControl.value) + ':';
+      } else {
+        bsparamstring += 'NOTODATE:';
+      }
+      if (this.targetvsnontarget.value) {
+        bsparamstring += this.targetvsnontarget.value + ':';
+      } else {
+        bsparamstring += 'TARGETNOTSELECTED' + ':';
+      }
+      if (this.bcurrpromosOnlychkbx.value) {
+        bsparamstring += 'BCURRPROMOSELECTED';
+      } else {
+        bsparamstring += 'BCURRPROMONOTSELECTED';
+      }
+
+      console.log('value of bsparamstring is ' + bsparamstring);
+      this.bsparams.emit(bsparamstring);
     }
 
   }
@@ -123,9 +169,10 @@ export class SearchcriteriaComponent implements OnInit {
   clearAllClicked(event: Event) {
     this.clearallflag = !this.clearallflag;
     this.keywordsarray = [];
-    this.invalidFromGreaterToError = {isError: false, errorMessage: ''};
-    this.invalidFromDateError = {isError: false, errorMessage: ''};
-    this.invalidToDateError = {isError: false, errorMessage: ''};
+    this.invalidFromGreaterToError = { isError: false, errorMessage: '' };
+    this.invalidFromDateError = { isError: false, errorMessage: '' };
+    this.invalidToDateError = { isError: false, errorMessage: '' };
+    this.isValidSubmit = false;
     this.sendClearAllReq.emit(this.clearallflag);
   }
 
@@ -138,7 +185,6 @@ export class SearchcriteriaComponent implements OnInit {
   onToDateSelected(value: Date) {
     this.toDatePickerValue = value;
     this.toDateFormControl.setValue(this.transformDate(value));
-    console.log('To calendar clicked, value of To Datetext box :' + this.toDateFormControl.value);
     this.onToDateChanged();
   }
 
@@ -155,14 +201,22 @@ export class SearchcriteriaComponent implements OnInit {
 
       if (!this.fromDateFormControl.value.match(this.usDatePattern)) {
         this.invalidFromDateError = { isError: true, errorMessage: 'Date format should be MM/DD/YYYY' };
+        this.isValidSubmit = false;
+        this.bottomSearchForm.controls.fromDateFormControl.setErrors({ 'incorrect': true });
       } else {
         this.invalidFromDateError = { isError: false, errorMessage: '' };
+        this.isValidSubmit = true;
+        this.bottomSearchForm.controls.fromDateFormControl.setErrors(null);
         if (new Date(this.fromDateFormControl.value) > this.currDate || new Date(this.fromDateFormControl.value) < this.twoYearDate) {
           this.invalidFromDateError = { isError: true, errorMessage: 'Searches must be within 2 years' };
+          this.bottomSearchForm.controls.fromDateFormControl.setErrors({ 'incorrect': true });
+          this.isValidSubmit = false;
         }
       }
     } else {
       this.invalidToDateError = { isError: false, errorMessage: '' };
+      this.bottomSearchForm.controls.fromDateFormControl.setErrors(null);
+      this.isValidSubmit = true;
     }
 
     if (!(this.toDateFormControl.value === null || this.toDateFormControl.value === '')) {
@@ -175,14 +229,22 @@ export class SearchcriteriaComponent implements OnInit {
     if (!(this.toDateFormControl.value === null || this.toDateFormControl.value === '')) {
       if (!this.toDateFormControl.value.match(this.usDatePattern)) {
         this.invalidToDateError = { isError: true, errorMessage: 'Date format should be MM/DD/YYYY' };
+        this.bottomSearchForm.controls.toDateFormControl.setErrors({ 'incorrect': true });
+        this.isValidSubmit = false;
       } else {
         this.invalidToDateError = { isError: false, errorMessage: '' };
+        this.isValidSubmit = true;
+        this.bottomSearchForm.controls.toDateFormControl.setErrors(null);
         if (new Date(this.toDateFormControl.value) > this.currDate || new Date(this.toDateFormControl.value) < this.twoYearDate) {
           this.invalidToDateError = { isError: true, errorMessage: 'Searches must be within 2 years' };
+          this.bottomSearchForm.controls.toDateFormControl.setErrors({ 'incorrect': true });
+          this.isValidSubmit = false;
         }
       }
     } else {
       this.invalidToDateError = { isError: false, errorMessage: '' };
+      this.bottomSearchForm.controls.toDateFormControl.setErrors(null);
+      this.isValidSubmit = true;
     }
 
     if (!(this.fromDateFormControl.value === null || this.fromDateFormControl.value === '')) {
@@ -192,15 +254,23 @@ export class SearchcriteriaComponent implements OnInit {
   }
 
   compareTwoDates() {
-      if (new Date(this.fromDateFormControl.value) > new Date(this.toDateFormControl.value)) {
-        this.invalidFromGreaterToError = {isError: true, errorMessage: 'Start date cannot be greater than end date'};
-     } else {
-      this.invalidFromGreaterToError = {isError: false, errorMessage: ''};
-     }
+    if (new Date(this.fromDateFormControl.value) > new Date(this.toDateFormControl.value)) {
+      this.invalidFromGreaterToError = { isError: true, errorMessage: 'Start date cannot be greater than end date' };
+      this.bottomSearchForm.controls.fromDateFormControl.setErrors({ 'incorrect': true });
+      this.isValidSubmit = false;
+    } else {
+      this.invalidFromGreaterToError = { isError: false, errorMessage: '' };
+      this.bottomSearchForm.controls.fromDateFormControl.setErrors(null);
+      this.isValidSubmit = true;
+    }
   }
 
   transformDate(fulldatevalue: Date): string {
     return (new DatePipe('en-US')).transform(fulldatevalue, 'MM/dd/yyyy');
+  }
+
+  transformNoSlashDate(fulldatevalue: Date): string {
+    return (new DatePipe('en-US')).transform(fulldatevalue, 'MMddyyyy');
   }
 
 }

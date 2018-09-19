@@ -15,8 +15,10 @@ export class ResultscompComponent implements OnInit, OnChanges {
   constructor(private searchService: SearchserviceService,
     private spinnerService: Ng4LoadingSpinnerService) { }
 
-  @Input()pcodecurrpromoval: string;
+  @Input() pcodecurrpromoval: string;
+  @Input() bsparamsReceived: string;
   sendPcodecurrpromoval = '';
+  sendBSparams = '';
   // @Output() sendPcodecurrpromoval: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('latestPromoAnchor') latestPromoAnchor: ElementRef;
@@ -38,9 +40,9 @@ export class ResultscompComponent implements OnInit, OnChanges {
       if (propName === 'pcodecurrpromoval') {
 
 
-        console.log('Previous Value : ' + change.previousValue);
-        console.log('Current value: ' + change.currentValue);
-        if (change.currentValue && !(change.currentValue === change.previousValue) ) {
+        console.log('Previous Value top pcode : ' + change.previousValue);
+        console.log('Current value top pcode : ' + change.currentValue);
+        if (change.currentValue && !(change.currentValue === change.previousValue)) {
 
           console.log('Setting value to sendPcodecurrpromoval');
           this.latestPromoAnchor.nativeElement.classList.remove('active');
@@ -48,24 +50,22 @@ export class ResultscompComponent implements OnInit, OnChanges {
           this.searchResultsAnchor.nativeElement.classList.add('active');
           this.searchResultsDiv.nativeElement.classList.add('active');
           this.sendPcodecurrpromoval = change.currentValue;
+        }
 
-          //  this.sendPcodecurrpromoval.emit(change.currentValue);
+      } else if (propName === 'bsparamsReceived') {
+        console.log('Previous Value bs params : ' + change.previousValue);
+        console.log('Current value bs params : ' + change.currentValue);
+        if (change.currentValue && !(change.currentValue === change.previousValue)) {
 
-/*
-          this.spinnerService.show();
-          this.searchService.getSearchPromoResults(change.currentValue).subscribe( (data:IPromotion) =>
-          {
-            this.promotion = data;
-            console.log(this.promotion.promotionOrChallengeCode);
-            this.spinnerService.hide();
+          console.log('Setting value to sendBSparams');
+          this.latestPromoAnchor.nativeElement.classList.remove('active');
+          this.latestPromosDiv.nativeElement.classList.remove('active');
+          this.searchResultsAnchor.nativeElement.classList.add('active');
+          this.searchResultsDiv.nativeElement.classList.add('active');
+          this.sendBSparams = change.currentValue;
+        }
 
-          }
-          );
-          */
-
-        }  //  End of Service call
-
-      } //  End of PropName = 'pcodecurrpromoval'
+      }
     }
 
   }

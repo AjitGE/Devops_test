@@ -1,6 +1,8 @@
 package com.aa.apt.ventana.response;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class PromoSearchResult {
 
     @JsonProperty("PromoSearchResultItem")
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<PromoSearchResultItem> promoSearchResultItem = null;
 
     @JsonProperty("PromoSearchResultItem")

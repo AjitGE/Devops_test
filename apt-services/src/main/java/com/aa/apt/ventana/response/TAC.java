@@ -1,5 +1,6 @@
 package com.aa.apt.ventana.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "EffectiveDate",
     "ExpirationDate"
 })
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TAC {
 
     @JsonProperty("Code")

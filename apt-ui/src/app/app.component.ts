@@ -9,6 +9,7 @@ import { ISearchPromoModel } from './shared/searchpromomodel';
 export class AppComponent {
   title = 'apt-client';
   pcodeInParent = '';
+  bsparamsInParent = '';
   clearAllSignalInParent: boolean;
   searchPromoModelInParent: ISearchPromoModel;
 
@@ -23,5 +24,10 @@ export class AppComponent {
 
   handleClearAllReq(clearallsignal: boolean): void {
     this.clearAllSignalInParent = clearallsignal;
+  }
+
+  onBSparamsSubmitted(bsparams: string): void {
+    this.bsparamsInParent = bsparams;
+    console.log('bsparams in parent: ' + this.bsparamsInParent);
   }
 }
