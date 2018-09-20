@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatChipsModule, MatIconModule } from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -25,6 +25,8 @@ import { SearchcriteriaComponent } from './searchcriteria/searchcriteria.compone
 import { ErrorHandler } from './errorservice/error_handler';
 import { RequestInterceptor } from './errorservice/http_interceptor';
 import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.component';
+import { HomeComponent } from './home.component';
+import { HealthComponent } from './health/health.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.c
     LatestpromosComponent,
     TrendingpromosComponent,
     SearchresultsComponent,
-    PromodetailsComponent
+    PromodetailsComponent,
+    HomeComponent,
+    HealthComponent
   ],
   imports: [
     BrowserModule,
