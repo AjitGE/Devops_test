@@ -95,7 +95,7 @@ public class AptController
 		Instant buildPromoSearchStart = Instant.now();
 		
 		promoListMap = new HashMap<>();
-		getPromosFromVentana(pcode);
+		getPromosFromVentana(pcode.toUpperCase());
 		
 
 		List<String> promoCodeList = new ArrayList<>(promoListMap.keySet().stream().collect(Collectors.toList()));
@@ -220,6 +220,7 @@ public class AptController
 				Promotion prom = promoListMap.get(promoCodeList.get(i));
 				Instant buildSinglePromoStart = Instant.now();
 				Instant ar5ResponseStart = Instant.now();
+				logger.info("Getting AR5 response for promo code :" + promoCodeList.get(i));
 				LscsPromotionContentResponse ar5response = restTemplate.getForObject(
 						ar5PromoUrlStart + promoCodeList.get(i) + ar5PromoUrlEnd, LscsPromotionContentResponse.class);
 				Instant ar5ResponseEnd = Instant.now();
@@ -312,7 +313,7 @@ public class AptController
 		                .replace("REPLACEPROMOCODE",pcode)
 		                .replace("REPLACESTARTDATE", "")
 		                .replace("REPLACEENDDATE","")
-		                .replaceAll("REPLACEACTIVEFLAG", currpromoflag.equals("true")?"Y":"N")
+		                .replaceAll("REPLACEACTIVEFLAG", currpromoflag.equalsIgnoreCase("true")?"Y":"N")
 		                ;
 		    }
 	

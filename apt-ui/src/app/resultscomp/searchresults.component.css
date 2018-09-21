@@ -142,27 +142,21 @@
 }
 
 .card .card-header {
-    background-color: transparent; 
-  }
-
-.accordion .card-header:after {
-    font-family: 'FontAwesome';  
-    content: "\f077";
-    float: left; 
-}
-.accordion .card-header.collapsed:after {
-    content: "\f078"; 
+    background-color: transparent;
 }
 
-.accordionLabelStyle {
-height: 20px;
-background-color: transparent;
-font-family: AmericanSansLight;
-font-size: 16px;
-font-weight: 400;
-line-height: 24px;
-text-align: left;
-color: #00467F;
-display:inline-block; 
-margin-left: 15px; 
+::ng-deep .specific-class>.mat-expansion-indicator {
+    position: absolute;
+    left: 30px;
+}
+
+.accLabelStyle {
+    height: 20px;
+    background-color: transparent;
+    font-family: AmericanSansLight;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #00467F;
 }

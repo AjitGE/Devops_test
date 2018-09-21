@@ -34,6 +34,7 @@ export class SearchcriteriaComponent implements OnInit {
   selectable = true;
   keywordsarray: string[] = [];
   maxKeywordsAllowed = 4;
+  maxKeywordsError: any = { isError: false, errorMessage: '' };
   isValidSubmit = false;
 
   // Date variables
@@ -87,6 +88,7 @@ export class SearchcriteriaComponent implements OnInit {
           const value = splstring[i];
           if (this.keywordsarray.length > this.maxKeywordsAllowed) {
             this.bottomSearchForm.get('keywordtext').setValue('');
+            // this.maxKeywordsError = { isError: true, errorMessage: 'A max of 5 keywords can be entered' };
             break;
           }
           if (value && value.trim().length && !this.keywordsarray.find(x => x === value)) {
@@ -104,6 +106,10 @@ export class SearchcriteriaComponent implements OnInit {
 
     if (index >= 0) {
       this.keywordsarray.splice(index, 1);
+    }
+
+    if (index <= this.maxKeywordsAllowed) {
+      //  this.maxKeywordsError = { isError: false, errorMessage: '' };
     }
 
     if (this.keywordsarray.length === 0) {

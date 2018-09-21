@@ -22,8 +22,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   promotions: IPromotion[];
   errMsgToDisplay: string = undefined;
   isBottomSearchValid: number;
-
-
+  allExpandState = false;
 
   constructor(private searchService: SearchserviceService,
     private spinnerService: Ng4LoadingSpinnerService) { }
@@ -33,7 +32,6 @@ export class SearchresultsComponent implements OnInit, OnChanges {
     this.resultsSortForm = new FormGroup({ sortby: this.sortby });
     this.resultsSortForm.controls.sortby.setValue('startdate');
   }
-
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -58,7 +56,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
             console.log('Number of Promotions are : ' + this.promotions.length);
             this.spinnerService.hide();
             this.errMsgToDisplay = undefined;
-
+            this.isBottomSearchValid = 1;
           }, (err) => {
             if (err instanceof HttpErrorResponse) {
               if (err.message.includes('Http failure response')) {
@@ -110,13 +108,17 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
 
 
-  hideSortHander(hideFlag: boolean) {
+  hideSortHandler(hideFlag: boolean) {
     if (hideFlag) {
       this.resultsSortForm.controls.sortby.enable();
     } else {
       this.resultsSortForm.controls.sortby.disable();
     }
 
+  }
+
+  expandCollapseHandler(ecflag: boolean) {
+    this.allExpandState = ecflag;
   }
 
 

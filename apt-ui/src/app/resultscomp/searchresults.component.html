@@ -8,7 +8,7 @@
 
     <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
 
-    <div *ngIf="isBottomSearchValid === 0">Please select atleast one condition in Search criteria</div>
+    <div *ngIf="isBottomSearchValid === 0"><br><br><p>You must enter at least one search requirement</p></div>
 
     <div *ngIf="promotions?.length === 1">
         <div *ngFor="let promotion of promotions">
@@ -33,8 +33,8 @@
                 <div class="col-sm-12">
 
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelSmStyle"><b>Promotion start to end dates:</b></div>
-                        <div class="col-sm-8 sviewTextStyle"> {{promotion.promoStartDate}}
+                        <div class="col-sm-6 sviewLabelSmStyle"><b>Promotion start to end dates:</b></div>
+                        <div class="col-sm-6 sviewTextStyle"> {{promotion.promoStartDate}}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             {{promotion.promoEndDate}}</div>
                     </div>
@@ -43,16 +43,16 @@
                 <hr class="hrwidth">
                 <div class="col-sm-12 pb1">
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelStyle"><b>Is member registration required?</b></div>
-                        <div class="col-sm-8 sviewTextStyle">{{promotion.registrationRequired}}</div>
+                        <div class="col-sm-6 sviewLabelStyle"><b>Is member registration required?</b></div>
+                        <div class="col-sm-6 sviewTextStyle">{{promotion.registrationRequired}}</div>
                     </div>
 
                 </div>
                 <div class="col-sm-12 pb1">
 
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelSmStyle"><b>Member must register between:</b></div>
-                        <div class="col-sm-8 sviewTextStyle"> {{promotion.memRegStartDate}}
+                        <div class="col-sm-6 sviewLabelSmStyle"><b>Member must register between:</b></div>
+                        <div class="col-sm-6 sviewTextStyle"> {{promotion.memRegStartDate}}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             {{promotion.memRegEndDate}}
                         </div>
@@ -62,8 +62,8 @@
                 <div class="col-sm-12 pb1">
 
                     <div class="row">
-                        <div class="col-sm-4 promotionDateLabelStyle"><b>Member must travel between:</b></div>
-                        <div class="col-sm-8 promotionDatesStyle"> {{promotion.memTravelStartDate}}
+                        <div class="col-sm-6 promotionDateLabelStyle"><b>Member must travel between:</b></div>
+                        <div class="col-sm-6 promotionDatesStyle"> {{promotion.memTravelStartDate}}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             {{promotion.memTravelEndDate}}
                         </div>
@@ -72,8 +72,8 @@
                 </div>
                 <div class="col-sm-12 pb1">
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelSmStyle"><b>Late registration may be processed by</b></div>
-                        <div class="col-sm-8 sviewTextStyle">{{promotion.lateRegEndDate}}</div>
+                        <div class="col-sm-6 sviewLabelSmStyle"><b>Late registration may be processed by</b></div>
+                        <div class="col-sm-6 sviewTextStyle">{{promotion.lateRegEndDate}}</div>
                     </div>
 
                 </div>
@@ -81,16 +81,16 @@
                 <hr class="hrwidth pb1">
                 <div class="col-sm-12 pb1">
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelStyle"><b>Is this a targeted promotion?</b></div>
-                        <div class="col-sm-8 sviewTextStyle">{{promotion.targetedPromotion}}</div>
+                        <div class="col-sm-6 sviewLabelStyle"><b>Is this a targeted promotion?</b></div>
+                        <div class="col-sm-6 sviewTextStyle">{{promotion.targetedPromotion}}</div>
                     </div>
 
                 </div>
 
                 <div class="col-sm-12 pb1">
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelStyle"><b>TA codes</b></div>
-                        <div class="col-sm-8 sviewTextStyle">{{promotion.tac}}</div>
+                        <div class="col-sm-6 sviewLabelStyle"><b>TA codes</b></div>
+                        <div class="col-sm-6 sviewTextStyle">{{promotion.tac}}</div>
                     </div>
 
                 </div>
@@ -99,24 +99,24 @@
 
                 <div class="col-sm-12 pb1">
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelStyle"><b>Direct mailer:</b></div>
-                        <div class="col-sm-8 sviewTextStyle">{{promotion.directmailer}}</div>
+                        <div class="col-sm-6 sviewLabelStyle"><b>Direct mailer:</b></div>
+                        <div class="col-sm-6 sviewTextStyle">{{promotion.directmailer}}</div>
                     </div>
 
                 </div>
 
                 <div class="col-sm-12 pb1">
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelStyle"><b>Marketing page URL:</b></div>
-                        <div class="col-sm-8" [innerHTML]="promotion.marketingpageurl"></div>
+                        <div class="col-sm-6 sviewLabelStyle"><b>Marketing page URL:</b></div>
+                        <div class="col-sm-6" [innerHTML]="promotion.marketingpageurl"></div>
                     </div>
 
                 </div>
 
                 <div class="col-sm-12 pb1">
                     <div class="row">
-                        <div class="col-sm-4 sviewLabelStyle"><b>Email URLs:</b></div>
-                        <div class="col-sm-8" [innerHTML]="promotion.emailurl"></div>
+                        <div class="col-sm-6 sviewLabelStyle"><b>Email URLs:</b></div>
+                        <div class="col-sm-6" [innerHTML]="promotion.emailurl"></div>
                     </div>
 
                 </div>
@@ -125,10 +125,10 @@
 
             <br>
 
-            <div class="card-header">
+            <div class="card-header pb1">
                 <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>Partner codes:</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotion.partnerCodes}}</div>
+                    <div class="col-sm-6 sviewLabelStyle"><b>Partner codes:</b></div>
+                    <div class="col-sm-6 sviewTextStyle">{{promotion.partnerCodes}}</div>
                 </div>
             </div>
 
@@ -142,50 +142,109 @@
             <br>
             <div [innerHTML]="promotion.fulfillment"></div>
 
-            <div class="card-header">
+            <div class="card-header pb1">
                 <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>PST codes</b></div>
-                    <div class="col-sm-8 sviewTextStyle">{{promotion.pstcodes}}</div>
+                    <div class="col-sm-6 sviewLabelStyle"><b>PST codes</b></div>
+                    <div class="col-sm-6 sviewTextStyle">{{promotion.pstcodes}}</div>
                 </div>
             </div>
 
             <br>
            
-              <div id="accordion" class="accordion">
-                    <div class="card mb-0 border-right-0 border-left-0">
-                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
-                            <a class="card-title">
-                                <span class="accordionLabelStyle">Resolve Issues </span>
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
-                                    <div [innerHTML]="promotion.resolveIssues"></div>
-                            
-                        </div>
-                        <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            <a class="card-title">
-                                    <span class="accordionLabelStyle">aa.com view</span>
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
-                                    <div [innerHTML]="promotion.aacomview"></div>
-                            
-                        </div>
-                        <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                            <a class="card-title">
-                                    <span class="accordionLabelStyle">Terms and conditions</span>
-                            </a>
-                        </div>
-                        <div id="collapseThree" class="collapse" data-parent="#accordion" >
-                            <div class="card-body"><div [innerHTML]="promotion.resolveIssues"></div>
-                            </div>
-                        </div>
+            <app-promodetailaccordian (expandcollapseevent)="expandCollapseHandler($event)">
+
+                    <div accordian-collapsed>
+                            <br><br>
+                            <mat-expansion-panel [expanded]="allExpandState">
+                                <mat-expansion-panel-header class="specific-class">
+                                    <mat-panel-title>
+            
+                                        <div class="col-md-9">
+                                           &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle"> Resolve issues</span>
+                                        </div>
+                                    </mat-panel-title>
+            
+                                </mat-expansion-panel-header>
+                                <div [innerHTML]="promotion.resolveIssues"></div>
+                            </mat-expansion-panel>
+            
+                            <mat-expansion-panel [expanded]="allExpandState">
+                                <mat-expansion-panel-header class="specific-class">
+                                    <mat-panel-title>
+            
+                                        <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
+                                        </div>
+                                    </mat-panel-title>
+            
+                                </mat-expansion-panel-header>
+                                <div [innerHTML]="promotion.aacomview"></div>
+                            </mat-expansion-panel>
+            
+                            <mat-expansion-panel [expanded]="allExpandState">
+                                <mat-expansion-panel-header class="specific-class">
+                                    <mat-panel-title>
+            
+                                        <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Terms and conditions</span>
+                                        </div>
+                                    </mat-panel-title>
+            
+                                </mat-expansion-panel-header>
+                                <div [innerHTML]="promotion.resolveIssues"></div>
+                            </mat-expansion-panel>
                     </div>
-                </div>
+                    <div accordian-expanded>
+                            <br><br>
+                            <mat-expansion-panel [expanded]="allExpandState">
+                                <mat-expansion-panel-header class="specific-class">
+                                    <mat-panel-title>
+            
+                                        <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Resolve issues</span>
+                                        </div>
+                                    </mat-panel-title>
+            
+                                </mat-expansion-panel-header>
+                                <div [innerHTML]="promotion.resolveIssues"></div>
+                            </mat-expansion-panel>
+            
+                            <mat-expansion-panel [expanded]="allExpandState">
+                                <mat-expansion-panel-header class="specific-class">
+                                    <mat-panel-title>
+            
+                                        <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
+                                        </div>
+                                    </mat-panel-title>
+            
+                                </mat-expansion-panel-header>
+                                <div [innerHTML]="promotion.aacomview"></div>
+                            </mat-expansion-panel>
+            
+                            <mat-expansion-panel [expanded]="allExpandState">
+                                <mat-expansion-panel-header class="specific-class">
+                                    <mat-panel-title>
+            
+                                        <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Terms and conditions</span>
+                                        </div>
+                                    </mat-panel-title>
+            
+                                </mat-expansion-panel-header>
+                                <div [innerHTML]="promotion.resolveIssues"></div>
+                            </mat-expansion-panel>
+                    </div>
+
+                </app-promodetailaccordian>
+
+
 
             
+
+
             <br>
-            
+
 
         </div>
 
@@ -211,7 +270,7 @@
         <div *ngFor="let promotion of promotions">
 
             <app-promodetails [promotionOrChallengeCode]="promotion.promotionOrChallengeCode" [isTrending]="promotion.isTrending"
-                (hidesortevent)="hideSortHander($event)">
+                (hidesortevent)="hideSortHandler($event)">
 
                 <div card-body1 class="card-header bgtransparent noMarginPad">
 
@@ -282,8 +341,8 @@
                             <div class="col-sm-12">
 
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelSmStyle"><b>Promotion start to end dates:</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">Start: {{promotion.promoStartDate}}
+                                    <div class="col-sm-6 sviewLabelSmStyle"><b>Promotion start to end dates:</b></div>
+                                    <div class="col-sm-6 sviewTextStyle">Start: {{promotion.promoStartDate}}
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         End: {{promotion.promoEndDate}}</div>
                                 </div>
@@ -292,16 +351,16 @@
                             <hr class="hrwidth">
                             <div class="col-sm-12 pb1">
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelStyle"><b>Is member registration required?</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">{{promotion.registrationRequired}}</div>
+                                    <div class="col-sm-6 sviewLabelStyle"><b>Is member registration required?</b></div>
+                                    <div class="col-sm-6 sviewTextStyle">{{promotion.registrationRequired}}</div>
                                 </div>
 
                             </div>
                             <div class="col-sm-12 pb1">
 
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelSmStyle"><b>Member must register between:</b></div>
-                                    <div class="col-sm-8 sviewTextStyle"> {{promotion.memRegStartDate}}
+                                    <div class="col-sm-6 sviewLabelSmStyle"><b>Member must register between:</b></div>
+                                    <div class="col-sm-6 sviewTextStyle"> {{promotion.memRegStartDate}}
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         {{promotion.memRegEndDate}}
                                     </div>
@@ -311,8 +370,8 @@
                             <div class="col-sm-12 pb1">
 
                                 <div class="row">
-                                    <div class="col-sm-4 promotionDateLabelStyle"><b>Member must travel between:</b></div>
-                                    <div class="col-sm-8 promotionDatesStyle"> {{promotion.memTravelStartDate}}
+                                    <div class="col-sm-6 promotionDateLabelStyle"><b>Member must travel between:</b></div>
+                                    <div class="col-sm-6 promotionDatesStyle"> {{promotion.memTravelStartDate}}
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         {{promotion.memTravelEndDate}}
                                     </div>
@@ -321,24 +380,24 @@
                             </div>
                             <div class="col-sm-12 pb1">
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelSmStyle"><b>Late registration may be processed by</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">{{promotion.lateRegEndDate}}</div>
+                                    <div class="col-sm-6 sviewLabelSmStyle"><b>Late registration may be processed by</b></div>
+                                    <div class="col-sm-6 sviewTextStyle">{{promotion.lateRegEndDate}}</div>
                                 </div>
 
                             </div>
                             <hr class="hrwidth pb1">
                             <div class="col-sm-12 pb1">
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelStyle"><b>Is this a targeted promotion?</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">{{promotion.targetedPromotion}}</div>
+                                    <div class="col-sm-6 sviewLabelStyle"><b>Is this a targeted promotion?</b></div>
+                                    <div class="col-sm-6 sviewTextStyle">{{promotion.targetedPromotion}}</div>
                                 </div>
 
                             </div>
 
                             <div class="col-sm-12 pb1">
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelStyle"><b>TA codes</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">{{promotion.tac}}</div>
+                                    <div class="col-sm-6 sviewLabelStyle"><b>TA codes</b></div>
+                                    <div class="col-sm-6 sviewTextStyle">{{promotion.tac}}</div>
                                 </div>
 
                             </div>
@@ -347,24 +406,24 @@
 
                             <div class="col-sm-12 pb1">
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelStyle"><b>Direct mailer:</b></div>
-                                    <div class="col-sm-8 sviewTextStyle">{{promotion.directmailer}}</div>
+                                    <div class="col-sm-6 sviewLabelStyle"><b>Direct mailer:</b></div>
+                                    <div class="col-sm-6 sviewTextStyle">{{promotion.directmailer}}</div>
                                 </div>
 
                             </div>
 
                             <div class="col-sm-12 pb1">
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelStyle"><b>Marketing page URL:</b></div>
-                                    <div class="col-sm-8" [innerHTML]="promotion.marketingpageurl"></div>
+                                    <div class="col-sm-6 sviewLabelStyle"><b>Marketing page URL:</b></div>
+                                    <div class="col-sm-6" [innerHTML]="promotion.marketingpageurl"></div>
                                 </div>
 
                             </div>
 
                             <div class="col-sm-12 pb1">
                                 <div class="row">
-                                    <div class="col-sm-4 sviewLabelStyle"><b>Email URLs:</b></div>
-                                    <div class="col-sm-8" [innerHTML]="promotion.emailurl"></div>
+                                    <div class="col-sm-6 sviewLabelStyle"><b>Email URLs:</b></div>
+                                    <div class="col-sm-6" [innerHTML]="promotion.emailurl"></div>
                                 </div>
 
                             </div>
@@ -372,10 +431,10 @@
                         </div>
                         <br>
 
-                        <div class="card-header">
+                        <div class="card-header pb1">
                             <div class="row">
-                                <div class="col-sm-4 sviewLabelStyle"><b>Partner codes</b></div>
-                                <div class="col-sm-8 sviewTextStyle">{{promotion.partnerCodes}}</div>
+                                <div class="col-sm-6 sviewLabelStyle"><b>Partner codes</b></div>
+                                <div class="col-sm-6 sviewTextStyle">{{promotion.partnerCodes}}</div>
                             </div>
                         </div>
 
@@ -389,25 +448,102 @@
                         <br>
                         <div [innerHTML]="promotion.fulfillment"></div>
 
-                        <div class="card-header">
+                        <div class="card-header pb1">
                             <div class="row">
-                                <div class="col-sm-4 sviewLabelStyle"><b>PST codes</b></div>
-                                <div class="col-sm-8 sviewTextStyle">{{promotion.pstcodes}}</div>
+                                <div class="col-sm-6 sviewLabelStyle"><b>PST codes</b></div>
+                                <div class="col-sm-6 sviewTextStyle">{{promotion.pstcodes}}</div>
                             </div>
                         </div>
 
                         <br>
-                        <h6 id="mp_resolveissues">Resolve Issues</h6>
+                        <app-promodetailaccordian (expandcollapseevent)="expandCollapseHandler($event)">
+
+                            <div accordian-collapsed>
+                                    <br><br>
+                                    <mat-expansion-panel [expanded]="allExpandState">
+                                        <mat-expansion-panel-header class="specific-class">
+                                            <mat-panel-title>
+                    
+                                                <div class="col-md-9">
+                                                   &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Resolve Issues</span>
+                                                </div>
+                                            </mat-panel-title>
+                    
+                                        </mat-expansion-panel-header>
+                                        <div [innerHTML]="promotion.resolveIssues"></div>
+                                    </mat-expansion-panel>
+                    
+                                    <mat-expansion-panel [expanded]="allExpandState">
+                                        <mat-expansion-panel-header class="specific-class">
+                                            <mat-panel-title>
+                    
+                                                <div class="col-md-9">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
+                                                </div>
+                                            </mat-panel-title>
+                    
+                                        </mat-expansion-panel-header>
+                                        <div [innerHTML]="promotion.aacomview"></div>
+                                    </mat-expansion-panel>
+                    
+                                    <mat-expansion-panel [expanded]="allExpandState">
+                                        <mat-expansion-panel-header class="specific-class">
+                                            <mat-panel-title>
+                    
+                                                <div class="col-md-9">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Terms and conditions</span>
+                                                </div>
+                                            </mat-panel-title>
+                    
+                                        </mat-expansion-panel-header>
+                                        <div [innerHTML]="promotion.resolveIssues"></div>
+                                    </mat-expansion-panel>
+                            </div>
+                            <div accordian-expanded>
+                                    <br><br>
+                                    <mat-expansion-panel [expanded]="allExpandState">
+                                        <mat-expansion-panel-header class="specific-class">
+                                            <mat-panel-title>
+                    
+                                                <div class="col-md-9">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Resolve Issues</span>
+                                                </div>
+                                            </mat-panel-title>
+                    
+                                        </mat-expansion-panel-header>
+                                        <div [innerHTML]="promotion.resolveIssues"></div>
+                                    </mat-expansion-panel>
+                    
+                                    <mat-expansion-panel [expanded]="allExpandState">
+                                        <mat-expansion-panel-header class="specific-class">
+                                            <mat-panel-title>
+                    
+                                                <div class="col-md-9">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">aa.com view</span>
+                                                </div>
+                                            </mat-panel-title>
+                    
+                                        </mat-expansion-panel-header>
+                                        <div [innerHTML]="promotion.aacomview"></div>
+                                    </mat-expansion-panel>
+                    
+                                    <mat-expansion-panel [expanded]="allExpandState">
+                                        <mat-expansion-panel-header class="specific-class">
+                                            <mat-panel-title>
+                    
+                                                <div class="col-md-9">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Terms and conditions</span>
+                                                </div>
+                                            </mat-panel-title>
+                    
+                                        </mat-expansion-panel-header>
+                                        <div [innerHTML]="promotion.resolveIssues"></div>
+                                    </mat-expansion-panel>
+                            </div>
+
+                        </app-promodetailaccordian>
                         <br>
-                        <div [innerHTML]="promotion.resolveIssues"></div>
-                        <br>
-                        <h6 id="mp_aacom">aa.com view</h6>
-                        <br>
-                        <div [innerHTML]="promotion.aacomview"></div>
-                        <br>
-                        <h6 id="mp_tandc">Terms and conditions</h6>
-                        <br>
-                        <div [innerHTML]="promotion.termsandconditions"></div>
+                            
                     </div>
 
                 </div>

@@ -8,9 +8,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatChipsModule, MatIconModule } from '@angular/material';
+import { MatChipsModule, MatIconModule, MatExpansionModule } from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
-import { AccordionModule } from 'ngx-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { SearchcompComponent } from './searchcomp/searchcomp.component';
@@ -28,6 +27,7 @@ import { RequestInterceptor } from './errorservice/http_interceptor';
 import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.component';
 import { HomeComponent } from './home.component';
 import { HealthComponent } from './health/health.component';
+import { PromodetailaccordianComponent } from './resultscomp/promodetailaccordian/promodetailaccordian.component';
 
 
 @NgModule({
@@ -41,7 +41,8 @@ import { HealthComponent } from './health/health.component';
     SearchresultsComponent,
     PromodetailsComponent,
     HomeComponent,
-    HealthComponent
+    HealthComponent,
+    PromodetailaccordianComponent
   ],
   imports: [
     BrowserModule,
@@ -52,10 +53,10 @@ import { HealthComponent } from './health/health.component';
     BrowserAnimationsModule,
     MatChipsModule,
     MatIconModule,
+    MatExpansionModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     BsDatepickerModule.forRoot(),
-    AccordionModule.forRoot(),
     TextMaskModule
   ],
   providers: [SearchserviceService, IcommunicationService

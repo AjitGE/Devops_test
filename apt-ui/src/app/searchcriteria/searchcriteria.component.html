@@ -12,8 +12,8 @@
 
       <em id="bf_kw_pattern" *ngIf="!validateKeywordtext() && keywordtext.errors.pattern">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
-      <em id="bf_kw_min" *ngIf="!validateKeywordtext() && keywordtext.errors.minlength">
-        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
+        <em *ngIf="maxKeywordsError.isError" id="bf_kw_maxkeywords">
+            <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{ maxKeywordsError.errorMessage }}</b></em>
       <em id="bf_kw_max" *ngIf="!validateKeywordtext() && keywordtext.errors.maxlength">
         <i class="fa fa-exclamation-circle errorIconSize"></i><b>Max of 300 characters can be entered</b></em>
 
