@@ -34,9 +34,9 @@
 
                     <div class="row">
                         <div class="col-sm-4 sviewLabelSmStyle"><b>Promotion start to end dates:</b></div>
-                        <div class="col-sm-8 sviewTextStyle">Start: {{promotion.promoStartDate}}
+                        <div class="col-sm-8 sviewTextStyle"> {{promotion.promoStartDate}}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            End: {{promotion.promoEndDate}}</div>
+                            {{promotion.promoEndDate}}</div>
                     </div>
 
                 </div>
@@ -127,7 +127,7 @@
 
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-4 sviewLabelStyle"><b>PST codes</b></div>
+                    <div class="col-sm-4 sviewLabelStyle"><b>Partner codes:</b></div>
                     <div class="col-sm-8 sviewTextStyle">{{promotion.partnerCodes}}</div>
                 </div>
             </div>
@@ -150,17 +150,42 @@
             </div>
 
             <br>
-            <h6 id="sp_resolveissues">Resolve Issues</h6>
+           
+              <div id="accordion" class="accordion">
+                    <div class="card mb-0 border-right-0 border-left-0">
+                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                            <a class="card-title">
+                                <span class="accordionLabelStyle">Resolve Issues </span>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
+                                    <div [innerHTML]="promotion.resolveIssues"></div>
+                            
+                        </div>
+                        <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <a class="card-title">
+                                    <span class="accordionLabelStyle">aa.com view</span>
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
+                                    <div [innerHTML]="promotion.aacomview"></div>
+                            
+                        </div>
+                        <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            <a class="card-title">
+                                    <span class="accordionLabelStyle">Terms and conditions</span>
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="collapse" data-parent="#accordion" >
+                            <div class="card-body"><div [innerHTML]="promotion.resolveIssues"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
             <br>
-            <div [innerHTML]="promotion.resolveIssues"></div>
-            <br>
-            <h6 id="sp_aacom">aa.com view</h6>
-            <br>
-            <div [innerHTML]="promotion.aacomview"></div>
-            <br>
-            <h6 id="sp_tandc">Terms and conditions</h6>
-            <br>
-            <div [innerHTML]="promotion.termsandconditions"></div>
+            
 
         </div>
 

@@ -15,12 +15,12 @@ export class SearchcompComponent implements OnInit, OnChanges {
   @Input() clearAllSignal: boolean;
   @Output() pcodeSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor( ) { }
+  constructor() { }
 
 
   ngOnInit() {
     this.pcode = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(5),
-        Validators.pattern('[a-zA-Z0-9]*')]);
+    Validators.pattern('[a-zA-Z0-9]*')]);
     this.currpromochkbx = new FormControl(false);
 
     this.topSearchForm = new FormGroup({
@@ -31,11 +31,19 @@ export class SearchcompComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['clearAllSignal']) {
-      console.log('Got clearall - in search comp');
-      this.topSearchForm.markAsPristine();
-      this.topSearchForm.markAsUntouched();
-      this.pcode.reset();
+
+
+
+    for (const propName in changes) {
+      const change = changes[propName];
+      if (propName === 'clearAllSignal') {
+        if (change.currentValue && !(change.currentValue === change.previousValue)) {
+          console.log('Got clearall - in search comp');
+          this.pcode.reset();
+          this.topSearchForm.markAsPristine();
+          this.topSearchForm.markAsUntouched();
+        }
+      }
     }
 
   }

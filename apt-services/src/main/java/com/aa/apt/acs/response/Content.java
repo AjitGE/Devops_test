@@ -19,14 +19,14 @@ public class Content implements Serializable {
     @JsonProperty("IsTrending")
     private String isTrending;
     
-    @JsonProperty("Keyword")
-    private String keyword;
+    @JsonProperty("KeyWords")
+    private String keywords;
+
+	@JsonProperty("IsMemberRegistration")
+    private String isMemberRegistration;
     
-    @JsonProperty("IsRegistrationRequire")
-    private String isRegistrationRequire;
-    
-    @JsonProperty("IsTargetedPromotion")
-    private String isTargetedPromotion;
+    @JsonProperty("TargetedPromotion")
+    private String targetedPromotion;
     
     @JsonProperty("HowToEarn")
     private List<LSCSReplicantElement> howToEarn = Collections.emptyList();
@@ -90,31 +90,32 @@ public class Content implements Serializable {
 	public void setIsTrending(String isTrending) {
 		this.isTrending = isTrending;
 	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
-	public String getIsRegistrationRequire() {
-		return isRegistrationRequire;
-	}
-
-	public void setIsRegistrationRequire(String isRegistrationRequire) {
-		this.isRegistrationRequire = isRegistrationRequire;
-	}
-
-	public String getIsTargetedPromotion() {
-		return isTargetedPromotion;
-	}
-
-	public void setIsTargetedPromotion(String isTargetedPromotion) {
-		this.isTargetedPromotion = isTargetedPromotion;
-	}
 	
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	public String getIsMemberRegistration() {
+		return isMemberRegistration;
+	}
+
+	public void setIsMemberRegistration(String isMemberRegistration) {
+		this.isMemberRegistration = isMemberRegistration;
+	}
+
+	public String getTargetedPromotion() {
+		return targetedPromotion;
+	}
+
+	public void setTargetedPromotion(String targetedPromotion) {
+		this.targetedPromotion = targetedPromotion;
+	}
+
+		
 	public void setCommunications(List<Communications> communications) {
 		this.communications = communications;
 	}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IPromotion } from './resultscomp/promotion';
 import { environment } from '../environments/environment';
 
@@ -23,6 +23,11 @@ export class SearchserviceService {
 
   getCriteriaSearchPromoResults(bsparams: string): Observable<IPromotion[]> {
     return this.httpClient.get<IPromotion[]>(environment.backendUrl + '/criteria/search/' + bsparams, { responseType: 'json' })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getServicesPing() {
+    return this.httpClient.get(environment.backendUrl + '/api/hello/', {responseType: 'text'})
       .pipe(catchError(this.errorHandler));
   }
 

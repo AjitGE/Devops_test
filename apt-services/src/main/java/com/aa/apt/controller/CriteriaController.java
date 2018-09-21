@@ -67,7 +67,13 @@ public class CriteriaController
     String ar5PromoUrlStart;
 	
 	@Value("${ar5.promo.url.end}")
-    String ar5PromoUrlEnd;	
+    String ar5PromoUrlEnd;
+	
+	@Value("${lscs.keyword.search.start}")
+	String lscsKeywordSearchStart;
+	
+	@Value("${lscs.keyword.search.end}")
+	String lscsKeywordSearchEnd;
 	
     @Value("${loyalty.membersecurity.url}")
     String apiUrl;
@@ -89,20 +95,21 @@ public class CriteriaController
 	
 	//http://localhost:8080/criteria/search/P468B:false	
 	@RequestMapping(value=ControllerConstants.BSPARAMSSEARCH, method=RequestMethod.GET)
-	public List<Promotion> getPromo(@PathVariable("bsparams") String bsparams) throws IOException
+	public List<Promotion> getPromo(@PathVariable("keywords") String keywords,
+			@PathVariable("fromdate") String fromDate,
+			@PathVariable("todate") String toDate,
+			@PathVariable("targetornontarget") String targetOrNontarget,
+			@PathVariable("bcurrpromosonly") String bCurrPromosOnly
+			) throws IOException
 	{
 		
 		Instant buildCriteriaSearchStart = Instant.now();
-		System.out.println("Value got from angular is :" + bsparams);
-		String[] bsparam = bsparams.split(":");
-		System.out.println("lenth of bsparam array :" + bsparam.length);
-		String keywordsarray = bsparam[0];
-		String fromDate = bsparam[1];
-		String toDate = bsparam[2];
-		String targetvsnontar = bsparam[3];
-		String bcurrpromosonly = bsparam[4];
-		System.out.println("Value of keywords array:" + keywordsarray);
 		promoListMap = new HashMap<>();
+		
+		if ((! (keywords.equals("NOKEYWORDS"))) && (fromDate.equals("")))
+		{
+			
+		}
 		// getPromosFromVentana(bsparams);
 		
 /*
@@ -117,7 +124,7 @@ public class CriteriaController
 		Instant buildCriteriaSearchEnd = Instant.now();
 		long buildCriteriaSearchTimeElapsed = Duration.between(buildCriteriaSearchStart,buildCriteriaSearchEnd).toMillis();
 		if(logger.isDebugEnabled())
-			logger.debug("Time elapsed to build list of promo(s) for given criteria {} : {} (in Millis)",bsparams,buildCriteriaSearchTimeElapsed);
+			logger.debug("Time elapsed to build list of promo(s) for given criteria {} : {} (in Millis)",keywords,buildCriteriaSearchTimeElapsed);
 		
 		return promoListMap.values().stream().collect(Collectors.toList());
 		
@@ -256,9 +263,9 @@ public class CriteriaController
 					Instant acsParseResStart = Instant.now();
 					prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
 					prom.setIsTrending(acsresponse.getContent().getIsTrending());
-					prom.setKeyword(acsresponse.getContent().getKeyword());
-					prom.setRegistrationRequired(acsresponse.getContent().getIsRegistrationRequire());
-					prom.setTargetedPromotion(acsresponse.getContent().getIsTargetedPromotion());
+					prom.setKeyword(acsresponse.getContent().getKeywords());
+					prom.setRegistrationRequired(acsresponse.getContent().getIsMemberRegistration());
+					prom.setTargetedPromotion(acsresponse.getContent().getTargetedPromotion());
 					prom.setHowToEarn(getLSCSContent(acsresponse.getContent().getHowToEarn()));
 					prom.setFulfillment(getLSCSContent(acsresponse.getContent().getFulfillment()));
 					prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));

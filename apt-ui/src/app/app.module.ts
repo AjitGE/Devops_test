@@ -10,6 +10,7 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatChipsModule, MatIconModule } from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { SearchcompComponent } from './searchcomp/searchcomp.component';
@@ -54,6 +55,7 @@ import { HealthComponent } from './health/health.component';
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     BsDatepickerModule.forRoot(),
+    AccordionModule.forRoot(),
     TextMaskModule
   ],
   providers: [SearchserviceService, IcommunicationService

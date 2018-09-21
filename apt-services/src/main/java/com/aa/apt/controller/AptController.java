@@ -248,9 +248,9 @@ public class AptController
 					Instant acsParseResStart = Instant.now();
 					prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
 					prom.setIsTrending(acsresponse.getContent().getIsTrending());
-					prom.setKeyword(acsresponse.getContent().getKeyword());
-					prom.setRegistrationRequired(acsresponse.getContent().getIsRegistrationRequire());
-					prom.setTargetedPromotion(acsresponse.getContent().getIsTargetedPromotion());
+					prom.setKeyword(acsresponse.getContent().getKeywords());
+					prom.setRegistrationRequired(acsresponse.getContent().getIsMemberRegistration());
+					prom.setTargetedPromotion(acsresponse.getContent().getTargetedPromotion());
 					prom.setHowToEarn(getLSCSContent(acsresponse.getContent().getHowToEarn()));
 					prom.setFulfillment(getLSCSContent(acsresponse.getContent().getFulfillment()));
 					prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));

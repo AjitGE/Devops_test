@@ -132,3 +132,37 @@
     border-style: solid;
     border-width: 1px;
 }
+
+.down-button-style {
+    background: #FAFBFB url(../../assets/Open-icon.svg) no-repeat;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.card .card-header {
+    background-color: transparent; 
+  }
+
+.accordion .card-header:after {
+    font-family: 'FontAwesome';  
+    content: "\f077";
+    float: left; 
+}
+.accordion .card-header.collapsed:after {
+    content: "\f078"; 
+}
+
+.accordionLabelStyle {
+height: 20px;
+background-color: transparent;
+font-family: AmericanSansLight;
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color: #00467F;
+display:inline-block; 
+margin-left: 15px; 
+}

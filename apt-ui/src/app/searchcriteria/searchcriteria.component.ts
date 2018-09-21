@@ -135,29 +135,35 @@ export class SearchcriteriaComponent implements OnInit {
       }
       let bsparamstring = '';
       if (this.keywordsarray.length === 0) {
-        bsparamstring = 'NOKEYWORDS:';
+        bsparamstring = 'NOKEYWORDS/';
       } else {
-        bsparamstring = this.keywordsarray.join(',') + ':';
+        bsparamstring = this.keywordsarray.join(',') + '/';
       }
       if (this.fromDateFormControl.value) {
-        bsparamstring += this.transformNoSlashDate(this.fromDateFormControl.value) + ':';
+        bsparamstring += this.transformNoSlashDate(this.fromDateFormControl.value) + '/';
       } else {
-        bsparamstring += 'NOFROMDATE:';
+        bsparamstring += 'NOFROMDATE/';
       }
       if (this.toDateFormControl.value) {
-        bsparamstring += this.transformNoSlashDate(this.toDateFormControl.value) + ':';
+        bsparamstring += this.transformNoSlashDate(this.toDateFormControl.value) + '/';
       } else {
-        bsparamstring += 'NOTODATE:';
+        bsparamstring += 'NOTODATE/';
       }
       if (this.targetvsnontarget.value) {
-        bsparamstring += this.targetvsnontarget.value + ':';
+        bsparamstring += this.targetvsnontarget.value + '/';
       } else {
-        bsparamstring += 'TARGETNOTSELECTED' + ':';
+        bsparamstring += 'TARGETNOTSELECTED' + '/';
       }
       if (this.bcurrpromosOnlychkbx.value) {
-        bsparamstring += 'BCURRPROMOSELECTED';
+        bsparamstring += 'BCURRPROMOSELECTED/';
       } else {
-        bsparamstring += 'BCURRPROMONOTSELECTED';
+        bsparamstring += 'BCURRPROMONOTSELECTED/';
+      }
+      this.partnercodetext.setValue('');
+      if (this.partnercodetext.value) {
+        bsparamstring += this.partnercodetext.value;
+      } else {
+        bsparamstring += 'NOPARTNERCODES';
       }
 
       console.log('value of bsparamstring is ' + bsparamstring);

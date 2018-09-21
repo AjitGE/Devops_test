@@ -77,7 +77,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
       } else if (propName === 'bsparams') {
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
           console.log('Received bsparams as ' + change.currentValue);
-          if (change.currentValue === 'NOKEYWORDS*NOFROMDATE*NOTODATE*TARGETNOTSELECTED*BCURRPROMONOTSELECTED') {
+          if (change.currentValue === 'NOKEYWORDS/NOFROMDATE/NOTODATE/TARGETNOTSELECTED/BCURRPROMONOTSELECTED/NOPARTNERCODES') {
             this.isBottomSearchValid = 0;
           } else {
             this.isBottomSearchValid = 1;
