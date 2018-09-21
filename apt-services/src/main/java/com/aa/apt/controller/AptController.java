@@ -95,7 +95,7 @@ public class AptController
 		Instant buildPromoSearchStart = Instant.now();
 		
 		promoListMap = new HashMap<>();
-		getPromosFromVentana(pcode.toUpperCase());
+		getPromosFromVentana(pcode);
 		
 
 		List<String> promoCodeList = new ArrayList<>(promoListMap.keySet().stream().collect(Collectors.toList()));

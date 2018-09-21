@@ -56,7 +56,7 @@ export class SearchcompComponent implements OnInit, OnChanges {
     if (this.topSearchForm.valid) {
       this.pcodepromoval = formValues.pcode + ':' + formValues.currpromochkbx;
       console.log(this.pcodepromoval);
-      this.pcodeSubmitted.emit(this.pcodepromoval);
+      this.pcodeSubmitted.emit(this.pcodepromoval.toUpperCase());
     }
   }
 

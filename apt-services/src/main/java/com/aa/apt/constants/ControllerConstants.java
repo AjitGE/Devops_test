@@ -1,5 +1,7 @@
 package com.aa.apt.constants;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
 public final class ControllerConstants {
 	
 	private ControllerConstants() {
@@ -13,8 +15,8 @@ public final class ControllerConstants {
 	public static final String PCODESEARCHFORACS="search/acs/{pcode}";
 	
 	public static final String ROOT_CRITERIA_API="/criteria/";
-	public static final String BSPARAMSSEARCH="search/{bsparams}";
-
+	public static final String BSPARAMSSEARCH="search/{keywords}/{fromdate}/{todate}/{targetornontarget}/{bcurrpromosonly}/{partnercodes}";
+	
 	
 	// JSON Requests
 	
