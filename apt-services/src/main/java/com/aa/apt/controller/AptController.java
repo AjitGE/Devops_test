@@ -10,10 +10,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -41,6 +43,7 @@ import com.aa.apt.ar5.response.TermsAndConditionsUrl;
 import com.aa.apt.ar5.response.UrlElement;
 import com.aa.apt.constants.ControllerConstants;
 import com.aa.apt.model.Promotion;
+import com.aa.apt.service.AptService;
 import com.aa.apt.utils.FileUtils;
 import com.aa.apt.utils.NetworkUtils;
 import com.aa.apt.ventana.response.PingVentana;
@@ -100,6 +103,9 @@ public class AptController {
 
 	@Value("${loyalty.ventana.head.transactionid}")
 	String ventanaHeadTransactionId;
+	
+	@Autowired
+    AptService aptService;
 
 	Map<String, Promotion> promoListMap;
 
@@ -110,12 +116,22 @@ public class AptController {
 
 	// http://localhost:8080/api/search/P468B:false
 	@RequestMapping(value = ControllerConstants.PCODESEARCH, method = RequestMethod.GET)
-	public List<Promotion> getPromo(@PathVariable("pcode") String pcode) throws IOException {
+	public List<Promotion> getPromo(@PathVariable("pcode") String pcode) throws IOException, InterruptedException {
 
 		Instant buildPromoSearchStart = Instant.now();
 
 		promoListMap = new HashMap<>();
-		getPromosFromVentana(pcode);
+		 getPromosFromVentana(pcode);
+		
+		/*
+		promoListMap.put("RVGLD", new Promotion());
+		promoListMap.put("RDLEP", new Promotion());
+		promoListMap.put("RHVGL", new Promotion());
+		promoListMap.put("RHVEP", new Promotion());
+		promoListMap.put("EHI02", new Promotion());
+		promoListMap.put("RHVPP", new Promotion());
+		promoListMap.put("P468B", new Promotion());
+		*/
 		
 
 		List<String> promoCodeList = new ArrayList<>(promoListMap.keySet().stream().collect(Collectors.toList()));
@@ -238,7 +254,8 @@ public class AptController {
 	 * 
 	 * @param promoCodeList
 	 */
-	private void createPromoListForVentanaResults(List<String> promoCodeList) {
+	private void createPromoListForVentanaResults(List<String> promoCodeList) throws InterruptedException {
+		/*
 		RestTemplate restTemplate = new RestTemplate();
 		for (int i = 0; i < promoCodeList.size(); i++) {
 			Promotion prom = promoListMap.get(promoCodeList.get(i));
@@ -307,6 +324,29 @@ public class AptController {
 			promoListMap.put(promoCodeList.get(i), prom);
 
 		}
+		
+		*/
+		
+		
+		for (int i = 0; i < promoCodeList.size(); i++) {
+			Promotion prom = promoListMap.get(promoCodeList.get(i));
+			prom.setPromotionOrChallengeCode(promoCodeList.get(i));
+			Instant buildSinglePromoStart = Instant.now();
+			
+		
+			 CompletableFuture<LscsPromotionContentResponse> ar5response = aptService.getAr5LscsPromotionContentResponse(prom);
+		     CompletableFuture<AcsPromotionContentResponse> acsresponse = aptService.getAcsPromotionContentResponse(prom);
+		        // Wait until they are all done
+		     CompletableFuture.allOf(ar5response, acsresponse).join();
+
+			Instant buildSinglePromoEnd = Instant.now();
+			long buildSinglePromoTimeElapsed = Duration.between(buildSinglePromoStart,buildSinglePromoEnd).toMillis();
+			if(logger.isDebugEnabled())
+				logger.debug("Time elapsed to build promo code {} : {} (in Millis)",promoCodeList.get(i),buildSinglePromoTimeElapsed);
+			promoListMap.put(promoCodeList.get(i), prom);
+
+		}
+		
 	}
 
 	/**
@@ -348,78 +388,9 @@ public class AptController {
 				.replaceAll("REPLACEACTIVEFLAG", currpromoflag.equalsIgnoreCase("true") ? "Y" : "N");
 	}
 
-	private String getLSCSContent(List<LSCSReplicantElement> lscsReplicantElement) {
+	
 
-		StringBuilder ar5maincontentbuffer = new StringBuilder();
-		String elementType = "";
-		Iterator<LSCSReplicantElement> lscsReplicantElementItr = lscsReplicantElement.iterator();
-		while (lscsReplicantElementItr.hasNext()) {
-			LSCSReplicantElement element = lscsReplicantElementItr.next();
-			elementType = element.getElementType();
-			if (elementType.equals("Heading")) {
-
-				HeaderElement headerElement = (HeaderElement) element;
-				ar5maincontentbuffer.append("<h6>").append(headerElement.getValue()).append("</h6>");
-
-			} else if (elementType.equals("List")) {
-				ListContentElement listContentElement = (ListContentElement) element;
-				List<ListElement> listElements = listContentElement.getListElements();
-				Iterator<ListElement> listElementsItr = listElements.iterator();
-				ar5maincontentbuffer.append("<ul>");
-				while (listElementsItr.hasNext()) {
-					ListElement listElement = listElementsItr.next();
-					ar5maincontentbuffer.append("<li>").append(listElement.getValue()).append("</li>");
-
-				}
-				ar5maincontentbuffer.append("</ul>");
-
-			} else if (elementType.equals("Paragraph")) {
-				ParagraphElement paragraphElement = (ParagraphElement) element;
-
-				ar5maincontentbuffer.append("<p>").append(paragraphElement.getParagraph()).append("</p>");
-			} else if (elementType.equals("Url")) {
-				UrlElement mainContentUrl = (UrlElement) element;
-				ar5maincontentbuffer.append("<a alt=\"" + mainContentUrl.getAltText() + "\" href=\""
-						+ mainContentUrl.getUrl() + "\">" + mainContentUrl.getDisplayText() + "</a>");
-				ar5maincontentbuffer.append("<br>");
-			} else if (elementType.equals("TermsAndConditionUrl")) {
-				TermsAndConditionsUrl mainContentUrl = (TermsAndConditionsUrl) element;
-				ar5maincontentbuffer.append("<a alt=\"" + mainContentUrl.getAltText() + "\" href=\""
-						+ mainContentUrl.getUrl() + "\">" + mainContentUrl.getTextDisplay() + "</a>");
-				ar5maincontentbuffer.append("<br>");
-			}
-
-		}
-
-		return (!ar5maincontentbuffer.toString().equals("")) ? ar5maincontentbuffer.toString() : "N/A";
-	}
-
-	public String getEmailContent(List<Email> emailList) {
-		StringBuilder emailURL = new StringBuilder();
-		Iterator<Email> emailItr = emailList.iterator();
-		while (emailItr.hasNext()) {
-			Email email = emailItr.next();
-			emailURL.append("<a href=\"" + email.getUrl() + "\">" + email.getTextDisplay() + "</a>");
-			emailURL.append("<br>");
-
-		}
-
-		return (!emailURL.toString().equals("")) ? emailURL.toString() : "N/A";
-	}
-
-	public String getMarketingPageUrl(List<MarketingPageUrl> marketPageurlList) {
-		StringBuilder marketPageUrl = new StringBuilder();
-		Iterator<MarketingPageUrl> marketingPageUrlItr = marketPageurlList.iterator();
-		while (marketingPageUrlItr.hasNext()) {
-			MarketingPageUrl mpu = marketingPageUrlItr.next();
-			marketPageUrl.append("<a href=\"" + mpu.getUrl() + "\">" + mpu.getTextDisplay() + "</a>");
-			marketPageUrl.append("<br>");
-
-		}
-		return (!marketPageUrl.toString().equals("")) ? marketPageUrl.toString() : "N/A";
-
-	}
-
+	
 	// http://localhost:8080/api/search/ar5/P468B
 	@RequestMapping(value = ControllerConstants.PCODESEARCHFORAR5, method = RequestMethod.GET)
 	public LscsPromotionContentResponse getPromoDetailsFromAR5(@PathVariable("pcode") String pcode) {
@@ -440,8 +411,10 @@ public class AptController {
 		AcsPromotionContentResponse acsresponse = restTemplate.getForObject(acsPromoUrlStart + pcode + acsPromoUrlEnd,
 				AcsPromotionContentResponse.class);
 		logger.debug("--------------Ping AR5-----{}", acsresponse.getContent());
+		/*
 		logger.info("Email content is : {}",
 				getEmailContent(acsresponse.getContent().getCommunications().get(0).getEmail()));
+				*/
 		return acsresponse;
 	}
 
