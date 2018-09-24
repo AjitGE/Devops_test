@@ -1,5 +1,6 @@
 package com.aa.apt.ventana.response;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -12,9 +13,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "PromoSearchResultItem"
 })
 
-public class PromoSearchResult {
+public class PromoSearchResult implements Serializable {
 
-    @JsonProperty("PromoSearchResultItem")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -929042887526453851L;
+	
+	@JsonProperty("PromoSearchResultItem")
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<PromoSearchResultItem> promoSearchResultItem = null;
 

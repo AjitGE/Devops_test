@@ -4,10 +4,13 @@
     novalidate>
     <br>
     <div class="form-group">
-      <label for="keywordLabel" class="col-sm-12 bottom-form-label" id="bf_keyword_label">
+      <label for="keywordLabel" class="col-sm-12 bottom-form-keyword-label" id="bf_keyword_label">
         Keywords
       </label>
-
+      <label class="col-sm-12 bottom-form-small-label" id="bf_keyword_label">
+        (max of 5; separated by commas)
+      </label>
+      
 
 
       <em id="bf_kw_pattern" *ngIf="!validateKeywordtext() && keywordtext.errors.pattern">
@@ -29,7 +32,7 @@
       </div>
       <br>
       <mat-chip-list>
-        <mat-chip *ngFor="let fruit of keywordsarray" 
+        <mat-chip *ngFor="let fruit of display_kwarray" 
                  [removable]="removable" (removed)="remove(fruit)">
                  <p style="color:red"> {{fruit}} </p>
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>

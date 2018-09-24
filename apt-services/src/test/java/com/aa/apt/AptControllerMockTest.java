@@ -44,17 +44,49 @@ public class AptControllerMockTest {
 		.andExpect(status().is(404));
 	}
 	
-	/*
+	
 	@Test
 	public void testGetPromoPositive() throws Exception {
 		aptController = mock(AptController.class);
-		this.mockMvc.perform(get("/api/search/P468B:false")
+		this.mockMvc.perform(get("/api/search/RVGL:false")
 		.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 		.andExpect(status().isOk());
 
 		
 	}
-	*/
+	
+	
+	@Test
+	public void testPingVentnaNegative() throws Exception {
+		aptController = mock(AptController.class);
+		this.mockMvc.perform(get("/api/ping/ventana/test")
+		.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+		.andExpect(status().is(404));
+	}
+	
+	@Test
+	public void testPingVentnaPositive() throws Exception {
+		aptController = mock(AptController.class);
+		this.mockMvc.perform(get("/api/ping/ventana")
+		.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testGetPromoDetailsFromAR5() throws Exception {
+		aptController = mock(AptController.class);
+		this.mockMvc.perform(get("/api/search/ar5/P468B")
+		.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testGetPromoDetailsFromACS() throws Exception {
+		aptController = mock(AptController.class);
+		this.mockMvc.perform(get("/api/search/acs/RVGLD")
+		.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+		.andExpect(status().isOk());
+	}
 	
 
 }

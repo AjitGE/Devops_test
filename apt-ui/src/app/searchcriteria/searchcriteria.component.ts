@@ -33,9 +33,11 @@ export class SearchcriteriaComponent implements OnInit {
   removable = true;
   selectable = true;
   keywordsarray: string[] = [];
+  display_kwarray: string[] = [];
   maxKeywordsAllowed = 4;
   maxKeywordsError: any = { isError: false, errorMessage: '' };
   isValidSubmit = false;
+  singlekw_max = 26;
 
   // Date variables
   fromDatePickerValue: Date;
@@ -86,13 +88,20 @@ export class SearchcriteriaComponent implements OnInit {
         const splstring = keywordstring.split(',');
         for (let i = 0; i < splstring.length; i++) {
           const value = splstring[i];
+          let dispvalue = '';
           if (this.keywordsarray.length > this.maxKeywordsAllowed) {
             this.bottomSearchForm.get('keywordtext').setValue('');
-            // this.maxKeywordsError = { isError: true, errorMessage: 'A max of 5 keywords can be entered' };
+            this.maxKeywordsError = { isError: true, errorMessage: 'A max of 5 keywords can be entered' };
             break;
           }
           if (value && value.trim().length && !this.keywordsarray.find(x => x === value)) {
+            if (value.length > this.singlekw_max) {
+              for (let kwl = 0; kwl < value.length; kwl = kwl + this.singlekw_max) {
+                dispvalue += value.substring(kwl, kwl + this.singlekw_max) + '\n';
+              }
+            }
             this.keywordsarray.push(value);
+            this.display_kwarray.push(dispvalue === '' ? value : dispvalue);
             this.isValidSubmit = true;
           }
           this.bottomSearchForm.get('keywordtext').setValue('');
@@ -102,14 +111,15 @@ export class SearchcriteriaComponent implements OnInit {
   }
 
   remove(fruit: any): void {
-    const index = this.keywordsarray.indexOf(fruit);
+    const index = this.display_kwarray.indexOf(fruit);
 
     if (index >= 0) {
       this.keywordsarray.splice(index, 1);
+      this.display_kwarray.splice(index, 1);
     }
 
     if (index <= this.maxKeywordsAllowed) {
-      //  this.maxKeywordsError = { isError: false, errorMessage: '' };
+      this.maxKeywordsError = { isError: false, errorMessage: '' };
     }
 
     if (this.keywordsarray.length === 0) {
@@ -181,6 +191,7 @@ export class SearchcriteriaComponent implements OnInit {
   clearAllClicked(event: Event) {
     this.clearallflag = !this.clearallflag;
     this.keywordsarray = [];
+    this.display_kwarray = [];
     this.invalidFromGreaterToError = { isError: false, errorMessage: '' };
     this.invalidFromDateError = { isError: false, errorMessage: '' };
     this.invalidToDateError = { isError: false, errorMessage: '' };

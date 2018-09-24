@@ -1,5 +1,7 @@
 package com.aa.apt.ventana.response;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,9 +12,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "Message",
     "ClientTransactionId"
 })
-public class ResponseStatus {
+public class ResponseStatus implements Serializable {
 
-    @JsonProperty("Code")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5564161107940959589L;
+
+	@JsonProperty("Code")
     private String code;
     
     @JsonProperty("Message")

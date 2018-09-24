@@ -1,5 +1,7 @@
 package com.aa.apt.ventana.response;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,9 +26,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "TAC"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PromoSearchResultItem {
+public class PromoSearchResultItem implements Serializable {
 
-    @JsonProperty("PromoCode")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8616952053867072777L;
+
+	@JsonProperty("PromoCode")
     private String promoCode;
     
     @JsonProperty("PromoName")

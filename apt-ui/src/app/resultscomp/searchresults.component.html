@@ -8,7 +8,9 @@
 
     <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
 
-    <div *ngIf="isBottomSearchValid === 0"><br><br><p>You must enter at least one search requirement</p></div>
+    <div *ngIf="isBottomSearchValid === 0"><br><br>
+        <p>You must enter at least one search requirement</p>
+    </div>
 
     <div *ngIf="promotions?.length === 1">
         <div *ngFor="let promotion of promotions">
@@ -150,97 +152,97 @@
             </div>
 
             <br>
-           
+
             <app-promodetailaccordian (expandcollapseevent)="expandCollapseHandler($event)">
 
-                    <div accordian-collapsed>
-                            <br><br>
-                            <mat-expansion-panel [expanded]="allExpandState">
-                                <mat-expansion-panel-header class="specific-class">
-                                    <mat-panel-title>
-            
-                                        <div class="col-md-9">
-                                           &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle"> Resolve issues</span>
-                                        </div>
-                                    </mat-panel-title>
-            
-                                </mat-expansion-panel-header>
-                                <div [innerHTML]="promotion.resolveIssues"></div>
-                            </mat-expansion-panel>
-            
-                            <mat-expansion-panel [expanded]="allExpandState">
-                                <mat-expansion-panel-header class="specific-class">
-                                    <mat-panel-title>
-            
-                                        <div class="col-md-9">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
-                                        </div>
-                                    </mat-panel-title>
-            
-                                </mat-expansion-panel-header>
-                                <div [innerHTML]="promotion.aacomview"></div>
-                            </mat-expansion-panel>
-            
-                            <mat-expansion-panel [expanded]="allExpandState">
-                                <mat-expansion-panel-header class="specific-class">
-                                    <mat-panel-title>
-            
-                                        <div class="col-md-9">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Terms and conditions</span>
-                                        </div>
-                                    </mat-panel-title>
-            
-                                </mat-expansion-panel-header>
-                                <div [innerHTML]="promotion.resolveIssues"></div>
-                            </mat-expansion-panel>
-                    </div>
-                    <div accordian-expanded>
-                            <br><br>
-                            <mat-expansion-panel [expanded]="allExpandState">
-                                <mat-expansion-panel-header class="specific-class">
-                                    <mat-panel-title>
-            
-                                        <div class="col-md-9">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Resolve issues</span>
-                                        </div>
-                                    </mat-panel-title>
-            
-                                </mat-expansion-panel-header>
-                                <div [innerHTML]="promotion.resolveIssues"></div>
-                            </mat-expansion-panel>
-            
-                            <mat-expansion-panel [expanded]="allExpandState">
-                                <mat-expansion-panel-header class="specific-class">
-                                    <mat-panel-title>
-            
-                                        <div class="col-md-9">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
-                                        </div>
-                                    </mat-panel-title>
-            
-                                </mat-expansion-panel-header>
-                                <div [innerHTML]="promotion.aacomview"></div>
-                            </mat-expansion-panel>
-            
-                            <mat-expansion-panel [expanded]="allExpandState">
-                                <mat-expansion-panel-header class="specific-class">
-                                    <mat-panel-title>
-            
-                                        <div class="col-md-9">
-                                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Terms and conditions</span>
-                                        </div>
-                                    </mat-panel-title>
-            
-                                </mat-expansion-panel-header>
-                                <div [innerHTML]="promotion.resolveIssues"></div>
-                            </mat-expansion-panel>
-                    </div>
+                <div accordian-collapsed>
+                    <br><br>
+                    <mat-expansion-panel [expanded]="allExpandState">
+                        <mat-expansion-panel-header class="specific-class">
+                            <mat-panel-title>
 
-                </app-promodetailaccordian>
+                                <div class="col-md-9">
+                                    &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle"> Resolve issues</span>
+                                </div>
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <div [innerHTML]="promotion.resolveIssues"></div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="allExpandState">
+                        <mat-expansion-panel-header class="specific-class">
+                            <mat-panel-title>
+
+                                <div class="col-md-9">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
+                                </div>
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <div [innerHTML]="promotion.aacomview"></div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="allExpandState">
+                        <mat-expansion-panel-header class="specific-class">
+                            <mat-panel-title>
+
+                                <div class="col-md-9">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Terms and conditions</span>
+                                </div>
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <div [innerHTML]="promotion.termsandconditions"></div>
+                    </mat-expansion-panel>
+                </div>
+                <div accordian-expanded>
+                    <br><br>
+                    <mat-expansion-panel [expanded]="allExpandState">
+                        <mat-expansion-panel-header class="specific-class">
+                            <mat-panel-title>
+
+                                <div class="col-md-9">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Resolve issues</span>
+                                </div>
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <div [innerHTML]="promotion.resolveIssues"></div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="allExpandState">
+                        <mat-expansion-panel-header class="specific-class">
+                            <mat-panel-title>
+
+                                <div class="col-md-9">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
+                                </div>
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <div [innerHTML]="promotion.aacomview"></div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="allExpandState">
+                        <mat-expansion-panel-header class="specific-class">
+                            <mat-panel-title>
+
+                                <div class="col-md-9">
+                                    &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Terms and conditions</span>
+                                </div>
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <div [innerHTML]="promotion.termsandconditions"></div>
+                    </mat-expansion-panel>
+                </div>
+
+            </app-promodetailaccordian>
 
 
 
-            
+
 
 
             <br>
@@ -459,91 +461,93 @@
                         <app-promodetailaccordian (expandcollapseevent)="expandCollapseHandler($event)">
 
                             <div accordian-collapsed>
-                                    <br><br>
-                                    <mat-expansion-panel [expanded]="allExpandState">
-                                        <mat-expansion-panel-header class="specific-class">
-                                            <mat-panel-title>
-                    
-                                                <div class="col-md-9">
-                                                   &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Resolve Issues</span>
-                                                </div>
-                                            </mat-panel-title>
-                    
-                                        </mat-expansion-panel-header>
-                                        <div [innerHTML]="promotion.resolveIssues"></div>
-                                    </mat-expansion-panel>
-                    
-                                    <mat-expansion-panel [expanded]="allExpandState">
-                                        <mat-expansion-panel-header class="specific-class">
-                                            <mat-panel-title>
-                    
-                                                <div class="col-md-9">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
-                                                </div>
-                                            </mat-panel-title>
-                    
-                                        </mat-expansion-panel-header>
-                                        <div [innerHTML]="promotion.aacomview"></div>
-                                    </mat-expansion-panel>
-                    
-                                    <mat-expansion-panel [expanded]="allExpandState">
-                                        <mat-expansion-panel-header class="specific-class">
-                                            <mat-panel-title>
-                    
-                                                <div class="col-md-9">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Terms and conditions</span>
-                                                </div>
-                                            </mat-panel-title>
-                    
-                                        </mat-expansion-panel-header>
-                                        <div [innerHTML]="promotion.resolveIssues"></div>
-                                    </mat-expansion-panel>
+                                <br><br>
+                                <mat-expansion-panel [expanded]="allExpandState">
+                                    <mat-expansion-panel-header class="specific-class">
+                                        <mat-panel-title>
+
+                                            <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Resolve Issues</span>
+                                            </div>
+                                        </mat-panel-title>
+
+                                    </mat-expansion-panel-header>
+                                    <div [innerHTML]="promotion.resolveIssues"></div>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel [expanded]="allExpandState">
+                                    <mat-expansion-panel-header class="specific-class">
+                                        <mat-panel-title>
+
+                                            <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">aa.com view</span>
+                                            </div>
+                                        </mat-panel-title>
+
+                                    </mat-expansion-panel-header>
+                                    <div [innerHTML]="promotion.aacomview"></div>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel [expanded]="allExpandState">
+                                    <mat-expansion-panel-header class="specific-class">
+                                        <mat-panel-title>
+
+                                            <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Terms and
+                                                    conditions</span>
+                                            </div>
+                                        </mat-panel-title>
+
+                                    </mat-expansion-panel-header>
+                                    <div [innerHTML]="promotion.termsandconditions"></div>
+                                </mat-expansion-panel>
                             </div>
                             <div accordian-expanded>
-                                    <br><br>
-                                    <mat-expansion-panel [expanded]="allExpandState">
-                                        <mat-expansion-panel-header class="specific-class">
-                                            <mat-panel-title>
-                    
-                                                <div class="col-md-9">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Resolve Issues</span>
-                                                </div>
-                                            </mat-panel-title>
-                    
-                                        </mat-expansion-panel-header>
-                                        <div [innerHTML]="promotion.resolveIssues"></div>
-                                    </mat-expansion-panel>
-                    
-                                    <mat-expansion-panel [expanded]="allExpandState">
-                                        <mat-expansion-panel-header class="specific-class">
-                                            <mat-panel-title>
-                    
-                                                <div class="col-md-9">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">aa.com view</span>
-                                                </div>
-                                            </mat-panel-title>
-                    
-                                        </mat-expansion-panel-header>
-                                        <div [innerHTML]="promotion.aacomview"></div>
-                                    </mat-expansion-panel>
-                    
-                                    <mat-expansion-panel [expanded]="allExpandState">
-                                        <mat-expansion-panel-header class="specific-class">
-                                            <mat-panel-title>
-                    
-                                                <div class="col-md-9">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Terms and conditions</span>
-                                                </div>
-                                            </mat-panel-title>
-                    
-                                        </mat-expansion-panel-header>
-                                        <div [innerHTML]="promotion.resolveIssues"></div>
-                                    </mat-expansion-panel>
+                                <br><br>
+                                <mat-expansion-panel [expanded]="allExpandState">
+                                    <mat-expansion-panel-header class="specific-class">
+                                        <mat-panel-title>
+
+                                            <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Resolve Issues</span>
+                                            </div>
+                                        </mat-panel-title>
+
+                                    </mat-expansion-panel-header>
+                                    <div [innerHTML]="promotion.resolveIssues"></div>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel [expanded]="allExpandState">
+                                    <mat-expansion-panel-header class="specific-class">
+                                        <mat-panel-title>
+
+                                            <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">aa.com view</span>
+                                            </div>
+                                        </mat-panel-title>
+
+                                    </mat-expansion-panel-header>
+                                    <div [innerHTML]="promotion.aacomview"></div>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel [expanded]="allExpandState">
+                                    <mat-expansion-panel-header class="specific-class">
+                                        <mat-panel-title>
+
+                                            <div class="col-md-9">
+                                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle">Terms and
+                                                    conditions</span>
+                                            </div>
+                                        </mat-panel-title>
+
+                                    </mat-expansion-panel-header>
+                                    <div [innerHTML]="promotion.termsandconditions"></div>
+                                </mat-expansion-panel>
                             </div>
 
                         </app-promodetailaccordian>
                         <br>
-                            
+
                     </div>
 
                 </div>
