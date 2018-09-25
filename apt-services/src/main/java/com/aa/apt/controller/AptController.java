@@ -27,10 +27,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
+import com.aa.apt.ar5.response.LscsPromotionContentResponse;
 import com.aa.apt.constants.ControllerConstants;
 import com.aa.apt.model.Promotion;
 import com.aa.apt.service.AptService;
