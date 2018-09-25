@@ -113,10 +113,10 @@ public class AptService {
 			prom.setKeyword(acsresponse.getContent().getKeywords());
 			prom.setRegistrationRequired(acsresponse.getContent().getIsMemberRegistration());
 			prom.setTargetedPromotion(acsresponse.getContent().getTargetedPromotion());
-			prom.setHowToEarn(getLSCSContent(acsresponse.getContent().getHowToEarn()));
-			prom.setFulfillment(getLSCSContent(acsresponse.getContent().getFulfillment()));
-			prom.setResolveIssues(getLSCSContent(acsresponse.getContent().getResolveIssues()));
-			prom.setPSTCodes("From ACS Template");
+			prom.setHowToEarn(acsresponse.getContent().getHowToEarn());
+			prom.setFulfillment(acsresponse.getContent().getFulfillment());
+			prom.setResolveIssues(acsresponse.getContent().getResolveIssues());
+			prom.setPSTCodes(acsresponse.getContent().getPst());
 			prom.setPartnerCodes("From ACS Template");
 			prom.setDirectmailer(acsresponse.getContent().getCommunications().get(0).getIsDirectMailer());
 			prom.setMarketingpageurl(getMarketingPageUrl(acsresponse.getContent().getCommunications().get(0).getMarketingPageUrl()));

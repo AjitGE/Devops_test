@@ -1,9 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 
 import { IPromotion } from './promotion';
-import { SearchserviceService } from '../searchservice.service';
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-
 
 @Component({
   selector: 'app-resultscomp',
@@ -12,8 +9,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 })
 export class ResultscompComponent implements OnInit, OnChanges {
 
-  constructor(private searchService: SearchserviceService,
-    private spinnerService: Ng4LoadingSpinnerService) { }
+  constructor() { }
 
   @Input() pcodecurrpromoval: string;
   @Input() bsparamsReceived: string;

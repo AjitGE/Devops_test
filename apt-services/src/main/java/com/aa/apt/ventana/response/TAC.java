@@ -1,5 +1,7 @@
 package com.aa.apt.ventana.response;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,9 +15,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TAC {
+public class TAC implements Serializable {
 
-    @JsonProperty("Code")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8660819576072936583L;
+	
+	@JsonProperty("Code")
     private String code;
     @JsonProperty("EffectiveDate")
     private String effectiveDate;

@@ -11,69 +11,37 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Content implements Serializable {
 
-    private static final long serialVersionUID = 8762302222567484811L;
+	private static final long serialVersionUID = 8762302222567484811L;
 
-    @JsonProperty("PromotionOrChallengeCode")
-    private String promotionOrChallengeCode;
-    
-    @JsonProperty("IsTrending")
-    private String isTrending;
-    
-    @JsonProperty("KeyWords")
-    private String keywords;
+	@JsonProperty("PromotionOrChallengeCode")
+	private String promotionOrChallengeCode;
+
+	@JsonProperty("IsTrending")
+	private String isTrending;
+
+	@JsonProperty("KeyWords")
+	private String keywords;
 
 	@JsonProperty("IsMemberRegistration")
-    private String isMemberRegistration;
-    
-    @JsonProperty("TargetedPromotion")
-    private String targetedPromotion;
-    
-    @JsonProperty("HowToEarn")
-    private List<LSCSReplicantElement> howToEarn = Collections.emptyList();
-    
-    @JsonProperty("Fulfillment")
-    private List<LSCSReplicantElement> fulfillment = Collections.emptyList();
-    
-    @JsonProperty("ResolveIssues")
-    private List<LSCSReplicantElement> resolveIssues = Collections.emptyList();
-    
-    @JsonProperty("PartnerCodes")
-    private String[] partnerCodes;
-    
-    @JsonProperty("Communications")
-    private List<Communications> communications = Collections.emptyList();
+	private String isMemberRegistration;
 
-	public List<LSCSReplicantElement> getHowToEarn() {
-		return howToEarn;
-	}
+	@JsonProperty("TargetedPromotion")
+	private String targetedPromotion;
 
-	public void setHowToEarn(List<LSCSReplicantElement> howToEarn) {
-		this.howToEarn = howToEarn;
-	}
+	@JsonProperty("HowToEarn")
+	private String howToEarn;
 
-	public List<LSCSReplicantElement> getFulfillment() {
-		return fulfillment;
-	}
+	@JsonProperty("Fulfillment")
+	private String fulfillment;
 
-	public void setFulfillment(List<LSCSReplicantElement> fulfillment) {
-		this.fulfillment = fulfillment;
-	}
+	@JsonProperty("ResolveIssue")
+	private String resolveIssues;
 
-	public List<LSCSReplicantElement> getResolveIssues() {
-		return resolveIssues;
-	}
+	@JsonProperty("PST")
+	private String pst;
 
-	public void setResolveIssues(List<LSCSReplicantElement> resolveIssues) {
-		this.resolveIssues = resolveIssues;
-	}
-
-	public String[] getPartnerCodes() {
-		return partnerCodes;
-	}
-
-	public void setPartnerCodes(String[] partnerCodes) {
-		this.partnerCodes = partnerCodes;
-	}
+	@JsonProperty("Communications")
+	private List<Communications> communications = Collections.emptyList();
 
 	public String getPromotionOrChallengeCode() {
 		return promotionOrChallengeCode;
@@ -90,7 +58,7 @@ public class Content implements Serializable {
 	public void setIsTrending(String isTrending) {
 		this.isTrending = isTrending;
 	}
-	
+
 	public String getKeywords() {
 		return keywords;
 	}
@@ -115,11 +83,42 @@ public class Content implements Serializable {
 		this.targetedPromotion = targetedPromotion;
 	}
 
-		
+	public String getHowToEarn() {
+		return howToEarn;
+	}
+
+	public void setHowToEarn(String howToEarn) {
+		this.howToEarn = howToEarn;
+	}
+
+	public String getFulfillment() {
+		return fulfillment;
+	}
+
+	public void setFulfillment(String fulfillment) {
+		this.fulfillment = fulfillment;
+	}
+
+	public String getResolveIssues() {
+		return resolveIssues;
+	}
+
+	public void setResolveIssues(String resolveIssues) {
+		this.resolveIssues = resolveIssues;
+	}
+
+	public String getPst() {
+		return pst;
+	}
+
+	public void setPst(String pst) {
+		this.pst = pst;
+	}
+
 	public void setCommunications(List<Communications> communications) {
 		this.communications = communications;
 	}
-	
+
 	public List<Communications> getCommunications() {
 		return communications;
 	}

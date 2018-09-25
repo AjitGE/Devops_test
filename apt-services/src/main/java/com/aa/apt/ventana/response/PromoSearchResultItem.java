@@ -1,11 +1,14 @@
 package com.aa.apt.ventana.response;
 
 import java.io.Serializable;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -22,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "ActivityEndDate",
     "RegistrationStartDate",
     "RegistrationEndDate",
-    "AACOMRegistrationEndDate",
-    "TAC"
+    "AACOMRegistrationEndDate"
+     ,    "TACList"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PromoSearchResultItem implements Serializable {
@@ -76,10 +79,13 @@ public class PromoSearchResultItem implements Serializable {
     @JsonProperty("AACOMRegistrationEndDate")
     private String aACOMRegistrationEndDate;
     
-    @JsonProperty("TAC")
-    private TAC tAC;
 
-    @JsonProperty("PromoCode")
+    @JsonProperty("TACList")
+    @JsonDeserialize(using = TACListDeserializer.class)
+//    ACCEPT_EMPTY_STRING_AS_NULL_OBJECT
+    private TACList tACList;
+
+	@JsonProperty("PromoCode")
     public String getPromoCode() {
         return promoCode;
     }
@@ -220,14 +226,14 @@ public class PromoSearchResultItem implements Serializable {
         this.aACOMRegistrationEndDate = aACOMRegistrationEndDate;
     }
     
-    @JsonProperty("TAC")
-    public TAC getTAC() {
-        return tAC;
+    @JsonProperty("TACList")
+    public TACList getTACList() {
+        return tACList;
     }
 
-    @JsonProperty("TAC")
-    public void setTAC(TAC tAC) {
-        this.tAC = tAC;
+    @JsonProperty("TACList")
+    public void setTACList(TACList tACList) {
+        this.tACList = tACList;
     }
 
 }

@@ -51,6 +51,8 @@ import com.aa.apt.ventana.response.PromoSearchResponse;
 import com.aa.apt.ventana.response.PromoSearchResult;
 import com.aa.apt.ventana.response.PromoSearchResultItem;
 import com.aa.apt.ventana.response.ResponseStatus;
+import com.aa.apt.ventana.response.TAC;
+import com.aa.apt.ventana.response.TACList;
 import com.aa.apt.ventana.response.VentanaResponse;
 
 @RestController
@@ -226,24 +228,29 @@ public class AptController {
 	 */
 	private void createPromotionMap(Iterator<PromoSearchResultItem> promoSearchResultItemItr) {
 		while (promoSearchResultItemItr.hasNext()) {
+
 			Promotion singlePromo = new Promotion();
 			PromoSearchResultItem promoSearchResultItem = promoSearchResultItemItr.next();
-			singlePromo.setPromoStartDate(promoSearchResultItem.getPromoStartDate());
-			singlePromo.setPromoEndDate(promoSearchResultItem.getPromoEndDate());
-			singlePromo.setMemRegStartDate(promoSearchResultItem.getRegistrationStartDate());
-			singlePromo.setMemRegEndDate(promoSearchResultItem.getAACOMRegistrationEndDate());
-			singlePromo.setMemTravelStartDate(promoSearchResultItem.getActivityStartDate());
-			singlePromo.setMemTravelEndDate(promoSearchResultItem.getActivityEndDate());
-			singlePromo.setLateRegEndDate(promoSearchResultItem.getRegistrationEndDate());
-			singlePromo.setVentanaPromoName(promoSearchResultItem.getPromoName());
-			singlePromo.setVentanaPromoDesc(promoSearchResultItem.getDescription());
-			singlePromo.setVentanaPromoType(promoSearchResultItem.getPromoType());
-			singlePromo.setActiveornot(promoSearchResultItem.getActive());
-			if (promoSearchResultItem.getTAC() != null) {
-				singlePromo.setTac(promoSearchResultItem.getTAC().getCode());
+			singlePromo.setPromoStartDate(getString(promoSearchResultItem.getPromoStartDate()));
+			singlePromo.setPromoEndDate(getString(promoSearchResultItem.getPromoEndDate()));
+			singlePromo.setMemRegStartDate(getString(promoSearchResultItem.getRegistrationStartDate()));
+			singlePromo.setMemRegEndDate(getString(promoSearchResultItem.getAACOMRegistrationEndDate()));
+			singlePromo.setMemTravelStartDate(getString(promoSearchResultItem.getActivityStartDate()));
+			singlePromo.setMemTravelEndDate(getString(promoSearchResultItem.getActivityEndDate()));
+			singlePromo.setLateRegEndDate(getString(promoSearchResultItem.getRegistrationEndDate()));
+			singlePromo.setVentanaPromoName(getString(promoSearchResultItem.getPromoName()));
+			singlePromo.setVentanaPromoDesc(getString(promoSearchResultItem.getDescription()));
+			singlePromo.setVentanaPromoType(getString(promoSearchResultItem.getPromoType()));
+			singlePromo.setActiveornot(getString(promoSearchResultItem.getActive()));
+			
+			if (promoSearchResultItem.getTACList()!=null) {
+				List<TAC> tacList = promoSearchResultItem.getTACList().getTacList();
+				singlePromo.setTac(tacList.stream().map(tac -> tac.getCode()).collect(Collectors.joining(",")));
 			} else {
 				singlePromo.setTac("N/A");
 			}
+			
+			
 
 			promoListMap.put(promoSearchResultItem.getPromoCode(), singlePromo);
 		}
@@ -411,10 +418,7 @@ public class AptController {
 		AcsPromotionContentResponse acsresponse = restTemplate.getForObject(acsPromoUrlStart + pcode + acsPromoUrlEnd,
 				AcsPromotionContentResponse.class);
 		logger.debug("--------------Ping AR5-----{}", acsresponse.getContent());
-		/*
-		logger.info("Email content is : {}",
-				getEmailContent(acsresponse.getContent().getCommunications().get(0).getEmail()));
-				*/
+
 		return acsresponse;
 	}
 
@@ -442,5 +446,14 @@ public class AptController {
 		String promoSearchReqTemplate = FileUtils.getResourceToString("rest-requests/" + jsonfile);
 		return promoSearchReqTemplate.replace("REPLACEPING", ping);
 	}
+	
+	private String getString(String str)
+	{
+		return isNotNullOrEmpty(str) ? str : "N/A";
+	}
+	
+	private boolean isNotNullOrEmpty(String str) {
+        return str != null && !str.isEmpty();
+    }
 
 }
