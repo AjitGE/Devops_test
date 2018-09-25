@@ -47,16 +47,13 @@ export class SearchresultsComponent implements OnInit, OnChanges {
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
 
           console.log('Calling Promo search service with code' + change.currentValue);
-
-
-
+          this.isBottomSearchValid = 1;
           this.spinnerService.show();
           this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
             this.promotions = data;
             console.log('Number of Promotions are : ' + this.promotions.length);
             this.spinnerService.hide();
             this.errMsgToDisplay = undefined;
-            this.isBottomSearchValid = 1;
           }, (err) => {
             if (err instanceof HttpErrorResponse) {
               if (err.message.includes('Http failure response')) {

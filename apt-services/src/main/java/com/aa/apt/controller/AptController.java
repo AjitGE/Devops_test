@@ -31,16 +31,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
-import com.aa.apt.acs.response.Email;
-import com.aa.apt.acs.response.MarketingPageUrl;
-import com.aa.apt.ar5.response.HeaderElement;
-import com.aa.apt.ar5.response.LSCSReplicantElement;
-import com.aa.apt.ar5.response.ListContentElement;
-import com.aa.apt.ar5.response.ListElement;
-import com.aa.apt.ar5.response.LscsPromotionContentResponse;
-import com.aa.apt.ar5.response.ParagraphElement;
-import com.aa.apt.ar5.response.TermsAndConditionsUrl;
-import com.aa.apt.ar5.response.UrlElement;
 import com.aa.apt.constants.ControllerConstants;
 import com.aa.apt.model.Promotion;
 import com.aa.apt.service.AptService;
@@ -52,7 +42,6 @@ import com.aa.apt.ventana.response.PromoSearchResult;
 import com.aa.apt.ventana.response.PromoSearchResultItem;
 import com.aa.apt.ventana.response.ResponseStatus;
 import com.aa.apt.ventana.response.TAC;
-import com.aa.apt.ventana.response.TACList;
 import com.aa.apt.ventana.response.VentanaResponse;
 
 @RestController
