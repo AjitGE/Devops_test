@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +18,7 @@ export class HomeComponent {
   }
 
   handleClearAllReq(clearallsignal: boolean): void {
+    clearallsignal = Object.assign({}, clearallsignal);
     this.clearAllSignalInParent = clearallsignal;
   }
 

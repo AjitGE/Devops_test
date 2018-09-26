@@ -58,14 +58,11 @@ public class AptService {
 	
 	
 	@Async("asyncExecutor")
-    public CompletableFuture<LscsPromotionContentResponse> getAr5LscsPromotionContentResponse(Promotion prom) throws InterruptedException
+    public CompletableFuture<LscsPromotionContentResponse> getAr5LscsPromotionContentResponse(Promotion prom)
     {
 		try {
 		logger.info("AR5 request starts");
-		Instant buildSinglePromoStart = Instant.now();
 		Instant ar5ResponseStart = Instant.now();
-		/*LscsPromotionContentResponse ar5response = restTemplate.getForObject(
-				ar5PromoUrlStart + promoCodeList.get(i) + ar5PromoUrlEnd, LscsPromotionContentResponse.class);*/
 		LscsPromotionContentResponse ar5response = restTemplate.getForObject(
 				ar5PromoUrlStart + prom.getPromotionOrChallengeCode() + ar5PromoUrlEnd, LscsPromotionContentResponse.class);
 		
@@ -95,7 +92,7 @@ public class AptService {
     }
 	
 	@Async("asyncExecutor")
-    public CompletableFuture<AcsPromotionContentResponse> getAcsPromotionContentResponse(Promotion prom) throws InterruptedException
+    public CompletableFuture<AcsPromotionContentResponse> getAcsPromotionContentResponse(Promotion prom)
     {
 		logger.info("ACS request starts");
 		AcsPromotionContentResponse acsresponse= null;

@@ -20,6 +20,7 @@ export interface IPromotion {
     termsandconditions: string;
 
     // From Ventana
+    promoCode: string;
     promoStartDate: string;
     promoEndDate: string;
     tac: string;

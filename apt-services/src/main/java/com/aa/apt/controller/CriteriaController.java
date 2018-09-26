@@ -48,7 +48,6 @@ import com.aa.apt.ventana.response.PromoSearchResult;
 import com.aa.apt.ventana.response.PromoSearchResultItem;
 import com.aa.apt.ventana.response.ResponseStatus;
 import com.aa.apt.ventana.response.TAC;
-import com.aa.apt.ventana.response.TACList;
 import com.aa.apt.ventana.response.VentanaResponse;
 
 @RestController
@@ -97,7 +96,7 @@ public class CriteriaController {
 			@PathVariable("fromdate") String fromDate, @PathVariable("todate") String toDate,
 			@PathVariable("targetornontarget") String targetOrNontarget,
 			@PathVariable("bcurrpromosonly") String bCurrPromosOnly, @PathVariable("partnercodes") String partnerCodes)
-			throws IOException {
+			{
 
 		Instant buildCriteriaSearchStart = Instant.now();
 		promoListMap = new HashMap<>();
@@ -225,57 +224,29 @@ public class CriteriaController {
 	 */
 	private void createPromotionMap(Iterator<PromoSearchResultItem> promoSearchResultItemItr) {
 		while (promoSearchResultItemItr.hasNext()) {
-			boolean valueChk = false;
-			String str = null;
-			StringBuilder tacStrBuild = new StringBuilder();
 			Promotion singlePromo = new Promotion();
 			PromoSearchResultItem promoSearchResultItem = promoSearchResultItemItr.next();
-			str = promoSearchResultItem.getPromoStartDate();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setPromoStartDate(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getPromoEndDate();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setPromoEndDate(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getRegistrationStartDate();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setMemRegStartDate(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getAACOMRegistrationEndDate();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setMemRegEndDate(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getActivityStartDate();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setMemTravelStartDate(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getActivityEndDate();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setMemTravelEndDate(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getRegistrationEndDate();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setLateRegEndDate(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getPromoName();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setVentanaPromoName(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getDescription();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setVentanaPromoDesc(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getPromoType();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setVentanaPromoType(valueChk == true ? str : "N/A");
-			str = promoSearchResultItem.getActive();
-			valueChk = isNotNullOrEmpty(str);
-			singlePromo.setActiveornot(valueChk == true ? str : "N/A");
-			/*
-			if (promoSearchResultItem.getTacList()!=null) {
-				TACList tacList= promoSearchResultItem.getTacList();
-				List<TAC> tcList = tacList.getTacList();
-				for (TAC tac : tcList){
-					tacStrBuild.append(tac.getCode()).append(",");
-				}
-				String tacStrWithoutLastComma = tacStrBuild.substring( 0, tacStrBuild.length( ) - ", ".length( ) );
-				singlePromo.setTac(tacStrWithoutLastComma);
+			singlePromo.setPromoCode(getString(promoSearchResultItem.getPromoCode()));
+			singlePromo.setPromoStartDate(getString(promoSearchResultItem.getPromoStartDate()));
+			singlePromo.setPromoEndDate(getString(promoSearchResultItem.getPromoEndDate()));
+			singlePromo.setMemRegStartDate(getString(promoSearchResultItem.getRegistrationStartDate()));
+			singlePromo.setMemRegEndDate(getString(promoSearchResultItem.getAACOMRegistrationEndDate()));
+			singlePromo.setMemTravelStartDate(getString(promoSearchResultItem.getActivityStartDate()));
+			singlePromo.setMemTravelEndDate(getString(promoSearchResultItem.getActivityEndDate()));
+			singlePromo.setLateRegEndDate(getString(promoSearchResultItem.getRegistrationEndDate()));
+			singlePromo.setVentanaPromoName(getString(promoSearchResultItem.getPromoName()));
+			singlePromo.setVentanaPromoDesc(getString(promoSearchResultItem.getDescription()));
+			singlePromo.setVentanaPromoType(getString(promoSearchResultItem.getPromoType()));
+			singlePromo.setActiveornot(getString(promoSearchResultItem.getActive()));
+			
+			if (promoSearchResultItem.getTACList()!=null) {
+				List<TAC> tacList = promoSearchResultItem.getTACList().getTacList();
+				singlePromo.setTac(tacList.stream().map(tac -> tac.getCode()).collect(Collectors.joining(",")));
 			} else {
 				singlePromo.setTac("N/A");
 			}
-			*/
+			
+			
 
 			promoListMap.put(promoSearchResultItem.getPromoCode(), singlePromo);
 		}
@@ -487,7 +458,12 @@ public class CriteriaController {
 		return acsresponse;
 	}
 	
-	private static boolean isNotNullOrEmpty(String str) {
+	private String getString(String str)
+	{
+		return isNotNullOrEmpty(str) ? str : "N/A";
+	}
+	
+	private boolean isNotNullOrEmpty(String str) {
         return str != null && !str.isEmpty();
     }
 

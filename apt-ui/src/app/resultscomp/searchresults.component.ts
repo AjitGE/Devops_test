@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, SimpleChanges, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 declare var jquery: any;
 declare var $: any;
@@ -19,6 +19,8 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   sortby: FormControl;
   @Input() pcodecurrpromoval = '';
   @Input() bsparams = '';
+
+  @Output() promoCodeSubmitted: EventEmitter<IPromotion> = new EventEmitter<IPromotion>();
   promotions: IPromotion[];
   errMsgToDisplay: string = undefined;
   isBottomSearchValid: number;
@@ -52,6 +54,9 @@ export class SearchresultsComponent implements OnInit, OnChanges {
           this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
             this.promotions = data;
             console.log('Number of Promotions are : ' + this.promotions.length);
+            if (this.promotions.length === 1) {
+              this.showPromoDetailView(this.promotions[0]);
+            }
             this.spinnerService.hide();
             this.errMsgToDisplay = undefined;
           }, (err) => {
@@ -74,6 +79,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
           console.log('Received bsparams as ' + change.currentValue);
           if (change.currentValue === 'NOKEYWORDS/NOFROMDATE/NOTODATE/TARGETNOTSELECTED/BCURRPROMONOTSELECTED/NOPARTNERCODES') {
             this.isBottomSearchValid = 0;
+            this.promotions = undefined;
           } else {
             this.isBottomSearchValid = 1;
             console.log('Calling Criteria search service with criteria' + change.currentValue);
@@ -118,6 +124,8 @@ export class SearchresultsComponent implements OnInit, OnChanges {
     this.allExpandState = ecflag;
   }
 
-
+  showPromoDetailView(promotion: IPromotion) {
+    this.promoCodeSubmitted.emit(promotion);
+  }
 
 }

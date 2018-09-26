@@ -37,6 +37,8 @@ export class SearchcompComponent implements OnInit, OnChanges {
     for (const propName in changes) {
       const change = changes[propName];
       if (propName === 'clearAllSignal') {
+        console.log('Value of clearAllSignal - previous :' + change.previousValue);
+        console.log('Value of clearAllSignal - current :' + change.currentValue);
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
           console.log('Got clearall - in search comp');
           this.pcode.reset();

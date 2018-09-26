@@ -28,6 +28,7 @@ import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.c
 import { HomeComponent } from './home.component';
 import { HealthComponent } from './health/health.component';
 import { PromodetailaccordianComponent } from './resultscomp/promodetailaccordian/promodetailaccordian.component';
+import { ToggleComponent } from './resultscomp/toggle.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { PromodetailaccordianComponent } from './resultscomp/promodetailaccordia
     PromodetailsComponent,
     HomeComponent,
     HealthComponent,
-    PromodetailaccordianComponent
+    PromodetailaccordianComponent,
+    ToggleComponent
   ],
   imports: [
     BrowserModule,

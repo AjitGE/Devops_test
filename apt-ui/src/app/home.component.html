@@ -15,7 +15,7 @@
       <app-searchcomp (pcodeSubmitted)='onPcodeSubmited($event)' [clearAllSignal]="clearAllSignalInParent"></app-searchcomp>
       <app-searchcriteria (sendClearAllReq)='handleClearAllReq($event)' (bsparams)='onBSparamsSubmitted($event)'></app-searchcriteria>
     </div>
-    <div class="col-sm-9 " id="resultdiv">
+    <div class="col-sm-9 noMarginPad" id="resultdiv">
       <app-resultscomp [pcodecurrpromoval]="pcodeInParent" [bsparamsReceived]="bsparamsInParent"></app-resultscomp>
     </div>
   </div>

@@ -13,16 +13,19 @@ export class ResultscompComponent implements OnInit, OnChanges {
 
   @Input() pcodecurrpromoval: string;
   @Input() bsparamsReceived: string;
+  promotion: IPromotion;
+  sendPromotionToToggle: IPromotion;
+
   sendPcodecurrpromoval = '';
   sendBSparams = '';
-  // @Output() sendPcodecurrpromoval: EventEmitter<string> = new EventEmitter<string>();
+  goBackToTabs = false;
+  allExpandState = false;
+  newSearch: boolean;
 
   @ViewChild('latestPromoAnchor') latestPromoAnchor: ElementRef;
   @ViewChild('searchResultsAnchor') searchResultsAnchor: ElementRef;
   @ViewChild('latestPromosDiv') latestPromosDiv: ElementRef;
   @ViewChild('searchResultsDiv') searchResultsDiv: ElementRef;
-
-  promotion: IPromotion;
 
   ngOnInit() {
 
@@ -45,6 +48,7 @@ export class ResultscompComponent implements OnInit, OnChanges {
           this.latestPromosDiv.nativeElement.classList.remove('active');
           this.searchResultsAnchor.nativeElement.classList.add('active');
           this.searchResultsDiv.nativeElement.classList.add('active');
+          this.newSearch = Object.assign({}, true);
           this.sendPcodecurrpromoval = change.currentValue;
         }
 
@@ -66,6 +70,22 @@ export class ResultscompComponent implements OnInit, OnChanges {
 
   }
 
+  onPromoCodeRec(promotion: IPromotion) {
+    this.promotion = promotion;
+    promotion = Object.assign({}, promotion);
+    this.sendPromotionToToggle = promotion;
+    console.log('Received promo code from search result :' + promotion.promoCode);
+  }
 
+  callParentToggle() {
+    console.log('Value of goBackToTabs before assign :' + this.goBackToTabs);
+    this.goBackToTabs = !this.goBackToTabs;
+    this.goBackToTabs = Object.assign({}, this.goBackToTabs);
+    console.log('Value of goBackToTabs final :' + this.goBackToTabs);
+  }
+
+  expandCollapseHandler(ecflag: boolean) {
+    this.allExpandState = ecflag;
+  }
 
 }

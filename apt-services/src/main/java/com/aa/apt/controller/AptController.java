@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -107,7 +106,7 @@ public class AptController {
 
 	// http://localhost:8080/api/search/P468B:false
 	@RequestMapping(value = ControllerConstants.PCODESEARCH, method = RequestMethod.GET)
-	public List<Promotion> getPromo(@PathVariable("pcode") String pcode) throws IOException, InterruptedException {
+	public List<Promotion> getPromo(@PathVariable("pcode") String pcode) throws IOException {
 
 		Instant buildPromoSearchStart = Instant.now();
 
@@ -185,8 +184,7 @@ public class AptController {
 
 			PromoSearchResult promoSearchResult = promoSearchResponse.getPromoSearchResult();
 			List<PromoSearchResultItem> promoSearchResultItemList = promoSearchResult.getPromoSearchResultItem();
-			Iterator<PromoSearchResultItem> promoSearchResultItemItr = promoSearchResultItemList.iterator();
-			createPromotionMap(promoSearchResultItemItr);
+			createPromotionMap(promoSearchResultItemList);
 
 		} else if (responseStatus.getMessage().equals("No Promotions Found")) {
 			logger.info("No Promotions found in Ventana for Promo code search : {}", pcodepromocurrval[0]);
@@ -215,11 +213,11 @@ public class AptController {
 	 * 
 	 * @param promoSearchResultItemItr
 	 */
-	private void createPromotionMap(Iterator<PromoSearchResultItem> promoSearchResultItemItr) {
-		while (promoSearchResultItemItr.hasNext()) {
+	private void createPromotionMap(List<PromoSearchResultItem> promoSearchResultItemList){
 
+		promoSearchResultItemList.stream().forEach(promoSearchResultItem -> {
 			Promotion singlePromo = new Promotion();
-			PromoSearchResultItem promoSearchResultItem = promoSearchResultItemItr.next();
+			singlePromo.setPromoCode(getString(promoSearchResultItem.getPromoCode()));
 			singlePromo.setPromoStartDate(getString(promoSearchResultItem.getPromoStartDate()));
 			singlePromo.setPromoEndDate(getString(promoSearchResultItem.getPromoEndDate()));
 			singlePromo.setMemRegStartDate(getString(promoSearchResultItem.getRegistrationStartDate()));
@@ -242,7 +240,8 @@ public class AptController {
 			
 
 			promoListMap.put(promoSearchResultItem.getPromoCode(), singlePromo);
-		}
+		});
+		
 	}
 
 	/**
@@ -250,7 +249,7 @@ public class AptController {
 	 * 
 	 * @param promoCodeList
 	 */
-	private void createPromoListForVentanaResults(List<String> promoCodeList) throws InterruptedException {
+	private void createPromoListForVentanaResults(List<String> promoCodeList) {
 		/*
 		RestTemplate restTemplate = new RestTemplate();
 		for (int i = 0; i < promoCodeList.size(); i++) {
@@ -324,24 +323,29 @@ public class AptController {
 		*/
 		
 		
-		for (int i = 0; i < promoCodeList.size(); i++) {
-			Promotion prom = promoListMap.get(promoCodeList.get(i));
-			prom.setPromotionOrChallengeCode(promoCodeList.get(i));
+		promoCodeList.stream().forEach(string -> {
+			
+			Promotion prom = promoListMap.get(string);
+			prom.setPromotionOrChallengeCode(string);
 			Instant buildSinglePromoStart = Instant.now();
 			
 		
-			 CompletableFuture<LscsPromotionContentResponse> ar5response = aptService.getAr5LscsPromotionContentResponse(prom);
-		     CompletableFuture<AcsPromotionContentResponse> acsresponse = aptService.getAcsPromotionContentResponse(prom);
-		        // Wait until they are all done
-		     CompletableFuture.allOf(ar5response, acsresponse).join();
-
+			 CompletableFuture<LscsPromotionContentResponse> ar5response;
+			 CompletableFuture<AcsPromotionContentResponse> acsresponse;
+			try {
+				 ar5response = aptService.getAr5LscsPromotionContentResponse(prom);
+				 acsresponse = aptService.getAcsPromotionContentResponse(prom);
+				  // Wait until they are all done
+			     CompletableFuture.allOf(ar5response, acsresponse).join();
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+			}
 			Instant buildSinglePromoEnd = Instant.now();
 			long buildSinglePromoTimeElapsed = Duration.between(buildSinglePromoStart,buildSinglePromoEnd).toMillis();
 			if(logger.isDebugEnabled())
-				logger.debug("Time elapsed to build promo code {} : {} (in Millis)",promoCodeList.get(i),buildSinglePromoTimeElapsed);
-			promoListMap.put(promoCodeList.get(i), prom);
-
-		}
+				logger.debug("Time elapsed to build LSCS content for single promo code {} : {} (in Millis)",string,buildSinglePromoTimeElapsed);
+			promoListMap.put(string, prom);
+		});
 		
 	}
 
