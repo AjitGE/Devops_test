@@ -125,8 +125,7 @@ public class AptController {
 
 		// Call below two functions simultaneously
 		searchVentanaForPromoTA(pcode);
-		// searchLSCSForPST(pcode); // LSCS is Ready to code AND "Ventana PromoList is
-		// Yet to ready - Planned 10/03"
+		searchLSCSForPST(pcode); // LSCS is Ready to code AND "Ventana PromoList is Yet to ready - Planned 10/03"
 
 		// consolidate search results of two calls in promoListMap
 		// promoListMap = promoTAMap + pstMap
@@ -225,10 +224,11 @@ public class AptController {
 
 	}
 
-	public void searchLSCSForPST(String pst) {
+	public void searchLSCSForPST(String pcode) {
 		// Call LSCS service - PST code search - "Ready to code"
 		// Call Ventana service - PromoList - "Yet to ready - Planned 10/03"
 
+		String pst = pcode.split(":")[0];
 	}
 
 	/**
