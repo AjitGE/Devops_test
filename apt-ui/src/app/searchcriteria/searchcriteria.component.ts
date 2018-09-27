@@ -110,8 +110,8 @@ export class SearchcriteriaComponent implements OnInit {
     }
   }
 
-  remove(fruit: any): void {
-    const index = this.display_kwarray.indexOf(fruit);
+  remove(removeKeyword: any): void {
+    const index = this.display_kwarray.indexOf(removeKeyword);
 
     if (index >= 0) {
       this.keywordsarray.splice(index, 1);
@@ -151,7 +151,7 @@ export class SearchcriteriaComponent implements OnInit {
       }
       let bsparamstring = '';
       if (this.keywordsarray.length === 0) {
-        bsparamstring = 'NOKEYWORDS/';
+        bsparamstring = 'N@KEYWORDS/';
       } else {
         bsparamstring = this.keywordsarray.join(',') + '/';
       }

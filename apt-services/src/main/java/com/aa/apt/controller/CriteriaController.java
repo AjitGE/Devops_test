@@ -3,15 +3,16 @@ package com.aa.apt.controller;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,24 +24,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.aa.apt.acs.response.AcsPromotionContentResponse;
-import com.aa.apt.acs.response.Email;
-import com.aa.apt.acs.response.MarketingPageUrl;
-import com.aa.apt.ar5.response.HeaderElement;
-import com.aa.apt.ar5.response.LSCSReplicantElement;
-import com.aa.apt.ar5.response.ListContentElement;
-import com.aa.apt.ar5.response.ListElement;
 import com.aa.apt.ar5.response.LscsPromotionContentResponse;
-import com.aa.apt.ar5.response.ParagraphElement;
-import com.aa.apt.ar5.response.TermsAndConditionsUrl;
-import com.aa.apt.ar5.response.UrlElement;
 import com.aa.apt.constants.ControllerConstants;
 import com.aa.apt.lscscondition.Asset;
 import com.aa.apt.lscscondition.LscsConditionResponse;
 import com.aa.apt.model.Promotion;
+import com.aa.apt.service.AptService;
 import com.aa.apt.utils.FileUtils;
 import com.aa.apt.utils.NetworkUtils;
 import com.aa.apt.ventana.response.PromoSearchResponse;
@@ -68,11 +60,11 @@ public class CriteriaController {
 	@Value("${ar5.promo.url.end}")
 	String ar5PromoUrlEnd;
 
-	@Value("${lscs.keyword.search.start}")
-	String lscsKeywordSearchStart;
+	@Value("${lscs.criteria.search.start}")
+	String lscsCriteriaSearchStart;
 
-	@Value("${lscs.keyword.search.end}")
-	String lscsKeywordSearchEnd;
+	@Value("${lscs.criteria.search.end}")
+	String lscsCriteriaSearchEnd;
 
 	@Value("${loyalty.membersecurity.url}")
 	String apiUrl;
@@ -83,61 +75,70 @@ public class CriteriaController {
 	@Value("${loyalty.membersecurity.password}")
 	String apiPassword;
 
+	@Autowired
+	AptService aptService;
+
 	Map<String, Promotion> promoListMap;
+	Map<String, Promotion> ventanaResultsMap;
+	Map<String, Promotion> lscsResultsMap;
 
 	@RequestMapping(ControllerConstants.PINGSPRINGBOOT)
 	public String home() {
 		return "From SpringBoot";
 	}
 
-	// http://localhost:8080/criteria/search/P468B:false
+	// http://localhost:8080/criteria/search/N@KEYWORDS/NOFROMDATE/NOTODATE/TARGETNOTSELECTED/BCURRPROMONOTSELECTED/NOPARTNERCODES
 	@RequestMapping(value = ControllerConstants.BSPARAMSSEARCH, method = RequestMethod.GET)
 	public List<Promotion> getPromo(@PathVariable("keywords") String keywords,
 			@PathVariable("fromdate") String fromDate, @PathVariable("todate") String toDate,
 			@PathVariable("targetornontarget") String targetOrNontarget,
-			@PathVariable("bcurrpromosonly") String bCurrPromosOnly, @PathVariable("partnercodes") String partnerCodes)
-			{
+			@PathVariable("bcurrpromosonly") String bCurrPromosOnly,
+			@PathVariable("partnercodes") String partnerCodes) {
 
 		Instant buildCriteriaSearchStart = Instant.now();
 		promoListMap = new HashMap<>();
+		ventanaResultsMap = new HashMap<>(); // Use this map in callVentanaDateService
+		lscsResultsMap = new HashMap<>(); // Use this map in callLSCSCriteriaSearch
 
-		if (!(keywords.equals("NOKEYWORDS") && targetOrNontarget.equals("TARGETNOTSELECTED")
+		boolean performLSCSSearch = false;
+		boolean performVentanaSearch = false;
+
+		if (!(keywords.equals("N@KEYWORDS") && targetOrNontarget.equals("TARGETNOTSELECTED")
 				&& partnerCodes.equals("NOPARTNERCODES"))) {
-			// Build LSCS query parameter
-			// Keyword - Multiple value, Pattern search "keywords:upgrad,mil"
-			// TargetOnly/NonTargetOnly - Yet to come
-			// Partnercodes - Yet to come
-			String lscsQueryParam = "";
-
-			if (!(keywords.equals("NOKEYWORDS"))) {
-				lscsQueryParam = "keywords:" + keywords;
-			}
-
-			RestTemplate restTemplate = new RestTemplate();
-			LscsConditionResponse lscsConditionResponse = restTemplate.getForObject(
-					lscsKeywordSearchStart + lscsQueryParam + lscsKeywordSearchEnd, LscsConditionResponse.class);
-
-			if (Integer.parseInt(lscsConditionResponse.getTotal()) != 0) {
-				List<Asset> assetsList = lscsConditionResponse.getResults().getAssets();
-				Iterator<Asset> assetItr = assetsList.iterator();
-				while(assetItr.hasNext())
-				{
-					Asset ass = assetItr.next();
-					String promo = ass.getPath().substring(12,17);
-					logger.info("Got Promo code from LSCS:"+promo);
-				}
-			}
+			performLSCSSearch = true;
 		}
-		// getPromosFromVentana(bsparams);
 
-		/*
-		 * List<String> promoCodeList = new
-		 * ArrayList<>(promoListMap.keySet().stream().collect(Collectors.toList())); if
-		 * (promoCodeList.isEmpty()) { // Call LSCS and perform PST code search }
-		 * 
-		 * createPromoListForVentanaResults(promoCodeList);
-		 * 
-		 */
+		if (!(fromDate.equals("NOFROMDATE") && toDate.equals("NOTODATE")
+				&& bCurrPromosOnly.equals("BCURRPROMONOTSELECTED"))) {
+			performVentanaSearch = true;
+		}
+
+		if (performLSCSSearch && performVentanaSearch) {
+			// Execute two calls simultaneously
+			// callVentanaDateService(fromDate, toDate, bCurrPromosOnly);
+			callLSCSCriteriaSearch(keywords, targetOrNontarget, partnerCodes);
+
+			// consolidate search results of two calls in promoListMap
+			// promoListMap = ventanaResultsMap + lscsResultsMap
+			// Reference -
+			// https://stackoverflow.com/questions/4299728/how-can-i-combine-two-hashmap-objects-containing-the-same-types
+
+		} else if (performVentanaSearch) {
+
+			callVentanaDateService(fromDate, toDate, bCurrPromosOnly);
+			promoListMap.putAll(ventanaResultsMap);
+
+		} else if (performLSCSSearch) {
+
+			callLSCSCriteriaSearch(keywords, targetOrNontarget, partnerCodes);
+			promoListMap.putAll(lscsResultsMap);
+
+		}
+
+		if (promoListMap.size() == 1) {
+			getAR5andACSData(promoListMap.keySet().stream().collect(Collectors.toList()));
+		}
+
 		Instant buildCriteriaSearchEnd = Instant.now();
 		long buildCriteriaSearchTimeElapsed = Duration.between(buildCriteriaSearchStart, buildCriteriaSearchEnd)
 				.toMillis();
@@ -147,6 +148,55 @@ public class CriteriaController {
 
 		return promoListMap.values().stream().collect(Collectors.toList());
 
+	}
+
+	public void callLSCSCriteriaSearch(String keywords, String targetOrNontarget, String partnerCodes) {
+		// LSCS service - Build QueryParam and get MetaData - "Ready to code"
+		// Ventana service - If data present, call PromoList service - "Yet to ready -
+		// Planned 10/03"
+
+		// Build LSCS query parameter
+		// Keywords - Multiple value, Pattern search "KeyWord:upgrad,mil"
+		// TargetOnly/NonTargetOnly - Single value, Exact search "Targeted:false" or
+		// "Targeted:true"
+		// Partnercodes - Yet to come
+		String lscsQueryParam = "";
+
+		if (!(keywords.equals("N@KEYWORDS"))) {
+			lscsQueryParam = "KeyWord:" + keywords;
+		}
+
+		RestTemplate restTemplate = new RestTemplate();
+		LscsConditionResponse lscsConditionResponse = restTemplate.getForObject(
+				lscsCriteriaSearchStart + lscsQueryParam + lscsCriteriaSearchEnd, LscsConditionResponse.class);
+
+		if (Integer.parseInt(lscsConditionResponse.getTotal()) != 0) {
+			List<Asset> assetsList = lscsConditionResponse.getResults().getAssets();
+			assetsList.stream().forEach(asset -> {
+				Promotion singlePromo = new Promotion();
+				String promoCode = asset.getMetadata().getPromotionId();
+				singlePromo.setPromotionOrChallengeCode(promoCode);
+				singlePromo.setKeyword(getString(asset.getMetadata().getKeywords()));
+				singlePromo.setIsTrending(getString(asset.getMetadata().getTrending()));
+				singlePromo.setPromoCode(promoCode);
+				singlePromo.setPSTCodes(getString(asset.getMetadata().getPst()));
+				singlePromo.setPromotionName("From MetaData - Next Iteration");
+				singlePromo.setPartnerCodes("From Metadata - Next Iteration");
+				lscsResultsMap.put(promoCode, singlePromo);
+			});
+		}
+
+		// call Ventana service - PromoList search - send list of PromoCodes
+		// (lscsResultsMap.getKey())
+
+	}
+
+	public void callVentanaDateService(String fromDate, String toDate, String bCurrPromosOnly) {
+
+		// Ventana service - Using Dates, get Ventana response - "Yet to ready - Planned
+		// 10/17"
+		// LSCS service - If data present, call PromotionIds service and get MetaData -
+		// "Ready to code"
 	}
 
 	/**
@@ -238,15 +288,13 @@ public class CriteriaController {
 			singlePromo.setVentanaPromoDesc(getString(promoSearchResultItem.getDescription()));
 			singlePromo.setVentanaPromoType(getString(promoSearchResultItem.getPromoType()));
 			singlePromo.setActiveornot(getString(promoSearchResultItem.getActive()));
-			
-			if (promoSearchResultItem.getTACList()!=null) {
+
+			if (promoSearchResultItem.getTACList() != null) {
 				List<TAC> tacList = promoSearchResultItem.getTACList().getTacList();
 				singlePromo.setTac(tacList.stream().map(tac -> tac.getCode()).collect(Collectors.joining(",")));
 			} else {
 				singlePromo.setTac("N/A");
 			}
-			
-			
 
 			promoListMap.put(promoSearchResultItem.getPromoCode(), singlePromo);
 		}
@@ -257,74 +305,101 @@ public class CriteriaController {
 	 * 
 	 * @param promoCodeList
 	 */
-	private void createPromoListForVentanaResults(List<String> promoCodeList) {
-		RestTemplate restTemplate = new RestTemplate();
-		for (int i = 0; i < promoCodeList.size(); i++) {
-			Promotion prom = promoListMap.get(promoCodeList.get(i));
+	private void getAR5andACSData(List<String> promoCodeList) {
+		/*
+		 * RestTemplate restTemplate = new RestTemplate(); for (int i = 0; i <
+		 * promoCodeList.size(); i++) { Promotion prom =
+		 * promoListMap.get(promoCodeList.get(i)); Instant buildSinglePromoStart =
+		 * Instant.now(); Instant ar5ResponseStart = Instant.now();
+		 * logger.info("Getting AR5 response for promo code : {}" ,
+		 * promoCodeList.get(i)); LscsPromotionContentResponse ar5response =
+		 * restTemplate.getForObject( ar5PromoUrlStart + promoCodeList.get(i) +
+		 * ar5PromoUrlEnd, LscsPromotionContentResponse.class); Instant ar5ResponseEnd =
+		 * Instant.now(); long ar5ResponseTimeElapsed =
+		 * Duration.between(ar5ResponseStart, ar5ResponseEnd).toMillis(); if
+		 * (logger.isDebugEnabled()) { logger.
+		 * debug("Time elapsed to get AR5 response for promo code {} :{} (in Millis)",
+		 * promoCodeList.get(i), ar5ResponseTimeElapsed); } Instant
+		 * ar5ParseResponseStart = Instant.now();
+		 * prom.setPromotionName(ar5response.getContent().getPromotionName());
+		 * prom.setAacomview(getLSCSContent(ar5response.getContent().getMainContent()));
+		 * prom.setTermsandconditions(getLSCSContent(ar5response.getContent().
+		 * getTermsAndConditions())); Instant ar5ParseResponseEnd = Instant.now(); long
+		 * ar5ParseResTimeElapsed = Duration.between(ar5ParseResponseStart,
+		 * ar5ParseResponseEnd).toMillis(); if (logger.isDebugEnabled()) { logger.
+		 * debug("Time elapsed to parse AR5 response for promo code {} :{} (in Millis)",
+		 * promoCodeList.get(i), ar5ParseResTimeElapsed); }
+		 * 
+		 * try { Instant acsResponseStart = Instant.now(); AcsPromotionContentResponse
+		 * acsresponse = restTemplate.getForObject( acsPromoUrlStart +
+		 * promoCodeList.get(i) + acsPromoUrlEnd, AcsPromotionContentResponse.class);
+		 * Instant acsResponseEnd = Instant.now(); long acsResTimeElapsed =
+		 * Duration.between(acsResponseStart, acsResponseEnd).toMillis(); if
+		 * (logger.isDebugEnabled()) logger.
+		 * debug("Time elapsed to get ACS response for promo code {} : {} (in Millis)",
+		 * promoCodeList.get(i), acsResTimeElapsed); Instant acsParseResStart =
+		 * Instant.now(); prom.setPromotionOrChallengeCode(acsresponse.getContent().
+		 * getPromotionOrChallengeCode());
+		 * prom.setIsTrending(acsresponse.getContent().getIsTrending());
+		 * prom.setKeyword(acsresponse.getContent().getKeywords());
+		 * prom.setRegistrationRequired(acsresponse.getContent().getIsMemberRegistration
+		 * ());
+		 * prom.setTargetedPromotion(acsresponse.getContent().getTargetedPromotion());
+		 * prom.setHowToEarn(getLSCSContent(acsresponse.getContent().getHowToEarn()));
+		 * prom.setFulfillment(getLSCSContent(acsresponse.getContent().getFulfillment())
+		 * ); prom.setResolveIssues(getLSCSContent(acsresponse.getContent().
+		 * getResolveIssues())); prom.setPSTCodes("From ACS Template");
+		 * prom.setPartnerCodes("From ACS Template");
+		 * prom.setDirectmailer(acsresponse.getContent().getCommunications().get(0).
+		 * getIsDirectMailer()); prom.setMarketingpageurl(
+		 * getMarketingPageUrl(acsresponse.getContent().getCommunications().get(0).
+		 * getMarketingPageUrl()));
+		 * prom.setEmailurl(getEmailContent(acsresponse.getContent().getCommunications()
+		 * .get(0).getEmail()));
+		 * 
+		 * Instant acsParseResEnd = Instant.now(); long acsParseResTimeElapsed =
+		 * Duration.between(acsParseResStart, acsParseResEnd).toMillis(); if
+		 * (logger.isDebugEnabled()) logger.
+		 * debug("Time elapsed to parse ACS response for promo code {} : {} (in Millis)"
+		 * , promoCodeList.get(i), acsParseResTimeElapsed); } catch
+		 * (HttpClientErrorException hcee) { logger.error("Promo code " +
+		 * promoCodeList.get(i) + " not found in ACS - Got " + hcee.getStatusCode() +
+		 * " Not found error"); }
+		 * 
+		 * Instant buildSinglePromoEnd = Instant.now(); long buildSinglePromoTimeElapsed
+		 * = Duration.between(buildSinglePromoStart, buildSinglePromoEnd).toMillis(); if
+		 * (logger.isDebugEnabled())
+		 * logger.debug("Time elapsed to build promo code {} : {} (in Millis)",
+		 * promoCodeList.get(i), buildSinglePromoTimeElapsed);
+		 * promoListMap.put(promoCodeList.get(i), prom);
+		 * 
+		 * }
+		 * 
+		 */
+
+		promoCodeList.stream().forEach(string -> {
+
+			Promotion prom = promoListMap.get(string);
+			prom.setPromotionOrChallengeCode(string);
 			Instant buildSinglePromoStart = Instant.now();
-			Instant ar5ResponseStart = Instant.now();
-			LscsPromotionContentResponse ar5response = restTemplate.getForObject(
-					ar5PromoUrlStart + promoCodeList.get(i) + ar5PromoUrlEnd, LscsPromotionContentResponse.class);
-			Instant ar5ResponseEnd = Instant.now();
-			long ar5ResponseTimeElapsed = Duration.between(ar5ResponseStart, ar5ResponseEnd).toMillis();
-			if (logger.isDebugEnabled()) {
-				logger.debug("Time elapsed to get AR5 response for promo code {} :{} (in Millis)", promoCodeList.get(i),
-						ar5ResponseTimeElapsed);
-			}
-			Instant ar5ParseResponseStart = Instant.now();
-			prom.setPromotionName(ar5response.getContent().getPromotionName());
-			prom.setAacomview(getLSCSContent(ar5response.getContent().getMainContent()));
-			prom.setTermsandconditions(getLSCSContent(ar5response.getContent().getTermsAndConditions()));
-			Instant ar5ParseResponseEnd = Instant.now();
-			long ar5ParseResTimeElapsed = Duration.between(ar5ParseResponseStart, ar5ParseResponseEnd).toMillis();
-			if (logger.isDebugEnabled()) {
-				logger.debug("Time elapsed to parse AR5 response for promo code {} :{} (in Millis)",
-						promoCodeList.get(i), ar5ParseResTimeElapsed);
-			}
 
+			CompletableFuture<LscsPromotionContentResponse> ar5response;
+			CompletableFuture<AcsPromotionContentResponse> acsresponse;
 			try {
-				Instant acsResponseStart = Instant.now();
-				AcsPromotionContentResponse acsresponse = restTemplate.getForObject(
-						acsPromoUrlStart + promoCodeList.get(i) + acsPromoUrlEnd, AcsPromotionContentResponse.class);
-				Instant acsResponseEnd = Instant.now();
-				long acsResTimeElapsed = Duration.between(acsResponseStart, acsResponseEnd).toMillis();
-				if (logger.isDebugEnabled())
-					logger.debug("Time elapsed to get ACS response for promo code {} : {} (in Millis)",
-							promoCodeList.get(i), acsResTimeElapsed);
-				Instant acsParseResStart = Instant.now();
-				prom.setPromotionOrChallengeCode(acsresponse.getContent().getPromotionOrChallengeCode());
-				prom.setIsTrending(acsresponse.getContent().getIsTrending());
-				prom.setKeyword(acsresponse.getContent().getKeywords());
-				prom.setRegistrationRequired(acsresponse.getContent().getIsMemberRegistration());
-				prom.setTargetedPromotion(acsresponse.getContent().getTargetedPromotion());
-				prom.setHowToEarn(acsresponse.getContent().getHowToEarn());
-				prom.setFulfillment(acsresponse.getContent().getFulfillment());
-				prom.setResolveIssues(acsresponse.getContent().getResolveIssues());
-				prom.setPSTCodes(acsresponse.getContent().getPst());
-				prom.setPartnerCodes("From ACS Template");
-				prom.setDirectmailer(acsresponse.getContent().getCommunications().get(0).getIsDirectMailer());
-				prom.setMarketingpageurl(
-						getMarketingPageUrl(acsresponse.getContent().getCommunications().get(0).getMarketingPageUrl()));
-				prom.setEmailurl(getEmailContent(acsresponse.getContent().getCommunications().get(0).getEmail()));
-
-				Instant acsParseResEnd = Instant.now();
-				long acsParseResTimeElapsed = Duration.between(acsParseResStart, acsParseResEnd).toMillis();
-				if (logger.isDebugEnabled())
-					logger.debug("Time elapsed to parse ACS response for promo code {} : {} (in Millis)",
-							promoCodeList.get(i), acsParseResTimeElapsed);
-			} catch (HttpClientErrorException hcee) {
-				logger.error("Promo code " + promoCodeList.get(i) + " not found in ACS - Got " + hcee.getStatusCode()
-						+ " Not found error");
+				ar5response = aptService.getAr5LscsPromotionContentResponse(prom);
+				acsresponse = aptService.getAcsPromotionContentResponse(prom);
+				// Wait until they are all done
+				CompletableFuture.allOf(ar5response, acsresponse).join();
+			} catch (Exception e) {
+				logger.error(e.getMessage());
 			}
-
 			Instant buildSinglePromoEnd = Instant.now();
 			long buildSinglePromoTimeElapsed = Duration.between(buildSinglePromoStart, buildSinglePromoEnd).toMillis();
 			if (logger.isDebugEnabled())
-				logger.debug("Time elapsed to build promo code {} : {} (in Millis)", promoCodeList.get(i),
+				logger.debug("Time elapsed to build LSCS content for single promo code {} : {} (in Millis)", string,
 						buildSinglePromoTimeElapsed);
-			promoListMap.put(promoCodeList.get(i), prom);
-
-		}
+			promoListMap.put(string, prom);
+		});
 	}
 
 	/**
@@ -361,110 +436,12 @@ public class CriteriaController {
 				.replaceAll("REPLACEACTIVEFLAG", currpromoflag.equals("true") ? "Y" : "N");
 	}
 
-	private String getLSCSContent(List<LSCSReplicantElement> lscsReplicantElement) {
-
-		StringBuilder ar5maincontentbuffer = new StringBuilder();
-		String elementType = "";
-		Iterator<LSCSReplicantElement> lscsReplicantElementItr = lscsReplicantElement.iterator();
-		while (lscsReplicantElementItr.hasNext()) {
-			LSCSReplicantElement element = lscsReplicantElementItr.next();
-			elementType = element.getElementType();
-			if (elementType.equals("Heading")) {
-
-				HeaderElement headerElement = (HeaderElement) element;
-				ar5maincontentbuffer.append("<h6>").append(headerElement.getValue()).append("</h6>");
-
-			} else if (elementType.equals("List")) {
-				ListContentElement listContentElement = (ListContentElement) element;
-				List<ListElement> listElements = listContentElement.getListElements();
-				Iterator<ListElement> listElementsItr = listElements.iterator();
-				ar5maincontentbuffer.append("<ul>");
-				while (listElementsItr.hasNext()) {
-					ListElement listElement = listElementsItr.next();
-					ar5maincontentbuffer.append("<li>").append(listElement.getValue()).append("</li>");
-
-				}
-				ar5maincontentbuffer.append("</ul>");
-
-			} else if (elementType.equals("Paragraph")) {
-				ParagraphElement paragraphElement = (ParagraphElement) element;
-
-				ar5maincontentbuffer.append("<p>").append(paragraphElement.getParagraph()).append("</p>");
-			} else if (elementType.equals("Url")) {
-				UrlElement mainContentUrl = (UrlElement) element;
-				ar5maincontentbuffer.append("<a alt=\"" + mainContentUrl.getAltText() + "\" href=\""
-						+ mainContentUrl.getUrl() + "\">" + mainContentUrl.getDisplayText() + "</a>");
-				ar5maincontentbuffer.append("<br>");
-			} else if (elementType.equals("TermsAndConditionUrl")) {
-				TermsAndConditionsUrl mainContentUrl = (TermsAndConditionsUrl) element;
-				ar5maincontentbuffer.append("<a alt=\"" + mainContentUrl.getAltText() + "\" href=\""
-						+ mainContentUrl.getUrl() + "\">" + mainContentUrl.getTextDisplay() + "</a>");
-				ar5maincontentbuffer.append("<br>");
-			}
-
-		}
-
-		return (!ar5maincontentbuffer.toString().equals("")) ? ar5maincontentbuffer.toString() : "N/A";
-	}
-
-	public String getEmailContent(List<Email> emailList) {
-		StringBuilder emailURL = new StringBuilder();
-		Iterator<Email> emailItr = emailList.iterator();
-		while (emailItr.hasNext()) {
-			Email email = emailItr.next();
-			emailURL.append("<a href=\"" + email.getUrl() + "\">" + email.getTextDisplay() + "</a>");
-			emailURL.append("<br>");
-
-		}
-
-		return (!emailURL.toString().equals("")) ? emailURL.toString() : "N/A";
-	}
-
-	public String getMarketingPageUrl(List<MarketingPageUrl> marketPageurlList) {
-		StringBuilder marketPageUrl = new StringBuilder();
-		Iterator<MarketingPageUrl> marketingPageUrlItr = marketPageurlList.iterator();
-		while (marketingPageUrlItr.hasNext()) {
-			MarketingPageUrl mpu = marketingPageUrlItr.next();
-			marketPageUrl.append("<a href=\"" + mpu.getUrl() + "\">" + mpu.getTextDisplay() + "</a>");
-			marketPageUrl.append("<br>");
-
-		}
-		return (!marketPageUrl.toString().equals("")) ? marketPageUrl.toString() : "N/A";
-
-	}
-
-	// http://localhost:8080/api/search/ar5/P468B
-	@RequestMapping(value = ControllerConstants.PCODESEARCHFORAR5, method = RequestMethod.GET)
-	public LscsPromotionContentResponse getPromoDetailsFromAR5(@PathVariable("pcode") String pcode) {
-		RestTemplate restTemplate = new RestTemplate();
-		logger.info("AR5 URL trying to access: {}", ar5PromoUrlStart + pcode + ar5PromoUrlEnd);
-		LscsPromotionContentResponse ar5response = restTemplate.getForObject(ar5PromoUrlStart + pcode + ar5PromoUrlEnd,
-				LscsPromotionContentResponse.class);
-		logger.debug("--------------Ping AR5-----{}", ar5response.getContent());
-
-		return ar5response;
-	}
-
-	// http://localhost:8080/api/search/acs/RVGLD
-	@RequestMapping(value = ControllerConstants.PCODESEARCHFORACS, method = RequestMethod.GET)
-	public AcsPromotionContentResponse getPromoDetailsFromACS(@PathVariable("pcode") String pcode) {
-		RestTemplate restTemplate = new RestTemplate();
-		logger.info("ACS URL trying to access: {}", acsPromoUrlStart + pcode + acsPromoUrlEnd);
-		AcsPromotionContentResponse acsresponse = restTemplate.getForObject(acsPromoUrlStart + pcode + acsPromoUrlEnd,
-				AcsPromotionContentResponse.class);
-		logger.debug("--------------Ping AR5-----{}", acsresponse.getContent());
-		logger.info("Email content is : {}",
-				getEmailContent(acsresponse.getContent().getCommunications().get(0).getEmail()));
-		return acsresponse;
-	}
-	
-	private String getString(String str)
-	{
+	private String getString(String str) {
 		return isNotNullOrEmpty(str) ? str : "N/A";
 	}
-	
+
 	private boolean isNotNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
-    }
+		return str != null && !str.isEmpty();
+	}
 
 }

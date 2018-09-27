@@ -1,6 +1,9 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { IPromotion } from './promotion';
+import { SearchserviceService } from '../searchservice.service';
 
 @Component({
   selector: 'app-resultscomp',
@@ -9,7 +12,8 @@ import { IPromotion } from './promotion';
 })
 export class ResultscompComponent implements OnInit, OnChanges {
 
-  constructor() { }
+  constructor(private searchService: SearchserviceService,
+    private spinnerService: Ng4LoadingSpinnerService) { }
 
   @Input() pcodecurrpromoval: string;
   @Input() bsparamsReceived: string;
@@ -62,6 +66,7 @@ export class ResultscompComponent implements OnInit, OnChanges {
           this.latestPromosDiv.nativeElement.classList.remove('active');
           this.searchResultsAnchor.nativeElement.classList.add('active');
           this.searchResultsDiv.nativeElement.classList.add('active');
+          this.newSearch = Object.assign({}, true);
           this.sendBSparams = change.currentValue;
         }
 
@@ -70,11 +75,34 @@ export class ResultscompComponent implements OnInit, OnChanges {
 
   }
 
-  onPromoCodeRec(promotion: IPromotion) {
-    this.promotion = promotion;
-    promotion = Object.assign({}, promotion);
-    this.sendPromotionToToggle = promotion;
-    console.log('Received promo code from search result :' + promotion.promoCode);
+  onPromoCodeRec(searchedPromotion: IPromotion) {
+
+    console.log('Calling promoDetail service for code' + searchedPromotion.promoCode);
+    this.spinnerService.show();
+
+    this.searchService.getPromoDetailResults(searchedPromotion.promoCode).subscribe((data: IPromotion) => {
+      this.promotion = data;
+      this.promotion.promoStartDate = searchedPromotion.promoStartDate;
+      this.promotion.promoEndDate = searchedPromotion.promoEndDate;
+      this.promotion.tac = searchedPromotion.tac;
+      this.promotion.memRegStartDate = searchedPromotion.memRegStartDate;
+      this.promotion.memRegEndDate = searchedPromotion.memRegEndDate;
+      this.promotion.memTravelStartDate = searchedPromotion.memTravelStartDate;
+      this.promotion.memTravelEndDate = searchedPromotion.memTravelEndDate;
+      this.promotion.lateRegEndDate = searchedPromotion.lateRegEndDate;
+      this.spinnerService.hide();
+    }, (err) => {
+      if (err instanceof HttpErrorResponse) {
+        if (err.message.includes('Http failure response')) {
+          console.log('Some Error in Services');
+          this.spinnerService.hide();
+        }
+      }
+    }
+    );
+
+    searchedPromotion = Object.assign({}, searchedPromotion);
+    this.sendPromotionToToggle = searchedPromotion;
   }
 
   callParentToggle() {

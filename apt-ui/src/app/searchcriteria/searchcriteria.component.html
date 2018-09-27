@@ -32,9 +32,9 @@
       </div>
       <br>
       <mat-chip-list>
-        <mat-chip *ngFor="let fruit of display_kwarray" 
-                 [removable]="removable" (removed)="remove(fruit)">
-                 <p style="color:red"> {{fruit}} </p>
+        <mat-chip *ngFor="let sKeyWord of display_kwarray" 
+                 [removable]="removable" (removed)="remove(sKeyWord)">
+                 <p style="color:red"> {{sKeyWord}} </p>
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
       </mat-chip-list>

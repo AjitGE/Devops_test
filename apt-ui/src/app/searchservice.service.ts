@@ -31,6 +31,11 @@ export class SearchserviceService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getPromoDetailResults(promoCode: string): Observable<IPromotion> {
+    return this.httpClient.get<IPromotion>(environment.backendUrl + '/api/promodetail/' + promoCode, {responseType: 'json'})
+    .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     // return observableThrowError(error.message || 'Server Error');
     return observableThrowError(error);
