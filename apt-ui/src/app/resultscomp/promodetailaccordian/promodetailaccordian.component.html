@@ -1,0 +1,10 @@
+<div class="col-sm-12 mpZeroWidthFull">
+
+<button type="button" class="btn btn-link pull-right" (click)="toggleAccordion()" >
+    {{buttonExpandCollapse ? "+ Expand all" : "- Collapse all"}}
+</button>
+
+<ng-content *ngIf="!accvisible" select="[accordian-collapsed]"></ng-content>
+
+<ng-content *ngIf="accvisible" select="[accordian-expanded]"></ng-content>
+</div>

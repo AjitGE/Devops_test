@@ -20,11 +20,16 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/Staticfile"
             ],
             "styles": [
               "src/styles.css",
-               "src/bootstrap/bootstrap-4.1.1/css/bootstrap.min.css"
+              "src/assets/fonts/material-icons/material-icons.css",
+               "src/bootstrap/bootstrap-4.1.1/css/bootstrap.min.css",
+               "node_modules/font-awesome/css/font-awesome.css",
+               "src/line-awesome/css/line-awesome-font-awesome.min.css",
+               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
             ],
             "scripts": [ 
             "src/jquery/jquery-3.3.1.min.js",
@@ -48,7 +53,43 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "ci": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ci.ts"
+                }
+              ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "stg": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stg.ts"
+                }
+              ]
             }
+
+
+
+
           }
         },
         "serve": {

@@ -1,75 +1,39 @@
-<div class="col-sm-12" id="Psearch" style=" height:127px;
-background-color: #EBEFF0;
-border-style: solid;
-border-width: 1px;
-border-color: #D0DAE0;
-border: solid 1px #D0DAE0; ">
+<div class="col-sm-12 search-head-div" id="Psearch">
 
-  
-<form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-  
-  <div class="form-group" style="margin:3%;padding:0%">
-    
-    <label class="col-sm-12 control-label"
-    style="
-    background-color: transparent;
-    font-family: AmericanSans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    text-align: left;
-    color: #333333;margin:0%;padding:0%"
-    >Promo / PST / TA code</label> 
-  </div>
-  
-  <div class="input-group" style="margin:0%;padding:0%">
-      <input class="form-control py-2 border-right-0 border" type="search" 
-      placeholder="Search" id="ptextcode"
-      [(ngModel)]="pcode" name="ptextcode" #name="ngModel" minlength="2" required
-      style="width: 199px;
-      height: 32px;
-      background-color: #FFFFFF;
-      border-style: solid;
-      border-width: 1px;
-      border-color: #D0DAE0;
-      border: solid 1px #D0DAE0;
-      border-radius: 3px;"
-      >
-            <span class="input-group-append">
-                <button class="btn btn-outline-secondary border-left-0 border" type="submit" 
-                  style="background: white url(../../assets/Search-icon.svg) no-repeat right">
-                    
-                </button>
-              </span>
+  <form id="scomp_form" [formGroup]="topSearchForm" (ngSubmit)="topSearchSubmit(topSearchForm.value)" autocomplete="off" novalidate>
+    <div class="form-group">
+      <label id="scomp_pcode_label" for="pcodeLabel" class="col-sm-12 form-Promo-label">
+        Promo / PST / TA Code
+      </label>
 
-      <!--
-        <input type="text"   required class="form-control col-sm-offset-2 col-sm-10" 
-          placeholder="Search" id="ptextcode"
-          [(ngModel)]="pcode" name="ptextcode" #name="ngModel"
-          >
-          -->
+      <em id="sc_pcode_required" *ngIf="!validatePCode() && pcode.errors.required">
+        <i class="fa fa-exclamation-circle errorIconSize"></i>
+        <b>Required</b></em>
+      <em id="sc_pcode_pattern" *ngIf="!validatePCode() && pcode.errors.pattern">
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
+      <em id="sc_pcode_min" *ngIf="!validatePCode() && pcode.errors.minlength">
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
+      <em id="sc_pcode_max" *ngIf="!validatePCode() && pcode.errors.maxlength">
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>A max of 5 characters can be entered</b></em>
 
+      <div class="input-group noMarginPad">
+        <input class="form-control" type="search" formControlName="pcode" [ngClass]="{'error' : !validatePCode() }" placeholder="Search..."
+          id="ptextcode">
 
-         <!--
-        <div class="input-group-btn input-group-append">
-          <button class="btn btn-default" type="submit" id="go" style = "display: block; ">
-            <img class="img-responsive" src="../../assets/Search-icon.svg"> 
+        <span class="input-group-append">
+          <button id="sc_glass_button" class="btn btn-outline-secondary border-left-0 border glass-button-style" type="submit">
+
           </button>
-         </div>
-        -->
-
+        </span>
       </div>
+
       <div class="form-check">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="" id="currpromochkbx" 
-              name="currpromochkbx" 
-              #currpchkbx
-              (change)="onCurrPromoChkbxClicked(currpchkbx)"
-            >
-            Current promos only
-          </label>
-        </div>
-  
-    </form>
-    
-  </div>
+        <label class="form-check-label blacklabelstyle" id="sc_currpromo_label">
+          <input type="checkbox" class="form-check-input" formControlName="currpromochkbx"> Current promos only
+        </label>
+      </div>
+
+
+    </div>
+  </form>
+</div>

@@ -1,5 +1,4 @@
-export class ISearchPromoModel
-{
-    pcode:string = '';
-    currpromoval : boolean = false;
+export class ISearchPromoModel {
+    pcode = '';
+    currpromoval = false;
 }

@@ -1,0 +1,113 @@
+.noMarginPad {
+    margin: 0%;
+    padding: 0%
+}
+
+.promoHeaderStyle {
+    height: 41px;
+    background-color: #e7ecef;
+    border: solid 1px rgb(231, 236, 239);
+    margin: 0%;
+    padding: 0%;
+}
+
+.iconSize {
+    width: 22px;
+    height: 40px;
+}
+
+.headerPNameStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSansMedium;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    color: #36495A;
+}
+
+.promotionNameSingleStyle {
+    height: 29px;
+    background-color: transparent;
+    font-family: AmericanSansLight;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+    color: rgb(25, 25, 112);
+}
+
+.promotionNameStyle {
+    height: 29px;
+    background-color: transparent;
+    font-family: AmericanSansLight;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: left;
+    color: rgb(25, 25, 112);
+}
+
+.promotionDateLabelStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSansMedium;
+    font-size: 14px;
+    font-weight: bolder;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.64);
+}
+
+.promotionDatesStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #36495A;
+}
+
+.sviewLabelStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSansMedium;
+    font-size: 14px;
+    font-weight: bolder;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.64);
+}
+
+.sviewLabelSmStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSansMedium;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.64)
+}
+
+.sviewTextStyle {
+    height: 17px;
+    background-color: transparent;
+    font-family: AmericanSans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #36495A;
+}
+
+.pb1 {
+    padding-bottom: 1%
+}
+
+.hrwidth {
+    width: 90%;
+    margin-left: 10px;
+}
