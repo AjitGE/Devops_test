@@ -164,23 +164,15 @@
         </div>
 
         <br>
+        <h6 id="sp_resolveissues">Resolve issues</h6>
+        <br>
+        <div [innerHTML]="promotion?.resolveIssues"></div>
+        <br>
 
         <app-promodetailaccordian (expandcollapseevent)="expandCollapseHandler($event)">
 
             <div accordian-collapsed>
                 <br><br>
-                <mat-expansion-panel [expanded]="allExpandState">
-                    <mat-expansion-panel-header class="specific-class">
-                        <mat-panel-title>
-
-                            <div class="col-md-9">
-                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="accLabelStyle"> Resolve issues</span>
-                            </div>
-                        </mat-panel-title>
-
-                    </mat-expansion-panel-header>
-                    <div [innerHTML]="promotion?.resolveIssues"></div>
-                </mat-expansion-panel>
 
                 <mat-expansion-panel [expanded]="allExpandState">
                     <mat-expansion-panel-header class="specific-class">
@@ -210,19 +202,6 @@
             </div>
             <div accordian-expanded>
                 <br><br>
-                <mat-expansion-panel [expanded]="allExpandState">
-                    <mat-expansion-panel-header class="specific-class">
-                        <mat-panel-title>
-
-                            <div class="col-md-9">
-                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="accLabelStyle">Resolve issues</span>
-                            </div>
-                        </mat-panel-title>
-
-                    </mat-expansion-panel-header>
-                    <div [innerHTML]="promotion?.resolveIssues"></div>
-                </mat-expansion-panel>
-
                 <mat-expansion-panel [expanded]="allExpandState">
                     <mat-expansion-panel-header class="specific-class">
                         <mat-panel-title>

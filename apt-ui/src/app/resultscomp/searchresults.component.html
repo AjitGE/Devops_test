@@ -21,7 +21,7 @@
             <div class="form-group label-select-flex">
 
                 <label id="sr_sort_label" for="sortbylabel" class="label-pt">Sort by: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <select id="sr_sort_comp" formControlName="sortby" class="form-control col-sm-3">
+                <select id="sr_sort_comp" formControlName="sortby" class="form-control col-sm-3" (change)="onSortChange($event)">
                     <option value="startdate">Start date</option>
                     <option value="enddate">End date</option>
                     <option value="pcodeatoz">Promo code: A to Z</option>
@@ -31,12 +31,12 @@
         </form>
 
 
-        <div *ngFor="let promotion of promotions">
+        <div *ngFor="let promotion of promotions | paginate: { id:'promo_pagination', itemsPerPage: 3, currentPage: p }">
 
             <div class="card-header bgtransparent noMarginPad">
 
                 <div class="card-header promoHeaderStyle">
-                    <span *ngIf="(isTrending === 'false') || (isTrending === null)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span *ngIf="(promotion.isTrending === 'false') || (promotion.isTrending === null)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <img id="sp_popular_icon" src="../../assets/Popular-icon.svg" *ngIf="promotion.isTrending === 'true'"
                         class="img-fluid iconSize">
                     <span class="headerPNameStyle"><b>Promo code: </b>{{promotion.promotionOrChallengeCode}}</span>
@@ -52,9 +52,10 @@
 
                         <div class="row">
                             <div class="col-sm-3 promotionDateLabelStyle"><b>Promotion dates:</b></div>
-                            <div class="col-sm-9 promotionDatesStyle">Start: {{promotion.promoStartDate}}
+                            <div class="col-sm-9 promotionDatesStyle">Start: {{promotion.promoStartDate |
+                                date:'MM/dd/yyyy'}}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                End: {{promotion.promoEndDate}}</div>
+                                End: {{promotion.promoEndDate | date:'MM/dd/yyyy'}}</div>
                         </div>
 
                     </div>
@@ -99,7 +100,12 @@
 
             </div>
 
-            <br><br><br>
+            <br>
+
+            <br><br>
+        </div>
+        <div style="text-align: center">
+            <pagination-controls id="promo_pagination" previousLabel="" nextLabel="" autoHide="true" (pageChange)="p = $event"></pagination-controls>
         </div>
     </div>
 

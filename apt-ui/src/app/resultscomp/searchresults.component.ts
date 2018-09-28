@@ -25,6 +25,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   errMsgToDisplay: string = undefined;
   isBottomSearchValid: number;
   allExpandState = false;
+  p = 1;
 
   constructor(private searchService: SearchserviceService,
     private spinnerService: Ng4LoadingSpinnerService) { }
@@ -53,6 +54,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
           this.spinnerService.show();
           this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
             this.promotions = data;
+            this.resultsSortForm.controls.sortby.setValue('startdate');
             console.log('Number of Promotions are : ' + this.promotions.length);
             if (this.promotions.length === 1) {
               this.showPromoDetailView(this.promotions[0]);
@@ -86,6 +88,7 @@ export class SearchresultsComponent implements OnInit, OnChanges {
             this.spinnerService.show();
             this.searchService.getCriteriaSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
               this.promotions = data;
+              this.resultsSortForm.controls.sortby.setValue('startdate');
               console.log('Number of Promotions returned for search criteria : ' + this.promotions.length);
               this.spinnerService.hide();
               this.errMsgToDisplay = undefined;
@@ -126,6 +129,43 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
   showPromoDetailView(promotion: IPromotion) {
     this.promoCodeSubmitted.emit(promotion);
+  }
+
+  onSortChange(sortTypeEvent: any) {
+    const sortType = sortTypeEvent.target.value;
+    if (sortType === 'startdate') {
+      this.promotions.sort((a: IPromotion, b: IPromotion) => {
+        return new Date(b.promoStartDate.split('-').join('-')).getTime() - new Date(a.promoStartDate.split('-').join('-')).getTime();
+      });
+    } else if (sortType === 'enddate') {
+      this.promotions.sort((a: IPromotion, b: IPromotion) => {
+        return new Date(b.promoEndDate.split('-').join('-')).getTime() - new Date(a.promoEndDate.split('-').join('-')).getTime();
+      });
+    } else if (sortType === 'pcodeatoz') {
+      this.promotions.sort(this.sortByNameA2Z);
+    } else if (sortType === 'pcodeztoa') {
+      this.promotions.sort(this.sortByNameZ2A);
+    }
+  }
+
+  sortByNameA2Z(p1: IPromotion, p2: IPromotion) {
+    if (p1.promoCode > p2.promoCode) {
+      return 1;
+    } else if (p1.promoCode === p2.promoCode) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
+
+  sortByNameZ2A(p1: IPromotion, p2: IPromotion) {
+    if (p1.promoCode < p2.promoCode) {
+      return 1;
+    } else if (p1.promoCode === p2.promoCode) {
+      return 0;
+    } else {
+      return -1;
+    }
   }
 
 }

@@ -147,7 +147,9 @@ public class AptController {
 			logger.debug("Time elapsed to build list of promo(s) for given code {} : {} (in Millis)", pcode,
 					buildPromoSearchTimeElapsed);
 
-		return promoListMap.values().stream().collect(Collectors.toList());
+		List<Promotion> returnPromotions = promoListMap.values().stream().collect(Collectors.toList());
+		returnPromotions.sort((p1,p2) -> p2.getPromoStartDate().compareTo(p1.getPromoStartDate()));
+		return returnPromotions;
 
 	}
 
@@ -229,6 +231,28 @@ public class AptController {
 		// Call Ventana service - PromoList - "Yet to ready - Planned 10/03"
 
 		String pst = pcode.split(":")[0];
+		String lscsQueryParam = "PST:" + pst;
+		RestTemplate restTemplate = new RestTemplate();
+		LscsConditionResponse lscsConditionResponse = restTemplate.getForObject(
+				lscsCriteriaSearchStart + lscsQueryParam + lscsCriteriaSearchEnd, LscsConditionResponse.class);
+
+		if (Integer.parseInt(lscsConditionResponse.getTotal()) != 0) {
+			List<Asset> assetsList = lscsConditionResponse.getResults().getAssets();
+			assetsList.stream().forEach(asset -> {
+				Promotion singlePromo = new Promotion();
+				String promoCode = asset.getMetadata().getPromotionId();
+				singlePromo.setPromotionOrChallengeCode(promoCode);
+				singlePromo.setKeyword(getString(asset.getMetadata().getKeywords()));
+				singlePromo.setIsTrending(getString(asset.getMetadata().getTrending()));
+				singlePromo.setPromoCode(promoCode);
+				singlePromo.setPSTCodes(getString(asset.getMetadata().getPst()));
+				singlePromo.setPromotionName("From MetaData - Next Iteration");
+				singlePromo.setPartnerCodes("From Metadata - Next Iteration");
+				pstMap.put(promoCode, singlePromo);
+			});
+		}
+		
+		
 	}
 
 	/**
@@ -304,12 +328,14 @@ public class AptController {
 	 * @param promoSearchResultItemItr
 	 */
 	private void createPromotionMap(List<PromoSearchResultItem> promoSearchResultItemList) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
 		promoSearchResultItemList.stream().forEach(promoSearchResultItem -> {
 			Promotion singlePromo = new Promotion();
 			singlePromo.setPromoCode(getString(promoSearchResultItem.getPromoCode()));
-			singlePromo.setPromoStartDate(getString(promoSearchResultItem.getPromoStartDate()));
-			singlePromo.setPromoEndDate(getString(promoSearchResultItem.getPromoEndDate()));
+			singlePromo.setPromoStartDate(LocalDate.parse(promoSearchResultItem.getPromoStartDate(), formatter));
+			singlePromo.setPromoEndDate(LocalDate.parse(promoSearchResultItem.getPromoEndDate(), formatter));
 			singlePromo.setMemRegStartDate(getString(promoSearchResultItem.getRegistrationStartDate()));
 			singlePromo.setMemRegEndDate(getString(promoSearchResultItem.getAACOMRegistrationEndDate()));
 			singlePromo.setMemTravelStartDate(getString(promoSearchResultItem.getActivityStartDate()));

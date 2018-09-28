@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatChipsModule, MatIconModule, MatExpansionModule } from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { SearchcompComponent } from './searchcomp/searchcomp.component';
 import { ResultscompComponent } from './resultscomp/resultscomp.component';
@@ -59,7 +60,8 @@ import { ToggleComponent } from './resultscomp/toggle.component';
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     BsDatepickerModule.forRoot(),
-    TextMaskModule
+    TextMaskModule,
+    NgxPaginationModule
   ],
   providers: [SearchserviceService, IcommunicationService
   ],

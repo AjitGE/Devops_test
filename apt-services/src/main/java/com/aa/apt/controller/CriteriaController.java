@@ -3,6 +3,8 @@ package com.aa.apt.controller;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -273,12 +275,13 @@ public class CriteriaController {
 	 * @param promoSearchResultItemItr
 	 */
 	private void createPromotionMap(Iterator<PromoSearchResultItem> promoSearchResultItemItr) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		while (promoSearchResultItemItr.hasNext()) {
 			Promotion singlePromo = new Promotion();
 			PromoSearchResultItem promoSearchResultItem = promoSearchResultItemItr.next();
 			singlePromo.setPromoCode(getString(promoSearchResultItem.getPromoCode()));
-			singlePromo.setPromoStartDate(getString(promoSearchResultItem.getPromoStartDate()));
-			singlePromo.setPromoEndDate(getString(promoSearchResultItem.getPromoEndDate()));
+			singlePromo.setPromoStartDate(LocalDate.parse(promoSearchResultItem.getPromoStartDate(), formatter));
+			singlePromo.setPromoEndDate(LocalDate.parse(promoSearchResultItem.getPromoEndDate(), formatter));
 			singlePromo.setMemRegStartDate(getString(promoSearchResultItem.getRegistrationStartDate()));
 			singlePromo.setMemRegEndDate(getString(promoSearchResultItem.getAACOMRegistrationEndDate()));
 			singlePromo.setMemTravelStartDate(getString(promoSearchResultItem.getActivityStartDate()));

@@ -1,5 +1,7 @@
 package com.aa.apt.model;
 
+import java.time.LocalDate;
+
 public class Promotion {
 	
 	//From ACS
@@ -24,8 +26,8 @@ public class Promotion {
 	
 	
 	//From Ventana
-	String PromoStartDate;
-	String PromoEndDate;
+	LocalDate PromoStartDate;
+	LocalDate PromoEndDate;
 	String tac;
 	String memRegStartDate;  //Ventana Field Response  : RegistrationStartDate 
 	String memRegEndDate;  //Ventana Field Response : AACOMRegistrationEndDate
@@ -123,21 +125,7 @@ public class Promotion {
 		PSTCodes = pSTCodes;
 	}
 
-	public String getPromoStartDate() {
-		return PromoStartDate;
-	}
-
-	public void setPromoStartDate(String promoStartDate) {
-		PromoStartDate = promoStartDate;
-	}
-
-	public String getPromoEndDate() {
-		return PromoEndDate;
-	}
-
-	public void setPromoEndDate(String promoEndDate) {
-		PromoEndDate = promoEndDate;
-	}
+	
 
 	public String getTac() {
 		return tac;
@@ -201,6 +189,22 @@ public class Promotion {
 
 	public void setTermsandconditions(String termsandconditions) {
 		this.termsandconditions = termsandconditions;
+	}
+	
+	public LocalDate getPromoStartDate() {
+		return PromoStartDate;
+	}
+
+	public void setPromoStartDate(LocalDate promoStartDate) {
+		PromoStartDate = promoStartDate;
+	}
+
+	public LocalDate getPromoEndDate() {
+		return PromoEndDate;
+	}
+
+	public void setPromoEndDate(LocalDate promoEndDate) {
+		PromoEndDate = promoEndDate;
 	}
 
 	public String getPromotionName() {
