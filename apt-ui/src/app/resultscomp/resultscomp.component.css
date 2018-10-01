@@ -19,7 +19,7 @@
 .headerPNameStyle {
     height: 17px;
     background-color: transparent;
-    font-family: AmericanSansMedium;
+    font-family: AmericanSans;
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
@@ -84,12 +84,12 @@
 .sviewLabelSmStyle {
     height: 17px;
     background-color: transparent;
-    font-family: AmericanSansMedium;
+    font-family: AmericanSans;
     font-size: 14px;
     font-weight: 400;
-    line-height: 24px;
+    line-height: 20px;
     text-align: left;
-    color: rgba(0, 0, 0, 0.64)
+    color: rgba(0, 0, 0, 0.64);
 }
 
 .sviewTextStyle {
@@ -110,4 +110,26 @@
 .hrwidth {
     width: 90%;
     margin-left: 10px;
+}
+
+.promoDetailHeader {
+    height: 25px;
+    background-color: transparent;
+    font-family: AmericanSansLight;
+    font-size: 18px;
+    font-weight: 100;
+    line-height: 30px;
+    text-align: left;
+    color: #36495A;
+}
+
+.accLabelStyle {
+    height: 20px;
+    background-color: transparent;
+    font-family: AmericanSansLight;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #00467F;
 }

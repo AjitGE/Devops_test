@@ -34,16 +34,26 @@ em {
     padding: 0%
 }
 
+.fiveMarginPad {
+    margin: 1%;
+    padding: 1%
+}
 .glass-button-style {
     background: #FAFBFB url(../../assets/Search-icon.svg) no-repeat right
 }
 
-.errorIconSize
-{
-    font-size:20px
+.errorIconSize {
+    font-size: 20px
 }
 
-.blacklabelstyle
-{
+.form-Promo-black-label {
+    background-color: transparent;
+    font-family: AmericanSans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
     color: black;
+    margin-top: 5%;
+    padding: 1%
 }

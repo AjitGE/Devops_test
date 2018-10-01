@@ -11,25 +11,17 @@
     padding: 0%
 }
 
-.promotionNameSingleStyle {
+.promotionNameStyle {
     height: 29px;
     background-color: transparent;
     font-family: AmericanSansLight;
     font-size: 24px;
     font-weight: 400;
-    line-height: 32px;
-    text-align: left;
-    color: rgb(25, 25, 112);
-}
-
-.promotionNameStyle {
-    height: 29px;
-    background-color: transparent;
-    font-family: AmericanSansLight;
-    font-size: 20px;
     line-height: 30px;
     text-align: left;
     color: rgb(25, 25, 112);
+    padding-top: 2%;
+    padding-bottom: 4%;
 }
 
 .promotionDateLabelStyle {
@@ -37,7 +29,7 @@
     background-color: transparent;
     font-family: AmericanSansMedium;
     font-size: 14px;
-    font-weight: bolder;
+    font-weight: 400;
     line-height: 24px;
     text-align: left;
     color: rgba(0, 0, 0, 0.64);
@@ -59,7 +51,7 @@
     background-color: transparent;
     font-family: AmericanSansMedium;
     font-size: 14px;
-    font-weight: bolder;
+    font-weight: 400;
     line-height: 24px;
     text-align: left;
     color: rgba(0, 0, 0, 0.64);

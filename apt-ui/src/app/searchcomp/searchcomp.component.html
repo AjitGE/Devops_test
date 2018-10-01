@@ -3,18 +3,18 @@
   <form id="scomp_form" [formGroup]="topSearchForm" (ngSubmit)="topSearchSubmit(topSearchForm.value)" autocomplete="off" novalidate>
     <div class="form-group">
       <label id="scomp_pcode_label" for="pcodeLabel" class="col-sm-12 form-Promo-label">
-        Promo / PST / TA Code
+        {{promopstta_label}}
       </label>
 
       <em id="sc_pcode_required" *ngIf="!validatePCode() && pcode.errors.required">
         <i class="fa fa-exclamation-circle errorIconSize"></i>
-        <b>Required</b></em>
+        <b>{{required_text}}</b></em>
       <em id="sc_pcode_pattern" *ngIf="!validatePCode() && pcode.errors.pattern">
-        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Special characters not allowed</b></em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{specialchar_na_text}}</b></em>
       <em id="sc_pcode_min" *ngIf="!validatePCode() && pcode.errors.minlength">
-        <i class="fa fa-exclamation-circle errorIconSize"></i><b>Enter at least 2 characters</b></em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{least2char_text}}</b></em>
       <em id="sc_pcode_max" *ngIf="!validatePCode() && pcode.errors.maxlength">
-        <i class="fa fa-exclamation-circle errorIconSize"></i><b>A max of 5 characters can be entered</b></em>
+        <i class="fa fa-exclamation-circle errorIconSize"></i><b>{{max5char_text}}</b></em>
 
       <div class="input-group noMarginPad">
         <input class="form-control" type="search" formControlName="pcode" [ngClass]="{'error' : !validatePCode() }" placeholder="Search..."
@@ -28,8 +28,8 @@
       </div>
 
       <div class="form-check">
-        <label class="form-check-label blacklabelstyle" id="sc_currpromo_label">
-          <input type="checkbox" class="form-check-input" formControlName="currpromochkbx"> Current promos only
+        <label class="form-check-label form-Promo-black-label" id="sc_currpromo_label">
+          <input type="checkbox" class="form-check-input" formControlName="currpromochkbx"> {{currpromos_label}}
         </label>
       </div>
 

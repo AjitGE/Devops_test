@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SearchserviceService } from '../searchservice.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { Constants } from '../shared/Constants';
+
 @Component({
   selector: 'app-health',
   templateUrl: './health.component.html',
@@ -19,8 +21,7 @@ export class HealthComponent implements OnInit {
       if (err instanceof HttpErrorResponse) {
         if (err.message.includes('Http failure response')) {
           console.log(err.message);
-          console.log('No Response from Services - SpringBoot');
-          this.healthstatus = 'Not able to connect to services';
+          this.healthstatus = Constants.HEALTH_ERR_MSG;
         }
       }
     }

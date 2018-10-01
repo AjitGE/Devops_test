@@ -21,23 +21,18 @@ export class ToggleComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
       const change = changes[propName];
-      console.log('Input field changed is :' + propName);
       if (propName === 'promotionFromSearch') {
-        console.log('Previous Value : ' + change.previousValue);
-        console.log('Current value: ' + change.currentValue);
+
         if (change.currentValue) {
           this.toggleResultContent();
-          console.log('Value of PromoCode got from Results :' + this.promotionFromSearch);
         }
       } else if (propName === 'backToTabs') {
-        console.log('Previous Value backToTabs: ' + change.previousValue);
-        console.log('Current value backToTabs: ' + change.currentValue);
+
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
           this.toggleResultContent();
         }
       } else if (propName === 'gotNewSearch') {
-        console.log('Previous Value gotNewSearch: ' + change.previousValue);
-        console.log('Current value gotNewSearch: ' + change.currentValue);
+
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
           if (this.isSinglePromoView) {
             this.isSinglePromoView = false;
@@ -49,7 +44,6 @@ export class ToggleComponent implements OnInit, OnChanges {
 
   toggleResultContent() {
     this.isSinglePromoView = !this.isSinglePromoView;
-    console.log('Value of isSinglePromoView is :' + this.isSinglePromoView);
   }
 
 }

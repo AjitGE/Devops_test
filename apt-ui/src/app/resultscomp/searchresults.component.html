@@ -6,10 +6,10 @@
         <div [innerHTML]="errMsgToDisplay"></div>
     </div>
 
-    <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
+    <div *ngIf="promotions?.length === 0">{{Constants.NOPROMO_RESPONSE_MSG}}/div>
 
     <div *ngIf="isBottomSearchValid === 0"><br><br>
-        <p>You must enter at least one search requirement</p>
+        <p>{{Constants.BOTTOM_SEARCH_NOSEL_MSG}}</p>
     </div>
 
 
@@ -31,7 +31,7 @@
         </form>
 
 
-        <div *ngFor="let promotion of promotions | paginate: { id:'promo_pagination', itemsPerPage: 3, currentPage: p }">
+        <div *ngFor="let promotion of promotions | paginate: { id:'promo_pagination', itemsPerPage: promos_per_page, currentPage: p }">
 
             <div class="card-header bgtransparent noMarginPad">
 

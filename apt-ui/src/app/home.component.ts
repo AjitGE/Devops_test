@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Constants } from './shared/Constants';
 
 @Component({
   selector: 'app-home',
@@ -7,14 +8,14 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  title = 'apt-client';
+  title = Constants.APP_TITLE;
+  header_txt = Constants.APP_HEADER_TEXT;
   pcodeInParent = '';
   bsparamsInParent = '';
   clearAllSignalInParent: boolean;
 
   onPcodeSubmited(pcodecurrpromo: string): void {
     this.pcodeInParent = pcodecurrpromo;
-    console.log('pcode in Parent :' + this.pcodeInParent);
   }
 
   handleClearAllReq(clearallsignal: boolean): void {
@@ -24,7 +25,6 @@ export class HomeComponent {
 
   onBSparamsSubmitted(bsparams: string): void {
     this.bsparamsInParent = bsparams;
-    console.log('bsparams in parent: ' + this.bsparamsInParent);
   }
 
 }

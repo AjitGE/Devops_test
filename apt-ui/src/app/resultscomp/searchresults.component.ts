@@ -1,12 +1,11 @@
-import { Component, OnInit, OnChanges, Input, Output, SimpleChanges, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-declare var jquery: any;
-declare var $: any;
 
 import { IPromotion } from './promotion';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SearchserviceService } from '../searchservice.service';
+import { Constants } from '../shared/Constants';
 
 @Component({
   selector: 'app-searchresultscomp',
@@ -25,7 +24,8 @@ export class SearchresultsComponent implements OnInit, OnChanges {
   errMsgToDisplay: string = undefined;
   isBottomSearchValid: number;
   allExpandState = false;
-  p = 1;
+  p = Constants.PAGINATION_PAGENUM_DEFAULT;
+  promos_per_page = Constants.PAGINATION_NO_OF_PROMOS;
 
   constructor(private searchService: SearchserviceService,
     private spinnerService: Ng4LoadingSpinnerService) { }
@@ -38,38 +38,22 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log('In ngOnChanges ');
     for (const propName in changes) {
       const change = changes[propName];
-      console.log('Input field changed is :' + propName);
       if (propName === 'pcodecurrpromoval') {
-
-
-        console.log('Previous Value : ' + change.previousValue);
-        console.log('Current value: ' + change.currentValue);
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
-
-          console.log('Calling Promo search service with code' + change.currentValue);
           this.isBottomSearchValid = 1;
           this.spinnerService.show();
           this.searchService.getSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
             this.promotions = data;
             this.resultsSortForm.controls.sortby.setValue('startdate');
-            console.log('Number of Promotions are : ' + this.promotions.length);
             if (this.promotions.length === 1) {
               this.showPromoDetailView(this.promotions[0]);
             }
             this.spinnerService.hide();
             this.errMsgToDisplay = undefined;
           }, (err) => {
-            if (err instanceof HttpErrorResponse) {
-              if (err.message.includes('Http failure response')) {
-                console.log('No Response from Ventana/LSCS');
-                this.promotions = undefined;
-                this.errMsgToDisplay = '<h5>No Response from Ventana/LSCS</h5>';
-                this.spinnerService.hide();
-              }
-            }
+            this.handleError(err);
           }
           );
 
@@ -78,30 +62,20 @@ export class SearchresultsComponent implements OnInit, OnChanges {
 
       } else if (propName === 'bsparams') {
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
-          console.log('Received bsparams as ' + change.currentValue);
-          if (change.currentValue === 'NOKEYWORDS/NOFROMDATE/NOTODATE/TARGETNOTSELECTED/BCURRPROMONOTSELECTED/NOPARTNERCODES') {
+          if (change.currentValue === Constants.KEYWORD_DEFAULT_TOSEND + Constants.FROMDATE_DEFAULT_TOSEND + Constants.TODATE_DEFAULT_TOSEND + Constants.TARGETRADIO_DEFAULT_VALUE + Constants.PARAM_SEPARATOR + Constants.CURRPROMOS_BOTTOM_NOT_SELECTED + Constants.PARTNERCODES_DEFAULT_TOSEND) {
             this.isBottomSearchValid = 0;
             this.promotions = undefined;
           } else {
             this.isBottomSearchValid = 1;
-            console.log('Calling Criteria search service with criteria' + change.currentValue);
             this.spinnerService.show();
             this.searchService.getCriteriaSearchPromoResults(change.currentValue).subscribe((data: IPromotion[]) => {
               this.promotions = data;
               this.resultsSortForm.controls.sortby.setValue('startdate');
-              console.log('Number of Promotions returned for search criteria : ' + this.promotions.length);
               this.spinnerService.hide();
               this.errMsgToDisplay = undefined;
 
             }, (err) => {
-              if (err instanceof HttpErrorResponse) {
-                if (err.message.includes('Http failure response')) {
-                  console.log('No Response from Ventana/LSCS for given search criteria');
-                  this.promotions = undefined;
-                  this.errMsgToDisplay = '<h5>No Response from Ventana/LSCS</h5>';
-                  this.spinnerService.hide();
-                }
-              }
+              this.handleError(err);
             }
             );
           }
@@ -165,6 +139,16 @@ export class SearchresultsComponent implements OnInit, OnChanges {
       return 0;
     } else {
       return -1;
+    }
+  }
+
+  handleError(err: any): void {
+    if (err instanceof HttpErrorResponse) {
+      if (err.message.includes('Http failure response')) {
+        this.promotions = undefined;
+        this.errMsgToDisplay = Constants.NORESPONSE_ERR_MSG;
+        this.spinnerService.hide();
+      }
     }
   }
 

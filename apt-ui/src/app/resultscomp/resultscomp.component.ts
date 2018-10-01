@@ -36,18 +36,10 @@ export class ResultscompComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('In ngOnChanges - ResultsComp ');
     for (const propName in changes) {
       const change = changes[propName];
-      console.log('Input field changed is :' + propName);
       if (propName === 'pcodecurrpromoval') {
-
-
-        console.log('Previous Value top pcode : ' + change.previousValue);
-        console.log('Current value top pcode : ' + change.currentValue);
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
-
-          console.log('Setting value to sendPcodecurrpromoval');
           this.latestPromoAnchor.nativeElement.classList.remove('active');
           this.latestPromosDiv.nativeElement.classList.remove('active');
           this.searchResultsAnchor.nativeElement.classList.add('active');
@@ -57,11 +49,7 @@ export class ResultscompComponent implements OnInit, OnChanges {
         }
 
       } else if (propName === 'bsparamsReceived') {
-        console.log('Previous Value bs params : ' + change.previousValue);
-        console.log('Current value bs params : ' + change.currentValue);
         if (change.currentValue && !(change.currentValue === change.previousValue)) {
-
-          console.log('Setting value to sendBSparams');
           this.latestPromoAnchor.nativeElement.classList.remove('active');
           this.latestPromosDiv.nativeElement.classList.remove('active');
           this.searchResultsAnchor.nativeElement.classList.add('active');
@@ -77,7 +65,6 @@ export class ResultscompComponent implements OnInit, OnChanges {
 
   onPromoCodeRec(searchedPromotion: IPromotion) {
 
-    console.log('Calling promoDetail service for code' + searchedPromotion.promoCode);
     this.spinnerService.show();
 
     this.searchService.getPromoDetailResults(searchedPromotion.promoCode).subscribe((data: IPromotion) => {
@@ -94,7 +81,6 @@ export class ResultscompComponent implements OnInit, OnChanges {
     }, (err) => {
       if (err instanceof HttpErrorResponse) {
         if (err.message.includes('Http failure response')) {
-          console.log('Some Error in Services');
           this.spinnerService.hide();
         }
       }
@@ -106,10 +92,8 @@ export class ResultscompComponent implements OnInit, OnChanges {
   }
 
   callParentToggle() {
-    console.log('Value of goBackToTabs before assign :' + this.goBackToTabs);
     this.goBackToTabs = !this.goBackToTabs;
     this.goBackToTabs = Object.assign({}, this.goBackToTabs);
-    console.log('Value of goBackToTabs final :' + this.goBackToTabs);
   }
 
   expandCollapseHandler(ecflag: boolean) {

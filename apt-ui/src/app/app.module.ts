@@ -19,17 +19,17 @@ import { LatestpromosComponent } from './resultscomp/latestpromos.component';
 import { TrendingpromosComponent } from './resultscomp/trendingpromos.component';
 import { SearchresultsComponent } from './resultscomp/searchresults.component';
 import { SearchserviceService } from './searchservice.service';
+import { Constants } from './shared/Constants';
 import { IcommunicationService } from './shared/icommunication.service';
 
 import { SearchcriteriaComponent } from './searchcriteria/searchcriteria.component';
 
-import { ErrorHandler } from './errorservice/error_handler';
-import { RequestInterceptor } from './errorservice/http_interceptor';
 import { PromodetailsComponent } from './resultscomp/promodetails/promodetails.component';
 import { HomeComponent } from './home.component';
 import { HealthComponent } from './health/health.component';
 import { PromodetailaccordianComponent } from './resultscomp/promodetailaccordian/promodetailaccordian.component';
 import { ToggleComponent } from './resultscomp/toggle.component';
+
 
 
 @NgModule({
@@ -63,7 +63,7 @@ import { ToggleComponent } from './resultscomp/toggle.component';
     TextMaskModule,
     NgxPaginationModule
   ],
-  providers: [SearchserviceService, IcommunicationService
+  providers: [SearchserviceService, Constants, IcommunicationService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
+import { Constants } from '../shared/Constants';
 
 
 @Component({
@@ -14,11 +15,11 @@ export class SearchcriteriaComponent implements OnInit {
   constructor() {
     this.datePickerConfig = Object.assign({},
       {
-        containerClass: 'theme-dark-blue',
+        containerClass: Constants.CALENDARPICKER_THEME,
         showWeekNumbers: false,
         minDate: this.twoYearDate,
         maxDate: this.currDate,
-        dateInputFormat: 'MM/DD/YYYY'
+        dateInputFormat: Constants.CALENDARPICKER_FORMAT
       });
   }
 
@@ -34,10 +35,10 @@ export class SearchcriteriaComponent implements OnInit {
   selectable = true;
   keywordsarray: string[] = [];
   display_kwarray: string[] = [];
-  maxKeywordsAllowed = 4;
+  maxKeywordsAllowed = Constants.TOTAL_KEYWORDS_ALLOWED;
   maxKeywordsError: any = { isError: false, errorMessage: '' };
   isValidSubmit = false;
-  singlekw_max = 26;
+  singlekw_max = Constants.SINGLE_KEYWORD_MAXCHAR_PERLINE;
 
   // Date variables
   fromDatePickerValue: Date;
@@ -45,27 +46,42 @@ export class SearchcriteriaComponent implements OnInit {
   isFromOpen = false;
   isToOpen = false;
   datePickerConfig: Partial<BsDatepickerConfig>;
-  twoYearDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() - 2));
+  twoYearDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() - Constants.MAXYEARS_TOSEARCH));
   currDate: Date = new Date();
   dateMask: any[] = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   invalidFromDateError: any = { isError: false, errorMessage: '' };
   invalidToDateError: any = { isError: false, errorMessage: '' };
   invalidFromGreaterToError: any = { isError: false, errorMessage: '' };
-  usDatePattern = /^02\/(?:[01]\d|2\d)\/(?:19|20)(?:0[048]|[13579][26]|[2468][048])|(?:0[13578]|10|12)\/(?:[0-2]\d|3[01])\/(?:19|20)\d{2}|(?:0[469]|11)\/(?:[0-2]\d|30)\/(?:19|20)\d{2}|02\/(?:[0-1]\d|2[0-8])\/(?:19|20)\d{2}$/;
+  usDatePattern = Constants.USDATEPATTERN;
 
   @Output() bottomSearchParams: EventEmitter<string> = new EventEmitter<string>();
   @Output() sendClearAllReq: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() bsparams: EventEmitter<string> = new EventEmitter<string>();
   clearallflag = false;
 
+  // Labels
+  keyword_label = Constants.KEYWORD_LABEL;
+  keyword_sub_label = Constants.KEYWORD_SUB_LABEL;
+  specchar_na_text = Constants.SPECIALCHAR_NA;
+  keyword_maxchar_text = Constants.MAX300CHAR_TEXT;
+  effdaterange_label = Constants.EFFDATERANGE_LABEL;
+  to_label = Constants.TO_LABEL;
+  misc_label = Constants.MISC_LABEL;
+  targetonly_label = Constants.TARGETONLY_LABEL;
+  nontargetonly_label = Constants.NONTARGETONLY_LABEL;
+  currpromosonly_label = Constants.CURRPROMOSONLY_BOTTOM_LABEL;
+  partnercodes_label = Constants.PARTNERCODES_LABEL;
+  searchbutton_label = Constants.SEARCHBUTTON_LABEL;
+  clearallbutton_label = Constants.CLEARALLBUTTON_LABEL;
+
   ngOnInit() {
 
-    this.keywordtext = new FormControl('', [Validators.maxLength(300),
-    Validators.pattern('[a-zA-Z0-9, ]*')]);
+    this.keywordtext = new FormControl('', [Validators.maxLength(Constants.MAX300CHAR),
+    Validators.pattern(Constants.KEYWORD_ALLOWED_CHAR)]);
 
-    this.targetvsnontarget = new FormControl('TARGETNOTSELECTED');
+    this.targetvsnontarget = new FormControl(Constants.TARGETRADIO_DEFAULT_VALUE);
     this.bcurrpromosOnlychkbx = new FormControl(false);
-    this.partnercodetext = new FormControl('', [Validators.pattern('[a-zA-Z]*')]);
+    this.partnercodetext = new FormControl('', [Validators.pattern(Constants.PARTNERCODES_ALLOWED_CHAR)]);
     this.fromDateFormControl = new FormControl();
     this.toDateFormControl = new FormControl();
     this.bottomSearchForm = new FormGroup({
@@ -91,7 +107,7 @@ export class SearchcriteriaComponent implements OnInit {
           let dispvalue = '';
           if (this.keywordsarray.length > this.maxKeywordsAllowed) {
             this.bottomSearchForm.get('keywordtext').setValue('');
-            this.maxKeywordsError = { isError: true, errorMessage: 'A max of 5 keywords can be entered' };
+            this.maxKeywordsError = { isError: true, errorMessage: Constants.KEYWORD_ALERT_MAX_MSG };
             break;
           }
           if (value && value.trim().length && !this.keywordsarray.find(x => x === value)) {
@@ -151,38 +167,36 @@ export class SearchcriteriaComponent implements OnInit {
       }
       let bsparamstring = '';
       if (this.keywordsarray.length === 0) {
-        bsparamstring = 'N@KEYWORDS/';
+        bsparamstring = Constants.KEYWORD_DEFAULT_TOSEND;
       } else {
-        bsparamstring = this.keywordsarray.join(',') + '/';
+        bsparamstring = this.keywordsarray.join(Constants.KEYWORD_SEPARATOR) + Constants.PARAM_SEPARATOR;
       }
       if (this.fromDateFormControl.value) {
-        bsparamstring += this.transformNoSlashDate(this.fromDateFormControl.value) + '/';
+        bsparamstring += this.transformNoSlashDate(this.fromDateFormControl.value) + Constants.PARAM_SEPARATOR;
       } else {
-        bsparamstring += 'NOFROMDATE/';
+        bsparamstring += Constants.FROMDATE_DEFAULT_TOSEND;
       }
       if (this.toDateFormControl.value) {
-        bsparamstring += this.transformNoSlashDate(this.toDateFormControl.value) + '/';
+        bsparamstring += this.transformNoSlashDate(this.toDateFormControl.value) + Constants.PARAM_SEPARATOR;
       } else {
-        bsparamstring += 'NOTODATE/';
+        bsparamstring += Constants.TODATE_DEFAULT_TOSEND;
       }
       if (this.targetvsnontarget.value) {
-        bsparamstring += this.targetvsnontarget.value + '/';
+        bsparamstring += this.targetvsnontarget.value + Constants.PARAM_SEPARATOR;
       } else {
-        bsparamstring += 'TARGETNOTSELECTED' + '/';
+        bsparamstring += Constants.TARGETRADIO_DEFAULT_VALUE + Constants.PARAM_SEPARATOR;
       }
       if (this.bcurrpromosOnlychkbx.value) {
-        bsparamstring += 'BCURRPROMOSELECTED/';
+        bsparamstring += Constants.CURRPROMOS_BOTTOM_SELECTED;
       } else {
-        bsparamstring += 'BCURRPROMONOTSELECTED/';
+        bsparamstring += Constants.CURRPROMOS_BOTTOM_NOT_SELECTED;
       }
       this.partnercodetext.setValue('');
       if (this.partnercodetext.value) {
         bsparamstring += this.partnercodetext.value;
       } else {
-        bsparamstring += 'NOPARTNERCODES';
+        bsparamstring += Constants.PARTNERCODES_DEFAULT_TOSEND;
       }
-
-      console.log('value of bsparamstring is ' + bsparamstring);
       this.bsparams.emit(bsparamstring);
     }
 
@@ -223,7 +237,7 @@ export class SearchcriteriaComponent implements OnInit {
     if (!(this.fromDateFormControl.value === null || this.fromDateFormControl.value === '')) {
 
       if (!this.fromDateFormControl.value.match(this.usDatePattern)) {
-        this.invalidFromDateError = { isError: true, errorMessage: 'Date format should be MM/DD/YYYY' };
+        this.invalidFromDateError = { isError: true, errorMessage: Constants.DATEFORMAT_ERR_MSG };
         this.isValidSubmit = false;
         this.bottomSearchForm.controls.fromDateFormControl.setErrors({ 'incorrect': true });
       } else {
@@ -231,7 +245,7 @@ export class SearchcriteriaComponent implements OnInit {
         this.isValidSubmit = true;
         this.bottomSearchForm.controls.fromDateFormControl.setErrors(null);
         if (new Date(this.fromDateFormControl.value) > this.currDate || new Date(this.fromDateFormControl.value) < this.twoYearDate) {
-          this.invalidFromDateError = { isError: true, errorMessage: 'Searches must be within 2 years' };
+          this.invalidFromDateError = { isError: true, errorMessage: Constants.DATERANGE_ERR_MSG };
           this.bottomSearchForm.controls.fromDateFormControl.setErrors({ 'incorrect': true });
           this.isValidSubmit = false;
         }
@@ -251,7 +265,7 @@ export class SearchcriteriaComponent implements OnInit {
   onToDateChanged() {
     if (!(this.toDateFormControl.value === null || this.toDateFormControl.value === '')) {
       if (!this.toDateFormControl.value.match(this.usDatePattern)) {
-        this.invalidToDateError = { isError: true, errorMessage: 'Date format should be MM/DD/YYYY' };
+        this.invalidToDateError = { isError: true, errorMessage: Constants.DATEFORMAT_ERR_MSG };
         this.bottomSearchForm.controls.toDateFormControl.setErrors({ 'incorrect': true });
         this.isValidSubmit = false;
       } else {
@@ -259,7 +273,7 @@ export class SearchcriteriaComponent implements OnInit {
         this.isValidSubmit = true;
         this.bottomSearchForm.controls.toDateFormControl.setErrors(null);
         if (new Date(this.toDateFormControl.value) > this.currDate || new Date(this.toDateFormControl.value) < this.twoYearDate) {
-          this.invalidToDateError = { isError: true, errorMessage: 'Searches must be within 2 years' };
+          this.invalidToDateError = { isError: true, errorMessage: Constants.DATERANGE_ERR_MSG };
           this.bottomSearchForm.controls.toDateFormControl.setErrors({ 'incorrect': true });
           this.isValidSubmit = false;
         }
@@ -278,7 +292,7 @@ export class SearchcriteriaComponent implements OnInit {
 
   compareTwoDates() {
     if (new Date(this.fromDateFormControl.value) > new Date(this.toDateFormControl.value)) {
-      this.invalidFromGreaterToError = { isError: true, errorMessage: 'Start date cannot be greater than end date' };
+      this.invalidFromGreaterToError = { isError: true, errorMessage: Constants.DATEGREATER_ERR_MSG };
       this.bottomSearchForm.controls.fromDateFormControl.setErrors({ 'incorrect': true });
       this.isValidSubmit = false;
     } else {
@@ -289,11 +303,11 @@ export class SearchcriteriaComponent implements OnInit {
   }
 
   transformDate(fulldatevalue: Date): string {
-    return (new DatePipe('en-US')).transform(fulldatevalue, 'MM/dd/yyyy');
+    return (new DatePipe(Constants.DATEPIPE_US)).transform(fulldatevalue, Constants.CALENDARPICKER_FORMAT);
   }
 
   transformNoSlashDate(fulldatevalue: Date): string {
-    return (new DatePipe('en-US')).transform(fulldatevalue, 'MMddyyyy');
+    return (new DatePipe(Constants.DATEPIPE_US)).transform(fulldatevalue, Constants.DATE_NOSLASH_FORMAT);
   }
 
 }
