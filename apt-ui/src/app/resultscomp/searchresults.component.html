@@ -6,10 +6,10 @@
         <div [innerHTML]="errMsgToDisplay"></div>
     </div>
 
-    <div *ngIf="promotions?.length === 0">{{Constants.NOPROMO_RESPONSE_MSG}}/div>
+    <div *ngIf="promotions?.length === 0">No matching Promotions in Ventana</div>
 
     <div *ngIf="isBottomSearchValid === 0"><br><br>
-        <p>{{Constants.BOTTOM_SEARCH_NOSEL_MSG}}</p>
+        <p>You must enter at least one search requirement</p>
     </div>
 
 

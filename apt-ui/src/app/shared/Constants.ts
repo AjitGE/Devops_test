@@ -68,9 +68,9 @@ export class Constants {
   public static readonly PAGINATION_NO_OF_PROMOS: number = 10;
 
   // SearchResults
-  public static readonly NORESPONSE_ERR_MSG = '<h5>No Response from Ventana/LSCS</h5>';
-  public static readonly BOTTOM_SEARCH_NOSEL_MSG = 'You must enter at least one search requirement';
-  public static readonly NOPROMO_RESPONSE_MSG = 'No matching Promotions in Ventana/LSCS';
+  public static readonly NORESPONSE_ERR_MSG: string = '<h5>No Response from Ventana/LSCS</h5>';
+  public static readonly BOTTOM_SEARCH_NOSEL_MSG: string = 'You must enter at least one search requirement';
+  public static readonly NOPROMO_RESPONSE_MSG: string = 'No matching Promotions in Ventana/LSCS';
 
 
   static Role = class {
