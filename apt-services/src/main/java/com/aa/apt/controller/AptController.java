@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -185,24 +186,13 @@ public class AptController {
 	public void searchVentanaForPromoTA(String pcode) throws IOException {
 		getPromosFromVentana(pcode);
 
-		/*
-		 * List of Promos available in LSCS Dev 
-		 * promoListMap.put("RVGLD", new Promotion()); 
-		 * promoListMap.put("RDLEP", new Promotion());
-		 * promoListMap.put("RHVGL", new Promotion()); 
-		 * promoListMap.put("RHVEP", new Promotion()); 
-		 * promoListMap.put("EHI02", new Promotion());
-		 * promoListMap.put("RHVPP", new Promotion()); 
-		 * promoListMap.put("P468B", new Promotion());
-		 */
-
 		List<String> promoCodeList = new ArrayList<>(promoTAMap.keySet().stream().collect(Collectors.toList()));
 		if (!promoCodeList.isEmpty()) {
 			// Call LSCS service - pass list of Promotionids - "Ready to code"
 
 			String lscsQueryParam = "Promotionid:" + promoCodeList.stream().collect(Collectors.joining(","));
 
-			RestTemplate restTemplate = new RestTemplate();
+			RestTemplate restTemplate = new RestTemplateBuilder().basicAuthorization(apiUsername, apiPassword).build();
 			LscsConditionResponse lscsConditionResponse = restTemplate.getForObject(
 					lscsCriteriaSearchStart + lscsQueryParam + lscsCriteriaSearchEnd, LscsConditionResponse.class);
 
@@ -232,7 +222,7 @@ public class AptController {
 
 		String pst = pcode.split(":")[0];
 		String lscsQueryParam = "PST:" + pst;
-		RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate = new RestTemplateBuilder().basicAuthorization(apiUsername, apiPassword).build();
 		LscsConditionResponse lscsConditionResponse = restTemplate.getForObject(
 				lscsCriteriaSearchStart + lscsQueryParam + lscsCriteriaSearchEnd, LscsConditionResponse.class);
 
@@ -503,8 +493,7 @@ public class AptController {
 	// http://localhost:8080/api/search/ar5/P468B
 	@RequestMapping(value = ControllerConstants.PCODESEARCHFORAR5, method = RequestMethod.GET)
 	public LscsPromotionContentResponse getPromoDetailsFromAR5(@PathVariable("pcode") String pcode) {
-		RestTemplate restTemplate = new RestTemplate();
-		logger.info("AR5 URL trying to access: {}", ar5PromoUrlStart + pcode + ar5PromoUrlEnd);
+		RestTemplate restTemplate = new RestTemplateBuilder().basicAuthorization(apiUsername, apiPassword).build();
 		LscsPromotionContentResponse ar5response = restTemplate.getForObject(ar5PromoUrlStart + pcode + ar5PromoUrlEnd,
 				LscsPromotionContentResponse.class);
 		logger.debug("--------------Ping AR5-----{}", ar5response.getContent());
@@ -515,8 +504,7 @@ public class AptController {
 	// http://localhost:8080/api/search/acs/RVGLD
 	@RequestMapping(value = ControllerConstants.PCODESEARCHFORACS, method = RequestMethod.GET)
 	public AcsPromotionContentResponse getPromoDetailsFromACS(@PathVariable("pcode") String pcode) {
-		RestTemplate restTemplate = new RestTemplate();
-		logger.info("ACS URL trying to access: {}", acsPromoUrlStart + pcode + acsPromoUrlEnd);
+		RestTemplate restTemplate = new RestTemplateBuilder().basicAuthorization(apiUsername, apiPassword).build();
 		AcsPromotionContentResponse acsresponse = restTemplate.getForObject(acsPromoUrlStart + pcode + acsPromoUrlEnd,
 				AcsPromotionContentResponse.class);
 		logger.debug("--------------Ping AR5-----{}", acsresponse.getContent());

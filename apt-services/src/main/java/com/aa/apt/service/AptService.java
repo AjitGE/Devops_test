@@ -10,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -51,11 +53,17 @@ public class AptService {
 	@Value("${ar5.promo.url.end}")
     String ar5PromoUrlEnd;
 	
+	@Value("${loyalty.membersecurity.username}")
+	String apiUsername;
+
+	@Value("${loyalty.membersecurity.password}")
+	String apiPassword;
+	
 	@Bean
 	public RestTemplate restTemplate() {
-	        return new RestTemplate();
+		return new RestTemplate();
 	}
-	
+
 	
 	@Async("asyncExecutor")
     public CompletableFuture<LscsPromotionContentResponse> getAr5LscsPromotionContentResponse(Promotion prom)
@@ -63,6 +71,7 @@ public class AptService {
 		try {
 		logger.info("AR5 request starts");
 		Instant ar5ResponseStart = Instant.now();
+		restTemplate = new RestTemplateBuilder().basicAuthorization(apiUsername, apiPassword).build();
 		LscsPromotionContentResponse ar5response = restTemplate.getForObject(
 				ar5PromoUrlStart + prom.getPromotionOrChallengeCode() + ar5PromoUrlEnd, LscsPromotionContentResponse.class);
 		
