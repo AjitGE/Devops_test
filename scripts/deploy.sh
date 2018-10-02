@@ -41,9 +41,9 @@ cd apt-services &&
 mvn package
 echo "$1"
 echo "$2"
-echo "$3"
+echo "$api_endpoint"
 cf login -a $api_endpoint -u $2 -p $3 -o Loyalty -s $pcf_space &&
-cf push -f $manifest_name &&
+cf push -f $manifest_name
 echo "**********************************************************" &&
 echo "***************** Deploying UI ***************************" &&
 echo "**********************************************************" &&
