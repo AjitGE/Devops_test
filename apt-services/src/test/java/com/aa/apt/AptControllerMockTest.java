@@ -35,7 +35,8 @@ public class AptControllerMockTest {
 	public void testAptController() {
 		assertThat(aptController).isNotNull();
 	}
-			
+	
+	/*
 	@Test
 	public void testGetPromoNegative() throws Exception {
 		aptController = mock(AptController.class);
@@ -87,6 +88,6 @@ public class AptControllerMockTest {
 		.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 		.andExpect(status().isOk());
 	}
-	
+	*/
 
 }
