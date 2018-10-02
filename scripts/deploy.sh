@@ -39,21 +39,17 @@ echo "**********************************************************"
 cd apt-services &&
 
 mvn package
-
+echo "$1"
+echo "$2"
+echo "$3"
 cf login -a $api_endpoint -u $2 -p $3 -o Loyalty -s $pcf_space &&
-
 cf push -f $manifest_name &&
-
 echo "**********************************************************" &&
 echo "***************** Deploying UI ***************************" &&
 echo "**********************************************************" &&
-
 # cd ui/ &&
-
 # npm install @angular/cli@1.6.5 &&
 # npm install &&
 # npm run $npm_command &&
-
 # cf login -a $api_endpoint -u $2 -p $3 -o Loyalty -s $pcf_space &&
-
 # cf push -f manifests/$manifest_name
