@@ -1,0 +1,18 @@
+Feature: pagination of box
+
+  @TestId_APS_45 @UserStory_US869555
+  Scenario: Verify the pagination is present                                                          # UserStory_US869555.feature:4
+    Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx" # Browser_Excel_StepDef.user_loads_the_data_from_located_at(String,String)
+    Then user launches browser with url "#TestUrl"                                                    # Browser_Excel_StepDef.user_launches_browser_with_url(String)
+    And user enters the Promo code "#Promo Code" in Search box named " Promo / PST / TA Code "        # UserStory_US859342.user_enters_the_Promo_code_in_Search_box_named(String,String)
+    And user clicks on the search button                                                              # UserStory_US859342.user_clicks_on_the_search_button()
+    When user checks that maximum 10 promo box are present in search result                           # UserStory_US869555.user_checks_that_maximum_promo_box_are_present_in_search_result(int)
+    Then user can see page number and pagination icon                                                 # UserStory_US869555.user_can_see_page_number_and_next_icon()
+
+  @TestId_APS_46 @UserStory_US869555
+  Scenario: Verify the pagination is absent                                                           # UserStory_US869555.feature:14
+    Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx" # Browser_Excel_StepDef.user_loads_the_data_from_located_at(String,String)
+    Then user launches browser with url "#TestUrl"                                                    # Browser_Excel_StepDef.user_launches_browser_with_url(String)
+    And user enters the Promo code "#Promo Code" in Search box named " Promo / PST / TA Code "        # UserStory_US859342.user_enters_the_Promo_code_in_Search_box_named(String,String)
+    And user clicks on the search button                                                              # UserStory_US859342.user_clicks_on_the_search_button()
+    When promo box is less than 9 then user can't see page number and pagination icon                 # UserStory_US869555.promo_box_is_less_than_then_user_can_t_see_page_number_and_pagination_icon(int)

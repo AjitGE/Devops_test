@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite failures="1" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="1" time="47.359889">
+<testcase classname="Sort by functionality" name="Sort by functionality testing" time="47.359889">
+<failure message="java.lang.IllegalArgumentException: Argument is of an illegal type: org.openqa.selenium.support.ui.Select&#13;&#10;&#9;at org.openqa.selenium.remote.internal.WebElementToJsonConverter.apply(WebElementToJsonConverter.java:84)&#13;&#10;&#9;at com.google.common.collect.Iterators$6.transform(Iterators.java:820)&#13;&#10;&#9;at com.google.common.collect.TransformedIterator.next(TransformedIterator.java:48)&#13;&#10;&#9;at com.google.common.collect.Iterators.addAll(Iterators.java:373)&#13;&#10;&#9;at com.google.common.collect.Lists.newArrayList(Lists.java:165)&#13;&#10;&#9;at com.google.common.collect.Lists.newArrayList(Lists.java:150)&#13;&#10;&#9;at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:534)&#13;&#10;&#9;at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;&#10;&#9;at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;&#10;&#9;at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;&#10;&#9;at java.lang.reflect.Method.invoke(Method.java:498)&#13;&#10;&#9;at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:109)&#13;&#10;&#9;at com.sun.proxy.$Proxy21.executeScript(Unknown Source)&#13;&#10;&#9;at org.openqa.selenium.support.events.EventFiringWebDriver.executeScript(EventFiringWebDriver.java:222)&#13;&#10;&#9;at com.CucumberCraft.stepDefinitions.UserStrory_US859468.user_select_the_Dropdown_with_value(UserStrory_US859468.java:35)&#13;&#10;&#9;at ✽.And user select the Dropdown with value &quot;Start date&quot;(UserStory_US868749.feature:10)&#13;&#10;"><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+And user enters the Promo code "#Promo Code" in Search box named " Promo / PST / TA Code ".passed
+And user clicks on the search button........................................passed
+And user verify Dropdown named "Sort by:"...................................passed
+And user select the Dropdown with value "Start date"........................failed
+And user select the Dropdown with value "End date"..........................skipped
+And user select the Dropdown with value "Promo code: A to Z"................skipped
+And user select the Dropdown with value "Promo code: Z to A"................skipped
+
+StackTrace:
+java.lang.IllegalArgumentException: Argument is of an illegal type: org.openqa.selenium.support.ui.Select
+	at org.openqa.selenium.remote.internal.WebElementToJsonConverter.apply(WebElementToJsonConverter.java:84)
+	at com.google.common.collect.Iterators$6.transform(Iterators.java:820)
+	at com.google.common.collect.TransformedIterator.next(TransformedIterator.java:48)
+	at com.google.common.collect.Iterators.addAll(Iterators.java:373)
+	at com.google.common.collect.Lists.newArrayList(Lists.java:165)
+	at com.google.common.collect.Lists.newArrayList(Lists.java:150)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:534)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:109)
+	at com.sun.proxy.$Proxy21.executeScript(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.executeScript(EventFiringWebDriver.java:222)
+	at com.CucumberCraft.stepDefinitions.UserStrory_US859468.user_select_the_Dropdown_with_value(UserStrory_US859468.java:35)
+	at ✽.And user select the Dropdown with value "Start date"(UserStory_US868749.feature:10)
+]]></failure>
+</testcase>
+</testsuite>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="9" time="684.564079">
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Validating All screen elements" time="86.688525">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+Then user validates the TextBox named " Promo / PST / TA Code " present on the page.passed
+Then user validates texbox named " Promo / PST / TA Code " have button next to it.passed
+Then user validates the checkbox named " Current promos only " present on the page.passed
+Then user validates the TextBox named " Keywords " present on the page......passed
+Then user validates texbox named " Keywords " have button next to it........passed
+Then user validates the field named " (max of 5; separated by commas) " is present on the page.passed
+Then user validates the TextBox named " Effective date range " present on the page.passed
+Then user validates the calendar icon is present against textbox named " Effective date range ".passed
+Then user validates the TextBox named " to " present on the page............passed
+Then user validates the calendar icon is present against textbox named " to ".passed
+Then user validates the field named " Misc search options: " is present on the page.passed
+Then user validates the radio button named "Targeted Only" present on the page.passed
+Then user validates the radio button named "Non-Targeted Only" present on the page.passed
+Then user validates the checkbox named " Current promos Only " present on the page.passed
+Then user validates the TextBox named " Partner codes " present on the page.passed
+Then user validates the button named " Search " present on the page.........passed
+Then user validates the button named "Clear all" present on the page........passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Validating message of the Keywords Text box" time="66.616114">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+Then user enters text "#Promo Code" in textbox named " Keywords "...........passed
+Then user click on the plus button in the textbox named " Keywords "........passed
+Then user validates the message "Special characters not allowed" on the screen.passed
+And user enters text "#Keywords" in textbox named " Keywords "..............passed
+Then user validates the message "Max of 300 characters can be entered" on the screen.passed
+And user enters text "#Keywords1" in textbox named " Keywords ".............passed
+Then user click on the plus button in the textbox named " Keywords "........passed
+Then user validates the message "A max of 5 keywords can be entered" on the screen.passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Adding and removing keywords" time="60.549685">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+And user enters text "#Keywords1" in textbox named " Keywords ".............passed
+Then user click on the plus button in the textbox named " Keywords "........passed
+And user can see the max five keywords from entered "#Keywords1" in the bubble.passed
+And user can remove bubble by clicking on "1" crros icon....................passed
+And user can remove bubble by clicking on "3" crros icon....................passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Effective date range and to date box date format and two year validation message" time="91.778445">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+And user enters text "#date" in date textbox named " Effective date range ".passed
+And user click on the calendar button in textbox named " Effective date range ".passed
+Then user validates the message "Date format should be MM/DD/YYYY" on the screen.passed
+And user enters text "#date1" in date textbox named " to "..................passed
+And user click on the calendar button in textbox named " Effective date range ".passed
+Then user validates the message "Date format should be MM/DD/YYYY" on the screen.passed
+And user enters text "#date2" in date textbox named " Effective date range ".passed
+And user click on the calendar button in textbox named " Effective date range ".passed
+Then user validates the message "Searches must be within 2 years" on the screen.passed
+And user enters text "#date2" in date textbox named " to "..................passed
+And user click on the calendar button in textbox named " to "...............passed
+Then user validates the message "Searches must be within 2 years" on the screen.passed
+And user enters text "09/26/2018" in date textbox named " Effective date range ".passed
+And user enters text "09/26/2017" in date textbox named " to "..............passed
+Then user validates the message "Start date cannot be greater than end date" on the screen.passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Effective date range and to date box date format and two year validation message" time="82.546143">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+And user click on the calendar button in textbox named " Effective date range ".passed
+And select date from the calendar with month "09" date "26" year "2017".....passed
+And user click on the calendar button in textbox named " to "...............passed
+And select date from the calendar with month "09" date "26" year "2018".....passed
+And user click on the calendar button in textbox named " Effective date range ".passed
+And user click on "previous" in calendar....................................passed
+And user click on "next" in calendar........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Miscelaneous fileld" time="88.451581">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+And user selects radio button named "Targeted Only".........................passed
+And user select the checkbox named " Current promos Only "..................passed
+And user selects radio button named "Non-Targeted Only".....................passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Partner codes" time="83.27426">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+Then user enters text "AA" in textbox named " Partner codes "...............passed
+And user clicks on the button " Search "....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="Search button" time="52.302944">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+Then user enters text "AA" in textbox named " Partner codes "...............passed
+And user clicks on the button " Search "....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Keywords,Misc. Serarch, Date Search, Partner code" name="clear all button" time="72.356382">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+And user enters text "#Keywords" in textbox named " Keywords "..............passed
+Then user click on the plus button in the textbox named " Keywords "........passed
+And user enters text "#date" in date textbox named " Effective date range ".passed
+And user enters text "#date1" in date textbox named " to "..................passed
+And user selects radio button named "Targeted Only".........................passed
+And user select the checkbox named " Current promos Only "..................passed
+Then user enters text "AA" in textbox named " Partner codes "...............passed
+And user clicks on the button "Clear all"...................................passed
+]]></system-out>
+</testcase>
+</testsuite>

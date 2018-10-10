@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="1" time="63.778163">
+<testcase classname="Sort by functionality" name="Sort by functionality testing" time="63.778163">
+<system-out><![CDATA[Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx".passed
+Then user launches browser with url "#TestUrl"..............................passed
+And user enters the Promo code "#Promo Code" in Search box named " Promo / PST / TA Code ".passed
+And user clicks on the search button........................................passed
+And user verify Dropdown named "Sort by:"...................................passed
+And user select the Dropdown with value "Start date"........................passed
+And user select the Dropdown with value "End date"..........................passed
+And user select the Dropdown with value "Promo code: A to Z"................passed
+And user select the Dropdown with value "Promo code: Z to A"................passed
+]]></system-out>
+</testcase>
+</testsuite>

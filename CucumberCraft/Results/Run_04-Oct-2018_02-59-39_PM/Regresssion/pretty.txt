@@ -1,0 +1,19 @@
+Feature: Keywords,Misc. Serarch, Date Search, Partner code
+
+  @TestId_APS_35 @UserStory_US859349
+  Scenario: Effective date range and to date box date format and two year validation message          # UserStory_US859349.feature:78
+    Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx" # Browser_Excel_StepDef.user_loads_the_data_from_located_at(String,String)
+    Then user launches browser with url "#TestUrl"                                                    # Browser_Excel_StepDef.user_launches_browser_with_url(String)
+    And user click on the calendar button in textbox named " Effective date range "                   # UserStory_US859349.user_click_on_the_calendar_button_in_textbox_named(String)
+      java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+      	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+      	at java.util.ArrayList.get(ArrayList.java:429)
+      	at com.CucumberCraft.stepDefinitions.UserStory_US859349.user_click_on_the_calendar_button_in_textbox_named(UserStory_US859349.java:116)
+      	at ✽.And user click on the calendar button in textbox named " Effective date range "(UserStory_US859349.feature:81)
+
+    And select date from the calendar with month "09" date "26" year "2017"                           # UserStory_US859349.select_date_from_the_calendar_with_month_date_year(String,String,String)
+    And user click on the calendar button in textbox named " to "                                     # UserStory_US859349.user_click_on_the_calendar_button_in_textbox_named(String)
+    And select date from the calendar with month "09" date "26" year "2018"                           # UserStory_US859349.select_date_from_the_calendar_with_month_date_year(String,String,String)
+    And user click on the calendar button in textbox named " Effective date range "                   # UserStory_US859349.user_click_on_the_calendar_button_in_textbox_named(String)
+    And user click on "previous" in calendar                                                          # UserStory_US859349.user_click_on_in_calendar(String)
+    And user click on "next" in calendar                                                              # UserStory_US859349.user_click_on_in_calendar(String)
