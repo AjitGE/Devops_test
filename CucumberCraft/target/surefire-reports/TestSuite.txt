@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 32.157 s <<< FAILURE! - in TestSuite
+feature(com.CucumberCraft.TestNGrunners.RunCucumberTests_Regression)  Time elapsed: 28.931 s  <<< FAILURE!
+cucumber.runtime.CucumberException: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+
