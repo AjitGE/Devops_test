@@ -235,7 +235,7 @@ static Logger log;
 			public static void Addtxtfile() throws IOException  {
 				// TODO Auto-generated method stub
 				Path fPath=Paths.get(path);
-				
+		
 				 try {
 					 File file = new File(fPath.toAbsolutePath().toString()+"\\screenshot\\sample.txt");
 				     /*If file gets created then the createNewFile() 

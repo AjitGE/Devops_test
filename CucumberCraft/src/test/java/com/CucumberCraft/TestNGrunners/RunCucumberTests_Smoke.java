@@ -70,7 +70,7 @@ static {
 
 	
 @AfterTest
-private void test() throws IOException{
+private void test() throws IOException {
         Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
         /*Properties p = System.getProperties();
         p.list(System.out);*/
