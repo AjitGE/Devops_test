@@ -94,92 +94,11 @@
 				</plugins>
 			</reporting>
 		</profile>
-
-		<profile>
-			<id>runTestsInRegression</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<testNG.suiteXmlFile>src/test/resources/TestNGRunRegressionTests.xml</testNG.suiteXmlFile>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>${org.apache.maven.plugins.maven-compiler-plugin.version}</version>
-						<configuration>
-							<encoding>UTF-8</encoding>
-							<source>${source.and.target.JVM.version}</source>
-							<target>${source.and.target.JVM.version}</target>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>${org.apache.maven.plugins.maven-surefire-plugin.version}</version>
-						<configuration>
-							<suiteXmlFiles>
-								<suiteXmlFile>${testNG.suiteXmlFile}</suiteXmlFile>
-							</suiteXmlFiles>
-							<argLine>
-								-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
-							</argLine>
-							<!-- Remember to set the testFailureIgnore set to true if you want 
-								to run cucumber.jvm.parallel.JSReportMergerer even if some of the tests failed. -->
-							<testFailureIgnore>true</testFailureIgnore>
-						</configuration>
-						<executions>
-							<execution>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>org.aspectj</groupId>
-								<artifactId>aspectjweaver</artifactId>
-								<version>${aspectj.version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
-			<reporting>
-				<excludeDefaults>true</excludeDefaults>
-				<plugins>
-					<plugin>
-						<groupId>ru.yandex.qatools.allure</groupId>
-						<artifactId>allure-maven-plugin</artifactId>
-						<version>2.5</version>
-						<configuration>
-							<reportDirectory> ${project.build.directory}/site/allure-results</reportDirectory>
-
-							<!-- <resultsDirectory></resultsDirectory> -->
-
-						</configuration>
-
-					</plugin>
-				</plugins>
-			</reporting>
-		</profile>
 	</profiles>
 	
 	
 	<dependencies>
-	
- 
-<dependency>
-  <groupId>org.testng</groupId>
-  <artifactId>testng</artifactId>
-  <version>6.10</version>
-  <scope>test</scope>
-</dependency>
-	
-	
+
 	<dependency>
               <groupId>org.apache.poi</groupId>
                <artifactId>poi</artifactId>
