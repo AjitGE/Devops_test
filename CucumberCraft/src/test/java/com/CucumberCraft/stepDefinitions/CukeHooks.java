@@ -80,7 +80,7 @@ public class CukeHooks extends MasterStepDefs {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
+	//@SuppressWarnings("rawtypes")
 	private void invokeForMobileExecution(Scenario scenario) {
 		switch (currentTestParameters.getExecutionMode()) {
 
@@ -91,8 +91,8 @@ public class CukeHooks extends MasterStepDefs {
 
 			log.info(
 					"Running the Scenario : " + scenario.getName() + " in " + currentTestParameters.getExecutionMode());
-			AppiumDriver driver = DriverFactory.createInstance(currentTestParameters);
-			DriverManager.setAppiumDriver(driver);
+			/*AppiumDriver driver = DriverFactory.createInstance(currentTestParameters);
+			DriverManager.setAppiumDriver(driver);*/
 			break;
 
 		/*case SEETEST:

@@ -49,7 +49,7 @@
               <ul>
                 <li>
                   <a href="#" class="navigator-link " panel-name="test-xml-Run_Test_Cukes">
-                    <span>C:\Users\716676\git\CraftCucmber\CucumberCraft\src\test\resources\TestNGRunRegressionTests.xml</span>
+                    <span>C:\Users\716676\Documents\GitHub\apt\CucumberCraft\src\test\resources\TestNGRunSmokeTests.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -102,7 +102,7 @@
                     <div class="method-list-content failed suite-Run_Test_Cukes">
                       <span>
                         <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Run_Test_Cukes" title="com.CucumberCraft.TestNGrunners.RunCucumberTests_Regression" hash-for-method="feature(Keywords,Misc. Serarch, Date Search, Partner code)">feature(Keywords,Misc. Serarch, Date Search, Partner code)</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Run_Test_Cukes" title="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" hash-for-method="feature(Expanded PromoBox fileds Validation)">feature(Expanded PromoBox fileds Validation)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Run_Test_Cukes -->
@@ -120,28 +120,61 @@
           <div class="suite-Run_Test_Cukes-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">com.CucumberCraft.TestNGrunners.RunCucumberTests_Regression</span>
+              <span class="class-name">com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="feature(Keywords,Misc. Serarch, Date Search, Partner code)">
-                  </a> <!-- feature(Keywords,Misc. Serarch, Date Search, Partner code) -->
+                  <a name="feature(Expanded PromoBox fileds Validation)">
+                  </a> <!-- feature(Expanded PromoBox fileds Validation) -->
                   <span class="method-name">feature</span>
-                  <span class="parameters">(Keywords,Misc. Serarch, Date Search, Partner code)</span>
-                  <div class="stack-trace">cucumber.runtime.CucumberException: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+                  <span class="parameters">(Expanded PromoBox fileds Validation)</span>
+                  <div class="stack-trace">cucumber.runtime.CucumberException: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div//span/b[contains(text(),&apos;Promo code: &apos;)]&quot;}
+  (Session info: chrome=67.0.3396.79)
+  (Driver info: chromedriver=2.41.578737 (49da6702b16031c40d63e5618de03a32ff6c197e),platform=Windows NT 10.0.15063 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;3.7.1&apos;, revision: &apos;8a0099a&apos;, time: &apos;2017-11-06T21:01:39.354Z&apos;
+System info: host: &apos;PC391477&apos;, ip: &apos;10.79.100.53&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_141&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.41.578737 (49da6702b16031..., userDataDir: C:\Users\716676\AppData\Loc...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:60813}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 67.0.3396.79, webStorageEnabled: true}
+Session ID: a7fc9fd62b8480dc8738a2eb6d6d59e2
+*** Element info: {Using=xpath, value=//div//span/b[contains(text(),&apos;Promo code: &apos;)]}
 	at cucumber.api.testng.TestNGCucumberRunner.runCucumber(TestNGCucumberRunner.java:69)
 	at cucumber.api.testng.AbstractTestNGCucumberTests.feature(AbstractTestNGCucumberTests.java:21)
 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
-	at java.util.ArrayList.get(ArrayList.java:429)
-	at com.CucumberCraft.stepDefinitions.UserStory_US859349.user_click_on_the_calendar_button_in_textbox_named(UserStory_US859349.java:116)
-	at ✽.And user click on the calendar button in textbox named &quot; Effective date range &quot;(UserStory_US859349.feature:81)
-... Removed 16 stack frames
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div//span/b[contains(text(),&apos;Promo code: &apos;)]&quot;}
+  (Session info: chrome=67.0.3396.79)
+  (Driver info: chromedriver=2.41.578737 (49da6702b16031c40d63e5618de03a32ff6c197e),platform=Windows NT 10.0.15063 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;3.7.1&apos;, revision: &apos;8a0099a&apos;, time: &apos;2017-11-06T21:01:39.354Z&apos;
+System info: host: &apos;PC391477&apos;, ip: &apos;10.79.100.53&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_141&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.41.578737 (49da6702b16031..., userDataDir: C:\Users\716676\AppData\Loc...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:60813}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 67.0.3396.79, webStorageEnabled: true}
+Session ID: a7fc9fd62b8480dc8738a2eb6d6d59e2
+*** Element info: {Using=xpath, value=//div//span/b[contains(text(),&apos;Promo code: &apos;)]}
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
+	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:600)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:370)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:472)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:109)
+	at com.sun.proxy.$Proxy20.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:193)
+	at com.CucumberCraft.stepDefinitions.UserStroy_US880513.user_verify_that_field_field_in_promo_heading(UserStroy_US880513.java:23)
+	at ✽.And user verify that field &quot;Promo code: &quot; field in promo heading(UserStory_US880513.feature:10)
+... Removed 24 stack frames
 </div> <!-- stack-trace -->
                   <em>
 (Runs Cucumber Feature)                  </em>
@@ -152,23 +185,23 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
         </div> <!-- panel Run_Test_Cukes -->
         <div panel-name="test-xml-Run_Test_Cukes" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\716676\git\CraftCucmber\CucumberCraft\src\test\resources\TestNGRunRegressionTests.xml</span>
+            <span class="header-content">C:\Users\716676\Documents\GitHub\apt\CucumberCraft\src\test\resources\TestNGRunSmokeTests.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;http://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite thread-count=&quot;1&quot; configfailurepolicy=&quot;continue&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot; name=&quot;Run Test Cukes&quot; parallel=&quot;tests&quot;&gt;
+&lt;suite thread-count=&quot;3&quot; configfailurepolicy=&quot;continue&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot; name=&quot;Run Test Cukes&quot; parallel=&quot;tests&quot;&gt;
   &lt;listeners&gt;
     &lt;listener class-name=&quot;com.CucumberCraft.supportLibraries.WebDriverListener&quot;/&gt;
   &lt;/listeners&gt;
-  &lt;test name=&quot;Regression Testing....&quot;&gt;
+  &lt;test name=&quot;Smoke testing....&quot;&gt;
     &lt;parameter name=&quot;BrowserName&quot; value=&quot;CHROME&quot;/&gt;
     &lt;parameter name=&quot;ExecutionMode&quot; value=&quot;LOCAL&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.CucumberCraft.TestNGrunners.RunCucumberTests_Regression&quot;/&gt;
+      &lt;class name=&quot;com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- Regression Testing.... --&gt;
+  &lt;/test&gt; &lt;!-- Smoke testing.... --&gt;
 &lt;/suite&gt; &lt;!-- Run Test Cukes --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -180,7 +213,7 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Regression Testing.... (1 class)</span>
+                <span class="test-name">Smoke testing.... (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -217,13 +250,13 @@ data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'feature')
-data.setCell(0, 2, 'com.CucumberCraft.TestNGrunners.RunCucumberTests_Regression')
-data.setCell(0, 3, 28899);
+data.setCell(0, 2, 'com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke')
+data.setCell(0, 3, 81408);
 window.suiteTableData['Run_Test_Cukes']= { tableData: data, tableDiv: 'times-div-Run_Test_Cukes'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 28 seconds</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Run_Test_Cukes">
               </div> <!-- times-div-Run_Test_Cukes -->
             </div> <!-- times-div -->
@@ -249,7 +282,7 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.CucumberCraft.TestNGrunners.RunCucumberTests_Regression</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">setUpClass</span>
                 <span class="method-start">0 ms</span>
@@ -257,20 +290,20 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">feature(Keywords,Misc. Serarch, Date Search, Partner code)</span>
-                <span class="method-start">985 ms</span>
+                <span class="method-name">feature(Expanded PromoBox fileds Validation)</span>
+                <span class="method-start">1786 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-class after">
                 <span class="method-name">tearDownClass</span>
-                <span class="method-start">29917 ms</span>
+                <span class="method-start">83253 ms</span>
               </div> <!-- configuration-class after -->
               <div class="configuration-test after">
                 <span class="method-name">test</span>
-                <span class="method-start">30180 ms</span>
+                <span class="method-start">84904 ms</span>
               </div> <!-- configuration-test after -->
               <div class="configuration-suite after">
                 <span class="method-name">copyStoredReports</span>
-                <span class="method-start">30909 ms</span>
+                <span class="method-start">85805 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

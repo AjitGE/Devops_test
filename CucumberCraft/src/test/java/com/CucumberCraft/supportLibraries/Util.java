@@ -1,8 +1,8 @@
 package com.CucumberCraft.supportLibraries;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+//import java.io.IOException;
+//import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,7 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.experitest.selenium.MobileWebDriver;
+//import com.experitest.selenium.MobileWebDriver;
 
 /**
  * Class to encapsulate utility functions of the framework
@@ -111,7 +111,7 @@ public class Util {
 		}
 	}
 	
-	public static byte[] takeScreenshot(MobileWebDriver driver) throws IOException {
+	/*public static byte[] takeScreenshot(MobileWebDriver driver) throws IOException {
 	
 		File scrFile = new File(driver.client.capture());
 		int i = 0;
@@ -130,7 +130,7 @@ public class Util {
 		
 		return bFile;
 	}
-
+*/
 	/**
 	 * Function to return the current time
 	 * 

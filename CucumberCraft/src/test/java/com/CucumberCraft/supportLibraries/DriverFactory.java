@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-import com.experitest.selenium.MobileWebDriver;
+//import com.experitest.selenium.MobileWebDriver;
 
 /**
  * DriverFactory which will create respective driver Object
@@ -20,7 +20,7 @@ public class DriverFactory {
 	private static Properties mobileProperties = Settings.getInstance();
 
 	@SuppressWarnings("rawtypes")
-	public static AppiumDriver createInstance(
+	/*public static AppiumDriver createInstance(
 			SeleniumTestParameters testParameters) {
 
 		AppiumDriver driver = null;
@@ -65,7 +65,7 @@ public class DriverFactory {
 			log.error(ex.getMessage());
 		}
 		return driver;
-	}
+	}*/
 
 	public static WebDriver createInstanceWebDriver(SeleniumTestParameters testParameters) {
 		WebDriver driver = null;
@@ -107,45 +107,45 @@ public class DriverFactory {
 	 * Seetest Driver initialization
 	 *
 	 */
-	public static MobileWebDriver createInstanceSeetestDriver(
-			SeleniumTestParameters testParameters) {
-		MobileWebDriver driver = null;
-		try {
-			switch (testParameters.getExecutionMode()) {
-
-			case SEETEST:
-				driver = SeeTestDriverFactory
-						.getSeeTestDriver(
-								mobileProperties.getProperty("SeeTestHost",
-										"localhost"),
-								Integer.parseInt(testParameters
-										.getSeeTestPort()),
-								mobileProperties
-										.getProperty("SeeTestProjectBaseDirectory"),
-								mobileProperties.getProperty(
-										"SeeTestReportType", "xml"),
-								"report",
-								"Test Name from Driver Init",
-								testParameters.getMobileExecutionPlatform(),
-								mobileProperties
-										.getProperty("SeeTestAndroidApplicationName"),
-								mobileProperties
-										.getProperty("SeeTestiOSApplicationName"),
-								mobileProperties
-										.getProperty("SeeTestAndroidWebApplicationName"),
-								mobileProperties
-										.getProperty("SeeTestiOSWebApplicationName"),
-								testParameters.getDeviceName());
-				break;
-
-			default:
-				throw new Exception("Unhandled Execution Mode!");
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			log.error(ex.getMessage());
-		}
-		return driver;
-	}
+//	public static MobileWebDriver createInstanceSeetestDriver(
+//			SeleniumTestParameters testParameters) {
+//		MobileWebDriver driver = null;
+//		try {
+//			switch (testParameters.getExecutionMode()) {
+//
+//			case SEETEST:
+//				driver = SeeTestDriverFactory
+//						.getSeeTestDriver(
+//								mobileProperties.getProperty("SeeTestHost",
+//										"localhost"),
+//								Integer.parseInt(testParameters
+//										.getSeeTestPort()),
+//								mobileProperties
+//										.getProperty("SeeTestProjectBaseDirectory"),
+//								mobileProperties.getProperty(
+//										"SeeTestReportType", "xml"),
+//								"report",
+//								"Test Name from Driver Init",
+//								testParameters.getMobileExecutionPlatform(),
+//								mobileProperties
+//										.getProperty("SeeTestAndroidApplicationName"),
+//								mobileProperties
+//										.getProperty("SeeTestiOSApplicationName"),
+//								mobileProperties
+//										.getProperty("SeeTestAndroidWebApplicationName"),
+//								mobileProperties
+//										.getProperty("SeeTestiOSWebApplicationName"),
+//								testParameters.getDeviceName());
+//				break;
+//
+//			default:
+//				throw new Exception("Unhandled Execution Mode!");
+//			}
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			log.error(ex.getMessage());
+//		}
+//		return driver;
+//	}
 
 }
