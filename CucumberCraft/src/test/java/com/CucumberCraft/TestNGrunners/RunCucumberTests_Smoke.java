@@ -40,7 +40,7 @@ usageReport = true)
 */
 @CucumberOptions(features = "src/test/resources/features", 
 glue = { "com.CucumberCraft.stepDefinitions" }, 
-tags = { "@TestId_APS_30"},
+tags = { "@TestId_APS_45"},
 monochrome = true,
 plugin = {
     
