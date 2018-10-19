@@ -182,7 +182,11 @@ public class ExcelReadWrite {
 		
 		LinkedHashMap<Integer, List<String>> hashMap = new LinkedHashMap<Integer, List<String>>();
 		if(outerMap.isEmpty()){
-			throw new Exception("Excel file have no data");
+			throw new Exception("Exception occured while reading :\n"
+					    + "you can check for below soltions: \n"
+					    + "1. file path is not correct.\n"
+					    + "2.user '//' in windows and '/' for linux as file separator \n"
+					    + "3. or may be specified data is not present in excel \n" );
 		}
 		else{
 			for (int i = 0; i < workBook.getNumberOfSheets(); i++)
