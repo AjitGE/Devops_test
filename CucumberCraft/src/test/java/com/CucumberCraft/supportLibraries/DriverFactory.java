@@ -1,6 +1,6 @@
 package com.CucumberCraft.supportLibraries;
 
-import io.appium.java_client.AppiumDriver;
+//import io.appium.java_client.AppiumDriver;
 
 import java.util.Properties;
 
@@ -19,7 +19,7 @@ public class DriverFactory {
 	static Logger log = Logger.getLogger(DriverFactory.class);
 	private static Properties mobileProperties = Settings.getInstance();
 
-	@SuppressWarnings("rawtypes")
+	//@SuppressWarnings("rawtypes")
 	/*public static AppiumDriver createInstance(
 			SeleniumTestParameters testParameters) {
 

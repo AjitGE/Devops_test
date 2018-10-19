@@ -131,7 +131,7 @@ public static void copyReportsAndPdfFolder() {
 	try {
 		File[] listofAllFile = cucumberReportscreenShot.listFiles();
 		 for(File file : listofAllFile) {
-	     if(file.getName().endsWith(".txt")) 
+	     if(file.getName().endsWith(".pdf")) 
 		     {
 		      file.delete();
 		     }
