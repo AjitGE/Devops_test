@@ -34,12 +34,17 @@ pipeline {
 
     stages {
         stage ('Integration Tests') {
+            agent { label 'dockerinside' }
             steps {
                 echo "*****Build*****"
                 script {
                     //load the .settings.xml to build with nexus 3 dependencies
                     //loadSettingsXml("$NEXUS_ID_USR","$NEXUS_ID_PSW")
                     //APPLICATION_VERSION = APPLICATION_VERSION.replace("-SNAPSHOT", "-${env.BRANCH_NAME}-${env.BUILD_NUMBER}")
+                    
+                    echo "Launch Standalone Chrome Container"
+                    sh "docker run -d --rm -p 48410:4444 --name=\"docker_standalone_ly-apt_chrome\" -v /dev/shm:/dev/shm nexusread.aa.com:18445/selenium/standalone-chrome"   
+
                     echo "******************** Building Maven Project ******************"
                     sh "cd CucumberCraft && mvn package"
                 }
@@ -47,6 +52,7 @@ pipeline {
             post{
                 always{
                     deleteDir()
+                    sh "docker_standalone_ly-apt_chrome"
                     publishHTML([allowMissing: false,
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
