@@ -52,7 +52,7 @@ pipeline {
             post{
                 always{
                     deleteDir()
-                    sh "docker_standalone_ly-apt_chrome"
+                    sh "docker stop docker_standalone_ly-apt_chrome"
                     publishHTML([allowMissing: false,
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
