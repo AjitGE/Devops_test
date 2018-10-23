@@ -256,13 +256,6 @@
 			<version>2.0.1</version>
 		</dependency>
 
-		
-	<dependency>
-			<groupId>com.experitest</groupId>
-			<artifactId>mobile-webdriver</artifactId>
-			<version>10.4</version>
-		</dependency>
-
 		<!-- Allure reporting -->
 		<dependency>
 			<groupId>ru.yandex.qatools.allure</groupId>
