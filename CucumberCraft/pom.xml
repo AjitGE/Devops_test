@@ -8,8 +8,7 @@
 	<version>3.0</version>
 	<packaging>jar</packaging>
 	<url>>http://maven.apache.org</url>
-
-	<repositories>
+<repositories>
 		<repository>
 			<id>central</id>
 			<layout>default</layout>
@@ -23,6 +22,33 @@
 			<url>https://nexushdq.aa.com/repository/maven-public/</url>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<layout>default</layout>
+			<url>https://nexushdq.aa.com/repository/maven-central/</url>
+			<!--<releases><enabled>true</enabled></releases> -->
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>nexus-releases</name>
+			<url>https://nexushdq.aa.com/repository/prod-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>nexus-snapshots</name>
+			<url>https://nexushdq.aa.com/repository/snapshots/</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+</distributionManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -231,12 +257,16 @@
 		</dependency>
 
 		<!-- Seetest Dependency -->
-		<!--dependency>
+		<dependency>
              <groupId>com.experitest</groupId>
              <artifactId>seetest-client</artifactId>
              <version>11.6</version>
-             
-        </dependency-->
+        </dependency>
+	<dependency>
+			<groupId>com.experitest</groupId>
+			<artifactId>mobile-webdriver</artifactId>
+			<version>10.4</version>
+		</dependency>
 
 		<!-- Allure reporting -->
 		<dependency>

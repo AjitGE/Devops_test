@@ -2,19 +2,19 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Run Test Cukes" duration-ms="127510" started-at="2018-10-15T10:19:48Z" finished-at="2018-10-15T10:21:56Z">
+  <suite name="Run Test Cukes" duration-ms="38824" started-at="2018-10-23T06:49:25Z" finished-at="2018-10-23T06:50:04Z">
     <groups>
       <group name="cucumber">
-        <method signature="AbstractTestNGCucumberTests.feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@53dd42d6]" name="feature" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
+        <method signature="AbstractTestNGCucumberTests.feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@470f1802]" name="feature" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test name="Smoke testing...." duration-ms="127510" started-at="2018-10-15T10:19:48Z" finished-at="2018-10-15T10:21:56Z">
+    <test name="Smoke testing...." duration-ms="38824" started-at="2018-10-23T06:49:25Z" finished-at="2018-10-23T06:50:04Z">
       <class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke">
-        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@53dd42d6]" name="setUpClass" is-config="true" duration-ms="758" started-at="2018-10-15T15:49:48Z" finished-at="2018-10-15T15:49:49Z">
+        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@470f1802]" name="setUpClass" is-config="true" duration-ms="441" started-at="2018-10-23T12:19:25Z" finished-at="2018-10-23T12:19:25Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method status="PASS" signature="feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@53dd42d6]" name="feature" duration-ms="125091" started-at="2018-10-15T15:49:49Z" description="Runs Cucumber Feature" data-provider="features" finished-at="2018-10-15T15:51:54Z">
+        <test-method status="PASS" signature="feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@470f1802]" name="feature" duration-ms="36814" started-at="2018-10-23T12:19:25Z" description="Runs Cucumber Feature" data-provider="features" finished-at="2018-10-23T12:20:02Z">
           <params>
             <param index="0">
               <value>
@@ -25,15 +25,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- feature -->
-        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@53dd42d6]" name="tearDownClass" is-config="true" duration-ms="766" started-at="2018-10-15T15:51:54Z" finished-at="2018-10-15T15:51:55Z">
+        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@470f1802]" name="tearDownClass" is-config="true" duration-ms="652" started-at="2018-10-23T12:20:02Z" finished-at="2018-10-23T12:20:03Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
-        <test-method status="PASS" signature="test()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@53dd42d6]" name="test" is-config="true" duration-ms="579" started-at="2018-10-15T15:51:55Z" finished-at="2018-10-15T15:51:56Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@470f1802]" name="test" is-config="true" duration-ms="670" started-at="2018-10-23T12:20:03Z" finished-at="2018-10-23T12:20:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="copyStoredReports()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@53dd42d6]" name="copyStoredReports" is-config="true" duration-ms="0" started-at="2018-10-15T15:51:56Z" finished-at="2018-10-15T15:51:56Z">
+        <test-method status="PASS" signature="copyStoredReports()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@470f1802]" name="copyStoredReports" is-config="true" duration-ms="1" started-at="2018-10-23T12:20:04Z" finished-at="2018-10-23T12:20:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- copyStoredReports -->
