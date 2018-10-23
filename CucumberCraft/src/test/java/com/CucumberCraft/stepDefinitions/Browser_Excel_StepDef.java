@@ -14,6 +14,7 @@ import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
 import com.CucumberCraft.ExcelReadWrite.ExcelReadWrite;
 import com.CucumberCraft.Screenshot.ScreenshotTaker;
 import com.CucumberCraft.pageObjects.GooglePage;
+import com.CucumberCraft.supportLibraries.DriverManager;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -25,7 +26,7 @@ public class Browser_Excel_StepDef {
 	@Given("^user launches browser with url \"([^\"]*)\"$")
 	public void user_launches_browser_with_url(String url) throws Throwable {
 	    String ObtainedUrl=DataSourceDecider.urlFinder(url);
-	    driver=ScreenshotTaker.getScreenshot();
+	    driver=DriverManager.getWebDriver();;
 	    driver.manage().window().maximize();
         driver.get(ObtainedUrl);
         
