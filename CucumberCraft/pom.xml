@@ -256,16 +256,7 @@
 			<version>2.0.1</version>
 		</dependency>
 
-		<!-- Seetest Dependency -->
-<<<<<<< HEAD
 		
-=======
-		<dependency>
-             <groupId>com.experitest</groupId>
-             <artifactId>seetest-client</artifactId>
-             <version>10.4</version>
-        </dependency>
->>>>>>> c9ba1248a5774b88d43125e577b917502052e830
 	<dependency>
 			<groupId>com.experitest</groupId>
 			<artifactId>mobile-webdriver</artifactId>
