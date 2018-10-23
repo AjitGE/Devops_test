@@ -7,7 +7,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-import com.experitest.selenium.MobileWebDriver;
 
 /**
  * DriverFactory which will create respective driver Object

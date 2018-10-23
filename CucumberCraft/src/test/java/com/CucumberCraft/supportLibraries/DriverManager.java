@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 
-import com.experitest.selenium.MobileWebDriver;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -27,7 +26,7 @@ public class DriverManager {
 	@SuppressWarnings("rawtypes")
 	private static ThreadLocal<AppiumDriver> appiumDriver = new ThreadLocal<AppiumDriver>();
 	private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
-	private static ThreadLocal<MobileWebDriver> seetestDriver = new ThreadLocal<MobileWebDriver>();
+	//private static ThreadLocal<MobileWebDriver> seetestDriver = new ThreadLocal<MobileWebDriver>();
 	private static ThreadLocal<SeleniumTestParameters> testParameters = new ThreadLocal<SeleniumTestParameters>();
 	
 
@@ -90,10 +89,10 @@ public class DriverManager {
 		DriverManager.webDriver.set(driver);
 	}
 
-	public static void setSeetestDriver(MobileWebDriver driver) {
+/*	public static void setSeetestDriver(MobileWebDriver driver) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		DriverManager.seetestDriver.set(driver);
-	}
+	}*/
 	
 	public static void setTestParameters(SeleniumTestParameters testParameters) {
 		DriverManager.testParameters.set(testParameters);

@@ -6,7 +6,8 @@
   </listeners>
   <test name="Smoke testing....(failed)" parallel="tests">
     <parameter name="BrowserName" value="CHROME"/>
-    <parameter name="ExecutionMode" value="LOCAL"/>
+    <parameter name="Platform" value="LINUX"/>
+    <parameter name="ExecutionMode" value="REMOTE"/>
     <classes>
       <class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke">
         <methods>

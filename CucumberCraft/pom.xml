@@ -7,48 +7,13 @@
 	<name>Craft Cucumber TestNG Framework</name>
 	<version>3.0</version>
 	<packaging>jar</packaging>
-	<url>>http://maven.apache.org</url>
+	<url>http://maven.apache.org</url>
 <repositories>
-		<repository>
-			<id>central</id>
-			<layout>default</layout>
-			<url>https://nexushdq.aa.com/repository/maven-central/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>Public Repositories</id>
-			<url>https://nexushdq.aa.com/repository/maven-public/</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>central</id>
-			<layout>default</layout>
-			<url>https://nexushdq.aa.com/repository/maven-central/</url>
-			<!--<releases><enabled>true</enabled></releases> -->
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
-	<distributionManagement>
-		<repository>
-			<id>nexus-releases</id>
-			<name>nexus-releases</name>
-			<url>https://nexushdq.aa.com/repository/prod-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>nexus-snapshots</id>
-			<name>nexus-snapshots</name>
-			<url>https://nexushdq.aa.com/repository/snapshots/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-</distributionManagement>
+<repository>
+<id>Experitest.repo1</id>
+<url>http://repo.experitest.com:8010/Maven2/</url>
+</repository>
+</repositories>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
