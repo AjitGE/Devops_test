@@ -11,10 +11,17 @@
 
 	<repositories>
 		<repository>
-			<id>Experitest.repo1</id>
-			<url>http://repo.experitest.com:8010/Maven2/</url>
+			<id>central</id>
+			<layout>default</layout>
+			<url>https://nexushdq.aa.com/repository/maven-central/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
-
+		<repository>
+			<id>Public Repositories</id>
+			<url>https://nexushdq.aa.com/repository/maven-public/</url>
+		</repository>
 	</repositories>
 
 	<properties>
