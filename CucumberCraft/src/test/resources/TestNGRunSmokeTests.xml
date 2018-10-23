@@ -20,7 +20,7 @@
 		or SAUCELABS)- -->
 
 	<test name="Smoke testing....">
-		<parameter name="ExecutionMode" value="REMOTE" />
+		<parameter name="ExecutionMode" value="LOCAL" />
 		<parameter name="BrowserName" value="CHROME" />
 		<classes>
 			<class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" />
