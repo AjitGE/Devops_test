@@ -102,12 +102,13 @@ public class DriverFactory {
 		}
 		return driver;
 	}
+}
 
 	/**
 	 * Seetest Driver initialization
 	 *
 	 */
-	public static MobileWebDriver createInstanceSeetestDriver(
+	/*public static MobileWebDriver createInstanceSeetestDriver(
 			SeleniumTestParameters testParameters) {
 		MobileWebDriver driver = null;
 		try {
@@ -148,4 +149,4 @@ public class DriverFactory {
 		return driver;
 	}
 
-}
+}*/
