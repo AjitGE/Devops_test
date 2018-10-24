@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumDriver;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 
 import com.experitest.selenium.MobileWebDriver;
@@ -16,7 +17,7 @@ import com.experitest.selenium.MobileWebDriver;
  * @author Cognizant
  */
 public class DriverFactory {
-
+	static SeleniumTestParameters testParameters=new SeleniumTestParameters() ;
 	static Logger log = Logger.getLogger(DriverFactory.class);
 	private static Properties mobileProperties = Settings.getInstance();
 
@@ -83,6 +84,11 @@ public class DriverFactory {
 						testParameters.getBrowserVersion(),
 						testParameters.getPlatform(),
 						mobileProperties.getProperty("RemoteUrl"));
+				Browser browser=testParameters.getBrowser();
+				String Version=testParameters.getBrowserVersion();
+				Platform platform=testParameters.getPlatform();
+				break;
+
 
 			case PERFECTO:
 				driver = PerfectoDriverFactory.getPerfectoRemoteDriver(testParameters);
