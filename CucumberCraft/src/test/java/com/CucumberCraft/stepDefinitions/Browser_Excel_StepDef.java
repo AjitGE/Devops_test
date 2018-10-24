@@ -26,7 +26,7 @@ public class Browser_Excel_StepDef {
 	@Given("^user launches browser with url \"([^\"]*)\"$")
 	public void user_launches_browser_with_url(String url) throws Throwable {
 	    String ObtainedUrl=DataSourceDecider.urlFinder(url);
-	    driver=DriverManager.getWebDriver();;
+	    driver=DriverManager.getWebDriver();
 	    driver.manage().window().maximize();
         driver.get(ObtainedUrl);
         

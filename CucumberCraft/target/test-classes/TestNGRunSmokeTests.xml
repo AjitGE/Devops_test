@@ -21,10 +21,10 @@
 
 	<test name="Smoke testing....">
 		<parameter name="ExecutionMode" value="REMOTE" />
-		<parameter name="RemoteUrl" value="http://localhost:48410/wd/hub/" />
+		
 		<parameter name="BrowserName" value="CHROME" />
-         <parameter name="Platform" value="LINUX" /> 
-        <parameter name="ExecuteInMobile" value="False" />
+		
+    
 		<classes>
 			<class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" />
 		</classes>

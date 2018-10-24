@@ -54,15 +54,13 @@ public class CukeHooks extends MasterStepDefs {
 			currentScenario = scenario;
 			propertiesFileAccess = properties;
 			Thread.sleep(2000);
-		    
 			currentTestParameters.setScenarioName(scenario.getName());
-			
 			currentTestParameters = DriverManager.getTestParameters();
 			log.info("Running the Scenario : " + scenario.getName());
 			if (Boolean.parseBoolean(propertiesFileAccess.getProperty("ExecuteInMobile"))) {
 				invokeForMobileExecution(scenario);
 			} else {	
-				invokeForDesktopExecution(scenario);
+				//invokeForDesktopExecution(scenario);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,19 +122,6 @@ public class CukeHooks extends MasterStepDefs {
 		}
 	}
 
-
-	public static void generateCustomReports() {
-
-		CucumberResultsOverview overviewReports = new CucumberResultsOverview();
-		overviewReports.setOutputDirectory("target/cucumber-report/");
-		overviewReports.setOutputName("cucumber-results");
-		overviewReports.setSourceFile("target/cucumber-report/Smoke/cucumber.json");
-		try {
-			overviewReports.executeFeaturesOverviewReport();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		}
 	@SuppressWarnings("rawtypes")
 	@After
 	public void embedScreenshot(Scenario scenario) {
@@ -261,7 +246,7 @@ public class CukeHooks extends MasterStepDefs {
 		}
 	}
 
-	/*public static void generateCustomReports() {
+public static void generateCustomReports() {
 
 		CucumberResultsOverview overviewReports = new CucumberResultsOverview();
 		overviewReports.setOutputDirectory("target");
@@ -272,7 +257,7 @@ public class CukeHooks extends MasterStepDefs {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 	public static void copyReportsFolder() throws java.io.IOException {
 
