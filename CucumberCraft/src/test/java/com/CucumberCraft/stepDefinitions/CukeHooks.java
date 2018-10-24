@@ -1,24 +1,35 @@
 package com.CucumberCraft.stepDefinitions;
 
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
+import com.CucumberCraft.supportLibraries.Browser;
 import com.CucumberCraft.supportLibraries.DriverFactory;
 import com.CucumberCraft.supportLibraries.DriverManager;
-
-
-
+import com.CucumberCraft.supportLibraries.ExecutionMode;
+import com.CucumberCraft.supportLibraries.PerfectoLabUtils;
+import com.CucumberCraft.supportLibraries.RestApiForJira;
+import com.CucumberCraft.supportLibraries.SeleniumTestParameters;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.SessionId;
 import com.CucumberCraft.ExcelReadWrite.ExcelReadWrite;
 import com.CucumberCraft.Screenshot.ImageToPdf;
 import com.CucumberCraft.supportLibraries.Settings;
+import com.CucumberCraft.supportLibraries.TimeStamp;
+import com.CucumberCraft.supportLibraries.Util;
+import com.experitest.selenium.MobileWebDriver;
 import com.github.mkolisnyk.cucumber.reporting.CucumberResultsOverview;
+import com.itextpdf.io.IOException;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -91,17 +102,17 @@ public class CukeHooks extends MasterStepDefs {
 
 			log.info(
 					"Running the Scenario : " + scenario.getName() + " in " + currentTestParameters.getExecutionMode());
-			/*AppiumDriver driver = DriverFactory.createInstance(currentTestParameters);
-			DriverManager.setAppiumDriver(driver);*/
+			AppiumDriver driver = DriverFactory.createInstance(currentTestParameters);
+			DriverManager.setAppiumDriver(driver);
 			break;
 
-		/*case SEETEST:
+		case SEETEST:
 
 			log.info(
 					"Running the Scenario : " + scenario.getName() + " in " + currentTestParameters.getExecutionMode());
 			MobileWebDriver seetestDriver = DriverFactory.createInstanceSeetestDriver(currentTestParameters);
 			DriverManager.setSeetestDriver(seetestDriver);
-			break;*/
+			break;
 
 		default:
 			try {
@@ -126,72 +137,51 @@ public class CukeHooks extends MasterStepDefs {
 			e.printStackTrace();
 		}
 		}
-   @After
+	@SuppressWarnings("rawtypes")
+	@After
 	public void embedScreenshot(Scenario scenario) {
-		ExcelReadWrite.tags.clear();
-		ExcelReadWrite.testIdNumber.clear();
-		ImageToPdf.ScenarioStatus(scenario);
-		ImageToPdf.createPdf();
-		log.info("Test case status : "+scenario.getStatus());
-		log.info("\"" +scenario.getName().toString()+"\""+ " testing completed");
-		WebDriver driver = DriverManager.getWebDriver();
-		   SessionId session =  ((RemoteWebDriver) driver).getSessionId();
-		log.info("closing all opened session of browser :"+ DriverManager.sessionSet);
-		for(SessionId s: DriverManager.sessionSet ) 
-		{
-	   if(session.equals(s)) {
-		   driver.quit();
-		   log.info("closing session "+s+" of browser");
-	   }
+		try {
+			if (Boolean.valueOf(properties.getProperty("TrackIssuesInJira"))) {
+				updateDefectInJira(scenario);
+			}
+			if (Boolean.parseBoolean(properties.getProperty("ExecuteInMobile"))
+					&& Boolean.valueOf(properties.getProperty("PerfectoReportGeneration"))) {
+				capturePerfectoReportsForMobile(scenario);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			log.error("Problem while closing the Driver Object " + ex.getMessage());
+
+		} finally {
+
+			if (Boolean.parseBoolean(properties.getProperty("ExecuteInMobile"))) {
+				if (currentTestParameters.getExecutionMode() == ExecutionMode.SEETEST) {
+					MobileWebDriver driver = DriverManager.getSeetestDriver();
+					driver.client.releaseDevice("*", true, false, true);
+					driver.client.releaseClient();
+					driver.quit();
+				} else {
+					AppiumDriver driver = DriverManager.getAppiumDriver();
+					if (driver != null) {
+						driver.quit();
+					}
+				}
+			} else {
+				/*WebDriver driver = DriverManager.getWebDriver();
+				if (driver != null) {
+					capturePerfectoReportForDesktop(scenario, currentTestParameters, driver);
+					driver.quit();
+				}*/
+			}
 		}
-   }	
-		
-		
-//		try {
-//			if (Boolean.valueOf(properties.getProperty("TrackIssuesInJira"))) {
-//				updateDefectInJira(scenario);
-//			}
-//			if (Boolean.parseBoolean(properties.getProperty("ExecuteInMobile"))
-//					&& Boolean.valueOf(properties.getProperty("PerfectoReportGeneration"))) {
-//				capturePerfectoReportsForMobile(scenario);
-//			}
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//			log.error("Problem while closing the Driver Object " + ex.getMessage());
-//
-//		} finally {
-//
-//			if (Boolean.parseBoolean(properties.getProperty("ExecuteInMobile"))) {
-//				if (currentTestParameters.getExecutionMode() == ExecutionMode.SEETEST) {
-//				MobileWebDriver driver = DriverManager.getSeetestDriver();
-//					driver.client.releaseDevice("*", true, false, true);
-//				driver.client.releaseClient();
-//				driver.quit();
-//			} else {
-//				AppiumDriver driver = DriverManager.getAppiumDriver();
-//				if (driver != null) {
-//					driver.quit();
-//				}
-//				}
-//			} else {
-//				WebDriver driver = DriverManager.getWebDriver();
-//				if (driver != null) {
-//					capturePerfectoReportForDesktop(scenario, currentTestParameters, driver);
-//					driver.quit();
-//				}
-//			}
-//		}
-		
-		
-	
+	}
 
 	/**
 	 * Embed a screenshot in test report if test is marked as failed And Update
 	 * Task in JIRA
 	 * @throws IOException 
 	 */
-
-	/*private void updateDefectInJira(Scenario scenario) throws IOException {
+	private void updateDefectInJira(Scenario scenario) throws IOException {
 		if (scenario.isFailed()) {
 			try {
 				if (Boolean.parseBoolean(properties.getProperty("ExecuteInMobile"))) {
@@ -217,6 +207,7 @@ public class CukeHooks extends MasterStepDefs {
 			}
 		}
 	}
+
 	private String getFileName(Browser browser, String deviceName) {
 		String fileName = "";
 		if (browser == null) {
@@ -230,8 +221,7 @@ public class CukeHooks extends MasterStepDefs {
 	}
 
 	@SuppressWarnings("rawtypes")
-	
-	private void capturePerfectoReportsForMobile(Scenario scenario) {
+	private void capturePerfectoReportsForMobile(Scenario scenario) throws java.io.IOException {
 		try {
 			AppiumDriver driver = DriverManager.getAppiumDriver();
 			driver.close();
@@ -251,7 +241,9 @@ public class CukeHooks extends MasterStepDefs {
 		}
 	}
 
-	private void capturePerfectoReportForDesktop(Scenario scenario, SeleniumTestParameters testParametrs,WebDriver driver) {
+	@SuppressWarnings("unused")
+	private void capturePerfectoReportForDesktop(Scenario scenario, SeleniumTestParameters testParametrs,
+			WebDriver driver) throws java.io.IOException {
 		if (Boolean.valueOf(properties.getProperty("PerfectoReportGeneration"))) {
 			driver.close();
 
@@ -268,9 +260,45 @@ public class CukeHooks extends MasterStepDefs {
 			}
 		}
 	}
-	*/
-	
-	
-	
-}
-	
+
+	/*public static void generateCustomReports() {
+
+		CucumberResultsOverview overviewReports = new CucumberResultsOverview();
+		overviewReports.setOutputDirectory("target");
+		overviewReports.setOutputName("cucumber-results");
+		overviewReports.setSourceFile("target/cucumber-report/Smoke/cucumber.json");
+		try {
+			overviewReports.executeFeaturesOverviewReport();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
+
+	public static void copyReportsFolder() throws java.io.IOException {
+
+		String timeStampResultPath = TimeStamp.getInstance();
+
+		File source = new File(Util.getTargetPath());
+		File source1 = new File(Util.getAllurePath());
+		File dest = new File(timeStampResultPath);
+		File dest1 = new File(timeStampResultPath + Util.getFileSeparator() + "Allure-reports");
+		if (!dest1.isDirectory()) {
+			dest1.mkdirs();
+		}
+		try {
+			FileUtils.copyDirectory(source, dest);
+			FileUtils.copyDirectory(source1, dest1);
+			try {
+				FileUtils.cleanDirectory(source);
+			} catch (Exception e) {
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		TimeStamp.reportPathWithTimeStamp = null;
+
+	}
+
+}	

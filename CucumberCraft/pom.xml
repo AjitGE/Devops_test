@@ -9,11 +9,46 @@
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 <repositories>
-<repository>
-<id>Experitest.repo1</id>
-<url>http://repo.experitest.com:8010/Maven2/</url>
-</repository>
-</repositories>
+		<repository>
+			<id>central</id>
+			<layout>default</layout>
+			<url>https://nexushdq.aa.com/repository/maven-central/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>Public Repositories</id>
+			<url>https://nexushdq.aa.com/repository/maven-public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<layout>default</layout>
+			<url>https://nexushdq.aa.com/repository/maven-central/</url>
+			<!--<releases><enabled>true</enabled></releases> -->
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>nexus-releases</name>
+			<url>https://nexushdq.aa.com/repository/prod-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>nexus-snapshots</name>
+			<url>https://nexushdq.aa.com/repository/snapshots/</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+</distributionManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -162,7 +197,17 @@
 			<artifactId>selenium-java</artifactId>
 			<version>3.7.1</version>
 		</dependency>
-
+        <dependency>
+			<groupId>com.experitest</groupId>
+			<artifactId>seetest-client</artifactId>
+			<version>10.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.experitest</groupId>
+			<artifactId>mobile-webdriver</artifactId>
+			<version>10.4</version>
+		</dependency>
 		<dependency>
 			<groupId>io.appium</groupId>
 			<artifactId>java-client</artifactId>

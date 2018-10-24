@@ -8,7 +8,14 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import com.CucumberCraft.supportLibraries.SeeTestDriverFactory;
 
+import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+
+import com.experitest.selenium.MobileWebDriver;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -26,7 +33,7 @@ public class DriverManager {
 	@SuppressWarnings("rawtypes")
 	private static ThreadLocal<AppiumDriver> appiumDriver = new ThreadLocal<AppiumDriver>();
 	private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
-	//private static ThreadLocal<MobileWebDriver> seetestDriver = new ThreadLocal<MobileWebDriver>();
+	private static ThreadLocal<MobileWebDriver> seetestDriver = new ThreadLocal<MobileWebDriver>();
 	private static ThreadLocal<SeleniumTestParameters> testParameters = new ThreadLocal<SeleniumTestParameters>();
 	
 
@@ -56,7 +63,7 @@ public class DriverManager {
 
 	// AppiumDriver Object Creation
 
-	//@SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
 	public static AppiumDriver getAppiumDriver() {
 		if (appiumDriver.get() == null) {
 			// this is need when running tests from IDE
@@ -68,7 +75,7 @@ public class DriverManager {
 	}
 	
 	// SeetestDriver Object Creation
-	/*public static MobileWebDriver getSeetestDriver() {
+	public static MobileWebDriver getSeetestDriver() {
 		if (seetestDriver.get() == null) {
 			// this is need when running tests from IDE
 			log.info("Thread has no Seetest driver, creating new one");
@@ -76,10 +83,10 @@ public class DriverManager {
 		}
 		log.debug("Getting instance of remote driver" + seetestDriver.get().getClass());
 		return seetestDriver.get();
-	}*/
+	}
 
 	
-	public static void setAppiumDriver(AppiumDriver driver) {
+	public static void setAppiumDriver(@SuppressWarnings("rawtypes") AppiumDriver driver) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		DriverManager.appiumDriver.set(driver);
 	}
@@ -89,10 +96,10 @@ public class DriverManager {
 		DriverManager.webDriver.set(driver);
 	}
 
-/*	public static void setSeetestDriver(MobileWebDriver driver) {
+	public static void setSeetestDriver(MobileWebDriver driver) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		DriverManager.seetestDriver.set(driver);
-	}*/
+	}
 	
 	public static void setTestParameters(SeleniumTestParameters testParameters) {
 		DriverManager.testParameters.set(testParameters);

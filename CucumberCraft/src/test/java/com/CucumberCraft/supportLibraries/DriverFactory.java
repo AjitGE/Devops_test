@@ -7,6 +7,8 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
+import com.experitest.selenium.MobileWebDriver;
+
 
 /**
  * DriverFactory which will create respective driver Object
@@ -101,13 +103,13 @@ public class DriverFactory {
 		}
 		return driver;
 	}
-}
+
 
 	/**
 	 * Seetest Driver initialization
 	 *
 	 */
-	/*public static MobileWebDriver createInstanceSeetestDriver(
+	public static MobileWebDriver createInstanceSeetestDriver(
 			SeleniumTestParameters testParameters) {
 		MobileWebDriver driver = null;
 		try {
@@ -148,4 +150,4 @@ public class DriverFactory {
 		return driver;
 	}
 
-}*/
+}
