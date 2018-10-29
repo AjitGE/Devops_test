@@ -63,7 +63,6 @@ pipeline {
                                 cucumber fileIncludePattern: '**/*.json',
                                 jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
                                 parallelTesting: true
-                                readFile '/CucumberCraft/Results/'
                                 findFiles glob: '**/*.pdf'
                 }
             }
