@@ -2,7 +2,7 @@
  @TestId_APS_45 @UserStory_US869555
    
   Scenario: Verify the pagination is present 
-  Given user loads the data from "excel" located at "src/test/resources/Fixture/Promo_DB_Data.xlsx"
+  Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx"
     Then user launches browser with url "#TestUrl"
     And user enters the Promo code "#Promo Code" in Search box named " Promo / PST / TA Code "
     And user clicks on the search button
@@ -12,7 +12,7 @@
      @TestId_APS_46 @UserStory_US869555
    
   Scenario: Verify the pagination is absent
-  Given user loads the data from "excel" located at "src/test/resources/Fixture/Promo_DB_Data.xlsx"
+  Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx"
     Then user launches browser with url "#TestUrl"
     And user enters the Promo code "#Promo Code" in Search box named " Promo / PST / TA Code "
     And user clicks on the search button

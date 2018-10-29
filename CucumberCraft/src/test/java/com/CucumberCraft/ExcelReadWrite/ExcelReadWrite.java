@@ -84,8 +84,8 @@ public class ExcelReadWrite {
         // Create an ArrayList to store the data read from excel sheet.
         // List sheetData = new ArrayList();
         
-        path.replace("\\", Util.getFileSeparator());
-        Path fPath=Paths.get(path);
+       
+        Path fPath=Paths.get(path.replace("\\", Util.getFileSeparator()));
        
         try
         {
