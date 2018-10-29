@@ -145,7 +145,7 @@ public class ExcelReadWrite {
                 log.info("Reading Excel file.................................");
                 log.info("Reading Excel file......................................");
                 hashMap = new LinkedHashMap<Integer, List<String>>();
-                log.info("Sucessfully loaded the excel file data from excel file name: "+ fileName.getName().toString());
+                log.info("loading excel file data from excel file named: "+ fileName.getName().toString());
             }
         }
         catch (IOException e)
@@ -185,7 +185,7 @@ public class ExcelReadWrite {
 			throw new Exception("Exception occured while reading :\n"
 					    + "you can check for below soltions: \n"
 					    + "1. file path is not correct.\n"
-					    + "2.user '//' in windows and '/' for linux as file separator \n"
+					    + "2. use '//' in windows and '/' for linux as file separator \n"
 					    + "3. or may be specified data is not present in excel \n" );
 		}
 		else{
@@ -208,7 +208,7 @@ public class ExcelReadWrite {
 					}
 					 
 			}
-			log.info("File data is sucessfully loaded to the feature file");
+			log.info("Excel File data is sucessfully loaded");
 		}
 		
 	}
