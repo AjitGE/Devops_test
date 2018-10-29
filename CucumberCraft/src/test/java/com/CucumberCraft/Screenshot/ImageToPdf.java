@@ -12,9 +12,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.Platform;
 
-import com.CucumberCraft.supportLibraries.Browser;
 import com.CucumberCraft.supportLibraries.SeleniumTestParameters;
 import com.CucumberCraft.supportLibraries.Util;
 import com.itextpdf.text.BaseColor;
@@ -146,9 +144,10 @@ static Logger log;
 		 
 		 static int noOfPng(){
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"); 
 	    		
 		 String[] fileNames = folder.list();
+		 
 		 int total = 0;
 		 for (int i = 0; i< fileNames.length; i++)
 		 {
@@ -163,7 +162,7 @@ static Logger log;
 		 static int getEmbeddedImageMax() {
 			 Path fPath=Paths.get(path);
 			 int number;
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"); 
 			 String[] fileNames = folder.list();
 			 ImageToPdf i=new ImageToPdf();
 			for(String file : fileNames) {
@@ -185,7 +184,7 @@ static Logger log;
 		 
 		 static int getEmbeddedImageMin() {
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"); 
 			 String[] fileNames = folder.list();
 			 Arrays.sort(fileNames);
 			 ImageToPdf i=new ImageToPdf();
@@ -224,7 +223,7 @@ static Logger log;
 		}*/
 			public static void freeScreenshotFolder() {
 				Path fPath=Paths.get(path);
-				 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"screenshot"+Util.getFileSeparator());
+				 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"screenshot");
 			 try {
 			 File[] listFiles = folder.listFiles();
 				for(File file : listFiles){
