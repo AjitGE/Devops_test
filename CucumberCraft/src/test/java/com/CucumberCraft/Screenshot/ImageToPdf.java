@@ -80,7 +80,7 @@ static Logger log;
 		if(noOfPng()>0) {
 		for (int i=getEmbeddedImageMin(); i<=getEmbeddedImageMax() ; i++)
 		{
-			String IMG = fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()+"embedded"+i+".png"; 
+			String IMG = fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"+Util.getFileSeparator()+"embedded"+i+".png"; 
   
 	      //Creating an Image object
 			
@@ -144,7 +144,7 @@ static Logger log;
 		 
 		 static int noOfPng(){
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"); 
 	    		
 		 String[] fileNames = folder.list();
 		 
@@ -162,7 +162,7 @@ static Logger log;
 		 static int getEmbeddedImageMax() {
 			 Path fPath=Paths.get(path);
 			 int number;
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"); 
 			 String[] fileNames = folder.list();
 			 ImageToPdf i=new ImageToPdf();
 			for(String file : fileNames) {
@@ -184,7 +184,7 @@ static Logger log;
 		 
 		 static int getEmbeddedImageMin() {
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"); 
 			 String[] fileNames = folder.list();
 			 Arrays.sort(fileNames);
 			 ImageToPdf i=new ImageToPdf();
