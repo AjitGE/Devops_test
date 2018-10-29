@@ -2,19 +2,19 @@
 <testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Run Test Cukes" duration-ms="106723" started-at="2018-10-29T08:40:12Z" finished-at="2018-10-29T08:41:59Z">
+  <suite name="Run Test Cukes" duration-ms="217760" started-at="2018-10-29T10:17:07Z" finished-at="2018-10-29T10:20:45Z">
     <groups>
       <group name="cucumber">
-        <method signature="AbstractTestNGCucumberTests.feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="feature" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
+        <method signature="AbstractTestNGCucumberTests.feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@6986852]" name="feature" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test name="Smoke testing...." duration-ms="106723" started-at="2018-10-29T08:40:12Z" finished-at="2018-10-29T08:41:59Z">
+    <test name="Smoke testing...." duration-ms="217760" started-at="2018-10-29T10:17:07Z" finished-at="2018-10-29T10:20:45Z">
       <class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke">
-        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="setUpClass" is-config="true" duration-ms="756" started-at="2018-10-29T14:10:12Z" finished-at="2018-10-29T14:10:13Z">
+        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@6986852]" name="setUpClass" is-config="true" duration-ms="708" started-at="2018-10-29T15:47:07Z" finished-at="2018-10-29T15:47:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method status="FAIL" signature="feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="feature" duration-ms="96258" started-at="2018-10-29T14:10:14Z" description="Runs Cucumber Feature" data-provider="features" finished-at="2018-10-29T14:11:50Z">
+        <test-method status="FAIL" signature="feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@6986852]" name="feature" duration-ms="214451" started-at="2018-10-29T15:47:08Z" description="Runs Cucumber Feature" data-provider="features" finished-at="2018-10-29T15:50:43Z">
           <params>
             <param index="0">
               <value>
@@ -30,10 +30,10 @@
 Command duration or timeout: 0 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.7.1', revision: '8a0099a', time: '2017-11-06T21:01:39.354Z'
-System info: host: 'AJIT-PC', ip: '10.0.75.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+System info: host: 'AJIT-PC', ip: '10.79.100.73', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
 Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:36161}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: d94f1aa01ee9d7933ae34162876...}
-Session ID: d94f1aa01ee9d7933ae3416287610d6f
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:35919}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: 0f4132870df7a78bd2bdd8bf1dc...}
+Session ID: 0f4132870df7a78bd2bdd8bf1dc01845
 *** Element info: {Using=xpath, value=//input[@id='ptextcode']}]]>
             </message>
             <full-stacktrace>
@@ -43,10 +43,10 @@ Session ID: d94f1aa01ee9d7933ae3416287610d6f
 Command duration or timeout: 0 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.7.1', revision: '8a0099a', time: '2017-11-06T21:01:39.354Z'
-System info: host: 'AJIT-PC', ip: '10.0.75.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+System info: host: 'AJIT-PC', ip: '10.79.100.73', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
 Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:36161}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: d94f1aa01ee9d7933ae34162876...}
-Session ID: d94f1aa01ee9d7933ae3416287610d6f
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:35919}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: 0f4132870df7a78bd2bdd8bf1dc...}
+Session ID: 0f4132870df7a78bd2bdd8bf1dc01845
 *** Element info: {Using=xpath, value=//input[@id='ptextcode']}
 	at cucumber.api.testng.TestNGCucumberRunner.runCucumber(TestNGCucumberRunner.java:69)
 	at cucumber.api.testng.AbstractTestNGCucumberTests.feature(AbstractTestNGCucumberTests.java:21)
@@ -76,10 +76,10 @@ Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable t
 Command duration or timeout: 0 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.7.1', revision: '8a0099a', time: '2017-11-06T21:01:39.354Z'
-System info: host: 'AJIT-PC', ip: '10.0.75.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+System info: host: 'AJIT-PC', ip: '10.79.100.73', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
 Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:36161}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: d94f1aa01ee9d7933ae34162876...}
-Session ID: d94f1aa01ee9d7933ae3416287610d6f
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:35919}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: 0f4132870df7a78bd2bdd8bf1dc...}
+Session ID: 0f4132870df7a78bd2bdd8bf1dc01845
 *** Element info: {Using=xpath, value=//input[@id='ptextcode']}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -111,15 +111,15 @@ Session ID: d94f1aa01ee9d7933ae3416287610d6f
           <reporter-output>
           </reporter-output>
         </test-method> <!-- feature -->
-        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="tearDownClass" is-config="true" duration-ms="5503" started-at="2018-10-29T14:11:50Z" finished-at="2018-10-29T14:11:55Z">
+        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@6986852]" name="tearDownClass" is-config="true" duration-ms="1142" started-at="2018-10-29T15:50:43Z" finished-at="2018-10-29T15:50:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
-        <test-method status="PASS" signature="test()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="test" is-config="true" duration-ms="3897" started-at="2018-10-29T14:11:55Z" finished-at="2018-10-29T14:11:59Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@6986852]" name="test" is-config="true" duration-ms="1106" started-at="2018-10-29T15:50:44Z" finished-at="2018-10-29T15:50:45Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="copyStoredReports()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="copyStoredReports" is-config="true" duration-ms="3" started-at="2018-10-29T14:12:00Z" finished-at="2018-10-29T14:12:00Z">
+        <test-method status="PASS" signature="copyStoredReports()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@6986852]" name="copyStoredReports" is-config="true" duration-ms="2" started-at="2018-10-29T15:50:45Z" finished-at="2018-10-29T15:50:45Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- copyStoredReports -->
