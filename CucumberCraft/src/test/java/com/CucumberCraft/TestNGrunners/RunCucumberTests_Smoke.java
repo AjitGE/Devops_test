@@ -109,8 +109,7 @@ private void generateCustomReports() {
 	CucumberDetailedResults detailedResults = new CucumberDetailedResults();
     detailedResults.setOutputDirectory("target");
     detailedResults.setOutputName("cucumber-results");
-    detailedResults
-                 .setSourceFile("target/cucumber-report/Smoke/cucumber.json");
+    detailedResults.setSourceFile("target/cucumber-report/Smoke/cucumber.json");
     detailedResults.setScreenShotLocation("./screenshot");
     try {
            detailedResults.executeDetailedResultsReport(false, true);
@@ -127,7 +126,7 @@ public static void copyReportsAndPdfFolder() {
 	
 	File sourceCucumber = new File(Util.getTargetPath());
 	//File cucumberReportscreenShot = new File(Util.getTargetPath()+"\\screenshot\\");
-	File cucumberReportSmoke= new File(Util.getTargetPath()+"\\Smoke\\");
+	File cucumberReportSmoke= new File(Util.getTargetPath()+Util.getFileSeparator()+"Smoke");
 	
 	
 	try{
@@ -153,7 +152,7 @@ public static void copyReportsAndPdfFolder() {
 }
 public static void copyReportsAggregateReportFolder() throws IOException {
 
-	File SourceAggregateReport= new File(Util.getTargetPath().replace("\\cucumber-report",""));
+	File SourceAggregateReport= new File((Util.getTargetPath().replace("cucumber-report", "")));
 	
 	 File[] listofFiles =SourceAggregateReport.listFiles();
 	 for(File file : listofFiles) {
