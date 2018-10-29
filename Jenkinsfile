@@ -57,8 +57,8 @@ pipeline {
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
                                 reportDir: 'CucumberCraft/', 
-                                reportFiles: '**/report.html', 
-                                reportName: 'HTML Report', 
+                                reportFiles: '**/Results/index.html', 
+                                reportName: 'Test Report', 
                                 reportTitles: ''])
                                 cucumber fileIncludePattern: '**/*.json',
                                 jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
