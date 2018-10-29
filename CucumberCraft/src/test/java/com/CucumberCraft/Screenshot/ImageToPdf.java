@@ -12,7 +12,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Platform;
 
+import com.CucumberCraft.supportLibraries.Browser;
+import com.CucumberCraft.supportLibraries.SeleniumTestParameters;
 import com.CucumberCraft.supportLibraries.Util;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -31,6 +34,7 @@ public class ImageToPdf {
 	static String pdfPath;
 	int max;
     int min;
+    static SeleniumTestParameters testparameters =new SeleniumTestParameters();
 static Logger log;
 	
 
@@ -54,8 +58,8 @@ static Logger log;
         	 Path fPath=Paths.get(path);
             Document document = new Document();
             for(String tag: tags) {
-            	if(tag.startsWith("@TestId")) {
-            pdfPath=fPath.toAbsolutePath().toString()+"\\screenshot\\"+tag.replace("@","")+"_"+Util.getCurrentTime().toString().replace(" ","_").replace(":","_")+".pdf";
+            	if(tag.startsWith("@TestId")) { 		 		
+            pdfPath=fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"screenshot"+Util.getFileSeparator()+tag.replace("@","")+"_"+Util.getCurrentTime().toString().replace(" ","_").replace(":","_")+".pdf";
             System.out.println("pdfPath:"+pdfPath );
             }
             }
@@ -78,8 +82,8 @@ static Logger log;
 		if(noOfPng()>0) {
 		for (int i=getEmbeddedImageMin(); i<=getEmbeddedImageMax() ; i++)
 		{
-			
-			String IMG = fPath.toAbsolutePath().toString()+"\\smoke\\embedded"+i+".png"; 
+			String IMG = fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()+"embedded"+i+".png"; 
+  
 	      //Creating an Image object
 			
 	      Image image = Image.getInstance(IMG) ;   
@@ -142,7 +146,8 @@ static Logger log;
 		 
 		 static int noOfPng(){
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+"\\smoke\\");
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()); 
+	    		
 		 String[] fileNames = folder.list();
 		 int total = 0;
 		 for (int i = 0; i< fileNames.length; i++)
@@ -158,7 +163,7 @@ static Logger log;
 		 static int getEmbeddedImageMax() {
 			 Path fPath=Paths.get(path);
 			 int number;
-			 File folder = new File(fPath.toAbsolutePath().toString()+"\\smoke\\");
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()); 
 			 String[] fileNames = folder.list();
 			 ImageToPdf i=new ImageToPdf();
 			for(String file : fileNames) {
@@ -180,7 +185,7 @@ static Logger log;
 		 
 		 static int getEmbeddedImageMin() {
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+"\\smoke\\");
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"smoke"+Util.getFileSeparator()); 
 			 String[] fileNames = folder.list();
 			 Arrays.sort(fileNames);
 			 ImageToPdf i=new ImageToPdf();
@@ -219,7 +224,7 @@ static Logger log;
 		}*/
 			public static void freeScreenshotFolder() {
 				Path fPath=Paths.get(path);
-				 File folder = new File(fPath.toAbsolutePath().toString()+"\\screenshot\\");
+				 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"screenshot"+Util.getFileSeparator());
 			 try {
 			 File[] listFiles = folder.listFiles();
 				for(File file : listFiles){

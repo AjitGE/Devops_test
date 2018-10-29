@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.CucumberCraft.supportLibraries.Util;
 
 import cucumber.api.Scenario;
 
@@ -82,6 +83,8 @@ public class ExcelReadWrite {
         
         // Create an ArrayList to store the data read from excel sheet.
         // List sheetData = new ArrayList();
+        
+        path.replace("\\", Util.getFileSeparator());
         Path fPath=Paths.get(path);
        
         try
