@@ -48,7 +48,6 @@ public class CukeHooks extends MasterStepDefs {
 	public void setUp(Scenario scenario) {
 		
 		ExcelReadWrite.tagNames(scenario);
-		ImageToPdf.freeSmokePng();
 		
 		try {
 			currentScenario = scenario;
@@ -59,9 +58,7 @@ public class CukeHooks extends MasterStepDefs {
 			log.info("Running the Scenario : " + scenario.getName());
 			if (Boolean.parseBoolean(propertiesFileAccess.getProperty("ExecuteInMobile"))) {
 				invokeForMobileExecution(scenario);
-			} else {	
-				//invokeForDesktopExecution(scenario);
-			}
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Error at Before Scenario " + e.getMessage());
@@ -100,7 +97,7 @@ public class CukeHooks extends MasterStepDefs {
 
 			log.info(
 					"Running the Scenario : " + scenario.getName() + " in " + currentTestParameters.getExecutionMode());
-			AppiumDriver driver = DriverFactory.createInstance(currentTestParameters);
+			AppiumDriver<?> driver = DriverFactory.createInstance(currentTestParameters);
 			DriverManager.setAppiumDriver(driver);
 			break;
 
@@ -125,6 +122,8 @@ public class CukeHooks extends MasterStepDefs {
 	@SuppressWarnings("rawtypes")
 	@After
 	public void embedScreenshot(Scenario scenario) {
+		ImageToPdf.ScenarioStatus(scenario);
+		ImageToPdf.createPdf();
 		try {
 			if (Boolean.valueOf(properties.getProperty("TrackIssuesInJira"))) {
 				updateDefectInJira(scenario);

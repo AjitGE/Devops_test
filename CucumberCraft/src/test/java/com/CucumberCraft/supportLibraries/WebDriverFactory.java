@@ -10,6 +10,7 @@ import org.openqa.selenium.Proxy;
 import org.openqa.selenium.Proxy.ProxyType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -133,10 +134,11 @@ public class WebDriverFactory {
 			String browserVersion, Platform platform, String remoteUrl) {
 
 		properties = Settings.getInstance();
+		DesiredCapabilities desiredCapabilities = null;
+		
 		boolean proxyRequired = Boolean.parseBoolean(properties
 				.getProperty("ProxyRequired"));
-
-		DesiredCapabilities desiredCapabilities = null;
+		
 		if (browser.equals(Browser.OPERA) && proxyRequired) {
 			desiredCapabilities = getProxyCapabilities();
 		} else {
@@ -156,8 +158,15 @@ public class WebDriverFactory {
 														// remote execution
 
 		URL url = getUrl(remoteUrl);
+		if(browser.equals(Browser.CHROME)){
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--start-maximized");
+			desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		}
 
 		return new RemoteWebDriver(url, desiredCapabilities);
+		
+		
 	}
 
 	private static URL getUrl(String remoteUrl) {

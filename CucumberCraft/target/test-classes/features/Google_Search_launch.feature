@@ -10,7 +10,7 @@ Feature: Demo_script
     Then user search for keyword "#Keyword"
    
   @UserStory
-  @TestId_1001  
+  @TestId_1001
 
   Scenario: Sample script showing google serach and launch
     Given user loads the data from "excel" located at "src\test\resources\Fixture\TestData.xlsx"

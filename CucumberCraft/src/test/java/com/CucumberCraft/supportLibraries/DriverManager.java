@@ -8,12 +8,6 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
-import com.CucumberCraft.supportLibraries.SeeTestDriverFactory;
-
-import java.util.concurrent.TimeUnit;
-
-import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 
 import com.experitest.selenium.MobileWebDriver;
 
@@ -50,12 +44,16 @@ public class DriverManager {
 		if (webDriver.get() == null) {
 			// this is need when running tests from IDE
 			log.info("Thread has no WedDriver, creating new one");
-			setWebDriver(DriverFactory.createInstanceWebDriver(null));
+			System.out.println(getTestParameters().getExecutionMode().name());
+			if (getTestParameters().getExecutionMode().name().equals("local")){
+			setWebDriver(DriverFactory.createInstanceWebDriver(null));}
+			else {
+				setWebDriver(DriverFactory.createInstanceWebDriver(getTestParameters()));
+			}
 		}
 		log.debug("Getting instance of remote driver" + webDriver.get().getClass());
 		WebDriver driver= webDriver.get();
 		    driver.manage().deleteAllCookies();
-		    driver.manage().window().maximize();
 		    SessionId session =  ((RemoteWebDriver) driver).getSessionId();
 		    sessionSet.add(session);
 		        return driver;
@@ -93,6 +91,7 @@ public class DriverManager {
 
 	public static void setWebDriver(WebDriver driver) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
 		DriverManager.webDriver.set(driver);
 	}
 

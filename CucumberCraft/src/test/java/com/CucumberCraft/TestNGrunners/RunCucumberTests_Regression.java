@@ -66,7 +66,7 @@ static Logger log;
 		generateCustomReports();
 		log.info("generating aggregate report for the scenario please check the \"Results Folder\"");
 		copyReportsAggregateReportFolder();
-		ImageToPdf.freeSmokePng();
+		//ImageToPdf.freeSmokePng();
 		copyReportsAndPdfFolder(scenario);
 		log.info("generating aggregate report for the scenario please check the \"Results Folder\"");
 		ImageToPdf.freeScreenshotFolder();
@@ -137,7 +137,7 @@ static Logger log;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		 ImageToPdf.freeSmokePng();
+		// ImageToPdf.freeSmokePng();
 			 
 }
 	public static void copyReportsAggregateReportFolder() {
@@ -169,7 +169,7 @@ static Logger log;
 			 catch(Exception e) {
 				    e.getMessage();
 				 }
-		 ImageToPdf.freeSmokePng();
+		// ImageToPdf.freeSmokePng();
 		
 }
 	

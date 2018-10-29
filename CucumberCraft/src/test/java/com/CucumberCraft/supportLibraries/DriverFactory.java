@@ -17,7 +17,6 @@ import com.experitest.selenium.MobileWebDriver;
  * @author Cognizant
  */
 public class DriverFactory {
-	static SeleniumTestParameters testParameters=new SeleniumTestParameters() ;
 	static Logger log = Logger.getLogger(DriverFactory.class);
 	private static Properties mobileProperties = Settings.getInstance();
 
@@ -69,9 +68,12 @@ public class DriverFactory {
 		return driver;
 	}
 
+	
 	public static WebDriver createInstanceWebDriver(SeleniumTestParameters testParameters) {
 		WebDriver driver = null;
 		try {
+		String execution=testParameters.getExecutionMode().getValue();
+	
 			switch (testParameters.getExecutionMode()) {
 
 			case LOCAL:
@@ -87,11 +89,15 @@ public class DriverFactory {
 				Browser browser=testParameters.getBrowser();
 				String Version=testParameters.getBrowserVersion();
 				Platform platform=testParameters.getPlatform();
+				System.out.println(browser.getValue());
+				System.out.println(Version);
+				System.out.println(platform.name());
 				break;
 
 
 			case PERFECTO:
 				driver = PerfectoDriverFactory.getPerfectoRemoteDriver(testParameters);
+				System.out.println(execution);
 				break;
 
 			case SAUCELABS:

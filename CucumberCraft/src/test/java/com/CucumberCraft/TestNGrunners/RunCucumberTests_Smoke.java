@@ -40,12 +40,12 @@ usageReport = true)
 */
 @CucumberOptions(features = "src/test/resources/features", 
 glue = { "com.CucumberCraft.stepDefinitions" }, 
-tags = { "@TestId_APS_45"},
+tags = { "@UserStory"},
 monochrome = true,
 plugin = {
     
 	"pretty", 
-	"pretty:target/cucumber-report/Smoke/pretty.txt",
+	"pretty:target/cucumber-report/screenshot/pretty.txt",
 	"html:target/cucumber-report/Smoke",
 	"json:target/cucumber-report/Smoke/cucumber.json",
 	"junit:target/cucumber-report/Smoke/cucumber-junitreport.xml",
@@ -71,6 +71,7 @@ static {
 	
 @AfterTest
 private void test() throws IOException {
+	
         Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
         /*Properties p = System.getProperties();
         p.list(System.out);*/
@@ -89,7 +90,6 @@ private void test() throws IOException {
 	copyReportsAndPdfFolder();
 	log.info("generating aggregate report for the scenario please check the \"Results Folder\"");
 	ImageToPdf.freeScreenshotFolder();
-	ImageToPdf.freeSmokePng();
     
 	
 	}
@@ -126,20 +126,9 @@ public static void copyReportsAndPdfFolder() {
 
 	
 	File sourceCucumber = new File(Util.getTargetPath());
-	File cucumberReportscreenShot = new File(Util.getTargetPath()+"\\screenshot\\");
+	//File cucumberReportscreenShot = new File(Util.getTargetPath()+"\\screenshot\\");
 	File cucumberReportSmoke= new File(Util.getTargetPath()+"\\Smoke\\");
-	try {
-		File[] listofAllFile = cucumberReportscreenShot.listFiles();
-		 for(File file : listofAllFile) {
-	     if(file.getName().endsWith(".pdf")) 
-		     {
-		      file.delete();
-		     }
-	      }
-		 }
-		 catch(Exception e) {
-			    e.getMessage();
-			 }
+	
 	
 	try{
 		 File[] listofAllFile = cucumberReportSmoke.listFiles();
@@ -192,7 +181,6 @@ public static void copyReportsAggregateReportFolder() throws IOException {
 			    e.getMessage();
 			 }
 	
-	 ImageToPdf.Addtxtfile();
 }
 
 

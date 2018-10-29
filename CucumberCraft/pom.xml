@@ -8,6 +8,14 @@
 	<version>3.0</version>
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
+	
+<!--repositories>
+ <repository>
+<id>Experitest.repo1</id>
+<url>http://repo.experitest.com:8010/Maven2/</url>
+</repository>
+</repositories-->
+
 <repositories>
 		<repository>
 			<id>central</id>

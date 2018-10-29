@@ -198,7 +198,7 @@ static Logger log;
 			return i.min;
 			 
 		 }
-		public static void freeSmokePng() {
+		/*public static void freeSmokePng() {
 			Path fPath=Paths.get(path);
 			
 			 File f=new File(fPath.toAbsolutePath().toString()+ "\\Smoke\\" );
@@ -214,47 +214,25 @@ static Logger log;
 			 catch(Exception e) {
 				    e.getMessage();
 				 }
-		}
+		}*/
 			public static void freeScreenshotFolder() {
 				Path fPath=Paths.get(path);
 				 File folder = new File(fPath.toAbsolutePath().toString()+"\\screenshot\\");
 			 try {
 			 File[] listFiles = folder.listFiles();
 				for(File file : listFiles){
-					 if(file.getName().endsWith(".pdf"))
-					{
+					 
 						 file.delete();
-						 }
+						 
 					
 				} }
 			catch(Exception e) {
 					    e.getMessage();
 					 }
 				}
-			
-			public static void Addtxtfile() throws IOException  {
-				// TODO Auto-generated method stub
-				Path fPath=Paths.get(path);
 		
-				 try {
-					 File file = new File(fPath.toAbsolutePath().toString()+"\\screenshot\\sample.txt");
-				     /*If file gets created then the createNewFile() 
-				      * method would return true or if the file is 
-				      * already present it would return false
-				      */
-			             boolean fvar = file.createNewFile();
-				     if (fvar){
-				          System.out.println("File has been created successfully");
-				     }
-				     else{
-				          System.out.println("File already present at the specified location");
-				     }
-			    	} catch (IOException e) {
-			    		System.out.println("Exception Occurred:");
-				        e.printStackTrace();
-				  }
 				 
-				}
+		
 			
 }
 			
