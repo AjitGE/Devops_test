@@ -2,48 +2,52 @@
 <testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Run Test Cukes" duration-ms="32672" started-at="2018-10-28T18:41:08Z" finished-at="2018-10-28T18:41:41Z">
+  <suite name="Run Test Cukes" duration-ms="106723" started-at="2018-10-29T08:40:12Z" finished-at="2018-10-29T08:41:59Z">
     <groups>
       <group name="cucumber">
         <method signature="AbstractTestNGCucumberTests.feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="feature" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test name="Smoke testing...." duration-ms="32672" started-at="2018-10-28T18:41:08Z" finished-at="2018-10-28T18:41:41Z">
+    <test name="Smoke testing...." duration-ms="106723" started-at="2018-10-29T08:40:12Z" finished-at="2018-10-29T08:41:59Z">
       <class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke">
-        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="setUpClass" is-config="true" duration-ms="501" started-at="2018-10-29T00:11:08Z" finished-at="2018-10-29T00:11:08Z">
+        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="setUpClass" is-config="true" duration-ms="756" started-at="2018-10-29T14:10:12Z" finished-at="2018-10-29T14:10:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method status="FAIL" signature="feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="feature" duration-ms="30521" started-at="2018-10-29T00:11:09Z" description="Runs Cucumber Feature" data-provider="features" finished-at="2018-10-29T00:11:39Z">
+        <test-method status="FAIL" signature="feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="feature" duration-ms="96258" started-at="2018-10-29T14:10:14Z" description="Runs Cucumber Feature" data-provider="features" finished-at="2018-10-29T14:11:50Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Demo_script]]>
+                <![CDATA[Promo_PST_TA Search box UI validation]]>
               </value>
             </param>
           </params>
           <exception class="cucumber.runtime.CucumberException">
             <message>
-              <![CDATA[org.openqa.selenium.WebDriverException: unknown error: Element <input value="Google Search" aria-label="Google Search" name="btnK" type="submit" jsaction="sf.chk"> is not clickable at point (444, 411). Other element would receive the click: <div class="sbqs_c">...</div>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//input[@id='ptextcode']"}
   (Session info: chrome=70.0.3538.67)
   (Driver info: chromedriver=2.43.600233 (523efee95e3d68b8719b3a1c83051aa63aa6b10d),platform=Linux 4.9.93-linuxkit-aufs x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.7.1', revision: '8a0099a', time: '2017-11-06T21:01:39.354Z'
 System info: host: 'AJIT-PC', ip: '10.0.75.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
 Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:34837}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: c66d79dc5983ad93e2464478780...}
-Session ID: c66d79dc5983ad93e246447878068eab]]>
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:36161}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: d94f1aa01ee9d7933ae34162876...}
+Session ID: d94f1aa01ee9d7933ae3416287610d6f
+*** Element info: {Using=xpath, value=//input[@id='ptextcode']}]]>
             </message>
             <full-stacktrace>
-              <![CDATA[cucumber.runtime.CucumberException: org.openqa.selenium.WebDriverException: unknown error: Element <input value="Google Search" aria-label="Google Search" name="btnK" type="submit" jsaction="sf.chk"> is not clickable at point (444, 411). Other element would receive the click: <div class="sbqs_c">...</div>
+              <![CDATA[cucumber.runtime.CucumberException: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//input[@id='ptextcode']"}
   (Session info: chrome=70.0.3538.67)
   (Driver info: chromedriver=2.43.600233 (523efee95e3d68b8719b3a1c83051aa63aa6b10d),platform=Linux 4.9.93-linuxkit-aufs x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.7.1', revision: '8a0099a', time: '2017-11-06T21:01:39.354Z'
 System info: host: 'AJIT-PC', ip: '10.0.75.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
 Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:34837}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: c66d79dc5983ad93e2464478780...}
-Session ID: c66d79dc5983ad93e246447878068eab
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:36161}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: d94f1aa01ee9d7933ae34162876...}
+Session ID: d94f1aa01ee9d7933ae3416287610d6f
+*** Element info: {Using=xpath, value=//input[@id='ptextcode']}
 	at cucumber.api.testng.TestNGCucumberRunner.runCucumber(TestNGCucumberRunner.java:69)
 	at cucumber.api.testng.AbstractTestNGCucumberTests.feature(AbstractTestNGCucumberTests.java:21)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -66,15 +70,17 @@ Session ID: c66d79dc5983ad93e246447878068eab
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: org.openqa.selenium.WebDriverException: unknown error: Element <input value="Google Search" aria-label="Google Search" name="btnK" type="submit" jsaction="sf.chk"> is not clickable at point (444, 411). Other element would receive the click: <div class="sbqs_c">...</div>
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//input[@id='ptextcode']"}
   (Session info: chrome=70.0.3538.67)
   (Driver info: chromedriver=2.43.600233 (523efee95e3d68b8719b3a1c83051aa63aa6b10d),platform=Linux 4.9.93-linuxkit-aufs x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.7.1', revision: '8a0099a', time: '2017-11-06T21:01:39.354Z'
 System info: host: 'AJIT-PC', ip: '10.0.75.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
 Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:34837}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: c66d79dc5983ad93e2464478780...}
-Session ID: c66d79dc5983ad93e246447878068eab
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:36161}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: d94f1aa01ee9d7933ae34162876...}
+Session ID: d94f1aa01ee9d7933ae3416287610d6f
+*** Element info: {Using=xpath, value=//input[@id='ptextcode']}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -86,32 +92,34 @@ Session ID: c66d79dc5983ad93e246447878068eab
 	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:600)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:279)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:370)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:472)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement$1.invoke(EventFiringWebDriver.java:376)
-	at com.sun.proxy.$Proxy23.click(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.click(EventFiringWebDriver.java:389)
-	at com.CucumberCraft.stepDefinitions.Browser_Excel_StepDef.user_search_for_keyword(Browser_Excel_StepDef.java:59)
-	at ✽.Then user search for keyword "#Keyword"(Google_Search_launch.feature:18)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:109)
+	at com.sun.proxy.$Proxy22.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:193)
+	at com.CucumberCraft.stepDefinitions.UserStory_US859342.user_validates_searchbox_named_is_present_on_the_page(UserStory_US859342.java:24)
+	at ✽.And user validates searchbox named " Promo / PST / TA Code " is present on the page(ITR1_UserStory_US859342.feature:7)
 ]]>
             </full-stacktrace>
           </exception> <!-- cucumber.runtime.CucumberException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- feature -->
-        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="tearDownClass" is-config="true" duration-ms="743" started-at="2018-10-29T00:11:39Z" finished-at="2018-10-29T00:11:40Z">
+        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="tearDownClass" is-config="true" duration-ms="5503" started-at="2018-10-29T14:11:50Z" finished-at="2018-10-29T14:11:55Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
-        <test-method status="PASS" signature="test()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="test" is-config="true" duration-ms="630" started-at="2018-10-29T00:11:40Z" finished-at="2018-10-29T00:11:41Z">
+        <test-method status="PASS" signature="test()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="test" is-config="true" duration-ms="3897" started-at="2018-10-29T14:11:55Z" finished-at="2018-10-29T14:11:59Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-        <test-method status="PASS" signature="copyStoredReports()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="copyStoredReports" is-config="true" duration-ms="1" started-at="2018-10-29T00:11:41Z" finished-at="2018-10-29T00:11:41Z">
+        <test-method status="PASS" signature="copyStoredReports()[pri:0, instance:com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke@1ddf84b8]" name="copyStoredReports" is-config="true" duration-ms="3" started-at="2018-10-29T14:12:00Z" finished-at="2018-10-29T14:12:00Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- copyStoredReports -->

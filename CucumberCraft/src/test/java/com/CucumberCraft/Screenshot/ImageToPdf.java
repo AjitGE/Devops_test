@@ -45,17 +45,18 @@ static Logger log;
             Font.NORMAL, BaseColor.GREEN);
    // private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
     //private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.BOLD);
-	
+
 	public static void createPdf() {
+		   System.out.println("path:"+path );
         try {
-        	log.warn("Created pdf .....");
-        	log.warn("Created pdf .....");
-        	log.warn("Created pdf .....");
+        	log.warn("pdf creation is in progress .....");
+        	
         	 Path fPath=Paths.get(path);
             Document document = new Document();
             for(String tag: tags) {
             	if(tag.startsWith("@TestId")) {
             pdfPath=fPath.toAbsolutePath().toString()+"\\screenshot\\"+tag.replace("@","")+"_"+Util.getCurrentTime().toString().replace(" ","_").replace(":","_")+".pdf";
+            System.out.println("pdfPath:"+pdfPath );
             }
             }
             ImageToPdf i=new ImageToPdf();
@@ -69,10 +70,11 @@ static Logger log;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        log.warn("Created test pdf for test case: "+scenario.getName());
     }
 	private  void addImage(Document document) throws MalformedURLException, IOException, DocumentException {
 		 Path fPath=Paths.get(path);
-		
+		 System.out.println("path in add image:"+path );
 		if(noOfPng()>0) {
 		for (int i=getEmbeddedImageMin(); i<=getEmbeddedImageMax() ; i++)
 		{
