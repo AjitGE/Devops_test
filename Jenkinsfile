@@ -57,12 +57,13 @@ pipeline {
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
                                 reportDir: 'CucumberCraft/', 
-                                reportFiles: '**/index.html', 
+                                reportFiles: '**/report.html', 
                                 reportName: 'Test Report', 
                                 reportTitles: ''])
                                 cucumber fileIncludePattern: '**/*.json',
                                 jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
                                 parallelTesting: true
+                                findFiles glob: '**/*.pdf'
                 }
             }
         }
