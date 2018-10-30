@@ -40,7 +40,7 @@ usageReport = true)
 */
 @CucumberOptions(features = "src/test/resources/features", 
 glue = { "com.CucumberCraft.stepDefinitions" }, 
-tags = { "@UserStory"},
+tags = { "@TestId_APS_22"},
 monochrome = true,
 plugin = {
     
@@ -125,22 +125,7 @@ public static void copyReportsAndPdfFolder() {
 
 	
 	File sourceCucumber = new File(Util.getTargetPath());
-	//File cucumberReportscreenShot = new File(Util.getTargetPath()+"\\screenshot\\");
-	File cucumberReportSmoke= new File(Util.getTargetPath()+Util.getFileSeparator()+"Smoke");
-	
-	
-	try{
-		 File[] listofAllFile = cucumberReportSmoke.listFiles();
-		 for(File file : listofAllFile) {
-	     if(file.getName().endsWith(".png")) 
-		     {
-		      file.delete();
-		     }
-	      }
-		 }
-		 catch(Exception e) {
-			    e.getMessage();
-			 }
+	ImageToPdf.freeSmokePng();
 	 
 	 try {
 			FileUtils.copyDirectory(sourceCucumber, destCucumber);

@@ -1,41 +1,27 @@
 package com.CucumberCraft.API;
 
 import io.restassured.RestAssured;
-import io.restassured.http.Method;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.response.ResponseBodyData;
-import io.restassured.response.ResponseBodyExtractionOptions;
-import io.restassured.specification.RequestSpecification;
-
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
 
-
-import java.util.List;
-
+import com.CucumberCraft.Screenshot.ImageToPdf;
 
 
 public class ServicesCalls {
-public static void main(String[] args) {
-
 	
-		RestAssured.baseURI="https://loyalty.qa.esoa.qcorpaa.aa.com";
-		RestAssured.useRelaxedHTTPSValidation();
-		ResponseBody response=given().
-		queryParam("q", "PST:code").
-		queryParam("project","apt").
-		queryParam("format","json").
-		auth().basic("S1013168","ADEA*Q5uAYJYS").
-		when().get("/api/ewcm/v1/$").
-		then().assertThat().body("results.assets.metadata.Promotionid.",equalTo("RVGLD")).and().statusCode(200).and().extract().response();
+public static void restcalls(){
 	
-	    
-		 
-		 
-		
-	}
+RestAssured.baseURI="https://loyalty.qa.esoa.qcorpaa.aa.com";
+RestAssured.useRelaxedHTTPSValidation();
+String response=given().
+queryParam("q", "PST:code").
+queryParam("project","apt").
+queryParam("format","json").
+auth().basic("S1013168","ADEA*Q5uAYJYS").
+when().get("/api/ewcm/v1/$").
+then().extract().response().getBody().asString();
+System.out.println("response :"+ response);
+ImageToPdf.restResponse=response;
 
+}
 
 }

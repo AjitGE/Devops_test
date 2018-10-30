@@ -1,1 +1,0 @@
-Feature: Promo_PST_TA Search box UI validation

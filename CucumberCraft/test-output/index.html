@@ -102,7 +102,7 @@
                     <div class="method-list-content failed suite-Run_Test_Cukes">
                       <span>
                         <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Run_Test_Cukes" title="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" hash-for-method="feature(Promo_PST_TA Search box UI validation)">feature(Promo_PST_TA Search box UI validation)</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Run_Test_Cukes" title="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" hash-for-method="feature(Restcall and Promo box field validation for multiple or single)">feature(Restcall and Promo box field validation for multiple or single)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Run_Test_Cukes -->
@@ -125,54 +125,56 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="feature(Promo_PST_TA Search box UI validation)">
-                  </a> <!-- feature(Promo_PST_TA Search box UI validation) -->
+                  <a name="feature(Restcall and Promo box field validation for multiple or single)">
+                  </a> <!-- feature(Restcall and Promo box field validation for multiple or single) -->
                   <span class="method-name">feature</span>
-                  <span class="parameters">(Promo_PST_TA Search box UI validation)</span>
-                  <div class="stack-trace">cucumber.runtime.CucumberException: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@id=&apos;ptextcode&apos;]&quot;}
-  (Session info: chrome=70.0.3538.67)
-  (Driver info: chromedriver=2.43.600233 (523efee95e3d68b8719b3a1c83051aa63aa6b10d),platform=Linux 4.9.93-linuxkit-aufs x86_64) (WARNING: The server did not provide any stacktrace information)
+                  <span class="parameters">(Restcall and Promo box field validation for multiple or single)</span>
+                  <div class="stack-trace">cucumber.runtime.CucumberException: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;id&quot;,&quot;selector&quot;:&quot;userLoginId&quot;}
+  (Session info: chrome=70.0.3538.77)
+  (Driver info: chromedriver=2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7),platform=Windows NT 10.0.17134 x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;3.7.1&apos;, revision: &apos;8a0099a&apos;, time: &apos;2017-11-06T21:01:39.354Z&apos;
-System info: host: &apos;AJIT-PC&apos;, ip: &apos;10.79.100.73&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_171&apos;
-Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:35919}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: 0f4132870df7a78bd2bdd8bf1dc...}
-Session ID: 0f4132870df7a78bd2bdd8bf1dc01845
-*** Element info: {Using=xpath, value=//input[@id=&apos;ptextcode&apos;]}
+System info: host: &apos;AJIT-PC&apos;, ip: &apos;10.79.100.76&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_171&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.37.544315 (730aa6a5fdba15..., userDataDir: C:\Users\Ajit\AppData\Local...}, cssSelectorsEnabled: true, databaseEnabled: false, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.77, webStorageEnabled: true}
+Session ID: 60f15c14bd58d4c99fc194c16610909e
+*** Element info: {Using=id, value=userLoginId}
 	at cucumber.api.testng.TestNGCucumberRunner.runCucumber(TestNGCucumberRunner.java:69)
 	at cucumber.api.testng.AbstractTestNGCucumberTests.feature(AbstractTestNGCucumberTests.java:21)
 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@id=&apos;ptextcode&apos;]&quot;}
-  (Session info: chrome=70.0.3538.67)
-  (Driver info: chromedriver=2.43.600233 (523efee95e3d68b8719b3a1c83051aa63aa6b10d),platform=Linux 4.9.93-linuxkit-aufs x86_64) (WARNING: The server did not provide any stacktrace information)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;id&quot;,&quot;selector&quot;:&quot;userLoginId&quot;}
+  (Session info: chrome=70.0.3538.77)
+  (Driver info: chromedriver=2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7),platform=Windows NT 10.0.17134 x86_64) (WARNING: The server did not provide any stacktrace information)
 Command duration or timeout: 0 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;3.7.1&apos;, revision: &apos;8a0099a&apos;, time: &apos;2017-11-06T21:01:39.354Z&apos;
-System info: host: &apos;AJIT-PC&apos;, ip: &apos;10.79.100.73&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_171&apos;
-Driver info: org.openqa.selenium.remote.RemoteWebDriver
-Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.43.600233 (523efee95e3d68..., userDataDir: /tmp/.org.chromium.Chromium...}, cssSelectorsEnabled: true, databaseEnabled: false, goog:chromeOptions: {debuggerAddress: localhost:35919}, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.67, webStorageEnabled: true, webdriver.remote.sessionid: 0f4132870df7a78bd2bdd8bf1dc...}
-Session ID: 0f4132870df7a78bd2bdd8bf1dc01845
-*** Element info: {Using=xpath, value=//input[@id=&apos;ptextcode&apos;]}
+System info: host: &apos;AJIT-PC&apos;, ip: &apos;10.79.100.76&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_171&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, acceptSslCerts: false, applicationCacheEnabled: false, browserConnectionEnabled: false, browserName: chrome, chrome: {chromedriverVersion: 2.37.544315 (730aa6a5fdba15..., userDataDir: C:\Users\Ajit\AppData\Local...}, cssSelectorsEnabled: true, databaseEnabled: false, handlesAlerts: true, hasTouchScreen: false, javascriptEnabled: true, locationContextEnabled: true, mobileEmulationEnabled: false, nativeEvents: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, rotatable: false, setWindowRect: true, takesHeapSnapshot: true, takesScreenshot: true, unexpectedAlertBehaviour: , unhandledPromptBehavior: , version: 70.0.3538.77, webStorageEnabled: true}
+Session ID: 60f15c14bd58d4c99fc194c16610909e
+*** Element info: {Using=id, value=userLoginId}
 	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:214)
 	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:166)
 	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
 	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:80)
 	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:44)
 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:600)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:370)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:472)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:416)
+	at org.openqa.selenium.By$ById.findElement(By.java:218)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
 	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:109)
 	at com.sun.proxy.$Proxy22.findElement(Unknown Source)
 	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:193)
-	at com.CucumberCraft.stepDefinitions.UserStory_US859342.user_validates_searchbox_named_is_present_on_the_page(UserStory_US859342.java:24)
-	at ✽.And user validates searchbox named &quot; Promo / PST / TA Code &quot; is present on the page(ITR1_UserStory_US859342.feature:7)
+	at com.CucumberCraft.stepDefinitions.Browser_Excel_StepDef.user_login_to_APT(Browser_Excel_StepDef.java:97)
+	at com.CucumberCraft.stepDefinitions.Browser_Excel_StepDef.user_launches_browser_with_url(Browser_Excel_StepDef.java:31)
+	at ✽.Then user launches browser with url &quot;#TestUrl&quot;(serviceTestFile.feature:7)
 ... Removed 24 stack frames
 </div> <!-- stack-trace -->
                   <em>
@@ -196,7 +198,7 @@ Session ID: 0f4132870df7a78bd2bdd8bf1dc01845
   &lt;/listeners&gt;
   &lt;test name=&quot;Smoke testing....&quot;&gt;
     &lt;parameter name=&quot;BrowserName&quot; value=&quot;CHROME&quot;/&gt;
-    &lt;parameter name=&quot;ExecutionMode&quot; value=&quot;REMOTE&quot;/&gt;
+    &lt;parameter name=&quot;ExecutionMode&quot; value=&quot;LOCAL&quot;/&gt;
     &lt;classes&gt;
       &lt;class name=&quot;com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke&quot;/&gt;
     &lt;/classes&gt;
@@ -250,12 +252,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'feature')
 data.setCell(0, 2, 'com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke')
-data.setCell(0, 3, 214451);
+data.setCell(0, 3, 58014);
 window.suiteTableData['Run_Test_Cukes']= { tableData: data, tableDiv: 'times-div-Run_Test_Cukes'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 3 minutes</span>
+              <span class="suite-total-time">Total running time: 58 seconds</span>
               <div id="times-div-Run_Test_Cukes">
               </div> <!-- times-div-Run_Test_Cukes -->
             </div> <!-- times-div -->
@@ -289,20 +291,20 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">feature(Promo_PST_TA Search box UI validation)</span>
-                <span class="method-start">1039 ms</span>
+                <span class="method-name">feature(Restcall and Promo box field validation for multiple or single)</span>
+                <span class="method-start">2353 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-class after">
                 <span class="method-name">tearDownClass</span>
-                <span class="method-start">215494 ms</span>
+                <span class="method-start">60387 ms</span>
               </div> <!-- configuration-class after -->
               <div class="configuration-test after">
                 <span class="method-name">test</span>
-                <span class="method-start">216638 ms</span>
+                <span class="method-start">62925 ms</span>
               </div> <!-- configuration-test after -->
               <div class="configuration-suite after">
                 <span class="method-name">copyStoredReports</span>
-                <span class="method-start">217851 ms</span>
+                <span class="method-start">64991 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

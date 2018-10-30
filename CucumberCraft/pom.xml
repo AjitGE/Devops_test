@@ -9,14 +9,11 @@
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 	
-<!--repositories>
+<repositories>
  <repository>
 <id>Experitest.repo1</id>
 <url>http://repo.experitest.com:8010/Maven2/</url>
 </repository>
-</repositories-->
-
-<repositories>
 		<repository>
 			<id>central</id>
 			<layout>default</layout>
@@ -35,7 +32,7 @@
 			<id>central</id>
 			<layout>default</layout>
 			<url>https://nexushdq.aa.com/repository/maven-central/</url>
-			<!--<releases><enabled>true</enabled></releases> -->
+			<!--<releases><enabled>true</enabled></releases-->
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -208,7 +205,7 @@
         <dependency>
 			<groupId>com.experitest</groupId>
 			<artifactId>seetest-client</artifactId>
-			<version>10.4</version>
+			<version>11.0</version>
 		</dependency>
 		
 		<dependency>

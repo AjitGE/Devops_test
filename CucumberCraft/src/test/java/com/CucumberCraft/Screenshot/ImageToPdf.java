@@ -10,9 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-
 import org.apache.log4j.Logger;
-
 import com.CucumberCraft.supportLibraries.SeleniumTestParameters;
 import com.CucumberCraft.supportLibraries.Util;
 import com.itextpdf.text.BaseColor;
@@ -30,6 +28,8 @@ public class ImageToPdf {
 	private static String path = Util.getTargetPath();
 	static Scenario scenario;
 	static String pdfPath;
+	public static String restResponse;
+	
 	int max;
     int min;
     static SeleniumTestParameters testparameters =new SeleniumTestParameters();
@@ -45,8 +45,8 @@ static Logger log;
             Font.NORMAL, BaseColor.RED);
     private static Font greenFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.NORMAL, BaseColor.GREEN);
-   // private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
-    //private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.BOLD);
+    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.BOLD);
 
 	public static void createPdf() {
 		   System.out.println("path:"+path );
@@ -66,7 +66,11 @@ static Logger log;
             document.open();
             addTitlePage(document);
             addStepText(document);
+            AddResponseToPdf(document);
             i.addImage(document);
+            
+            
+          
            
             document.close();
         } catch (Exception e) {
@@ -76,7 +80,11 @@ static Logger log;
     }
 	private  void addImage(Document document) throws MalformedURLException, IOException, DocumentException {
 		 Path fPath=Paths.get(path);
+		 Paragraph preface = new Paragraph();
+		 addEmptyLine(preface, 1);
+		 preface.add(new Paragraph("Screenshots : ",subFont));
 		 System.out.println("path in add image:"+path );
+		 
 		if(noOfPng()>0) {
 		for (int i=getEmbeddedImageMin(); i<=getEmbeddedImageMax() ; i++)
 		{
@@ -86,6 +94,7 @@ static Logger log;
 			
 	      Image image = Image.getInstance(IMG) ;   
           image.scaleToFit(500,500);
+          document.add(preface);
 	      document.add(image); 
 	     
 		}
@@ -204,23 +213,24 @@ static Logger log;
 			return i.min;
 			 
 		 }
-		/*public static void freeSmokePng() {
-			Path fPath=Paths.get(path);
+		public static void freeSmokePng() {
+		
+			File cucumberReportSmoke= new File(Util.getTargetPath()+Util.getFileSeparator()+"Smoke");
 			
-			 File f=new File(fPath.toAbsolutePath().toString()+ "\\Smoke\\" );
+			
 			try{
-			 File[] listofFiles = f.listFiles();
-			 for(File file : listofFiles) {
-		     if(file.getName().endsWith(".png")) 
-			     {
-			      file.delete();
-			     }
-		      }
-			 }
-			 catch(Exception e) {
-				    e.getMessage();
+				 File[] listofAllFile = cucumberReportSmoke.listFiles();
+				 for(File file : listofAllFile) {
+			     if(file.getName().endsWith(".png")) 
+				     {
+				      file.delete();
+				     }
+			      }
 				 }
-		}*/
+				 catch(Exception e) {
+					    e.getMessage();
+					 }
+		}
 			public static void freeScreenshotFolder() {
 				Path fPath=Paths.get(path);
 				 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"screenshot");
@@ -236,10 +246,22 @@ static Logger log;
 					    e.getMessage();
 					 }
 				}
-		
-				 
-		
-			
+			public static void AddResponseToPdf(Document document) throws DocumentException  {
+				if(restResponse!=null){
+					Paragraph preface = new Paragraph();
+					addEmptyLine(preface, 1);
+			 preface.add(new Paragraph("Body of rest call : ",subFont));
+			 preface.add(new Paragraph(restResponse,smallBold));
+				document.add(preface);
+				}	
+				else {
+					Paragraph preface = new Paragraph();
+					addEmptyLine(preface, 1);
+					preface.add(new Paragraph("Body of rest call : Service call failed!! nothing to display"));
+					document.add(preface);
+				}
+			}
+				
 }
 			
 

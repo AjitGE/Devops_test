@@ -9,6 +9,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+
+import com.CucumberCraft.API.ServicesCalls;
 import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
 import com.CucumberCraft.JSONparser.JsonParser;
 import com.CucumberCraft.Screenshot.ScreenshotTaker;
@@ -31,11 +33,11 @@ public class UserStory_US859355 {
 
 	@Given("^user launch the Json url \"([^\"]*)\"$")
 	public void user_launch_the_Json_url(String arg1) throws Throwable {
+}
+	@Given("^user perform a restcalls$")
+	public void user_perform_a_restcalls() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		String obtainedData=DataSourceDecider.dataFinder(arg1);
-		jsonData=JsonParser.parser(obtainedData);
-		System.out.println(jsonData);
-		
+		ServicesCalls.restcalls();
 	}
 
 	@Given("^user verifies the UI with respect to Json$")

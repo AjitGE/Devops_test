@@ -124,6 +124,7 @@ public class CukeHooks extends MasterStepDefs {
 	public void embedScreenshot(Scenario scenario) {
 		ImageToPdf.ScenarioStatus(scenario);
 		ImageToPdf.createPdf();
+		ImageToPdf.freeSmokePng();
 		try {
 			if (Boolean.valueOf(properties.getProperty("TrackIssuesInJira"))) {
 				updateDefectInJira(scenario);
