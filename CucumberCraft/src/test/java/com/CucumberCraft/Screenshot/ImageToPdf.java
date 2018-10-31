@@ -83,6 +83,7 @@ static Logger log;
 		 Paragraph preface = new Paragraph();
 		 addEmptyLine(preface, 1);
 		 preface.add(new Paragraph("Screenshots : ",subFont));
+		 document.add(preface);
 		 System.out.println("path in add image:"+path );
 		 
 		if(noOfPng()>0) {
@@ -94,7 +95,6 @@ static Logger log;
 			
 	      Image image = Image.getInstance(IMG) ;   
           image.scaleToFit(500,500);
-          document.add(preface);
 	      document.add(image); 
 	     
 		}
