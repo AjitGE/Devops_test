@@ -56,7 +56,7 @@ pipeline {
                     publishHTML([allowMissing: false,
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
-                                reportDir: 'CucumberCraft/', 
+                                reportDir: 'CucumberCraft/Results/', 
                                 reportFiles: '**/report.html', 
                                 reportName: 'Test Report', 
                                 reportTitles: ''])
