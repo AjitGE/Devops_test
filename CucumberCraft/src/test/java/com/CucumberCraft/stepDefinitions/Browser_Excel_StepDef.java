@@ -28,7 +28,7 @@ public class Browser_Excel_StepDef {
 	    String ObtainedUrl=DataSourceDecider.urlFinder(url);
 	    driver=ScreenshotTaker.getScreenshot();
         driver.get(ObtainedUrl);
-        user_login_to_APT();
+       
         
 	}
 	
@@ -92,7 +92,7 @@ public class Browser_Excel_StepDef {
  
 		}
 	
-	@Then("^user login to APT$")
+	@Then("^user login to AA SSO$")
 		public void user_login_to_APT() throws Throwable {
 		driver.findElement(By.id("userLoginId")).sendKeys("893377");
 		driver.findElement(By.id("userPassword")).sendKeys("#21Lakh@2018");
