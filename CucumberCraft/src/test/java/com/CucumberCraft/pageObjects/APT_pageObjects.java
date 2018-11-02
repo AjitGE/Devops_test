@@ -5,7 +5,7 @@ package com.CucumberCraft.pageObjects;
 public class APT_pageObjects {
 	private static  String searchbox ="//input[@id='ptextcode']";
 	private static  String searchBoxLabel="//input[@type='search']/ancestor::div/label[.=' Promo / PST / TA Code ']";
-	private static  String magnifierIcon="//div/input[@id='ptextcode']/parent::div/span/button[@type='submit']";
+	private static  String magnifierIcon="//button[@id='sc_glass_button']";
 	private static  String CheckboxName="//input[@type='checkbox']/parent::label[.=' Current promos only ']";
 	private static  String chechkbox="//input[@type='checkbox']";
 	private static  String messages="//input[@id='ptextcode']/parent::div/preceding-sibling::em[.='Required']";
