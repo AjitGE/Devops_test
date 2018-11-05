@@ -70,7 +70,7 @@ pipeline {
     }
     post {
         always {
-            //deleteDir()
+            deleteDir()
             /*script {
                 notifyMe {
                     mode="slackAndEmail"
