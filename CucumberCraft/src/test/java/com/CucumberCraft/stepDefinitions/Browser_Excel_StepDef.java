@@ -28,7 +28,13 @@ public class Browser_Excel_StepDef {
 	    String ObtainedUrl=DataSourceDecider.urlFinder(url);
 	    driver=ScreenshotTaker.getScreenshot();
         driver.get(ObtainedUrl);
-       
+        String SSOUrl=driver.getCurrentUrl();
+        if(SSOUrl.contains("https://smlogin.stage.aa.com")){
+        	user_login_to_APT();
+        }
+        else{
+        	log.info("Skipping American airline SSO login due to the stored cache in browser");
+        }
         
 	}
 	

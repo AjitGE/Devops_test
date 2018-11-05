@@ -4,7 +4,6 @@ Feature: Promo_PST_TA Search box UI validation
   Scenario: Verify search label name is Promo_PST_TA Code
     Given user loads the data from "excel" located at "src\test\resources\Fixture\Promo_DB_Data.xlsx"
     Then user launches browser with url "#TestUrl"
-    Then user login to AA SSO
     And user validates searchbox named " Promo / PST / TA Code " is present on the page
     And user validates searchbox named " Promo / PST / TA Code " is "enabled"
 
