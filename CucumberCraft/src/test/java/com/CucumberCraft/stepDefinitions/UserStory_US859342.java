@@ -5,6 +5,9 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
@@ -100,9 +103,11 @@ public class UserStory_US859342 {
 			@Given("^user clicks on the search button$")
 			public void user_clicks_on_the_search_button() throws Throwable {
 				String name = null;
+				WebDriverWait wait = new WebDriverWait(driver, 10); 
+				WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(APT_pageObjects.getMagnifiericon(name))));
 			    // Write code here that turns the phrase above into concrete actions
-				driver.findElement(By.xpath(APT_pageObjects.getMagnifiericon(name))).click();
-				 log.info("User clicks the button");	
+				element.click();
+				 log.info("User clicks the button"+element.getText());	
 			}
 
 			@Given("^user validates the error message \"([^\"]*)\" on the page$")

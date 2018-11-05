@@ -175,7 +175,7 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 		log.info("An Exception has been occureed on the page : " +arg1.getTitle()+" browser will closed soon"); 
 		
 		log.info(arg0.getMessage());
-		arg1.close();
+		//arg1.close();
 	}
 
 
