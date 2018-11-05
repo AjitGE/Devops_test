@@ -56,8 +56,8 @@ public class ExcelReadWrite {
 	public static void getTestId() throws Exception {
 		boolean b=false;
 		for (int i=0; i<tags.size();i++) {
+			
 			if(tags.get(i).contains("TestId")) {
-				
 			  testIdNumber.add(tags.get(i).substring(8));
 			  b=true;
 			 }

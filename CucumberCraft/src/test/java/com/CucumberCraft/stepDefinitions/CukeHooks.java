@@ -22,6 +22,8 @@ import com.CucumberCraft.supportLibraries.RestApiForJira;
 import com.CucumberCraft.supportLibraries.SeleniumTestParameters;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
+
 import com.CucumberCraft.ExcelReadWrite.ExcelReadWrite;
 import com.CucumberCraft.Screenshot.ImageToPdf;
 import com.CucumberCraft.supportLibraries.Settings;
@@ -122,9 +124,23 @@ public class CukeHooks extends MasterStepDefs {
 	@SuppressWarnings("rawtypes")
 	@After
 	public void embedScreenshot(Scenario scenario) {
+		ExcelReadWrite.tags.clear();
+		ExcelReadWrite.testIdNumber.clear();
 		ImageToPdf.ScenarioStatus(scenario);
 		ImageToPdf.createPdf();
 		ImageToPdf.freeSmokePng();
+		log.info("Test case status : "+scenario.getStatus());
+		log.info("\"" +scenario.getName().toString()+"\""+ " testing completed");
+		WebDriver driver1 =DriverManager.getWebDriver();
+		   SessionId session =  ((RemoteWebDriver) driver1).getSessionId();
+		log.info("closing all opened session of browser :"+ DriverManager.sessionSet);
+		for(SessionId s: DriverManager.sessionSet ) 
+		{
+	   if(session.equals(s)) {
+		   driver1.quit();
+		   log.info("closing session "+s+" of browser");
+}
+		}
 		try {
 			if (Boolean.valueOf(properties.getProperty("TrackIssuesInJira"))) {
 				updateDefectInJira(scenario);
