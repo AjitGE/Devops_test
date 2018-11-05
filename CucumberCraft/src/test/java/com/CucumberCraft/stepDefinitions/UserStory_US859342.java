@@ -1,5 +1,7 @@
 package com.CucumberCraft.stepDefinitions;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -102,12 +104,12 @@ public class UserStory_US859342 {
 
 			@Given("^user clicks on the search button$")
 			public void user_clicks_on_the_search_button() throws Throwable {
+				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 				String name = null;
-				WebDriverWait wait = new WebDriverWait(driver, 10); 
-				WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(APT_pageObjects.getMagnifiericon(name))));
-			    // Write code here that turns the phrase above into concrete actions
+				WebElement element=driver.findElement(By.xpath(APT_pageObjects.getMagnifiericon(name)));
 				element.click();
-				 log.info("User clicks the button"+element.getText());	
+			
+				 log.info("User clicks the button");	
 			}
 
 			@Given("^user validates the error message \"([^\"]*)\" on the page$")
