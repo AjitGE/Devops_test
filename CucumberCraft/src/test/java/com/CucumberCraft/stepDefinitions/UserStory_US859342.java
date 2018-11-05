@@ -106,10 +106,10 @@ public class UserStory_US859342 {
 			public void user_clicks_on_the_search_button() throws Throwable {
 				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 				String name = null;
-				WebElement element=driver.findElement(By.xpath(APT_pageObjects.getMagnifiericon(name)));
+				WebDriverWait wait = new WebDriverWait(driver, 10); 
+				WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(APT_pageObjects.getMagnifiericon(name))));
 				element.click();
-			
-				 log.info("User clicks the button");	
+				 log.info("User clicks the button"+element.getText());	
 			}
 
 			@Given("^user validates the error message \"([^\"]*)\" on the page$")
