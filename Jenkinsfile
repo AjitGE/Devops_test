@@ -51,7 +51,7 @@ pipeline {
             }
             post{
                 always{
-                   // deleteDir()
+                   //deleteDir()
                     sh "docker stop docker_standalone_ly-apt_chrome"
                     publishHTML([allowMissing: false,
                                 alwaysLinkToLastBuild: true,
@@ -63,14 +63,14 @@ pipeline {
                                 cucumber fileIncludePattern: '**/*.json',
                                 jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
                                 parallelTesting: true
-                                findFiles glob: '**/*.pdf'
+                    
                 }
             }
         }
     }
     post {
         always {
-            deleteDir()
+            //deleteDir()
             /*script {
                 notifyMe {
                     mode="slackAndEmail"
