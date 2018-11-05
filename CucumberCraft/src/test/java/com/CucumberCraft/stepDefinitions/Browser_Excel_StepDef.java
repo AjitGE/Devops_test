@@ -22,12 +22,13 @@ import cucumber.api.java.en.Then;
 
 public class Browser_Excel_StepDef {
 	static Logger log = LogManager.getLogger("Test_Steps.class");
-	WebDriver driver;
+	static WebDriver driver;
 	@Given("^user launches browser with url \"([^\"]*)\"$")
 	public void user_launches_browser_with_url(String url) throws Throwable {
 	    String ObtainedUrl=DataSourceDecider.urlFinder(url);
 	    driver=ScreenshotTaker.getScreenshot();
         driver.get(ObtainedUrl);
+        driver.manage().window().maximize();
         String SSOUrl=driver.getCurrentUrl();
         if(SSOUrl.contains("https://smlogin.stage.aa.com")){
         	user_login_to_APT();
@@ -106,6 +107,26 @@ public class Browser_Excel_StepDef {
 		
 	}
 
+	public static void waitForPageToBeReady() 
+	{
+	    JavascriptExecutor js = (JavascriptExecutor)driver;
+
+	    //This loop will rotate for 100 times to check If page Is ready after every 1 second.
+	    //You can replace your if you wants to Increase or decrease wait time.
+	    for (int i=0; i<400; i++)
+	    { 
+	        try 
+	        {
+	            Thread.sleep(1000);
+	        }catch (InterruptedException e) {} 
+	        //To check page ready state.
+
+	        if (js.executeScript("return document.readyState").toString().equals("complete"))
+	        { 
+	            break; 
+	        }   
+	      }
+	 }
 		
 
 

@@ -1,6 +1,6 @@
 package com.CucumberCraft.stepDefinitions;
 
-import java.util.concurrent.TimeUnit;
+
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,14 +15,14 @@ import org.testng.Assert;
 import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
 import com.CucumberCraft.Screenshot.ScreenshotTaker;
 import com.CucumberCraft.pageObjects.APT_pageObjects;
-
+import com.CucumberCraft.stepDefinitions.Browser_Excel_StepDef;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 
 public class UserStory_US859342 {
 	static Logger log =LogManager.getLogger(UserStory_US859342.class);
-	WebDriver driver=ScreenshotTaker.getScreenshot();
+	static WebDriver driver=ScreenshotTaker.getScreenshot();
 	@Then("^user validates searchbox named \"([^\"]*)\" is present on the page$")
 	public void user_validates_searchbox_named_is_present_on_the_page(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
@@ -104,7 +104,7 @@ public class UserStory_US859342 {
 
 			@Given("^user clicks on the search button$")
 			public void user_clicks_on_the_search_button() throws Throwable {
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				Browser_Excel_StepDef.waitForPageToBeReady();
 				String name = null;
 				WebDriverWait wait = new WebDriverWait(driver, 10); 
 				WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(APT_pageObjects.getMagnifiericon(name))));
@@ -138,6 +138,9 @@ public class UserStory_US859342 {
 				Assert.assertEquals(driver.findElement(By.tagName(APT_pageObjects.getNoResponseMessage())).getText(), arg1);
 			
 			}
+			
+
+		
 
 	}
 	    
