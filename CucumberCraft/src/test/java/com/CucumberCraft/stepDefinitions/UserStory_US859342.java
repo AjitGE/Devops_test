@@ -96,6 +96,7 @@ public class UserStory_US859342 {
 	
 			@Given("^user enters the Promo code \"([^\"]*)\" in Search box named \"([^\"]*)\"$")
 			public void user_enters_the_Promo_code_in_Search_box_named(String arg1, String arg2) throws Throwable {
+				Browser_Excel_StepDef.waitForPageToBeReady();
 				String Obtaineddata =DataSourceDecider.dataFinder(arg1);
 				
 			    driver.findElement(By.xpath(APT_pageObjects.getSearchbox(Obtaineddata))).sendKeys(Obtaineddata);
