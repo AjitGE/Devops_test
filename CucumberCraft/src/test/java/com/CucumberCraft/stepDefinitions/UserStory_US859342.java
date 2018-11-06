@@ -149,7 +149,7 @@ public class UserStory_US859342 {
 				Assert.assertEquals(driver.findElement(By.tagName(APT_pageObjects.getNoResponseMessage())).getText(), arg1);
 			
 			}
-			@Then("^Wait for the page to load$")
+		
 			public  void waitForPageToBeReady() {
 				
 			    JavascriptExecutor js = (JavascriptExecutor)driver;

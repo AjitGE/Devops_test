@@ -108,7 +108,7 @@ public class Browser_Excel_StepDef {
 		driver.findElement(By.xpath("//button[@value='Login']")).click();
 		
 	}
-	@Then("^Wait for the page to load$")
+
 	public  void waitForPageToBeReady() {
 		
 	    JavascriptExecutor js = (JavascriptExecutor)driver;
