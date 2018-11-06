@@ -21,8 +21,9 @@ import cucumber.api.java.en.Then;
 
 
 public class UserStory_US859342 {
+	Browser_Excel_StepDef excel =new Browser_Excel_StepDef();
 	static Logger log =LogManager.getLogger(UserStory_US859342.class);
-	static WebDriver driver=ScreenshotTaker.getScreenshot();
+	WebDriver driver=ScreenshotTaker.getScreenshot();
 	@Then("^user validates searchbox named \"([^\"]*)\" is present on the page$")
 	public void user_validates_searchbox_named_is_present_on_the_page(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
@@ -96,7 +97,7 @@ public class UserStory_US859342 {
 	
 			@Given("^user enters the Promo code \"([^\"]*)\" in Search box named \"([^\"]*)\"$")
 			public void user_enters_the_Promo_code_in_Search_box_named(String arg1, String arg2) throws Throwable {
-				Browser_Excel_StepDef.waitForPageToBeReady();
+				excel.waitForPageToBeReady();
 				String Obtaineddata =DataSourceDecider.dataFinder(arg1);
 				
 			    driver.findElement(By.xpath(APT_pageObjects.getSearchbox(Obtaineddata))).sendKeys(Obtaineddata);
@@ -105,7 +106,7 @@ public class UserStory_US859342 {
 
 			@Given("^user clicks on the search button$")
 			public void user_clicks_on_the_search_button() throws Throwable {
-				Browser_Excel_StepDef.waitForPageToBeReady();
+				excel.waitForPageToBeReady();
 				String name = null;
 				WebDriverWait wait = new WebDriverWait(driver, 10); 
 				WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(APT_pageObjects.getMagnifiericon(name))));

@@ -22,7 +22,7 @@ import cucumber.api.java.en.Then;
 
 public class Browser_Excel_StepDef {
 	static Logger log = LogManager.getLogger("Test_Steps.class");
-	static WebDriver driver;
+	WebDriver driver;
 	@Given("^user launches browser with url \"([^\"]*)\"$")
 	public void user_launches_browser_with_url(String url) throws Throwable {
 	    String ObtainedUrl=DataSourceDecider.urlFinder(url);
@@ -106,9 +106,9 @@ public class Browser_Excel_StepDef {
 		driver.findElement(By.xpath("//button[@value='Login']")).click();
 		
 	}
-
-	public static void waitForPageToBeReady() 
-	{
+	@Then("^Wait for the page to load$")
+	public  void waitForPageToBeReady() {
+		
 	    JavascriptExecutor js = (JavascriptExecutor)driver;
 
 	    //This loop will rotate for 100 times to check If page Is ready after every 1 second.

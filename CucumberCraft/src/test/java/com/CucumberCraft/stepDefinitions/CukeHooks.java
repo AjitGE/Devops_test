@@ -139,9 +139,8 @@ public class CukeHooks extends MasterStepDefs {
 		for(SessionId s: DriverManager.sessionSet ) 
 		{
 	   if(session.equals(s)) {
-		   driver1.close();
 		   DriverManager.webDriver.set(null);
-		  
+		   driver1.close();
 		   log.info("closing session "+s+" of browser");
 }
 		}}}

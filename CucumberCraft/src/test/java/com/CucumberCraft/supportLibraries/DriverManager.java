@@ -50,7 +50,6 @@ public class DriverManager {
 		}
 		log.debug("Getting instance of remote driver" + webDriver.get().getClass());
 		WebDriver driver= webDriver.get();
-		    
 		    SessionId session =  ((RemoteWebDriver) driver).getSessionId();
 		    sessionSet.add(session);
 		        return driver;
@@ -88,7 +87,6 @@ public class DriverManager {
 
 	public static void setWebDriver(WebDriver driver) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
 		DriverManager.webDriver.set(driver);
 	}
 
