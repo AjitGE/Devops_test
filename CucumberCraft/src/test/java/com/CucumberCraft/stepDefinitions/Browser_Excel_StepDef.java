@@ -29,6 +29,7 @@ public class Browser_Excel_StepDef {
 	    driver=ScreenshotTaker.getScreenshot();
         driver.get(ObtainedUrl);
         driver.manage().window().maximize();
+        waitForPageToBeReady();
         String SSOUrl=driver.getCurrentUrl();
         if(SSOUrl.contains("https://smlogin.stage.aa.com")){
         	user_login_to_APT();
@@ -101,6 +102,7 @@ public class Browser_Excel_StepDef {
 	
 	@Then("^user login to AA SSO$")
 		public void user_login_to_APT() throws Throwable {
+		waitForPageToBeReady();
 		driver.findElement(By.id("userLoginId")).sendKeys("893377");
 		driver.findElement(By.id("userPassword")).sendKeys("#21Lakh@2018");
 		driver.findElement(By.xpath("//button[@value='Login']")).click();
