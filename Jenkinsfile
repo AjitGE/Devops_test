@@ -71,18 +71,18 @@ pipeline {
     post {
         always {
             deleteDir()
-            /*script {
+            script {
                 notifyMe {
                     mode="slackAndEmail"
-                    emailTo=this.NOTIFYUSERS
-                    subj="BUILD REPORT FOR " + this.APPLICATION_NAME
-                    slackChannel=this.SLACK_CHANNEL
+                    emailTo=ajit.yadav@aa.com
+                    subj="Test Report for" + this.AAPT
+                    slackChannel=apttesting
                     Message=this.MESSAGE_DETAILS + this.JOB_CAUSES
                     statusColor=""
                     token=this.SLACK_TOKEN
                     extendedEmail='false'
                 }
-            }*/
+            }
         }
     }
 }
