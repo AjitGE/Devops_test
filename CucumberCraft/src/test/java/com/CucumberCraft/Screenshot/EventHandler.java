@@ -98,9 +98,7 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 
 	@Override
 	public void afterScript(String arg0, WebDriver arg1) {
-		currentScenario.embed(Util.takeScreenshot (arg1),
-				"image/png");
-		
+		log.info("Locating alert on the page : " +arg0.toString());
 	}
 
 	@Override
@@ -163,8 +161,6 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 
 	@Override
 	public void beforeScript(String arg0, WebDriver arg1) {
-		currentScenario.embed(Util.takeScreenshot (arg1),
-				"image/png");
 		log.info("Script is going to excute on the page : " +arg1.getTitle()); 
 	}
 
