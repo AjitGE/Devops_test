@@ -26,7 +26,7 @@ public class DriverManager {
 	 */
 	@SuppressWarnings("rawtypes")
 	private static ThreadLocal<AppiumDriver> appiumDriver = new ThreadLocal<AppiumDriver>();
-	private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
+	public static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
 	private static ThreadLocal<MobileWebDriver> seetestDriver = new ThreadLocal<MobileWebDriver>();
 	private static ThreadLocal<SeleniumTestParameters> testParameters = new ThreadLocal<SeleniumTestParameters>();
 	
@@ -42,18 +42,15 @@ public class DriverManager {
 	public static WebDriver getWebDriver() {
 		 
 		if (webDriver.get() == null) {
+			
 			// this is need when running tests from IDE
 			log.info("Thread has no WedDriver, creating new one");
 			System.out.println(getTestParameters().getExecutionMode().name());
-			if (getTestParameters().getExecutionMode().name().equals("local")){
-			setWebDriver(DriverFactory.createInstanceWebDriver(null));}
-			else {
-				setWebDriver(DriverFactory.createInstanceWebDriver(getTestParameters()));
-			}
+			setWebDriver(DriverFactory.createInstanceWebDriver(getTestParameters()));
 		}
 		log.debug("Getting instance of remote driver" + webDriver.get().getClass());
 		WebDriver driver= webDriver.get();
-		    driver.manage().deleteAllCookies();
+		    
 		    SessionId session =  ((RemoteWebDriver) driver).getSessionId();
 		    sessionSet.add(session);
 		        return driver;

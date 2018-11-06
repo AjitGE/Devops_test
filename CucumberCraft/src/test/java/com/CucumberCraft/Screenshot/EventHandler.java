@@ -6,7 +6,6 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 import com.CucumberCraft.stepDefinitions.MasterStepDefs;
 import com.CucumberCraft.supportLibraries.DriverManager;
@@ -177,16 +176,10 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 		
 		log.info(arg0.getMessage());
 		
-		   SessionId session =  ((RemoteWebDriver) arg1).getSessionId();
-		log.info("closing all opened session of browser :"+ DriverManager.sessionSet);
-		for(SessionId s: DriverManager.sessionSet ) 
-		{
-	   if(session.equals(s)) {
-		   arg1.quit();
-		   log.info("closing session "+s+" of browser");
+	
+
 }
-}
-	}
+	
 
 
 }

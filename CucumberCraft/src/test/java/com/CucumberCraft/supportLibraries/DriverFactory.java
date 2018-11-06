@@ -72,10 +72,10 @@ public class DriverFactory {
 	public static WebDriver createInstanceWebDriver(SeleniumTestParameters testParameters) {
 		WebDriver driver = null;
 		try {
-		String execution=testParameters.getExecutionMode().getValue();
+		
 	
 			switch (testParameters.getExecutionMode()) {
-
+			
 			case LOCAL:
 				driver = WebDriverFactory.getWebDriver(testParameters.getBrowser());
 				break;
@@ -97,7 +97,7 @@ public class DriverFactory {
 
 			case PERFECTO:
 				driver = PerfectoDriverFactory.getPerfectoRemoteDriver(testParameters);
-				System.out.println(execution);
+				
 				break;
 
 			case SAUCELABS:

@@ -131,16 +131,24 @@ public class CukeHooks extends MasterStepDefs {
 		ImageToPdf.freeSmokePng();
 		log.info("Test case status : "+scenario.getStatus());
 		log.info("\"" +scenario.getName().toString()+"\""+ " testing completed");
+		try{
 		WebDriver driver1 =DriverManager.getWebDriver();
+		if(driver1!=null){
 		   SessionId session =  ((RemoteWebDriver) driver1).getSessionId();
 		log.info("closing all opened session of browser :"+ DriverManager.sessionSet);
 		for(SessionId s: DriverManager.sessionSet ) 
 		{
 	   if(session.equals(s)) {
-		   driver1.quit();
+		   driver1.close();
+		   DriverManager.webDriver.set(null);
+		  
 		   log.info("closing session "+s+" of browser");
 }
-		}
+		}}}
+		 catch (Exception ex1) {
+				ex1.printStackTrace();
+				log.error("Problem while closing the Driver Object " + ex1.getMessage());
+		 }
 		try {
 			if (Boolean.valueOf(properties.getProperty("TrackIssuesInJira"))) {
 				updateDefectInJira(scenario);
