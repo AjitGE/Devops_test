@@ -74,9 +74,9 @@ pipeline {
             script {
                 notifyMe {
                     mode="slackAndEmail"
-                    emailTo=ajit.yadav@aa.com
+                    emailTo=this.ajit.yadav@aa.com
                     subj="Test Report for" + this.AAPT
-                    slackChannel=apttesting
+                    slackChannel=this.apttesting
                     Message=this.MESSAGE_DETAILS + this.JOB_CAUSES
                     statusColor=""
                     token=this.SLACK_TOKEN
