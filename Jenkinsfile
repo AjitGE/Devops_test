@@ -3,7 +3,7 @@
 pipeline {
     agent { label 'Builder' }
     
-    ///environment {
+    environment {
         //APPLICATION_NAME = ""
         //APPLICATION_VERSION = ""
         //GROUP_ID = "" 
@@ -71,7 +71,7 @@ pipeline {
     post {
         always {
             deleteDir()
-            script {
+            /*script {
                 notifyMe {
                     mode="slackAndEmail"
                     emailTo=this.ajit.yadav@aa.com
@@ -82,7 +82,7 @@ pipeline {
                     token=this.SLACK_TOKEN
                     extendedEmail='false'
                 }
-            }
+            }*/
         }
     }
 }
