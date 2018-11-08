@@ -55,7 +55,7 @@ pipeline {
             post{
                 always{
                    //deleteDir()
-                    sh "docker stop zalenium"
+                    sh "docker stop docker_standalone_ly-apt_chrome"
                     publishHTML([allowMissing: false,
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
