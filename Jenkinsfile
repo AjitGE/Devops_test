@@ -3,7 +3,7 @@
 pipeline {
     agent { label 'Builder' }
     
-    environment {
+    //environment {
         //APPLICATION_NAME = ""
         //APPLICATION_VERSION = ""
         //GROUP_ID = "" 
@@ -88,5 +88,4 @@ pipeline {
             }*/
         }
     }
-}
 }
