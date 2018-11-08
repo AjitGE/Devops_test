@@ -43,10 +43,10 @@ pipeline {
                     //APPLICATION_VERSION = APPLICATION_VERSION.replace("-SNAPSHOT", "-${env.BRANCH_NAME}-${env.BUILD_NUMBER}")
                     
                     echo "Launch Standalone Chrome Container"
-                    sh "docker pull elgalu/selenium"
-                    sh "docker pull dosel/zalenium"
-                    sh "docker run --rm -t --name zalenium -p 48410:4444 -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/videos:/home/seluser/videos --privileged dosel/zalenium start --sendAnonymousUsageInfo false"
-                    //sh "docker run -d --rm -p 48410:4444 --name=\"docker_standalone_ly-apt_chrome\" -v /dev/shm:/dev/shm nexusread.aa.com:18445/selenium/standalone-chrome-debug:3.14.0"   
+                   // sh "docker pull elgalu/selenium"
+                   // sh "docker pull dosel/zalenium"
+                    //sh "docker run --rm -t --name zalenium -p 48410:4444 -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/videos:/home/seluser/videos --privileged dosel/zalenium start --sendAnonymousUsageInfo false"
+                    sh "docker run -d --rm -p 48410:4444 --name=\"docker_standalone_ly-apt_chrome\" -v /dev/shm:/dev/shm nexusread.aa.com:18445/selenium/standalone-chrome-debug:3.14.0"   
 
                     echo "******************** Building Maven Project ******************"
                     sh "cd CucumberCraft && mvn package"
