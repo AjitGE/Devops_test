@@ -66,16 +66,14 @@ pipeline {
                                 cucumber fileIncludePattern: '**/*.json',
                                 jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
                                 parallelTesting: true
-                    emailext attachLog: true,
-                    attachmentsPattern: 'CucumberCraft/Results/Run*/screenshot/*.pdf', 'CucumberCraft/Results/Run*/Smoke/report.html',
-                    body:'Check console output at $BUILD_URL to view the logs of testing', 
-                    compressLog: true,
-                    mimeType: 'text/html', 
-                    replyTo: 'ajit.yadav@aa.com',
+                    emailext attachLog: true, 
+                    attachmentsPattern: 'CucumberCraft/Results/Run*/screenshot/*.pdf, CucumberCraft/Results/Run*/Smoke/report.html', 
+                    body: 'Check console output at $BUILD_URL to view the logs of testing',
+                    compressLog: true, 
+                    mimeType: 'text/html',
+                    replyTo: 'ajit.yadav@aa.com', 
                     subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
-                    to: 'ajit.yadav@aa.com'
-
-                    
+                    to: 'ajit.yadav@aa.com'  
                 }
             }
         }
