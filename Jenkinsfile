@@ -68,7 +68,13 @@ pipeline {
                                 parallelTesting: true
                     emailext attachLog: true, 
                     attachmentsPattern: 'CucumberCraft/Results/Run*/screenshot/*.pdf, CucumberCraft/Results/Run*/Smoke/report.html', 
-                    body: 'Check console output at $BUILD_URL to view the logs of testing',
+                    body:  '''Check below output logs for the build:
+$BUILD_URL
+Failed Test are as below:
+$FAILED_TESTS
+build id is:
+$BUILD_ID'''
+,
                     compressLog: true, 
                     mimeType: 'text/html',
                     replyTo: 'ajit.yadav@aa.com', 
