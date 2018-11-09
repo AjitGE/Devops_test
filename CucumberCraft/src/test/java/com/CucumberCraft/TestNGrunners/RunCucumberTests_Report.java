@@ -49,11 +49,7 @@ usageReport = true)
 */
 @CucumberOptions(features = "src/test/resources/features", 
 glue = { "com.CucumberCraft.stepDefinitions" }, 
-<<<<<<< HEAD:CucumberCraft/src/test/java/com/CucumberCraft/TestNGrunners/RunCucumberTests_Report.java
-tags = { "@UserStory"},
-=======
 tags = { "@TestId_APS_01"},
->>>>>>> 6b8f8a9756cc73ffb601a0612b4c75a780de81af:CucumberCraft/src/test/java/com/CucumberCraft/TestNGrunners/RunCucumberTests_Smoke.java
 monochrome = true,
 plugin = {
     
