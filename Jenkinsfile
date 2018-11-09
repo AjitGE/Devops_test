@@ -68,7 +68,7 @@ pipeline {
                                 parallelTesting: true
                     emailext attachLog: true,
                     attachmentsPattern: 'CucumberCraft/Results/Run*/screenshot/*.pdf', 'CucumberCraft/Results/Run*/Smoke/report.html'
-                    body: '''{"Build URL: ${env.BUILD_URL}.\\n\\n"}''', 
+                    body: '''${"Build URL: ${env.BUILD_URL}.\\n\\n"}''', 
                     compressLog: true,
                     mimeType: 'text/html', 
                     replyTo: 'ajit.yadav@aa.com',
