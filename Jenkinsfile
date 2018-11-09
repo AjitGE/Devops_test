@@ -73,8 +73,7 @@ $BUILD_URL
 Failed Test are as below:
 $FAILED_TESTS
 build id is:
-$BUILD_ID'''
-,
+$BUILD_ID''',
                     compressLog: true, 
                     mimeType: 'text/html',
                     replyTo: 'ajit.yadav@aa.com', 
