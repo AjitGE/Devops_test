@@ -73,14 +73,22 @@ pipeline {
                     replyTo: 'ajit.yadav@aa.com',
                     subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
                     to: 'ajit.yadav@aa.com'
+                    }
+                    success{
                     slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
                     channel: 'apttesting', 
                     color: 'black', 
-                    message: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
+                    message: 'Build Passed', 
                     token: 'a2EpgUCrMOVjgqhJmZ1PUaSd'
-                   
-                   
-                }
+                    }
+                    failure{
+                    slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
+                    channel: 'apttesting', 
+                    color: 'black', 
+                    message: 'Build failed', 
+                    token: 'a2EpgUCrMOVjgqhJmZ1PUaSd'
+                    }
+
             }
         }
     }
