@@ -67,7 +67,7 @@ pipeline {
                                 jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
                                 parallelTesting: true
                     emailext attachLog: true, 
-                    attachmentsPattern: 'CucumberCraft/Results/Run*/screenshot/*.pdf, CucumberCraft/Results/Run*/Smoke/report.html', 
+                    attachmentsPattern: 'CucumberCraft/Results/*.zip',
                     body:  '''Check below output logs for the build:
 $BUILD_URL
 Failed Test are as below:
