@@ -65,7 +65,7 @@ pipeline {
                                 parallelTesting: true
                     emailext attachLog: true,
                     attachmentsPattern: 'CucumberCraft/Results/*.zip',
-                    body:'''${SCRIPT, template="groovy_html.template"}''', 
+                    body:''' ${JELLY_SCRIPT,template="html"}''', 
                     compressLog: true,
                     mimeType: 'text/html', 
                     replyTo: 'ajit.yadav@aa.com',
