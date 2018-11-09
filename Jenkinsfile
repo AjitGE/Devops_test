@@ -48,7 +48,7 @@ pipeline {
                     echo "******************** Building Maven Project ******************"
                     sh "cd CucumberCraft && mvn package"
                 }
-           step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'target/', fileIncludePattern: '*.json'])
+           step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report', fileIncludePattern: '**/*.json'])
            cucumberSendSlack:a channel: 'apttesting', json: 'target/test-results.json
             }
             
