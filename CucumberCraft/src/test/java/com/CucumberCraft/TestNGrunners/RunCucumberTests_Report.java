@@ -1,7 +1,16 @@
 package com.CucumberCraft.TestNGrunners;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -24,9 +33,9 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 
 
-@ExtendedCucumberOptions(jsonReport = "target/cucumber-report/Smoke/cucumber.json", 
-jsonUsageReport = "target/cucumber-report/Smoke/cucumber-usage.json", 
-outputFolder = "target/cucumber-report/Smoke", 
+@ExtendedCucumberOptions(jsonReport = "target/cucumber-report/Report/cucumber.json", 
+jsonUsageReport = "target/cucumber-report/Report/cucumber-usage.json", 
+outputFolder = "target/cucumber-report/Report", 
 detailedReport = true, 
 detailedAggregatedReport = true, 
 overviewReport = true, 
@@ -40,20 +49,20 @@ usageReport = true)
 */
 @CucumberOptions(features = "src/test/resources/features", 
 glue = { "com.CucumberCraft.stepDefinitions" }, 
-tags = { "@UserStory_US859342"},
+tags = { "@UserStory"},
 monochrome = true,
 plugin = {
     
 	"pretty", 
 	"pretty:target/cucumber-report/screenshot/pretty.txt",
-	"html:target/cucumber-report/Smoke",
-	"json:target/cucumber-report/Smoke/cucumber.json",
-	"junit:target/cucumber-report/Smoke/cucumber-junitreport.xml",
-	"com.vimalselvam.cucumber.listener.ExtentCucumberFormatter:target/cucumber-report/Smoke/report.html"})
+	"html:target/cucumber-report/Report",
+	"json:target/cucumber-report/Report/cucumber.json",
+	"junit:target/cucumber-report/Report/cucumber-junitreport.xml",
+	"com.vimalselvam.cucumber.listener.ExtentCucumberFormatter:target/cucumber-report/Report/report.html"})
 
 
 
-public class RunCucumberTests_Smoke extends AbstractTestNGCucumberTests {
+public class RunCucumberTests_Report extends AbstractTestNGCucumberTests {
 	
 	
 final static String timeStampResultPath = TimeStamp.getInstance();
@@ -64,7 +73,7 @@ static Logger log;
 
 static {
 	
-	log = Logger.getLogger(RunCucumberTests_Smoke.class);
+	log = Logger.getLogger(RunCucumberTests_Report.class);
 }
 
 
@@ -86,8 +95,9 @@ private void test() throws IOException {
 	log.info("generating aggregate report for the scenario please check the \"Results Folder\"");
 	generateCustomReports();
 	log.info("generating aggregate report for the scenario please check the \"Results Folder\"");
-	copyReportsAggregateReportFolder();
+	FreeSpaceinTargetFolder();
 	copyReportsAndPdfFolder();
+	compress();
 	log.info("generating aggregate report for the scenario please check the \"Results Folder\"");
 	ImageToPdf.freeScreenshotFolder();
     
@@ -99,7 +109,7 @@ private void generateCustomReports() {
 	CucumberResultsOverview results1 = new CucumberResultsOverview();
 	results1.setOutputDirectory("target");
 	results1.setOutputName("cucumber-results");
-	results1.setSourceFile("target/cucumber-report/Smoke/cucumber.json");
+	results1.setSourceFile("target/cucumber-report/Report/cucumber.json");
 	try {
 		results1.executeFeaturesOverviewReport();
 	} catch (Exception e) {
@@ -109,7 +119,7 @@ private void generateCustomReports() {
 	CucumberDetailedResults detailedResults = new CucumberDetailedResults();
     detailedResults.setOutputDirectory("target");
     detailedResults.setOutputName("cucumber-results");
-    detailedResults.setSourceFile("target/cucumber-report/Smoke/cucumber.json");
+    detailedResults.setSourceFile("target/cucumber-report/Report/cucumber.json");
     detailedResults.setScreenShotLocation("./screenshot");
     try {
            detailedResults.executeDetailedResultsReport(false, true);
@@ -125,7 +135,7 @@ public static void copyReportsAndPdfFolder() {
 
 	
 	File sourceCucumber = new File(Util.getTargetPath());
-	ImageToPdf.freeSmokePng();
+	ImageToPdf.freeReportPng();
 	 
 	 try {
 			FileUtils.copyDirectory(sourceCucumber, destCucumber);
@@ -135,27 +145,29 @@ public static void copyReportsAndPdfFolder() {
 	 
 		 
 }
-public static void copyReportsAggregateReportFolder() throws IOException {
+public static void FreeSpaceinTargetFolder() throws IOException {
 
 	File SourceAggregateReport= new File((Util.getTargetPath().replace("cucumber-report", "")));
+	File ResultFolderZip= new File((Util.getResultsPath()));
 	
-	 File[] listofFiles =SourceAggregateReport.listFiles();
-	 for(File file : listofFiles) {
-	     if(file.getName().endsWith(".html")) {
-	    	 try {
-				FileUtils.copyFileToDirectory(file, destCucumber);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	 }
-	     }
+	 
 	 
 	 
 	 try{
 		 File[] listofAllFile = SourceAggregateReport.listFiles();
 		 for(File file : listofAllFile) {
-	     if(file.getName().endsWith(".png")) 
+	     
+		      file.delete();
+		     
+	      }
+		 }
+		 catch(Exception e) {
+			    e.getMessage();
+			 }
+	 try{
+		 File[] listofAllFile = ResultFolderZip.listFiles();
+		 for(File file : listofAllFile) {
+	     if(file.getName().endsWith(".zip")) 
 		     {
 		      file.delete();
 		     }
@@ -164,14 +176,41 @@ public static void copyReportsAggregateReportFolder() throws IOException {
 		 catch(Exception e) {
 			    e.getMessage();
 			 }
-	
 }
+	 public static void compress() {
+         Path sourceDir = Paths.get(timeStampResultPath);
+         String zipFileName = timeStampResultPath.concat(".zip");
+         try {
+             ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(zipFileName));
+             Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
+                 @Override
+                 public FileVisitResult visitFile(Path file, BasicFileAttributes attributes) {
+                     try {
+                         Path targetFile = sourceDir.relativize(file);
+                         outputStream.putNextEntry(new ZipEntry(targetFile.toString()));
+                         byte[] bytes = Files.readAllBytes(file);
+                         outputStream.write(bytes, 0, bytes.length);
+                         outputStream.closeEntry();
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                     return FileVisitResult.CONTINUE;
+                 }
+             });
+             outputStream.close();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
 
 
+
+
+	    
 
 @AfterSuite
-private void copyStoredReports() throws IOException {
-	
-}
+	 public static void AfterSuite() {
+         
+     }
 
 }
