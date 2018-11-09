@@ -48,7 +48,11 @@ pipeline {
                     echo "******************** Building Maven Project ******************"
                     sh "cd CucumberCraft && mvn package"
                 }
+           step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'target/', fileIncludePattern: '*.json'])
+           cucumberSendSlack:a channel: 'apttesting', json: 'target/test-results.json
             }
+            
+            
             post{
                 always{
                    //deleteDir()
@@ -71,6 +75,7 @@ pipeline {
                     replyTo: 'ajit.yadav@aa.com',
                     subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
                     to: 'ajit.yadav@aa.com'
+                    
                     
                 }
             }
