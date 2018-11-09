@@ -67,12 +67,12 @@ pipeline {
                                 jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
                                 parallelTesting: true
                     emailext attachLog: true,
-                    attachmentsPattern: 'CucumberCraft/Results/*', 
-                    body: '''${SCRIPT, template="groovy-html.template "Build URL: ${env.BUILD_URL}.\\n\\n"}''', 
+                    attachmentsPattern: 'CucumberCraft/Results/Run*/screenshot/*.pdf', 'CucumberCraft/Results/Run*/Smoke/report.html'
+                    body: '''{"Build URL: ${env.BUILD_URL}.\\n\\n"}''', 
                     compressLog: true,
                     mimeType: 'text/html', 
                     replyTo: 'ajit.yadav@aa.com',
-                    subject: '[Jenkins] ${jobName} $BUILD_STATUS', 
+                    subject: '${jobName}   $BUILD_STATUS', 
                     to: 'ajit.yadav@aa.com'
 
                     
