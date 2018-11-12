@@ -49,7 +49,7 @@ static Logger log;
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.BOLD);
 
 	public static void createPdf() {
-		   System.out.println("path:"+path );
+		   
         try {
         	log.warn("pdf creation is in progress .....");
         	
@@ -58,7 +58,6 @@ static Logger log;
             for(String tag: tags) {
             	if(tag.startsWith("@TestId")) { 		 		
             pdfPath=fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"screenshot"+Util.getFileSeparator()+tag.replace("@","")+"_"+Util.getCurrentTime().toString().replace(" ","_").replace(":","_")+".pdf";
-            System.out.println("pdfPath:"+pdfPath );
             }
             }
             ImageToPdf i=new ImageToPdf();
@@ -84,12 +83,12 @@ static Logger log;
 		 addEmptyLine(preface, 1);
 		 preface.add(new Paragraph("Screenshots : ",subFont));
 		 document.add(preface);
-		 System.out.println("path in add image:"+path );
+		
 		 
 		if(noOfPng()>0) {
 		for (int i=getEmbeddedImageMin(); i<=getEmbeddedImageMax() ; i++)
 		{
-			String IMG = fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"+Util.getFileSeparator()+"embedded"+i+".png"; 
+			String IMG = fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"+Util.getFileSeparator()+"embedded"+i+".png"; 
   
 	      //Creating an Image object
 			
@@ -153,7 +152,7 @@ static Logger log;
 		 
 		 static int noOfPng(){
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"); 
 	    		
 		 String[] fileNames = folder.list();
 		 
@@ -171,7 +170,7 @@ static Logger log;
 		 static int getEmbeddedImageMax() {
 			 Path fPath=Paths.get(path);
 			 int number;
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"); 
 			 String[] fileNames = folder.list();
 			 ImageToPdf i=new ImageToPdf();
 			for(String file : fileNames) {
@@ -193,7 +192,7 @@ static Logger log;
 		 
 		 static int getEmbeddedImageMin() {
 			 Path fPath=Paths.get(path);
-			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Smoke"); 
+			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"); 
 			 String[] fileNames = folder.list();
 			 Arrays.sort(fileNames);
 			 ImageToPdf i=new ImageToPdf();
@@ -213,13 +212,13 @@ static Logger log;
 			return i.min;
 			 
 		 }
-		public static void freeSmokePng() {
+		public static void freeReportPng() {
 		
-			File cucumberReportSmoke= new File(Util.getTargetPath()+Util.getFileSeparator()+"Smoke");
+			File cucumberReportReport= new File(Util.getTargetPath()+Util.getFileSeparator()+"Report");
 			
 			
 			try{
-				 File[] listofAllFile = cucumberReportSmoke.listFiles();
+				 File[] listofAllFile = cucumberReportReport.listFiles();
 				 for(File file : listofAllFile) {
 			     if(file.getName().endsWith(".png")) 
 				     {
@@ -254,12 +253,6 @@ static Logger log;
 			 preface.add(new Paragraph(restResponse,smallBold));
 				document.add(preface);
 				}	
-				else {
-					Paragraph preface = new Paragraph();
-					addEmptyLine(preface, 1);
-					preface.add(new Paragraph("Body of rest call : Service call failed!! nothing to display"));
-					document.add(preface);
-				}
 			}
 				
 }

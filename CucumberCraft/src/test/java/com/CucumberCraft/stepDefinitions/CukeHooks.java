@@ -128,7 +128,7 @@ public class CukeHooks extends MasterStepDefs {
 		ExcelReadWrite.testIdNumber.clear();
 		ImageToPdf.ScenarioStatus(scenario);
 		ImageToPdf.createPdf();
-		ImageToPdf.freeSmokePng();
+		ImageToPdf.freeReportPng();
 		log.info("Test case status : "+scenario.getStatus());
 		log.info("\"" +scenario.getName().toString()+"\""+ " testing completed");
 		try{
@@ -274,7 +274,7 @@ public static void generateCustomReports() {
 		CucumberResultsOverview overviewReports = new CucumberResultsOverview();
 		overviewReports.setOutputDirectory("target");
 		overviewReports.setOutputName("cucumber-results");
-		overviewReports.setSourceFile("target/cucumber-report/Smoke/cucumber.json");
+		overviewReports.setSourceFile("target/cucumber-report/Report/cucumber.json");
 		try {
 			overviewReports.executeFeaturesOverviewReport();
 		} catch (Exception e) {

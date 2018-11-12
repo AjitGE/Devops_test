@@ -3,7 +3,7 @@
 pipeline {
     agent { label 'Builder' }
     
-    //environment {
+    ///environment {
         //APPLICATION_NAME = ""
         //APPLICATION_VERSION = ""
         //GROUP_ID = "" 
@@ -43,19 +43,18 @@ pipeline {
                     //APPLICATION_VERSION = APPLICATION_VERSION.replace("-SNAPSHOT", "-${env.BRANCH_NAME}-${env.BUILD_NUMBER}")
                     
                     echo "Launch Standalone Chrome Container"
-                    sh "docker pull elgalu/selenium"
-                    sh "docker pull dosel/zalenium"
-                    sh "docker run --rm -t --name zalenium -p 48410:4444 -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/videos:/home/seluser/videos --privileged dosel/zalenium start --sendAnonymousUsageInfo false"
-                    //sh "docker run -d --rm -p 48410:4444 --name=\"docker_standalone_ly-apt_chrome\" -v /dev/shm:/dev/shm nexusread.aa.com:18445/selenium/standalone-chrome-debug:3.14.0"   
+                    sh "docker run -d --rm -p 48410:4444 --name=\"docker_standalone_ly-apt_chrome\" -v /dev/shm:/dev/shm nexusread.aa.com:18445/selenium/standalone-chrome-debug:3.14.0"   
 
                     echo "******************** Building Maven Project ******************"
                     sh "cd CucumberCraft && mvn package"
                 }
             }
+            
+            
             post{
                 always{
                    //deleteDir()
-                    sh "docker stop zalenium"
+                    sh "docker stop docker_standalone_ly-apt_chrome"
                     publishHTML([allowMissing: false,
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
@@ -64,10 +63,32 @@ pipeline {
                                 reportName: 'Test Report', 
                                 reportTitles: ''])
                                 cucumber fileIncludePattern: '**/*.json',
-                                jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Smoke',
+                                jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report',
                                 parallelTesting: true
-                    
-                }
+                    emailext attachLog: true,
+                    attachmentsPattern: 'CucumberCraft/Results/*.zip',
+                    body:''' ${JELLY_SCRIPT,template="html"}''', 
+                    compressLog: true,
+                    mimeType: 'text/html', 
+                    replyTo: 'ajit.yadav@aa.com',
+                    subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
+                    to: 'ajit.yadav@aa.com, ike.ahmed@aa.com, Jagadeesh.gunipati@aa.com, Rajesh.n@aa.com, Prabuddha.swayamisiddha@aa.com, Neelima.baswa@aa.com'
+                    }
+                    success{
+                    slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
+                    channel: 'apttesting', 
+                    color: 'black', 
+                    message: 'Build Passed', 
+                    token: 'a2EpgUCrMOVjgqhJmZ1PUaSd'
+                    }
+                    failure{
+                    slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
+                    channel: 'apttesting', 
+                    color: 'black', 
+                    message: 'Build failed', 
+                    token: 'a2EpgUCrMOVjgqhJmZ1PUaSd'
+                    }
+
             }
         }
     }
@@ -77,9 +98,9 @@ pipeline {
             /*script {
                 notifyMe {
                     mode="slackAndEmail"
-                    emailTo=this.ajit.yadav@aa.com
-                    subj="Test Report for" + this.AAPT
-                    slackChannel=this.apttesting
+                    emailTo=this.NOTIFYUSERS
+                    subj="BUILD REPORT FOR " + this.APPLICATION_NAME
+                    slackChannel=this.SLACK_CHANNEL
                     Message=this.MESSAGE_DETAILS + this.JOB_CAUSES
                     statusColor=""
                     token=this.SLACK_TOKEN
