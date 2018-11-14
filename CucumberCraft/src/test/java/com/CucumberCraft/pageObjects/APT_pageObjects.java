@@ -29,7 +29,7 @@ public class APT_pageObjects {
 	private static String enabledPagination ="//a[@class='ng-star-inserted']";
 	private static String diabledPagination ="//li//span[@class='ng-star-inserted']";
 	private static String promotionName ="//p[@class='col-sm-12 promotionNameSingleStyle']";
-	private static String startendDate="//div[.='Promotion dates:']/following-sibling::div";
+	//private static String startendDate="//div[.='Promotion dates:']/following-sibling::div";
 	private static String startendDateafterepansion="//div[.='Promotion start to end dates:']/following-sibling::div";
 
 
