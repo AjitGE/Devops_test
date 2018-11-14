@@ -35,7 +35,7 @@ public class UserStory_US859355 {
 	    // Write code here that turns the phrase above into concrete actions
 		String obtainedData=DataSourceDecider.dataFinder(arg1);
 		WebElement element = driver.findElement(By.xpath(APT_pageObjects.getExpand(obtainedData)));
-	    element.click();
+	    click(element);
   
 
 	}
@@ -219,6 +219,21 @@ public  void waitForPageToBeReady() {
         }   
       }
  }
+
+public void click(WebElement element) {
+    while(true){
+        try{
+            element.click();
+            break;
+        }catch (Throwable e){
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+}
 
 }
 
