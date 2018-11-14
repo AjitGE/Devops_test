@@ -8,13 +8,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import com.CucumberCraft.API.ServicesCalls;
 import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
 import com.CucumberCraft.Screenshot.ScreenshotTaker;
 import com.CucumberCraft.pageObjects.APT_pageObjects;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.restassured.response.Response;
@@ -34,10 +34,10 @@ public class UserStory_US859355 {
 		waitForPageToBeReady();
 	    // Write code here that turns the phrase above into concrete actions
 		String obtainedData=DataSourceDecider.dataFinder(arg1);
-		WebElement element = driver.findElement(By.xpath(APT_pageObjects.getExpand(obtainedData)));
-	    click(element);
-  
-
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		 
+		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(APT_pageObjects.getExpand(obtainedData))));
+        element.click();
 	}
 
 	@Given("^user launch the Json url \"([^\"]*)\"$")
@@ -220,20 +220,8 @@ public  void waitForPageToBeReady() {
       }
  }
 
-public void click(WebElement element) {
-    while(true){
-        try{
-            element.click();
-            break;
-        }catch (Throwable e){
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
-}
+
+
 
 }
 
