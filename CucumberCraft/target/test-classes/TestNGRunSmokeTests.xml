@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Run Test Cukes" parallel="tests" verbose="1"
-	configfailurepolicy="continue" thread-count="3">
+<suite name="Run Test Cukes" parallel="tests" verbose="1" configfailurepolicy="continue" thread-count="3">
+
 
 	<listeners>
 		<!-- This TestNG listener takes care of setting up and tearing down the 
@@ -21,17 +21,16 @@
 
 	<test name="Smoke testing....">
 	<parameter name="BrowserName" value="CHROME" />
-	<parameter name="ExecutionMode" value="REMOTE" />
+	<parameter name="ExecutionMode" value="LOCAL" />
 		<classes>
-			<class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" />
+			<class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Report" />
 		</classes>
 	</test>
 		
 	<!-- <test name="Smoke Tests using Appium"> <parameter name="ExecutionMode" 
 		value="MOBILE" /> <parameter name="MobileToolName" value="APPIUM" /> <parameter 
 		name="MobileExecutionPlatform" value="ANDROID" /> <parameter name="DeviceName" 
-		value="4818c4e6" /> <classes> <class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" 
-		/> </classes> </test> -->
-
-
+		value="4818c4e6" /> <classes> <class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Smoke" /> 
+		</classes> </test> -->
 </suite>
+

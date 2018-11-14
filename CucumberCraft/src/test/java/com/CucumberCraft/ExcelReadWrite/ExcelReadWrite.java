@@ -44,13 +44,14 @@ public class ExcelReadWrite {
 	static String cellValue;
 	 public static void tagNames(Scenario scenario){
 		 ExcelReadWrite.scenario=scenario;
-		 log.info("total number of tags in this scenarios are: "+scenario.getSourceTagNames().size());
+		 log.info("total number of tags used in feature file are: "+scenario.getSourceTagNames().size());
 		 s=ExcelReadWrite.scenario.getSourceTagNames().iterator();
 		 while(s.hasNext()){
 			 String tag=s.next();
 		 tags.add(tag);
 		 }
 		 log.info("Running test case using these tags of feature file: "+tags);
+
 	}
 
 	public static void getTestId() throws Exception {
@@ -163,6 +164,7 @@ public class ExcelReadWrite {
                 {
                     fIP.close();
                     log.info("Excel file is closed..... " );
+
                 }
                 catch (IOException e)
                 {
@@ -196,6 +198,7 @@ public class ExcelReadWrite {
             {
 				XSSFSheet sheet = workBook.getSheetAt(i);
 			hashMap=outerMap.get(sheet.getSheetName());
+
 						
 			columnOfTestId=hashMap.get(0).indexOf(testIdColumnName);
 			columnofUrl=hashMap.get(0).indexOf(url);
@@ -214,6 +217,7 @@ public class ExcelReadWrite {
 		}
 		
 	}
+
 		log.info("Data from excel is: "+ cellValue);
 		return cellValue;
 		

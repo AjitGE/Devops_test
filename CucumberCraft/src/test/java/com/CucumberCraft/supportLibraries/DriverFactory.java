@@ -1,13 +1,10 @@
 package com.CucumberCraft.supportLibraries;
 
 import io.appium.java_client.AppiumDriver;
-
 import java.util.Properties;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-
 import com.experitest.selenium.MobileWebDriver;
 
 
@@ -72,10 +69,9 @@ public class DriverFactory {
 	public static WebDriver createInstanceWebDriver(SeleniumTestParameters testParameters) {
 		WebDriver driver = null;
 		try {
-		
 	
 			switch (testParameters.getExecutionMode()) {
-			
+
 			case LOCAL:
 				driver = WebDriverFactory.getWebDriver(testParameters.getBrowser());
 				break;
@@ -97,7 +93,6 @@ public class DriverFactory {
 
 			case PERFECTO:
 				driver = PerfectoDriverFactory.getPerfectoRemoteDriver(testParameters);
-				
 				break;
 
 			case SAUCELABS:

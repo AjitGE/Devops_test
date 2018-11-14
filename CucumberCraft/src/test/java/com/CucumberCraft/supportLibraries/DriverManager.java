@@ -3,14 +3,11 @@ package com.CucumberCraft.supportLibraries;
 
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
-
 import com.experitest.selenium.MobileWebDriver;
-
 import io.appium.java_client.AppiumDriver;
 
 /**
@@ -42,14 +39,18 @@ public class DriverManager {
 	public static WebDriver getWebDriver() {
 		 
 		if (webDriver.get() == null) {
+
 			
 			// this is need when running tests from IDE
 			log.info("Thread has no WedDriver, creating new one");
 			System.out.println(getTestParameters().getExecutionMode().name());
 			setWebDriver(DriverFactory.createInstanceWebDriver(getTestParameters()));
 		}
+		
+		
 		log.debug("Getting instance of remote driver" + webDriver.get().getClass());
 		WebDriver driver= webDriver.get();
+		    driver.manage().deleteAllCookies();
 		    SessionId session =  ((RemoteWebDriver) driver).getSessionId();
 		    sessionSet.add(session);
 		        return driver;

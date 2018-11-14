@@ -23,13 +23,13 @@ import cucumber.api.java.en.Then;
 public class Browser_Excel_StepDef {
 	static Logger log = LogManager.getLogger("Test_Steps.class");
 	WebDriver driver;
+	
 	@Given("^user launches browser with url \"([^\"]*)\"$")
 	public void user_launches_browser_with_url(String url) throws Throwable {
 	    String ObtainedUrl=DataSourceDecider.urlFinder(url);
 	    driver=ScreenshotTaker.getScreenshot();
         driver.get(ObtainedUrl);
         driver.manage().window().maximize();
-        waitForPageToBeReady();
         String SSOUrl=driver.getCurrentUrl();
         if(SSOUrl.contains("https://smlogin.stage.aa.com")){
         	user_login_to_APT();
@@ -108,6 +108,7 @@ public class Browser_Excel_StepDef {
 		driver.findElement(By.xpath("//button[@value='Login']")).click();
 		
 	}
+
 
 	public  void waitForPageToBeReady() {
 		

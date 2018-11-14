@@ -68,6 +68,7 @@ public class PerfectoDriverFactory {
 	 *            The Perfecto MobileCloud URL to be used for the test execution
 	 * @return The corresponding {@link RemoteWebDriver} object
 	 */
+	@SuppressWarnings("unlikely-arg-type")
 	public static WebDriver getPerfectoRemoteWebDriverByDevicePlatform(
 			String deviceId, String osVersionVersion, Browser browser,
 			String remoteUrl, MobileExecutionPlatform executionPlatform) {

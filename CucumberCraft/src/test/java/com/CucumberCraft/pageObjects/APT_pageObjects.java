@@ -10,7 +10,8 @@ public class APT_pageObjects {
 	private static  String chechkbox="//input[@type='checkbox']";
 	private static  String messages="//input[@id='ptextcode']/parent::div/preceding-sibling::em[.='Required']";
 	private static  String noResponseMessage="h5";
-	private static  String expand ="//span[.='Promo code: RVGLD']/following-sibling::span/img";
+	private static  String expand ="//img[@id='sp_collapse_icon']";
+//	private static  String expand ="//span[.='Promo code: RVGLD']/following-sibling::span/img";
 	private static  String allPromocodeBox="//div[@class='card-header bgtransparent noMarginPad']";
 	private static String allPromocodeNameinHeading="//div//span/b[contains(text(),'Promo code: ')]";
 	private static String allfiledsInPromoBox="//div/app-promodetails//b[contains(text(),'Promotion dates:')]";
@@ -26,9 +27,11 @@ public class APT_pageObjects {
 	//private static String nextPagedisabled ="//li/[@class='pagination-next ng-star-inserted disabled']";
 	//private static String previousPagedisabled ="//li/[@class='pagination-previous ng-star-inserted disabled']";
 	private static String enabledPagination ="//a[@class='ng-star-inserted']";
-	
 	private static String diabledPagination ="//li//span[@class='ng-star-inserted']";
-	
+	private static String promotionName ="//p[@class='col-sm-12 promotionNameSingleStyle']";
+	private static String startendDate="//div[.='Promotion dates:']/following-sibling::div";
+	private static String startendDateafterepansion="//div[.='Promotion start to end dates:']/following-sibling::div";
+
 
 	
 	
@@ -162,7 +165,11 @@ public class APT_pageObjects {
 		return allfiledsInPromoBox;
 	}
 	public static String getExpand(String name) {
-		expand="//span[.='Promo code: "+name+"']/following-sibling::span/img";
+
+		//expand="//span[.='Promo code: "+name+"']/following-sibling::span/img";
+
+		//expand="//span[.='Promo code: "+name+"']/following-sibling::span/img";
+
 		return expand;
 	}
 	public static String getSearchbox(String name) {
@@ -189,6 +196,27 @@ public class APT_pageObjects {
 	public static String getNoResponseMessage() {
 		return noResponseMessage;
 	}
+
+
+	public static String getPromotionName() {
+		
+		return promotionName;
+	}
+
+
+	public static String getdates() {
+
+		// TODO Auto-generated method stub
+		return startendDate;
+	}
+
+
+	public static String getStartendDateafterepansion() {
+		return startendDateafterepansion;
+	}
+
+
+
     
 
 

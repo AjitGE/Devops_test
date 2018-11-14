@@ -22,13 +22,14 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import cucumber.api.Scenario;
+import io.restassured.response.Response;
 
 public class ImageToPdf {
 	static ArrayList<String> tags= new ArrayList<String>();
 	private static String path = Util.getTargetPath();
 	static Scenario scenario;
 	static String pdfPath;
-	public static String restResponse;
+	public static Response restResponse;
 	
 	int max;
     int min;
@@ -49,7 +50,7 @@ static Logger log;
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.BOLD);
 
 	public static void createPdf() {
-		   
+
         try {
         	log.warn("pdf creation is in progress .....");
         	
@@ -58,6 +59,7 @@ static Logger log;
             for(String tag: tags) {
             	if(tag.startsWith("@TestId")) { 		 		
             pdfPath=fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"screenshot"+Util.getFileSeparator()+tag.replace("@","")+"_"+Util.getCurrentTime().toString().replace(" ","_").replace(":","_")+".pdf";
+
             }
             }
             ImageToPdf i=new ImageToPdf();
@@ -83,12 +85,14 @@ static Logger log;
 		 addEmptyLine(preface, 1);
 		 preface.add(new Paragraph("Screenshots : ",subFont));
 		 document.add(preface);
-		
+
 		 
 		if(noOfPng()>0) {
 		for (int i=getEmbeddedImageMin(); i<=getEmbeddedImageMax() ; i++)
 		{
+
 			String IMG = fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"+Util.getFileSeparator()+"embedded"+i+".png"; 
+
   
 	      //Creating an Image object
 			
@@ -152,7 +156,9 @@ static Logger log;
 		 
 		 static int noOfPng(){
 			 Path fPath=Paths.get(path);
+
 			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"); 
+
 	    		
 		 String[] fileNames = folder.list();
 		 
@@ -170,7 +176,9 @@ static Logger log;
 		 static int getEmbeddedImageMax() {
 			 Path fPath=Paths.get(path);
 			 int number;
+
 			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"); 
+
 			 String[] fileNames = folder.list();
 			 ImageToPdf i=new ImageToPdf();
 			for(String file : fileNames) {
@@ -192,7 +200,9 @@ static Logger log;
 		 
 		 static int getEmbeddedImageMin() {
 			 Path fPath=Paths.get(path);
+
 			 File folder = new File(fPath.toAbsolutePath().toString()+Util.getFileSeparator()+"Report"); 
+
 			 String[] fileNames = folder.list();
 			 Arrays.sort(fileNames);
 			 ImageToPdf i=new ImageToPdf();
@@ -212,6 +222,7 @@ static Logger log;
 			return i.min;
 			 
 		 }
+
 		public static void freeReportPng() {
 		
 			File cucumberReportReport= new File(Util.getTargetPath()+Util.getFileSeparator()+"Report");
@@ -219,6 +230,7 @@ static Logger log;
 			
 			try{
 				 File[] listofAllFile = cucumberReportReport.listFiles();
+
 				 for(File file : listofAllFile) {
 			     if(file.getName().endsWith(".png")) 
 				     {
@@ -250,9 +262,10 @@ static Logger log;
 					Paragraph preface = new Paragraph();
 					addEmptyLine(preface, 1);
 			 preface.add(new Paragraph("Body of rest call : ",subFont));
-			 preface.add(new Paragraph(restResponse,smallBold));
+			 preface.add(new Paragraph(restResponse.jsonPath().prettify(),smallBold));
 				document.add(preface);
 				}	
+
 			}
 				
 }

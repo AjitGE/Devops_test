@@ -53,8 +53,6 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 	@Override
 	public void afterClickOn(WebElement arg0, WebDriver arg1) {
 
-		currentScenario.embed(Util.takeScreenshot (arg1),
-				"image/png");
 		log.info("Webelement is clicked on page : " +arg1.getTitle()); 
 	}
 
@@ -68,30 +66,26 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 
 	@Override
 	public void afterNavigateBack(WebDriver arg0) {
-		currentScenario.embed(Util.takeScreenshot (arg0),
-				"image/png");
+	
 		log.info("Navigating backward...and url is :" +arg0.getCurrentUrl()); 
 	}
 
 	@Override
 	public void afterNavigateForward(WebDriver arg0) {
-		currentScenario.embed(Util.takeScreenshot (arg0),
-				"image/png");
+		
 		log.info("Navigating forward.... and url is :" +arg0.getCurrentUrl()); 
 	}
 
 	@Override
 	public void afterNavigateRefresh(WebDriver arg0) {
-		currentScenario.embed(Util.takeScreenshot (arg0),
-				"image/png");
+		
 		log.info("Page is refresed: and title of the page is :" +arg0.getTitle()); 
 	}
 
 	@Override
 	public void afterNavigateTo(String arg0, WebDriver arg1) {
 		// TODO Auto-generated method stub
-		currentScenario.embed(Util.takeScreenshot (arg1),
-				"image/png");	
+	
 		log.info("Navigated to: "+arg0 +" using: "+browserName +" version: "+browserVersion); 
 		
 	}
@@ -99,6 +93,7 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 	@Override
 	public void afterScript(String arg0, WebDriver arg1) {
 		log.info("Locating alert on the page : " +arg0.toString());
+
 	}
 
 	@Override
@@ -161,6 +156,7 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 
 	@Override
 	public void beforeScript(String arg0, WebDriver arg1) {
+
 		log.info("Script is going to excute on the page : " +arg1.getTitle()); 
 	}
 
@@ -172,6 +168,7 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 		
 		log.info(arg0.getMessage());
 		
+
 	
 
 }

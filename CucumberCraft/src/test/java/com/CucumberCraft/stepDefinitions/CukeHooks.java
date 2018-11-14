@@ -134,11 +134,13 @@ public class CukeHooks extends MasterStepDefs {
 		try{
 		WebDriver driver1 =DriverManager.getWebDriver();
 		if(driver1!=null){
+
 		   SessionId session =  ((RemoteWebDriver) driver1).getSessionId();
 		log.info("closing all opened session of browser :"+ DriverManager.sessionSet);
 		for(SessionId s: DriverManager.sessionSet ) 
 		{
 	   if(session.equals(s)) {
+
 		   DriverManager.webDriver.set(null);
 		   driver1.close();
 		   log.info("closing session "+s+" of browser");
@@ -148,6 +150,7 @@ public class CukeHooks extends MasterStepDefs {
 				ex1.printStackTrace();
 				log.error("Problem while closing the Driver Object " + ex1.getMessage());
 		 }
+
 		try {
 			if (Boolean.valueOf(properties.getProperty("TrackIssuesInJira"))) {
 				updateDefectInJira(scenario);
@@ -275,6 +278,7 @@ public static void generateCustomReports() {
 		overviewReports.setOutputDirectory("target");
 		overviewReports.setOutputName("cucumber-results");
 		overviewReports.setSourceFile("target/cucumber-report/Report/cucumber.json");
+
 		try {
 			overviewReports.executeFeaturesOverviewReport();
 		} catch (Exception e) {
