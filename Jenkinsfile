@@ -72,7 +72,7 @@ pipeline {
                     mimeType: 'text/html', 
                     replyTo: 'ajit.yadav@aa.com',
                     subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
-                    to: 'ajit.yadav@aa.com, ike.ahmed@aa.com, Jagadeesh.gunipati@aa.com, Rajesh.n@aa.com, Prabuddha.swayamisiddha@aa.com, Neelima.baswa@aa.com'
+                    to: 'ajit.yadav@aa.com // ike.ahmed@aa.com, Jagadeesh.gunipati@aa.com, Rajesh.n@aa.com, Prabuddha.swayamisiddha@aa.com, Neelima.baswa@aa.com'
                     }
                     success{
                     slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
