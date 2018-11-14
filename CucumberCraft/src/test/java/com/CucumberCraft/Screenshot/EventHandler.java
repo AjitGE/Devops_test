@@ -52,7 +52,8 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 
 	@Override
 	public void afterClickOn(WebElement arg0, WebDriver arg1) {
-
+		currentScenario.embed(Util.takeScreenshot (arg1),
+				"image/png");
 		log.info("Webelement is clicked on page : " +arg1.getTitle()); 
 	}
 
