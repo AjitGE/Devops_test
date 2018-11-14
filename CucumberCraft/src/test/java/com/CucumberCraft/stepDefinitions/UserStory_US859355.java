@@ -185,7 +185,7 @@ public void user_perform_a_rest_call_with_url_for(String arg1, String arg2) thro
 public void user_Verifies_that_the_Promotion_date_from_the_service_and_in_The_UI() throws Throwable {
 	waitForPageToBeReady();
     // Write code here that turns the phrase above into concrete actions
-	String uiDate=driver.findElement(By.xpath(APT_pageObjects.getStartendDateafterepansion())).getText().trim();
+	String uiDate=driver.findElement(By.xpath(APT_pageObjects.getStartEndDateAfterEpansion())).getText().trim();
 	
 	String serviceStartDate=response.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoStartDate").replace("[", "").replace("]", "");
 	String serviceEndDate=response.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoEndDate").replace("[", "").replace("]", "");
