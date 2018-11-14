@@ -20,7 +20,6 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 	
 	
 	static Logger log;
-	
 
 	static {
 		log = Logger.getLogger(EventHandler.class);
