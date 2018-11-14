@@ -40,7 +40,7 @@ public class UserStory_US859355 {
 		WebElement element = driver.findElement(By.xpath(APT_pageObjects.getExpand(obtainedData)));
 		Actions action =new Actions(driver);
 		action.moveToElement(element).click().build().perform();
-      element.click();
+  
 
 	}
 
