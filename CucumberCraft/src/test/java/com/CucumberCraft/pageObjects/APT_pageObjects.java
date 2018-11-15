@@ -10,7 +10,7 @@ public class APT_pageObjects {
 	private static  String chechkbox="//input[@type='checkbox']";
 	private static  String messages="//input[@id='ptextcode']/parent::div/preceding-sibling::em[.='Required']";
 	private static  String noResponseMessage="h5";
-	private static  String expand ="//img[@id='sp_collapse_icon']";
+	private static  String expand ="//img[@class='img-fluid iconSize']";
    // private static  String expand ="//span[.='Promo code: ']/following-sibling::span/img";
 	private static  String allPromocodeBox="//div[@class='card-header bgtransparent noMarginPad']";
 	private static String allPromocodeNameinHeading="//div//span/b[contains(text(),'Promo code: ')]";
