@@ -58,8 +58,8 @@ public class EventHandler extends MasterStepDefs  implements WebDriverEventListe
 
 	@Override
 	public void afterFindBy(By arg0, WebElement arg1, WebDriver arg2) {
-		
-		
+		currentScenario.embed(Util.takeScreenshot (arg2),
+				"image/png");
 		log.info("Webelement is located on page : " +arg2.getTitle()); 
 	}
 

@@ -15,8 +15,11 @@ import com.CucumberCraft.API.ServicesCalls;
 import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
 import com.CucumberCraft.Screenshot.ScreenshotTaker;
 import com.CucumberCraft.pageObjects.APT_pageObjects;
+import com.CucumberCraft.supportLibraries.Util;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.runtime.model.CucumberScenario;
 import io.restassured.response.Response;
 
 
@@ -184,18 +187,17 @@ public void user_Verifies_that_the_Promotion_date_from_the_service_and_in_The_UI
     // Write code here that turns the phrase above into concrete actions
 	String uiDate=driver.findElement(By.xpath(APT_pageObjects.getStartEndDateAfterEpansion())).getText().trim();
 	String serviceStartDate=response1.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoStartDate").replace("[", "").replace("]", "");
-	String serviceEndDate=response1.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoEndDate").replace("[", "").replace("]", "");
-	
+	String serviceEndDate=response1.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoEndDate").replace("[", "").replace("]", "");	
 	String date=serviceStartDate.substring(8);
 	String month=serviceStartDate.substring(5,7);
 	String year=serviceStartDate.substring(0,4);
 	String date1=serviceEndDate.substring(8);
 	String month1=serviceEndDate.substring(5,7);
 	String year1=serviceEndDate.substring(0,4);
-	serviceStartDate=year+"/"+date+"/"+month;
-	serviceEndDate=year1+"/"+date1+"/"+month1;
-	System.out.print("start date :" +serviceStartDate+"  End date :"+serviceEndDate);
-	System.out.print("UIdate  :" +uiDate);
+	serviceStartDate=month+"/"+date+"/"+year;
+	serviceEndDate=month1+"/"+date1+"/"+year1;
+	log.info("start date :" +serviceStartDate+"  End date :"+serviceEndDate);
+	log.info("UIdate  :" +uiDate);
 	Assert.assertTrue(uiDate.contains(serviceStartDate));
 	Assert.assertTrue(uiDate.contains(serviceEndDate));
 }
