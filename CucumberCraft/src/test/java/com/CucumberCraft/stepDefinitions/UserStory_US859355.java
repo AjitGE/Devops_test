@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -35,8 +36,7 @@ public class UserStory_US859355 {
 	    // Write code here that turns the phrase above into concrete actions
 		String obtainedData=DataSourceDecider.dataFinder(arg1);
 		WebDriverWait wait = new WebDriverWait(driver, 20);
-		 
-		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(APT_pageObjects.getExpand(obtainedData))));
+		WebElement element = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(APT_pageObjects.getExpand(obtainedData)))));
         element.click();
 	}
 
