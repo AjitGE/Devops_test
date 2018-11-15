@@ -3,7 +3,6 @@ package com.CucumberCraft.stepDefinitions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -15,11 +14,8 @@ import com.CucumberCraft.API.ServicesCalls;
 import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
 import com.CucumberCraft.Screenshot.ScreenshotTaker;
 import com.CucumberCraft.pageObjects.APT_pageObjects;
-import com.CucumberCraft.supportLibraries.Util;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import cucumber.runtime.model.CucumberScenario;
 import io.restassured.response.Response;
 
 
@@ -40,8 +36,8 @@ public class UserStory_US859355 {
 		//WebDriverWait wait = new WebDriverWait(driver, 20);
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
-		WebElement element = driver.findElement(By.xpath(APT_pageObjects.getExpand(obtainedData)));
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		List<WebElement> element = driver.findElements(By.xpath(APT_pageObjects.getExpand(obtainedData)));
+	    element.get(10).click();
 	}
 
 	@Given("^user launch the Json url \"([^\"]*)\"$")
