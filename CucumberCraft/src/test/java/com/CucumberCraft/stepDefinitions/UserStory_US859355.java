@@ -10,9 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import com.CucumberCraft.API.ServicesCalls;
 import com.CucumberCraft.ExcelReadWrite.DataSourceDecider;
@@ -186,9 +183,8 @@ public void user_Verifies_that_the_Promotion_date_from_the_service_and_in_The_UI
 	waitForPageToBeReady();
     // Write code here that turns the phrase above into concrete actions
 	String uiDate=driver.findElement(By.xpath(APT_pageObjects.getStartEndDateAfterEpansion())).getText().trim();
-	
-	String serviceStartDate=response.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoStartDate").replace("[", "").replace("]", "");
-	String serviceEndDate=response.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoEndDate").replace("[", "").replace("]", "");
+	String serviceStartDate=response1.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoStartDate").replace("[", "").replace("]", "");
+	String serviceEndDate=response1.jsonPath().getString("PromoSearchResponse.PromoSearchResult.PromoSearchResultItem.PromoEndDate").replace("[", "").replace("]", "");
 	
 	String date=serviceStartDate.substring(8);
 	String month=serviceStartDate.substring(5,7);
