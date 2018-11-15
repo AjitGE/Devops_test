@@ -39,8 +39,9 @@ public class UserStory_US859355 {
 		String obtainedData=DataSourceDecider.dataFinder(arg1);
 		//WebDriverWait wait = new WebDriverWait(driver, 20);
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
 		WebElement element = driver.findElement(By.xpath(APT_pageObjects.getExpand(obtainedData)));
-        element.click();
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 	}
 
 	@Given("^user launch the Json url \"([^\"]*)\"$")
