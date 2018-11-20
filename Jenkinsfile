@@ -88,6 +88,8 @@ pipeline {
                     message: 'Build failed', 
                     token: 'a2EpgUCrMOVjgqhJmZ1PUaSd'
                     }
+                    cucumberSlackSend channel: 'apttest',
+                    json: 'CucumberCraft/target/cucumber-report/Report'
 
             }
         }
