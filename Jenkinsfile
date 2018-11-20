@@ -64,17 +64,19 @@ pipeline {
                                 reportFiles: '**/report.html', 
                                 reportName: 'Test Report', 
                                 reportTitles: ''])
-                                cucumber fileIncludePattern: '**/*.json',
-                                jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report',
-                                parallelTesting: true
+                  cucumber fileIncludePattern: '**/*.json',
+                           jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report',
+                           parallelTesting: true
+                    cucumberSlackSend channel: 'apttesting',
+                                      json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json'
                     emailext attachLog: true,
-                    attachmentsPattern: 'CucumberCraft/Results/*.zip',
-                    body:''' ${JELLY_SCRIPT,template="html"}''', 
-                    compressLog: true,
-                    mimeType: 'text/html', 
-                    replyTo: 'ajit.yadav@aa.com',
-                    subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
-                    to: 'ajit.yadav@aa.com' // ike.ahmed@aa.com, Jagadeesh.gunipati@aa.com, Rajesh.n@aa.com, Prabuddha.swayamisiddha@aa.com, Neelima.baswa@aa.com'
+                              attachmentsPattern: 'CucumberCraft/Results/*.zip',
+                              body:''' ${JELLY_SCRIPT,template="html"}''', 
+                              compressLog: true,
+                              mimeType: 'text/html', 
+                              replyTo: 'ajit.yadav@aa.com',
+                              subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
+                              to: 'ajit.yadav@aa.com' // ike.ahmed@aa.com, Jagadeesh.gunipati@aa.com, Rajesh.n@aa.com, Prabuddha.swayamisiddha@aa.com, Neelima.baswa@aa.com'
                     }
                     success{
                     slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
