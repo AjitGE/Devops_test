@@ -55,8 +55,6 @@ pipeline {
                 always{
                    //deleteDir()
                     sh "docker stop docker_standalone_ly-apt_chrome"
-                    cucumberSlackSend channel: 'apttesting',
-                    json: 'CucumberCraft/target/cucumber-report/Report'
                     publishHTML([allowMissing: false,
                                 alwaysLinkToLastBuild: true,
                                 keepAll: false, 
