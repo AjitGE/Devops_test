@@ -65,6 +65,7 @@ pipeline {
                   cucumber fileIncludePattern: '**/*.json',
                            jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report',
                            parallelTesting: true
+                    step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'target/', fileIncludePattern: '*.json'])
                     cucumberSlackSend channel: 'apttesting',
                                       json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json'
                     emailext attachLog: true,
