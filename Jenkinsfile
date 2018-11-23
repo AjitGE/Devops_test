@@ -65,9 +65,6 @@ pipeline {
                   cucumber fileIncludePattern: '**/*.json',
                            jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report',
                            parallelTesting: true
-                    step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report', fileIncludePattern: '**/*.json'])
-                    cucumberSlackSend channel: 'apttesting',
-                                      json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json'
                     emailext attachLog: true,
                               attachmentsPattern: 'CucumberCraft/Results/*.zip',
                               body:''' ${JELLY_SCRIPT,template="html"}''', 
@@ -95,22 +92,16 @@ pipeline {
 
             }
         }
+        
     }
-    post {
-        always {
-            deleteDir()
-            /*script {
-                notifyMe {
-                    mode="slackAndEmail"
-                    emailTo=this.NOTIFYUSERS
-                    subj="BUILD REPORT FOR " + this.APPLICATION_NAME
-                    slackChannel=this.SLACK_CHANNEL
-                    Message=this.MESSAGE_DETAILS + this.JOB_CAUSES
-                    statusColor=""
-                    token=this.SLACK_TOKEN
-                    extendedEmail='false'
-                }
-            }*/
-        }
+    node {
+    stage 'Cucumber Reports'
+ 
+    // process cucumber reports
+    step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'target/', fileIncludePattern: '*.json'])
+
+    // send report to slack
+    cucumberSendSlack: channel: 'test-results-channel', json: 'target/test-results.json' 
+    }
     }
 }
