@@ -1,8 +1,5 @@
 pipeline {
     agent any
-
-    
- 
     stages {
         stage ('Integration Tests') {
             
@@ -41,7 +38,7 @@ pipeline {
 			step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report', 
 			      fileIncludePattern: '*.json'])
 			cucumberSlackSend channel: 'apttesting',
-				json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json'}
+				json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json'
  
                     emailext attachLog: true,
                               attachmentsPattern: 'CucumberCraft/Results/*.zip',
