@@ -1,7 +1,6 @@
-@Library('SharedLibrary') _
-
 pipeline {
-    agent {any}
+    agent any
+
     
  
     stages {
@@ -13,10 +12,13 @@ pipeline {
                    
                     
                     //echo "Launch Standalone Chrome Container"
-                    //sh "docker run -d --rm -p 48410:4444 --name=\"docker_standalone_ly-apt_chrome\" -v /dev/shm:/dev/shm nexusread.aa.com:18445/selenium/standalone-chrome-debug:3.14.0"   
+                    //sh "docker run -d --rm -p 48410:4444 --name=\"docker_standalone_ly-apt_chrome\" -v /dev/shm:/dev/shm //nexusread.aa.com:18445/selenium/standalone-chrome-debug:3.14.0"   
 
                     echo "******************** Building Maven Project ******************"
-                    sh "cd CucumberCraft && mvn package"
+                    withMaven(jdk: 'Java', maven: 'Maven', mavenLocalRepo: 'C:/Users/Ajit/.m2/repository') {
+               echo "*********************Runing maven test command***********************"   
+                    bat "cd CucumberCraft && mvn package"
+}
                 }
             }
 			}
@@ -49,22 +51,6 @@ pipeline {
                               subject: '$PROJECT_NAME-Build#$BUILD_NUMBER- $BUILD_STATUS', 
                               to: 'ajit.yadav@aa.com' // ike.ahmed@aa.com, Jagadeesh.gunipati@aa.com, Rajesh.n@aa.com, Prabuddha.swayamisiddha@aa.com, Neelima.baswa@aa.com'
                     }
-                    success{
-                    slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
-                    channel: 'apttesting', 
-                    color: 'black', 
-                    message: 'Build Passed', 
-                    token: 'a2EpgUCrMOVjgqhJmZ1PUaSd'
-                    }
-                    failure{
-                    slackSend baseUrl: 'https://americanairlines.slack.com/services/hooks/jenkins-ci/', 
-                    channel: 'apttesting', 
-                    color: 'black', 
-                    message: 'Build failed', 
-                    token: 'a2EpgUCrMOVjgqhJmZ1PUaSd'
-                    }
-                   
-
             }
         }
 
