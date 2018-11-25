@@ -37,7 +37,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 jsonUsageReport = "target/cucumber-report/Report/cucumber-usage.json", 
 outputFolder = "target/cucumber-report/Report", 
 detailedReport = true, 
-detailedAggregatedReport = true, 
+detailedAggregatedReport = true,
 overviewReport = true, 
 usageReport = true)
 
@@ -49,7 +49,7 @@ usageReport = true)
 */
 @CucumberOptions(features = "src/test/resources/features", 
 glue = { "com.CucumberCraft.stepDefinitions" }, 
-tags = { "@TestId_APT_04"},
+tags = { "@UserStory"},
 monochrome = true,
 plugin = {
     

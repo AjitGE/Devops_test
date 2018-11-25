@@ -21,7 +21,7 @@
 
 	<test name="Smoke testing....">
 	<parameter name="BrowserName" value="CHROME" />
-	<parameter name="ExecutionMode" value="REMOTE" />
+	<parameter name="ExecutionMode" value="LOCAL" />
 		<classes>
 			<class name="com.CucumberCraft.TestNGrunners.RunCucumberTests_Report" />
 		</classes>
