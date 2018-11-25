@@ -38,7 +38,7 @@ pipeline {
                                 reportTitles: ''])
                   cucumber fileIncludePattern: '**/*.json',
                            jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report',
-                           parallelTesting: true
+                      
                     // process cucumber report
     // send report to slack
     cucumberSendSlack channel: 'apttesting', json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json' 
