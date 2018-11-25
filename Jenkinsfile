@@ -38,10 +38,11 @@ pipeline {
                                 reportTitles: ''])
                   cucumber fileIncludePattern: '**/*.json',
                            jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report'
-                      
-                    // process cucumber report
-    // send report to slack
-    cucumberSendSlack channel: 'apttesting', json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json' 
+			step([$class: 'CucumberReportPublisher', jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report', 
+			      fileIncludePattern: '*.json'])
+			cucumberSlackSend channel: 'apttesting',
+				json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json'}
+ 
                     emailext attachLog: true,
                               attachmentsPattern: 'CucumberCraft/Results/*.zip',
                               body:''' ${JELLY_SCRIPT,template="html"}''', 
