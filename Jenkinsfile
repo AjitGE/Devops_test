@@ -37,7 +37,7 @@ pipeline {
                                 reportName: 'Test Report', 
                                 reportTitles: ''])
                   cucumber fileIncludePattern: '**/*.json',
-                           jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report',
+                           jsonReportDirectory: 'CucumberCraft/target/cucumber-report/Report'
                       
                     // process cucumber report
     // send report to slack
