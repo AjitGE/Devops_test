@@ -39,7 +39,7 @@ pipeline {
                            parallelTesting: true
                     // process cucumber report
     // send report to slack
-    cucumberSendSlack: channel: 'apttesting', json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json' 
+    cucumberSendSlack channel: 'apttesting', json: 'CucumberCraft/target/cucumber-report/Report/cucumber.json' 
                     emailext attachLog: true,
                               attachmentsPattern: 'CucumberCraft/Results/*.zip',
                               body:''' ${JELLY_SCRIPT,template="html"}''', 
