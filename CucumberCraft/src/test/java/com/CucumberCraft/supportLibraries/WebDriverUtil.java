@@ -10,7 +10,6 @@ import org.openqa.selenium.TimeoutException;
 /**
  * Class containing useful WebDriver utility functions
  * 
- * @author Cognizant
  */
 public class WebDriverUtil {
 	private WebDriver driver;
