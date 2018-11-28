@@ -11,7 +11,7 @@ import org.testng.ITestResult;
 //import org.testng.internal.BaseTestMethod;
 
 /**
- * Will be called before every TestNG Method * @author Cognizant
+ * Will be called before every TestNG Method *
  */
 public class WebDriverListener implements IInvokedMethodListener {
 
